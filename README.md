@@ -1,17 +1,19 @@
-# Sprachbahn A1 🚆
+# Sprachbahn Akademie A1 🎓
 
-ألعاب تفاعلية لتعلّم اللغة الألمانية للناطقين بالعربية — المستويان **A1.1** و **A1.2**.
+دورة ألمانية مكثّفة للناطقين بالعربية — المستويان **A1.1** و **A1.2** — مع المعلّمة الافتراضية **لينا**.
 
-Jeux interactifs pour apprendre l'allemand (niveaux A1.1 et A1.2), avec traduction arabe et prononciation en lettres arabes.
+Cours intensif d'allemand (A1.1 + A1.2) pour arabophones, avec une professeure virtuelle « Lena » : elle parle allemand, explique en arabe et corrige ta prononciation au micro.
 
-**▶️ العب الآن / Jouer :** https://contactnasriimen-ctrl.github.io/sprachbahn-a1/
+**▶️ ابدأ الآن / Commencer :** https://contactnasriimen-ctrl.github.io/sprachbahn-a1/
 
 ## المحتوى · Contenu
-- خطّان: A1.1 (12 محطّة) و A1.2 (11 محطّة) + محطّة مراجعة شاملة لكل مستوى
-- 23 نوعاً من الألعاب: Karteikarten · Blitz-Quiz · Hör-Quiz · Verbinden · Schreiben · Lückentext · Der/Die/Das · Zahlen · Uhrzeit · Verb-Turbo · Perfekt · Präpositionen · Komparativ · Memory · Ballon-Jagd · Wortsuche · Zug-Rätsel · Wortsalat · Satzbau · Gespräch · Sprint 60 · Diktat · Prüfung
-- تعلّم سريع: مراجعة ذكية (Leitner)، هدف يومي، أيام متتالية، دفتر الأخطاء، جلسة Express لعشر دقائق
-- نطق ألماني صوتي (إن وُجد صوت ألماني في الجهاز) + النطق مكتوباً بالحروف العربية
-- النقاط والنجوم تُحفظ في المتصفّح
+- **الحصة مع لينا (Unterricht):** لينا تقدّم كل كلمة بصوت ألماني، مع المعنى والنطق بالحروف العربية ومثال وقاعدة الأداة، ثم أسئلة قصيرة، ثم القاعدة بشرح عربي، وجمل، ولعب أدوار
+- **تكلّم (Sprechen):** تقول الكلمة أو الجملة في الميكروفون فتُظهر لك لينا ما فهمته، والكلمات الصحيحة/الخاطئة، ونسبة النطق، ونصائح خاصة بالعرب (Chrome / Edge)
+- **دليل النطق للعرب:** 22 صوتاً ألمانياً (ü · ö · ch · z · w · p …) مع أمثلة وتمرين ميكروفون
+- **خطة 6 أسابيع:** 23 درساً، 6 خطوات لكل درس، ≈ 20 دقيقة يومياً
+- **24 نوعاً من التمارين والألعاب** مع شرح «لماذا؟» بعد كل جواب
+- مراجعة ذكية (Leitner)، هدف يومي، أيام متتالية، دفتر الأخطاء، اختبار بعلامة ألمانية 1–6
+- **شهادة إتمام** تحفيزية لكل مستوى (ليست شهادة رسمية — الامتحان الرسمي: Goethe-Zertifikat A1 أو telc A1)
 
 ## التقنية · Technique
-صفحة واحدة `index.html` (HTML + CSS + JavaScript) بدون أي مكتبة — تُستضاف مجاناً على GitHub Pages.
+صفحة واحدة `index.html` (HTML + CSS + JavaScript) بدون أي مكتبة — Web Speech API للنطق والتعرّف على الصوت — تُستضاف مجاناً على GitHub Pages.

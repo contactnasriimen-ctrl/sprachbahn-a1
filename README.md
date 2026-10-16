@@ -8,7 +8,8 @@ Jeux interactifs pour apprendre l'allemand (niveaux A1.1 et A1.2), avec traducti
 
 ## المحتوى · Contenu
 - خطّان: A1.1 (12 محطّة) و A1.2 (11 محطّة) + محطّة مراجعة شاملة لكل مستوى
-- 12 نوعاً من الألعاب: Blitz-Quiz · Memory · Hör-Quiz · Der/Die/Das · Wortsalat · Satzbau · Zahlen · Uhrzeit · Verb-Turbo · Perfekt · Präpositionen · Komparativ
+- 23 نوعاً من الألعاب: Karteikarten · Blitz-Quiz · Hör-Quiz · Verbinden · Schreiben · Lückentext · Der/Die/Das · Zahlen · Uhrzeit · Verb-Turbo · Perfekt · Präpositionen · Komparativ · Memory · Ballon-Jagd · Wortsuche · Zug-Rätsel · Wortsalat · Satzbau · Gespräch · Sprint 60 · Diktat · Prüfung
+- تعلّم سريع: مراجعة ذكية (Leitner)، هدف يومي، أيام متتالية، دفتر الأخطاء، جلسة Express لعشر دقائق
 - نطق ألماني صوتي (إن وُجد صوت ألماني في الجهاز) + النطق مكتوباً بالحروف العربية
 - النقاط والنجوم تُحفظ في المتصفّح
 

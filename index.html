@@ -1,0 +1,1229 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Sprachbahn A1 – ألعاب تفاعلية لتعلّم الألمانية للمستويين A1.1 و A1.2 مع الترجمة العربية والنطق.">
+<meta property="og:title" content="Sprachbahn A1">
+<meta property="og:description" content="ألعاب تفاعلية لتعلّم الألمانية (A1.1 و A1.2) مع الترجمة العربية والنطق.">
+<meta name="theme-color" content="#13202b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%2313202b%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2242%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2230%22%20fill%3D%22%23f0ab00%22%3EA1%3C%2Ftext%3E%3Crect%20x%3D%2210%22%20y%3D%2250%22%20width%3D%2244%22%20height%3D%224%22%20fill%3D%22%23f0ab00%22%2F%3E%3C%2Fsvg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Sprachbahn A1</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a transit map of the A1 course. Ticket header, line switch, station map beside a split-flap departure board; each game opens as a train-window overlay with the rail track as progress. */
+:root {
+  --bg: #e9eef2; --surface: #ffffff; --surface-2: #f3f6f8; --ink: #13202b; --muted: #586a79; --rule: #d0d9e0;
+  --gelb: #f0ab00; --gelb-ink: #3a2a00; --blau: #2459c4; --rot: #d0353b; --gruen: #1b8a4e; --lila: #7a4bd8;
+  --board: #10161c; --board-2: #1b232b; --flap: #f2b705; --flap-dim: #8a7a45; --board-ink: #f4f1e6;
+  --ok: #1b8a4e; --ok-bg: #e2f4ea; --bad: #d0353b; --bad-bg: #fbe5e6;
+  --line-a11: #f0ab00; --line-a12: #2459c4; --line: var(--line-a11);
+  --shadow: 0 1px 0 rgba(19, 32, 43, .05), 0 10px 28px -14px rgba(19, 32, 43, .35);
+  --f-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --f-body: 'IBM Plex Sans Arabic', 'Barlow', 'Segoe UI', Tahoma, sans-serif;
+  --f-de: 'Barlow', 'Segoe UI', system-ui, sans-serif;
+  --emoji: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  --r: 14px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0b1117; --surface: #141d26; --surface-2: #1a2531; --ink: #e6edf3; --muted: #95a6b5; --rule: #273442;
+  --gelb: #f5b914; --gelb-ink: #2a1e00; --blau: #6a97f2; --rot: #f0656a; --gruen: #43c482; --lila: #a888f2;
+  --board: #05080b; --board-2: #121a21; --flap: #f5bf1a; --flap-dim: #7b6c3c; --board-ink: #f4f1e6;
+  --ok: #43c482; --ok-bg: #12301f; --bad: #f0656a; --bad-bg: #3a1618;
+  --line-a11: #f5b914; --line-a12: #6a97f2; --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 14px 32px -16px rgba(0, 0, 0, .8); color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0b1117; --surface: #141d26; --surface-2: #1a2531; --ink: #e6edf3; --muted: #95a6b5; --rule: #273442;
+  --gelb: #f5b914; --gelb-ink: #2a1e00; --blau: #6a97f2; --rot: #f0656a; --gruen: #43c482; --lila: #a888f2;
+  --board: #05080b; --board-2: #121a21; --flap: #f5bf1a; --flap-dim: #7b6c3c; --board-ink: #f4f1e6;
+  --ok: #43c482; --ok-bg: #12301f; --bad: #f0656a; --bad-bg: #3a1618;
+  --line-a11: #f5b914; --line-a12: #6a97f2; --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 14px 32px -16px rgba(0, 0, 0, .8); color-scheme: dark; }
+
+html { direction: rtl; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.de { font-family: var(--f-de); direction: ltr; unicode-bidi: isolate; }
+.pr { color: var(--rot); font-weight: 500; }
+.em { font-family: var(--emoji); font-style: normal; line-height: 1; }
+.a-der { color: var(--blau); } .a-die { color: var(--rot); } .a-das { color: var(--gruen); } .a-pl { color: var(--lila); }
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--gelb); outline-offset: 2px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+
+/* ---------- top bar ---------- */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--rule); }
+.top .wrap { display: flex; align-items: center; gap: 12px; padding-block: 10px; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.mark { width: 38px; height: 38px; border-radius: 10px; background: var(--ink); display: grid; place-items: center; position: relative; overflow: hidden; flex: none; }
+.mark b { font-family: var(--f-display); font-weight: 800; color: var(--gelb); font-size: 19px; letter-spacing: .5px; direction: ltr; }
+.mark::after { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 3px; background: repeating-linear-gradient(90deg, var(--gelb) 0 6px, transparent 6px 9px); }
+.brand-t { font-family: var(--f-display); font-weight: 800; font-size: 22px; letter-spacing: .3px; line-height: 1; direction: ltr; }
+.brand-s { font-size: 12px; color: var(--muted); }
+.spacer { flex: 1; }
+.ticket { display: flex; align-items: stretch; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); }
+.ticket > div { padding: 4px 12px; display: flex; flex-direction: column; justify-content: center; }
+.ticket .xp { border-inline-end: 2px dashed var(--rule); }
+.ticket small { font-size: 10.5px; color: var(--muted); letter-spacing: .4px; }
+.ticket strong { font-family: var(--f-display); font-size: 20px; font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.ticket .rank strong { font-size: 15px; }
+.icon-btn { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--rule); background: var(--surface); display: grid; place-items: center; font-size: 17px; }
+.icon-btn[aria-pressed="false"] { opacity: .45; }
+
+/* ---------- hero ---------- */
+.hero { padding-block: 28px 10px; }
+.hero-g { display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px; align-items: end; }
+.eyebrow { font-family: var(--f-display); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-size: 13px; direction: ltr; text-align: right; }
+.hero h1 { font-family: var(--f-display); font-weight: 800; font-size: clamp(46px, 8vw, 92px); line-height: .9; letter-spacing: -1px; direction: ltr; text-align: right; }
+.hero h1 span { color: var(--line); transition: color .4s; }
+.hero p.lead { font-size: 17px; max-width: 34em; margin: 12px 0 0; color: var(--muted); }
+.rail { height: 10px; margin-top: 16px; border-radius: 4px; background: repeating-linear-gradient(90deg, var(--ink) 0 3px, transparent 3px 16px), linear-gradient(var(--line), var(--line)) center/100% 4px no-repeat; opacity: .85; transition: background .4s; }
+.lines { display: flex; flex-direction: column; gap: 10px; }
+.line-btn { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; text-align: start; padding: 12px 16px; border-radius: var(--r); border: 2px solid var(--rule); background: var(--surface); transition: transform .2s, border-color .2s, box-shadow .2s; }
+.line-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.line-btn[aria-pressed="true"] { border-color: var(--lc); box-shadow: 0 0 0 4px color-mix(in srgb, var(--lc) 22%, transparent); }
+.line-badge { font-family: var(--f-display); font-weight: 800; font-size: 22px; padding: 2px 12px; border-radius: 8px; background: var(--lc); color: #fff; direction: ltr; min-width: 74px; text-align: center; }
+.line-btn[data-level="a11"] .line-badge { color: var(--gelb-ink); }
+.line-btn b { display: block; font-size: 15px; }
+.line-btn span.sub { font-size: 12.5px; color: var(--muted); }
+.line-prog { font-family: var(--f-display); font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; direction: ltr; }
+
+/* ---------- main grid ---------- */
+.main { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .95fr); gap: 24px; padding-block: 18px 40px; align-items: start; }
+.sec-h { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+.sec-h h2 { font-size: 19px; }
+.sec-h .de { font-family: var(--f-display); font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; font-size: 14px; }
+
+/* station map */
+.stations { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 0 12px; }
+.st { position: relative; text-align: start; border: 0; background: none; padding: 22px 4px 14px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.st::before { content: ""; position: absolute; top: 9px; inset-inline: -6px; height: 6px; background: var(--line); border-radius: 3px; transition: background .4s; }
+.st .dot { position: absolute; top: 3px; inset-inline-start: 6px; width: 18px; height: 18px; border-radius: 50%; background: var(--surface); border: 4px solid var(--ink); transition: transform .2s; }
+.st:hover .dot { transform: scale(1.25); }
+.st[aria-current="true"] .dot { background: var(--line); border-color: var(--ink); transform: scale(1.35); box-shadow: 0 0 0 5px color-mix(in srgb, var(--line) 35%, transparent); }
+.st-card { display: block; margin-top: 8px; background: var(--surface); border: 1.5px solid var(--rule); border-radius: 12px; padding: 10px 12px; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.st:hover .st-card { transform: translateY(-2px); box-shadow: var(--shadow); }
+.st[aria-current="true"] .st-card { border-color: var(--ink); box-shadow: var(--shadow); }
+.st-no { font-family: var(--f-display); font-weight: 800; font-size: 13px; color: var(--muted); letter-spacing: 1px; direction: ltr; display: flex; align-items: center; gap: 6px; }
+.st-no .h { width: 18px; height: 18px; border-radius: 50%; background: var(--line); color: var(--ink); display: grid; place-items: center; font-size: 11px; }
+.st-de { font-family: var(--f-de); font-weight: 700; font-size: 15.5px; line-height: 1.25; direction: ltr; text-align: right; overflow-wrap: anywhere; }
+.st-ar { font-size: 12.5px; color: var(--muted); }
+.stars { color: var(--gelb); letter-spacing: 1px; font-size: 13px; direction: ltr; }
+.stars i { color: var(--rule); font-style: normal; }
+.st.final .st-card { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.st.final .st-ar, .st.final .st-no { color: color-mix(in srgb, var(--bg) 70%, transparent); }
+
+/* departure board */
+.board { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 74px); background: var(--board); color: var(--board-ink); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); border: 3px solid var(--board-2); }
+.bd-h { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 10px; border-bottom: 2px solid var(--board-2); }
+.bd-title { font-family: var(--f-display); font-weight: 800; font-size: 26px; letter-spacing: 3px; color: var(--flap); direction: ltr; }
+.bd-title small { display: block; font-size: 12px; letter-spacing: 1px; color: var(--board-ink); opacity: .7; font-family: var(--f-body); font-weight: 500; }
+.bd-clock { font-family: var(--f-display); font-weight: 700; font-size: 24px; font-variant-numeric: tabular-nums; direction: ltr; }
+.bd-st { margin: 12px 0 6px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.bd-st .lab { font-size: 11px; letter-spacing: 1px; opacity: .65; }
+.bd-st b { font-family: var(--f-de); font-size: 18px; direction: ltr; }
+.bd-st span.ar { font-size: 13px; opacity: .75; }
+.rows { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.row { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; text-align: start; background: var(--board-2); border: 0; border-radius: 10px; padding: 9px 10px; color: var(--board-ink); transition: background .2s, transform .2s; }
+.row:hover { background: color-mix(in srgb, var(--flap) 18%, var(--board-2)); transform: translateX(-3px); }
+.row .tm { font-family: var(--f-display); font-weight: 700; font-size: 16px; direction: ltr; opacity: .85; font-variant-numeric: tabular-nums; }
+.row .nm { min-width: 0; }
+.flaps { display: flex; gap: 2px; direction: ltr; flex-wrap: wrap; }
+.fl { display: inline-grid; place-items: center; width: 1.05em; height: 1.45em; font-family: var(--f-display); font-weight: 800; font-size: 15px; color: var(--flap); background: linear-gradient(#323d48 0 48%, #06090c 48% 53%, #27313b 53%); border-radius: 3px; box-shadow: inset 0 -1px 0 rgba(0,0,0,.5); }
+.fl.sp { background: transparent; width: .5em; }
+.row .ziel { font-size: 12.5px; opacity: .78; margin-top: 3px; }
+.row .gl { text-align: center; font-family: var(--f-display); }
+.row .gl small { display: block; font-size: 10px; opacity: .6; letter-spacing: 1px; }
+.row .gl b { font-size: 20px; color: var(--flap); }
+.row .gl .stars { font-size: 11px; display: block; }
+.board .stars i { color: #3a4552; }
+.bd-foot { margin-top: 12px; font-size: 12px; opacity: .7; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+
+.howto { margin-top: 26px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.howto div { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px; font-size: 13.5px; color: var(--muted); }
+.howto b { color: var(--ink); display: block; font-size: 14.5px; }
+footer { padding-block: 26px 40px; color: var(--muted); font-size: 12.5px; border-top: 1px solid var(--rule); }
+
+/* ---------- game overlay ---------- */
+.overlay { position: fixed; inset: 0; z-index: 50; background: color-mix(in srgb, var(--board) 72%, transparent); backdrop-filter: blur(6px); display: grid; place-items: center; padding: max(12px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); animation: fade .25s ease; }
+@keyframes fade { from { opacity: 0; } }
+.win { width: min(860px, 100%); max-height: 100%; overflow: auto; background: var(--surface); border-radius: 22px; box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .6); border: 6px solid var(--board); animation: rise .35s cubic-bezier(.2, .9, .3, 1.2); }
+@keyframes rise { from { transform: translateY(30px) scale(.97); opacity: 0; } }
+.win-h { background: var(--board); color: var(--board-ink); padding: 12px 16px 14px; display: grid; grid-template-columns: 1fr auto; gap: 10px 14px; align-items: center; }
+.win-t { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; min-width: 0; }
+.win-t b { font-family: var(--f-display); font-weight: 800; font-size: 24px; color: var(--flap); letter-spacing: 1px; direction: ltr; }
+.win-t span { font-size: 13px; opacity: .8; }
+.win-x { width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--board-2); color: var(--board-ink); font-size: 18px; }
+.hud { grid-column: 1 / -1; display: flex; gap: 14px; align-items: center; }
+.track { flex: 1; position: relative; height: 26px; }
+.track .rails { position: absolute; inset-inline: 0; top: 14px; height: 8px; background: repeating-linear-gradient(90deg, #6b5a2a 0 3px, transparent 3px 11px), linear-gradient(#9aa7b3, #9aa7b3) center/100% 2px no-repeat; }
+.track .stop { position: absolute; top: 12px; width: 12px; height: 12px; margin-inline-start: -6px; border-radius: 50%; background: var(--board-2); border: 2px solid #9aa7b3; transition: background .3s, border-color .3s; }
+.track .stop.ok { background: var(--ok); border-color: var(--ok); }
+.track .stop.bad { background: var(--bad); border-color: var(--bad); }
+.track .train { position: absolute; top: -4px; margin-inline-start: -16px; font-size: 22px; transition: inset-inline-start .6s cubic-bezier(.3, .8, .3, 1); }
+.hud .pill { font-family: var(--f-display); font-weight: 700; font-size: 17px; background: var(--board-2); border-radius: 99px; padding: 2px 12px; white-space: nowrap; font-variant-numeric: tabular-nums; direction: ltr; }
+.hud .pill.streak { color: var(--flap); }
+.hud .pill.streak.hot { animation: pulse .6s ease; }
+@keyframes pulse { 50% { transform: scale(1.25); } }
+.timer { grid-column: 1 / -1; height: 5px; border-radius: 3px; background: var(--board-2); overflow: hidden; }
+.timer i { display: block; height: 100%; background: var(--flap); transform-origin: right; }
+.stage { padding: 22px; position: relative; min-height: 360px; }
+
+/* prompt + options */
+.prompt { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 20px; animation: pop .35s ease; }
+@keyframes pop { from { transform: scale(.92); opacity: 0; } }
+.prompt .pic { font-size: 64px; line-height: 1.1; }
+.prompt .big-de { font-family: var(--f-de); font-weight: 800; font-size: clamp(26px, 5vw, 38px); line-height: 1.15; direction: ltr; }
+.prompt .big-ar { font-size: clamp(22px, 4.5vw, 32px); font-weight: 700; }
+.prompt .hint { color: var(--muted); font-size: 14px; }
+.opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.opt { position: relative; min-height: 64px; padding: 12px 14px 12px 40px; border-radius: 14px; border: 2px solid var(--rule); background: var(--surface-2); font-size: 17px; font-weight: 600; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; transition: transform .15s, border-color .15s, background .15s; animation: pop .3s ease backwards; }
+.opt:nth-child(2) { animation-delay: .05s; } .opt:nth-child(3) { animation-delay: .1s; } .opt:nth-child(4) { animation-delay: .15s; }
+.opt:hover:not(:disabled) { transform: translateY(-2px); border-color: var(--ink); }
+.opt .k { position: absolute; inset-inline-end: 10px; top: 8px; font-family: var(--f-display); font-size: 13px; color: var(--muted); border: 1px solid var(--rule); border-radius: 6px; width: 20px; height: 20px; display: grid; place-items: center; }
+.opt .de { font-weight: 700; }
+.opt .pic { font-size: 36px; line-height: 1.1; }
+.opt small { font-size: 12.5px; color: var(--muted); font-weight: 500; }
+.opt.ok { border-color: var(--ok); background: var(--ok-bg); animation: good .5s ease; }
+.opt.bad { border-color: var(--bad); background: var(--bad-bg); animation: shake .4s ease; }
+.opt:disabled { cursor: default; }
+@keyframes good { 40% { transform: scale(1.06); } }
+@keyframes shake { 20%, 60% { transform: translateX(-7px); } 40%, 80% { transform: translateX(7px); } }
+.fb { margin-top: 18px; border-radius: 14px; padding: 12px 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; animation: pop .3s ease; }
+.fb.ok { background: var(--ok-bg); color: var(--ink); border: 1.5px solid var(--ok); }
+.fb.bad { background: var(--bad-bg); color: var(--ink); border: 1.5px solid var(--bad); }
+.fb .msg { flex: 1; min-width: 200px; }
+.fb .msg b { display: block; }
+.btn { border: 0; border-radius: 12px; padding: 10px 18px; font-weight: 700; background: var(--ink); color: var(--bg); transition: transform .15s; }
+.btn:hover { transform: translateY(-1px); }
+.btn.ghost { background: var(--surface-2); color: var(--ink); border: 1.5px solid var(--rule); }
+.btn.gelb { background: var(--gelb); color: var(--gelb-ink); }
+.say { border: 1.5px solid var(--rule); background: var(--surface); border-radius: 99px; padding: 4px 12px; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+.play { width: 112px; height: 112px; border-radius: 50%; border: 0; background: var(--gelb); color: var(--gelb-ink); font-size: 46px; box-shadow: 0 0 0 10px color-mix(in srgb, var(--gelb) 25%, transparent); animation: breathe 2.4s ease-in-out infinite; }
+@keyframes breathe { 50% { box-shadow: 0 0 0 18px color-mix(in srgb, var(--gelb) 10%, transparent); } }
+.float { position: absolute; font-family: var(--f-display); font-weight: 800; font-size: 26px; color: var(--ok); pointer-events: none; animation: floatup 1s ease forwards; z-index: 3; }
+@keyframes floatup { to { transform: translateY(-60px); opacity: 0; } }
+.swatch { display: inline-block; width: 1em; height: 1em; border-radius: 50%; box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .12); vertical-align: middle; }
+.txtpic { display: inline-grid; place-items: center; width: 1.25em; height: 1.25em; border-radius: .2em; background: var(--ink); color: var(--gelb); font-family: var(--f-display); font-weight: 800; font-size: .7em; direction: ltr; border-top: .18em solid var(--rot); }
+.pic svg { display: block; width: 1.5em; height: auto; margin: 0 auto; }
+
+/* memory */
+.mem { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; perspective: 900px; }
+.card { aspect-ratio: 4 / 3.4; border: 0; padding: 0; background: none; position: relative; transform-style: preserve-3d; transition: transform .5s cubic-bezier(.3, .8, .3, 1); max-width: 100%; }
+.card.open, .card.done { transform: rotateY(180deg); }
+.card .face { position: absolute; inset: 0; border-radius: 12px; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 6px; text-align: center; overflow: hidden; }
+.card .back { background: var(--board); border: 2px solid var(--board-2); }
+.card .back::before { content: "A1"; font-family: var(--f-display); font-weight: 800; color: var(--flap); font-size: 22px; letter-spacing: 1px; }
+.card .back::after { content: ""; position: absolute; inset-inline: 10px; bottom: 12px; height: 4px; background: repeating-linear-gradient(90deg, var(--flap) 0 5px, transparent 5px 8px); opacity: .7; }
+.card .front { transform: rotateY(180deg); background: var(--surface-2); border: 2px solid var(--rule); font-size: 15px; font-weight: 700; }
+.card .front .pic { font-size: 30px; line-height: 1.1; }
+.card.done .front { border-color: var(--ok); background: var(--ok-bg); }
+.card.miss .front { animation: shake .4s ease; border-color: var(--bad); }
+.mem-info { display: flex; justify-content: space-between; margin-bottom: 12px; color: var(--muted); font-size: 14px; }
+
+/* artikel */
+.sorter { text-align: center; }
+.noun { display: inline-flex; flex-direction: column; align-items: center; gap: 4px; padding: 18px 30px; border-radius: 18px; background: var(--surface-2); border: 2px solid var(--rule); transition: transform .45s cubic-bezier(.5, -0.3, .7, 1.3), opacity .45s; }
+.noun .pic { font-size: 58px; line-height: 1.1; }
+.noun .w { font-family: var(--f-de); font-weight: 800; font-size: 30px; direction: ltr; }
+.bins { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 26px; }
+.bin { border: 0; border-radius: 16px 16px 22px 22px; padding: 16px 8px 18px; color: #fff; font-family: var(--f-display); font-weight: 800; font-size: 30px; letter-spacing: 1px; position: relative; transition: transform .15s, filter .15s; direction: ltr; }
+.bin small { display: block; font-family: var(--f-body); font-size: 12px; font-weight: 600; letter-spacing: 0; opacity: .9; }
+.bin:hover { transform: translateY(-3px); filter: brightness(1.08); }
+.bin.der { background: var(--blau); } .bin.die { background: var(--rot); } .bin.das { background: var(--gruen); }
+.bin.glow { animation: good .5s ease; box-shadow: 0 0 0 6px color-mix(in srgb, var(--ok) 40%, transparent); }
+.bin.wrong { animation: shake .4s ease; }
+.lives { color: var(--rot); letter-spacing: 2px; }
+
+/* wortbau + satzbau */
+.slots, .tiles, .answer, .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; direction: ltr; }
+.slot { width: 42px; height: 50px; border-bottom: 4px solid var(--rule); display: grid; place-items: center; font-family: var(--f-de); font-weight: 800; font-size: 26px; border-radius: 6px 6px 0 0; background: var(--surface-2); }
+.slot.filled { border-color: var(--ink); animation: pop .2s ease; cursor: pointer; }
+.slot.hint { border-color: var(--gelb); color: var(--gelb-ink); background: color-mix(in srgb, var(--gelb) 30%, var(--surface)); }
+.tile { width: 46px; height: 50px; border-radius: 10px; border: 2px solid var(--ink); background: var(--surface); font-family: var(--f-de); font-weight: 800; font-size: 24px; box-shadow: 0 4px 0 var(--ink); transition: transform .12s, opacity .2s; }
+.tile:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+.tile.used { opacity: .15; pointer-events: none; }
+.slots.bad { animation: shake .4s ease; }
+.slots.ok .slot { border-color: var(--ok); color: var(--ok); }
+.tools { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+.answer { min-height: 64px; padding: 10px; border: 2px dashed var(--rule); border-radius: 14px; align-items: center; }
+.answer:empty::before { content: attr(data-empty); color: var(--muted); font-family: var(--f-body); direction: rtl; }
+.chip { border: 2px solid var(--ink); background: var(--surface); border-radius: 10px; padding: 8px 14px; font-family: var(--f-de); font-weight: 700; font-size: 18px; box-shadow: 0 3px 0 var(--ink); animation: pop .2s ease; }
+.chip.used { visibility: hidden; }
+.answer .chip { background: color-mix(in srgb, var(--line) 22%, var(--surface)); }
+.answer.ok { border-color: var(--ok); background: var(--ok-bg); }
+.answer.bad { border-color: var(--bad); animation: shake .4s ease; }
+.chips { margin-top: 16px; }
+
+/* clock + praep pictures */
+.clock-svg { width: 200px; max-width: 70vw; height: auto; }
+.clock-svg .hand { transition: transform .9s cubic-bezier(.3, 1.4, .5, 1); transform-origin: 100px 100px; }
+.pv-svg { width: 240px; max-width: 70vw; height: auto; }
+.blank-s { font-family: var(--f-de); font-weight: 700; font-size: 22px; direction: ltr; }
+.blank-s u { text-decoration: none; display: inline-block; min-width: 3.5em; border-bottom: 3px solid var(--gelb); color: var(--ok); }
+.conj-t { margin-top: 10px; display: grid; grid-template-columns: repeat(3, auto); gap: 2px 16px; justify-content: center; font-size: 14px; direction: ltr; }
+.conj-t span { font-family: var(--f-de); }
+.conj-t b { font-family: var(--f-de); color: var(--blau); }
+
+/* results */
+.result { text-align: center; padding: 10px 0; }
+.r-ticket { margin: 0 auto; max-width: 420px; background: var(--surface-2); border: 2px solid var(--ink); border-radius: 18px; overflow: hidden; position: relative; animation: rise .5s ease; }
+.r-ticket .r-top { background: var(--line); color: var(--ink); padding: 14px; font-family: var(--f-display); font-weight: 800; font-size: 24px; letter-spacing: 1px; direction: ltr; }
+.r-ticket .r-top small { display: block; font-family: var(--f-body); font-size: 13px; font-weight: 600; letter-spacing: 0; }
+.r-stars { font-size: 44px; color: var(--gelb); letter-spacing: 6px; margin: 12px 0 0; direction: ltr; }
+.r-stars i { color: var(--rule); font-style: normal; }
+.r-stars span { display: inline-block; animation: starin .5s ease backwards; }
+.r-stars span:nth-child(2) { animation-delay: .2s; } .r-stars span:nth-child(3) { animation-delay: .4s; }
+@keyframes starin { from { transform: scale(0) rotate(-90deg); } }
+.r-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px dashed var(--rule); margin-top: 14px; }
+.r-grid div { padding: 12px 6px; }
+.r-grid div + div { border-inline-start: 1px solid var(--rule); }
+.r-grid b { display: block; font-family: var(--f-display); font-size: 28px; font-weight: 800; font-variant-numeric: tabular-nums; direction: ltr; }
+.r-grid small { color: var(--muted); font-size: 12.5px; }
+.r-msg { margin: 16px 0 6px; font-size: 18px; font-weight: 700; }
+.r-btns { display: flex; gap: 10px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+.review { margin: 18px auto 0; max-width: 520px; text-align: start; font-size: 14px; }
+.review li { margin: 4px 0; }
+#confetti { position: fixed; inset: 0; pointer-events: none; z-index: 60; }
+.notice { font-size: 13px; color: var(--muted); background: var(--surface-2); border-radius: 10px; padding: 8px 12px; margin-top: 12px; }
+
+@media (max-width: 900px) {
+  .hero-g, .main { grid-template-columns: 1fr; }
+  .board { position: static; }
+  .howto { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .ticket .rank, .brand-s { display: none; }
+  .opts { grid-template-columns: 1fr; }
+  .mem { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .stage { padding: 16px; }
+  .stations { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bin { font-size: 24px; }
+  .tile { width: 40px; height: 46px; font-size: 21px; }
+  .slot { width: 34px; height: 44px; font-size: 22px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+
+<div class="top"><div class="wrap">
+  <div class="brand"><div class="mark"><b>A1</b></div><div><div class="brand-t">Sprachbahn</div><div class="brand-s">قطار اللغة الألمانية</div></div></div>
+  <div class="spacer"></div>
+  <div class="ticket" aria-label="نقاطك"><div class="xp"><small>XP · النقاط</small><strong id="xp">0</strong></div><div class="rank"><small>الرتبة</small><strong id="rank" class="de">Fahrgast</strong></div></div>
+  <button class="icon-btn" id="soundBtn" aria-pressed="true" title="الأصوات"><span class="em">🔔</span></button>
+  <button class="icon-btn" id="voiceBtn" aria-pressed="true" title="النطق الألماني التلقائي"><span class="em">🗣️</span></button>
+</div></div>
+
+<section class="hero"><div class="wrap hero-g">
+  <div>
+    <div class="eyebrow">Deutsch · Niveau A1.1 + A1.2</div>
+    <h1>Sprach<span>bahn</span></h1>
+    <p class="lead">اختر خطّاً، توقّف في محطّة، واركب أحد القطارات: ألعاب سريعة للكلمات والأدوات والجمل والأرقام والساعة، مع الترجمة العربية والنطق.</p>
+    <div class="rail" aria-hidden="true"></div>
+  </div>
+  <div class="lines" id="lines"></div>
+</div></section>
+
+<div class="wrap main">
+  <section aria-labelledby="mapTitle">
+    <div class="sec-h"><h2 id="mapTitle">المحطّات</h2><span class="de" id="mapLine">Linie A1.1</span></div>
+    <div class="stations" id="stations"></div>
+    <div class="howto">
+      <div><b>١. اختر محطّة</b>كل محطّة = درس من الكتاب، مع كلماته وجمله.</div>
+      <div><b>٢. اركب قطاراً</b>كل سطر في لوحة المغادرة لعبة مختلفة. اجمع حتى 3 نجوم.</div>
+      <div><b>٣. استمع وكرّر</b>اضغط 🔊 لسماع النطق الألماني، والنطق العربي مكتوب تحت كل جواب.</div>
+    </div>
+  </section>
+  <aside class="board" id="board" aria-live="polite"></aside>
+</div>
+
+<footer><div class="wrap">Sprachbahn A1 · ألعاب مبنية على كتابي «Deutsch A1.1» و«Deutsch A1.2». النطق الصوتي يستعمل صوتاً ألمانياً من جهازك إن وُجد. تقدّمك يُحفظ في هذا المتصفّح فقط.</div></footer>
+
+<div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="gTitle">
+  <div class="win">
+    <div class="win-h">
+      <div class="win-t"><b id="gTitle"></b><span id="gSub"></span></div>
+      <button class="win-x" id="gClose" aria-label="إغلاق">✕</button>
+      <div class="hud"><div class="track" id="track"></div><span class="pill" id="gScore">0</span><span class="pill streak" id="gStreak">×0</span></div>
+      <div class="timer" id="timer" hidden><i></i></div>
+    </div>
+    <div class="stage" id="stage"></div>
+  </div>
+</div>
+<canvas id="confetti" hidden></canvas>
+
+<script>
+// Vocabulary + sentences for the Sprachbahn games (from the A1.1 / A1.2 books).
+// word: "pic|German|Arabic|Arabic pronunciation"; pic = emoji | flag:xx | sw:#hex | txt:Mo | pv:kind
+const DATA = {
+  a11: {
+    name: 'A1.1', ar: 'المستوى A1.1', color: 'var(--line-a11)',
+    topics: [
+      { id: 'hallo', no: 1, de: 'Hallo!', ar: 'التحية والتعارف', words: [
+        '🌅|Guten Morgen!|صباح الخير!|گوتِن مورگِن', '☀️|Guten Tag!|نهارك سعيد!|گوتِن تاك', '🌆|Guten Abend!|مساء الخير!|گوتِن آبِنت', '🌙|Gute Nacht!|تصبح على خير!|گوتِه ناخت',
+        '👋|Hallo!|مرحباً!|هالو', '🙋|Tschüss!|مع السلامة!|تشُيس', '🤝|Auf Wiedersehen!|إلى اللقاء!|آوف ڤيدَرزيئِن', '🙏|Danke!|شكراً!|دانكِه',
+        '😊|Bitte!|من فضلك / عفواً|بِتِّه', '😅|Entschuldigung!|عذراً!|إنتشولديگونگ', '✅|Ja|نعم|يا', '❌|Nein|لا|ناين', '📅|Bis morgen!|إلى الغد!|بِس مورگِن'],
+        sent: [['Ich heiße Sara.', 'اسمي سارة.'], ['Wie heißt du?', 'ما اسمك؟'], ['Ich komme aus Tunesien.', 'أنا من تونس.'], ['Wo wohnst du?', 'أين تسكن؟'], ['Ich wohne in Berlin.', 'أسكن في برلين.'], ['Wie geht es Ihnen?', 'كيف حال حضرتك؟']] },
+      { id: 'zahlen', no: 2, de: 'Die Zahlen', ar: 'الأرقام', words: [], special: ['zahlen'],
+        sent: [['Ich bin dreißig Jahre alt.', 'عمري ثلاثون سنة.'], ['Wie alt bist du?', 'كم عمرك؟'], ['Wie ist deine Telefonnummer?', 'ما رقم هاتفك؟'], ['Zwei plus drei ist fünf.', 'اثنان زائد ثلاثة يساوي خمسة.']] },
+      { id: 'verben', no: 3, de: 'Pronomen und Verben', ar: 'الضمائر والأفعال', words: [
+        '🏠|wohnen|يسكن|ڤونِن', '🚶|kommen|يأتي|كومِّن', '📚|lernen|يتعلّم|ليرنِن', '🛠️|machen|يفعل|ماخِن', '⚽|spielen|يلعب|شپيلِن', '🎧|hören|يسمع|هُورِن',
+        '🥤|trinken|يشرب|ترينكِن', '🍳|kochen|يطبخ|كوخِن', '💼|arbeiten|يعمل|آرپايتِن', '✍️|schreiben|يكتب|شرايبِن', '👣|gehen|يذهب|گيئِن', '🛒|kaufen|يشتري|كاوفِن'],
+        conj: ['wohnen', 'kommen', 'lernen', 'spielen', 'trinken', 'machen', 'arbeiten', 'heißen', 'sein', 'haben'], special: ['konj'],
+        sent: [['Ich lerne Deutsch.', 'أنا أتعلّم الألمانية.'], ['Wir trinken Tee.', 'نحن نشرب الشاي.'], ['Er spielt Fußball.', 'هو يلعب كرة القدم.'], ['Du wohnst in Tunis.', 'أنت تسكن في تونس.'], ['Ich bin Student.', 'أنا طالب.']] },
+      { id: 'laender', no: 4, de: 'Länder und Sprachen', ar: 'البلدان واللغات', words: [
+        'flag:de|Deutschland|ألمانيا|دويتشلانت', 'flag:at|Österreich|النمسا|أُوستَررايش', 'flag:ch|die Schweiz|سويسرا|دي شڤايتس', 'flag:tn|Tunesien|تونس|تونيزيِن',
+        'flag:ma|Marokko|المغرب|ماروكّو', 'flag:dz|Algerien|الجزائر|ألگيريِن', 'flag:eg|Ägypten|مصر|إيگُيپتِن', 'flag:fr|Frankreich|فرنسا|فرانكرايش',
+        'flag:es|Spanien|إسبانيا|شپانيِن', 'flag:it|Italien|إيطاليا|إيتاليِن', 'flag:tr|die Türkei|تركيا|دي تُيركاي', 'flag:jp|Japan|اليابان|ياپان'],
+        conj: ['sprechen', 'kommen'], special: ['konj'],
+        sent: [['Ich spreche Arabisch.', 'أتكلّم العربية.'], ['Woher kommst du?', 'من أين أنت؟'], ['Sprichst du Deutsch?', 'هل تتكلّم الألمانية؟'], ['Ich komme aus Marokko.', 'أنا من المغرب.']] },
+      { id: 'berufe', no: 5, de: 'Berufe', ar: 'المهن', words: [
+        '👨‍🏫|der Lehrer|المعلّم|ليرَر', '👩‍🏫|die Lehrerin|المعلّمة|ليرَرِن', '🧑‍⚕️|der Arzt|الطبيب|آرتست', '👩‍⚕️|die Ärztin|الطبيبة|إيرتستِن',
+        '👨‍🍳|der Koch|الطبّاخ|كوخ', '👨‍💻|der Informatiker|المبرمج|إنفورماتيكَر', '👨‍🔧|der Mechaniker|الميكانيكي|ميشانيكَر', '👷|der Ingenieur|المهندس|إنجِنيُور',
+        '🧑‍💼|der Verkäufer|البائع|فِركويفَر', '💇|der Friseur|الحلّاق|فريزُور', '🚕|der Taxifahrer|سائق التاكسي|تاكسي‑فارَر', '👮|der Polizist|الشرطي|پوليتسيست',
+        '🧑‍🎓|der Student|الطالب الجامعي|شتودِنت', '🏫|die Schule|المدرسة|شولِه', '🏥|das Krankenhaus|المستشفى|كرانكِنهاوس', '🏢|das Büro|المكتب|بُيرو'],
+        conj: ['arbeiten', 'sein'], special: ['konj'],
+        sent: [['Ich bin Lehrerin.', 'أنا معلّمة.'], ['Was bist du von Beruf?', 'ما مهنتك؟'], ['Ich arbeite im Krankenhaus.', 'أعمل في المستشفى.'], ['Er arbeitet als Koch.', 'هو يعمل طبّاخاً.']] },
+      { id: 'familie', no: 6, de: 'Meine Familie', ar: 'عائلتي', words: [
+        '👨|der Vater|الأب|فاتَر', '👩|die Mutter|الأم|موتَّر', '👫|die Eltern (Pl.)|الوالدان|إلتَرن', '👦|der Bruder|الأخ|برودَر', '👧|die Schwester|الأخت|شڤِستَر',
+        '🧒|der Sohn|الابن|زون', '👱‍♀️|die Tochter|الابنة|توختَر', '👶|das Kind|الطفل|كِنت', '👴|der Opa|الجدّ|أوپا', '👵|die Oma|الجدّة|أوما',
+        '🧔|der Onkel|العم / الخال|أونكِل', '👩‍🦰|die Tante|العمة / الخالة|تانتِه', '🤵|der Mann|الزوج / الرجل|مان', '👰|die Frau|الزوجة / المرأة|فراو', '👨‍👩‍👧‍👦|die Familie|العائلة|فاميليِه'],
+        sent: [['Das ist mein Bruder.', 'هذا أخي.'], ['Hast du Geschwister?', 'هل عندك إخوة؟'], ['Meine Mutter heißt Amina.', 'أمّي اسمها أمينة.'], ['Ich bin verheiratet.', 'أنا متزوّج.']] },
+      { id: 'dinge', no: 7, de: 'Der, die, das', ar: 'الأشياء والأدوات', words: [
+        '📖|das Buch|الكتاب|بوخ', '📓|das Heft|الدفتر|هِفت', '✏️|der Bleistift|قلم الرصاص|بلايشتِفت', '🖊️|der Kuli|قلم الحبر|كولي', '👜|die Tasche|الحقيبة|تاشِه',
+        '📱|das Handy|الهاتف المحمول|هِندي', '🔑|der Schlüssel|المفتاح|شلُيسِّل', '👓|die Brille|النظّارة|بريلِّه', '⌚|die Uhr|الساعة|أُوَر', '💻|der Computer|الحاسوب|كومپيوتَر',
+        '🪑|der Stuhl|الكرسي|شتول', '🍾|die Flasche|القارورة|فلاشِه', '💡|die Lampe|المصباح|لامپِه', '🖼️|das Bild|الصورة|بِلت', '📏|das Lineal|المسطرة|لينيال', '🚗|das Auto|السيارة|آوتو'],
+        sent: [['Was ist das?', 'ما هذا؟'], ['Das ist ein Buch.', 'هذا كتاب.'], ['Das ist keine Uhr.', 'هذه ليست ساعة.'], ['Ich verstehe das nicht.', 'لا أفهم هذا.']] },
+      { id: 'farben', no: 8, de: 'Die Farben', ar: 'الألوان', words: [
+        'sw:#ef4444|rot|أحمر|روت', 'sw:#3b82f6|blau|أزرق|بلاو', 'sw:#facc15|gelb|أصفر|گِلپ', 'sw:#22c55e|grün|أخضر|گرُين', 'sw:#f97316|orange|برتقالي|أورانْش', 'sw:#f9a8d4|rosa|وردي|روزا',
+        'sw:#a855f7|lila|بنفسجي|ليلا', 'sw:#92400e|braun|بنّي|براون', 'sw:#111827|schwarz|أسود|شڤارتس', 'sw:#ffffff|weiß|أبيض|ڤايس', 'sw:#9ca3af|grau|رمادي|گراو', 'sw:#e7d3b1|beige|بيج|بيش'],
+        sent: [['Die Banane ist gelb.', 'الموزة صفراء.'], ['Das Auto ist rot.', 'السيارة حمراء.'], ['Meine Lieblingsfarbe ist Blau.', 'لوني المفضّل هو الأزرق.'], ['Die Jacke ist zu teuer.', 'السترة غالية جداً.']] },
+      { id: 'essen', no: 9, de: 'Essen und Trinken', ar: 'الأكل والشرب', words: [
+        '🍞|das Brot|الخبز|بروت', '🥖|das Brötchen|الخبز الصغير|برُوتشِن', '🥨|die Brezel|البريتزل|بريتسِل', '🧈|die Butter|الزبدة|بوتَّر', '🧀|der Käse|الجبن|كيزِه',
+        '🥚|das Ei|البيضة|آي', '🥛|die Milch|الحليب|مِلش', '☕|der Kaffee|القهوة|كافيه', '🍵|der Tee|الشاي|تي', '💧|das Wasser|الماء|ڤاسَّر',
+        '🧃|der Saft|العصير|زافت', '🍎|der Apfel|التفّاحة|أَپفِل', '🍌|die Banane|الموزة|بانانِه', '🍅|die Tomate|الطماطم|توماتِه', '🥔|die Kartoffel|البطاطس|كارتوفِّل',
+        '🍗|das Hähnchen|الدجاج|هِينشِن', '🐟|der Fisch|السمك|فِش', '🍚|der Reis|الأرز|رايس', '🥗|der Salat|السلطة|زالات', '🍰|der Kuchen|الكعكة|كوخِن'],
+        conj: ['essen', 'trinken', 'mögen', 'möchten'], special: ['konj'],
+        sent: [['Ich möchte einen Kaffee, bitte.', 'أودّ قهوة من فضلك.'], ['Was kostet das?', 'كم ثمن هذا؟'], ['Ich esse kein Schweinefleisch.', 'لا آكل لحم الخنزير.'], ['Ich habe Hunger.', 'أنا جائع.']] },
+      { id: 'zeit', no: 10, de: 'Uhrzeit und Tage', ar: 'الساعة والأيام', words: [
+        'txt:Mo|der Montag|الاثنين|مونتاك', 'txt:Di|der Dienstag|الثلاثاء|دينستاك', 'txt:Mi|der Mittwoch|الأربعاء|مِتڤوخ', 'txt:Do|der Donnerstag|الخميس|دونَّرستاك',
+        'txt:Fr|der Freitag|الجمعة|فرايتاك', 'txt:Sa|der Samstag|السبت|زامستاك', 'txt:So|der Sonntag|الأحد|زونتاك', '🌅|der Morgen|الصباح|مورگِن', '🌆|der Abend|المساء|آبِنت',
+        '🌙|die Nacht|الليل|ناخت', '🌸|der Frühling|الربيع|فرُيلينگ', '☀️|der Sommer|الصيف|زومَّر', '🍂|der Herbst|الخريف|هِرپست', '❄️|der Winter|الشتاء|ڤِنتَر'],
+        special: ['uhr'],
+        sent: [['Wie spät ist es?', 'كم الساعة؟'], ['Ich stehe um sieben Uhr auf.', 'أستيقظ في الساعة السابعة.'], ['Am Montag arbeite ich.', 'يوم الاثنين أعمل.'], ['Der Kurs ist am Freitag.', 'الدرس يوم الجمعة.']] },
+      { id: 'freizeit', no: 11, de: 'Freizeit und Wetter', ar: 'الهوايات والطقس', words: [
+        '⚽|Fußball spielen|لعب كرة القدم|فوسبال شپيلِن', '🏊|schwimmen|السباحة|شڤِمِّن', '📚|lesen|القراءة|ليزِن', '💃|tanzen|الرقص|تانتسِن', '🎧|Musik hören|سماع الموسيقى|موزيك هُورِن',
+        '🚴|Fahrrad fahren|ركوب الدرّاجة|فارات فارِن', '✈️|reisen|السفر|رايزِن', '📷|fotografieren|التصوير|فوتوگرافيرِن', '🎤|singen|الغناء|زِنگِن', '🎨|malen|الرسم|مالِن',
+        '🏃|joggen|الركض|جوگِّن', '🥾|wandern|المشي في الطبيعة|ڤاندَرن', '🌧️|Es regnet.|إنها تمطر.|إِس ريگنِت', '❄️|Es schneit.|إنها تثلج.|إِس شنايت', '☀️|Die Sonne scheint.|الشمس مشرقة.|دي زونِّه شاينت'],
+        conj: ['fahren', 'lesen', 'sehen', 'schlafen', 'sprechen', 'nehmen', 'können'], special: ['konj'],
+        sent: [['Ich spiele gern Fußball.', 'أحبّ لعب كرة القدم.'], ['Kannst du schwimmen?', 'هل تستطيع السباحة؟'], ['Er liest ein Buch.', 'هو يقرأ كتاباً.'], ['Wie ist das Wetter heute?', 'كيف الطقس اليوم؟']] },
+      { id: 'wohnung', no: 12, de: 'Meine Wohnung', ar: 'شقّتي', words: [
+        '🏠|das Wohnzimmer|غرفة الجلوس|ڤونتسِمَّر', '🛏️|das Schlafzimmer|غرفة النوم|شلافتسِمَّر', '🍳|die Küche|المطبخ|كُيشِه', '🛁|das Bad|الحمّام|بات', '🧸|das Kinderzimmer|غرفة الأطفال|كِندَرتسِمَّر',
+        '🌿|der Balkon|الشرفة|بالكون', '🌳|der Garten|الحديقة|گارتِن', '🛌|das Bett|السرير|بِت', '🛋️|das Sofa|الأريكة|زوفا', '🗄️|der Schrank|الخزانة|شرانك',
+        '🍽️|der Tisch|الطاولة|تِش', '🧊|der Kühlschrank|الثلّاجة|كُيلشرانك', '🚿|die Dusche|الدُّش|دوشِه', '📺|der Fernseher|التلفاز|فيرنزيئَر', '🪟|das Fenster|النافذة|فِنستَر', '🚪|die Tür|الباب|تُير'],
+        sent: [['Die Küche ist klein.', 'المطبخ صغير.'], ['Ich wohne in einer Wohnung.', 'أسكن في شقّة.'], ['Das Sofa ist bequem.', 'الأريكة مريحة.'], ['Wie hoch ist die Miete?', 'كم الإيجار؟']] },
+    ],
+  },
+  a12: {
+    name: 'A1.2', ar: 'المستوى A1.2', color: 'var(--line-a12)',
+    topics: [
+      { id: 'gestern', no: 1, de: 'Was hast du gemacht?', ar: 'الماضي مع haben', words: [
+        '📅|gestern|أمس|گِستَرن', '⏮️|vorgestern|أوّل أمس|فورگِستَرن', '🌙|gestern Abend|مساء أمس|گِستَرن آبِنت', '☀️|heute Morgen|هذا الصباح|هويتِه مورگِن',
+        '🗓️|letzte Woche|الأسبوع الماضي|لِتستِه ڤوخِه', '📆|letztes Jahr|السنة الماضية|لِتستِس يار', '🎉|am Wochenende|في نهاية الأسبوع|أم ڤوخِنإندِه', '⏳|vor zwei Tagen|قبل يومين|فور تسڤاي تاگِن',
+        '⚽|gespielt|لعبَ|گِشپيلت', '🍝|gegessen|أكلَ|گِگِسِّن', '☕|getrunken|شربَ|گِترونكِن', '📚|gelesen|قرأَ|گِليزِن', '✍️|geschrieben|كتبَ|گِشريبِن', '😴|geschlafen|نامَ|گِشلافِن'],
+        perf: 'haben', special: ['perfekt'],
+        sent: [['Ich habe Fußball gespielt.', 'لعبتُ كرة القدم.'], ['Was hast du gestern gemacht?', 'ماذا فعلت أمس؟'], ['Wir haben eine Pizza gegessen.', 'أكلنا بيتزا.'], ['Hast du schon gefrühstückt?', 'هل تناولت الفطور؟'], ['Ich habe meine Mutter angerufen.', 'اتّصلتُ بأمّي.']] },
+      { id: 'urlaub', no: 2, de: 'Wie war dein Urlaub?', ar: 'العطلة والماضي مع sein', words: [
+        '🧳|der Urlaub|العطلة|أورلاوپ', '🏖️|der Strand|الشاطئ|شترانت', '🌊|das Meer|البحر|مير', '🏔️|die Berge (Pl.)|الجبال|بيرگِه', '🏨|das Hotel|الفندق|هوتِل', '🗺️|die Reise|الرحلة|رايزِه',
+        '📸|das Foto|الصورة|فوتو', '🎫|das Ticket|التذكرة|تِكِت', '✈️|geflogen|سافرَ بالطائرة|گِفلوگِن', '🚗|gefahren|سافرَ / ذهبَ|گِفارِن', '🚶|gegangen|ذهبَ / مشى|گِگانگِن', '🏠|geblieben|بقيَ|گِبليبِن'],
+        perf: 'all', conj: ['war', 'hatte'], special: ['perfekt', 'konj'],
+        sent: [['Ich bin nach Spanien geflogen.', 'سافرتُ إلى إسبانيا بالطائرة.'], ['Wie war dein Urlaub?', 'كيف كانت عطلتك؟'], ['Wir sind mit dem Zug gefahren.', 'سافرنا بالقطار.'], ['Ich hatte keine Zeit.', 'لم يكن عندي وقت.'], ['Er ist zu Hause geblieben.', 'هو بقي في البيت.']] },
+      { id: 'modal', no: 3, de: 'Ich muss, ich darf', ar: 'أفعال الكيفية', words: [
+        '💪|können|يستطيع|كُونِّن', '❗|müssen|يجب|مُيسِّن', '🎯|wollen|يريد|ڤولِّن', '✅|dürfen|مسموح|دُيرفِن', '👉|sollen|ينبغي|زولِّن', '🙏|möchten|يودّ|مُوشتِن',
+        '🚭|Rauchen verboten!|ممنوع التدخين!|راوخِن فِربوتِن', '🅿️|Hier darf man parken.|يُسمح بالوقوف هنا.|هير دارف مان پاركِن', '🤫|Bitte leise sein!|الهدوء من فضلك!|بِتِّه لايزِه زاين', '📵|Handy aus!|أطفئ الهاتف!|هِندي آوس'],
+        conj: ['können', 'müssen', 'wollen', 'dürfen', 'sollen', 'möchten'], special: ['konj'],
+        sent: [['Ich muss heute arbeiten.', 'يجب أن أعمل اليوم.'], ['Hier darf man nicht rauchen.', 'ممنوع التدخين هنا.'], ['Kannst du am Sonntag kommen?', 'هل تستطيع المجيء يوم الأحد؟'], ['Willst du mit ins Kino kommen?', 'هل تريد أن تأتي معنا إلى السينما؟'], ['Was soll ich machen?', 'ماذا ينبغي أن أفعل؟']] },
+      { id: 'koerper', no: 4, de: 'Körper und Gesundheit', ar: 'الجسم والصحّة', words: [
+        '🧑|der Kopf|الرأس|كوپف', '💇|die Haare (Pl.)|الشعر|هارِه', '👁️|das Auge|العين|آوگِه', '👂|das Ohr|الأذن|أُور', '👃|die Nase|الأنف|نازِه', '👄|der Mund|الفم|مونت',
+        '🦷|der Zahn|السنّ|تسان', '🧣|der Hals|الرقبة / الحلق|هالس', '💪|der Arm|الذراع|آرم', '✋|die Hand|اليد|هانت', '☝️|der Finger|الإصبع|فِنگَر', '🤢|der Bauch|البطن|باوخ',
+        '🩻|der Rücken|الظهر|رُيكِّن', '🦵|das Bein|الساق|باين', '🦶|der Fuß|القدم|فوس', '🫀|das Herz|القلب|هِرتس', '💊|die Tablette|القرص|تابليتِّه', '🏪|die Apotheke|الصيدلية|أپوتيكِه',
+        '🧾|das Rezept|الوصفة الطبّية|ريتسِپت', '🌡️|das Fieber|الحمّى|فيبَر'],
+        sent: [['Ich habe Kopfschmerzen.', 'عندي صداع.'], ['Mein Bein tut weh.', 'ساقي تؤلمني.'], ['Trinken Sie viel Wasser!', 'اشرب الكثير من الماء!'], ['Nehmen Sie die Tabletten!', 'خذ الأقراص!'], ['Ich bin krank.', 'أنا مريض.']] },
+      { id: 'stadt', no: 5, de: 'In der Stadt', ar: 'في المدينة', words: [
+        '🏦|die Bank|البنك|بانك', '📮|die Post|البريد|پوست', '🚉|der Bahnhof|محطّة القطار|بانهوف', '🛒|der Supermarkt|السوبرماركت|زوپَرماركت', '🏛️|das Rathaus|البلدية|راتهاوس',
+        '🕌|die Moschee|المسجد|موشيه', '🌳|der Park|الحديقة العامّة|پارك', '🎬|das Kino|السينما|كينو', '🚏|die Haltestelle|موقف الحافلة|هالتِه‑شتِلِّه', '📚|die Bibliothek|المكتبة العامّة|بيبليوتيك',
+        '✈️|der Flughafen|المطار|فلوك‑هافِن', '🚌|der Bus|الحافلة|بوس', '🚆|der Zug|القطار|تسوك', '🚇|die U-Bahn|المترو|أو‑بان', '🚲|das Fahrrad|الدرّاجة|فار‑رات',
+        '⬆️|geradeaus|إلى الأمام|گِرادِه‑آوس', '⬅️|links|يساراً|لِنكس', '➡️|rechts|يميناً|ريشتس'],
+        sent: [['Wie komme ich zum Bahnhof?', 'كيف أصل إلى محطّة القطار؟'], ['Ich fahre mit dem Bus.', 'أذهب بالحافلة.'], ['Gehen Sie geradeaus.', 'امشِ إلى الأمام.'], ['Ich bin beim Arzt.', 'أنا عند الطبيب.'], ['Wo ist die Post?', 'أين البريد؟']] },
+      { id: 'praep', no: 6, de: 'Wo ist mein Handy?', ar: 'حروف الجرّ المكانية', words: [
+        'pv:in|in|في / داخل|إن', 'pv:auf|auf|على (فوق)|آوف', 'pv:unter|unter|تحت|أونتَر', 'pv:über|über|فوق (بدون لمس)|أُيبَر', 'pv:neben|neben|بجانب|نيبِن',
+        'pv:vor|vor|أمام|فور', 'pv:hinter|hinter|خلف|هِنتَر', 'pv:zwischen|zwischen|بين|تسڤِشِن', 'pv:an|an|على (الحائط)|أن'],
+        special: ['praep'],
+        sent: [['Das Buch liegt auf dem Tisch.', 'الكتاب موضوع على الطاولة.'], ['Das Bild hängt an der Wand.', 'الصورة معلّقة على الحائط.'], ['Die Katze sitzt auf dem Sofa.', 'القطّة جالسة على الأريكة.'], ['Wo ist mein Handy?', 'أين هاتفي؟']] },
+      { id: 'kleidung', no: 7, de: 'Kleidung und Einkaufen', ar: 'الملابس والتسوّق', words: [
+        '👕|das T-Shirt|التي شيرت|تي‑شيرت', '👔|das Hemd|القميص|هِمت', '👖|die Hose|البنطلون|هوزِه', '👗|das Kleid|الفستان|كلايت', '🧥|die Jacke|السترة|ياكِه', '🥼|der Mantel|المعطف|مانتِل',
+        '🧶|der Pullover|الكنزة|پولوڤَر', '👚|die Bluse|البلوزة|بلوزِه', '👟|die Schuhe (Pl.)|الأحذية|شوئِه', '🧣|der Schal|الوشاح|شال', '🧦|die Socken (Pl.)|الجوارب|زوكِّن', '🧕|das Kopftuch|الحجاب|كوپفتوخ'],
+        special: ['komp'],
+        sent: [['Das Kleid gefällt mir.', 'الفستان يعجبني.'], ['Die Hose passt mir nicht.', 'البنطلون لا يناسبني.'], ['Kann ich das anprobieren?', 'هل يمكنني تجربة هذا؟'], ['Welche Größe haben Sie?', 'ما مقاسك؟']] },
+      { id: 'feste', no: 8, de: 'Feste und Feiern', ar: 'الأعياد والاحتفالات', words: [
+        '🎂|der Geburtstag|عيد الميلاد|گِبورتستاك', '💍|die Hochzeit|حفل الزفاف|هوخ‑تسايت', '🌙|das Zuckerfest|عيد الفطر|تسوكَّرفِست', '🐑|das Opferfest|عيد الأضحى|أوپفَرفِست',
+        '🎄|Weihnachten|عيد الميلاد المجيد|ڤايناختِن', '🎆|Silvester|ليلة رأس السنة|زيلڤِستَر', '🎁|das Geschenk|الهديّة|گِشِنك', '🎉|die Party|الحفلة|پارتي', '💌|die Einladung|الدعوة|آينلادونگ',
+        '🥇|erste|الأوّل|إيرستِه', '🥈|zweite|الثاني|تسڤايتِه', '🥉|dritte|الثالث|دريتِّه'],
+        sent: [['Wann hast du Geburtstag?', 'متى عيد ميلادك؟'], ['Ich lade dich ein.', 'أدعوك.'], ['Heute ist der dritte Mai.', 'اليوم هو الثالث من مايو.'], ['Ich kann nicht kommen, denn ich bin krank.', 'لا أستطيع المجيء لأنّني مريض.']] },
+      { id: 'bahnhof', no: 9, de: 'Reisen und Verkehr', ar: 'السفر والمواصلات', words: [
+        '🎫|die Fahrkarte|تذكرة السفر|فاركارتِه', '🛤️|das Gleis|الرصيف|گلايس', '🕐|die Abfahrt|المغادرة|آپفارت', '🛬|die Ankunft|الوصول|آنكونفت', '⏱️|die Verspätung|التأخير|فِرشپيتونگ',
+        '🔁|umsteigen|يغيّر القطار|أومشتايگِن', '📋|der Fahrplan|جدول المواعيد|فارپلان', '🧳|der Koffer|حقيبة السفر|كوفَّر', '🛎️|die Rezeption|الاستقبال|ريتسِپتسيون',
+        '🛏️|das Einzelzimmer|غرفة مفردة|آينتسِل‑تسِمَّر', '👫|das Doppelzimmer|غرفة مزدوجة|دوپِّل‑تسِمَّر', '📅|reservieren|يحجز|ريزِرڤيرِن'],
+        sent: [['Eine Fahrkarte nach Hamburg, bitte.', 'تذكرة إلى هامبورغ من فضلك.'], ['Muss ich umsteigen?', 'هل يجب أن أغيّر القطار؟'], ['Der Zug hat Verspätung.', 'القطار متأخّر.'], ['Ich habe ein Zimmer reserviert.', 'لقد حجزتُ غرفة.'], ['Ich wohne seit zwei Jahren hier.', 'أسكن هنا منذ سنتين.']] },
+      { id: 'amt', no: 10, de: 'Ämter und Formulare', ar: 'الدوائر والاستمارات', words: [
+        '📝|das Formular|الاستمارة|فورمولار', '🏛️|das Bürgeramt|مكتب المواطنين|بُيرگَر‑أمت', '🪪|der Ausweis|بطاقة الهوية|آوسڤايس', '🛂|der Pass|جواز السفر|پاس', '🏦|das Konto|الحساب البنكي|كونتو',
+        '✍️|die Unterschrift|التوقيع|أونتَرشرِفت', '🎂|das Geburtsdatum|تاريخ الميلاد|گِبورتس‑داتوم', '📍|der Wohnort|مكان السكن|ڤون‑أورت', '🌍|die Staatsangehörigkeit|الجنسية|شتاتس‑آنگِهُوريشكايت',
+        '👤|der Vorname|الاسم الشخصي|فورنامِه', '🏷️|der Familienname|اسم العائلة|فاميليِن‑نامِه', '🔢|die Wartenummer|رقم الانتظار|ڤارتِه‑نومَّر'],
+        sent: [['Ich möchte mich anmelden.', 'أريد تسجيل سكني.'], ['Ich brauche einen Termin.', 'أحتاج إلى موعد.'], ['Füllen Sie bitte das Formular aus.', 'املأ الاستمارة من فضلك.'], ['Ich möchte ein Konto eröffnen.', 'أريد فتح حساب بنكي.']] },
+      { id: 'telefon', no: 11, de: 'Telefon und E-Mail', ar: 'الهاتف والرسائل', words: [
+        '📞|Hier spricht …|معك … (على الهاتف)|هير شپريشت', '👋|Auf Wiederhören!|إلى اللقاء (هاتفياً)|آوف ڤيدَرهُورِن', '📅|der Termin|الموعد|تِرمين', '❌|absagen|يلغي|آپزاگِن',
+        '⏩|verschieben|يؤجّل|فِرشيبِن', '✉️|die E-Mail|البريد الإلكتروني|إي‑ميل', '💌|Liebe Grüße|مع محبّتي|ليبِه گرُيسِه', '🎩|Mit freundlichen Grüßen|مع أطيب التحيّات|مِت فرويندليشِن گرُيسِن',
+        '🙋‍♀️|Liebe Sara,|عزيزتي سارة،|ليبِه زارا', '🏢|Sehr geehrte Damen und Herren,|السادة المحترمون،|زير گِإيرتِه دامِن أونت هِرِّن', '🤝|helfen|يساعد|هِلفِن', '🙏|danken|يشكر|دانكِن'],
+        sent: [['Hier spricht Rami Aziz.', 'معك رامي عزيز.'], ['Ich möchte einen Termin machen.', 'أريد أن آخذ موعداً.'], ['Das passt mir gut.', 'هذا يناسبني.'], ['Kannst du mir helfen?', 'هل تستطيع مساعدتي؟']] },
+    ],
+  },
+};
+
+const CONJ = {
+  wohnen: ['يسكن', 'wohne wohnst wohnt wohnen wohnt wohnen'], kommen: ['يأتي', 'komme kommst kommt kommen kommt kommen'], lernen: ['يتعلّم', 'lerne lernst lernt lernen lernt lernen'],
+  spielen: ['يلعب', 'spiele spielst spielt spielen spielt spielen'], trinken: ['يشرب', 'trinke trinkst trinkt trinken trinkt trinken'], machen: ['يفعل', 'mache machst macht machen macht machen'],
+  arbeiten: ['يعمل', 'arbeite arbeitest arbeitet arbeiten arbeitet arbeiten'], heißen: ['يُسمّى', 'heiße heißt heißt heißen heißt heißen'], sein: ['يكون', 'bin bist ist sind seid sind'],
+  haben: ['عنده', 'habe hast hat haben habt haben'], fahren: ['يسافر / يركب', 'fahre fährst fährt fahren fahrt fahren'], lesen: ['يقرأ', 'lese liest liest lesen lest lesen'],
+  essen: ['يأكل', 'esse isst isst essen esst essen'], sprechen: ['يتكلّم', 'spreche sprichst spricht sprechen sprecht sprechen'], schlafen: ['ينام', 'schlafe schläfst schläft schlafen schlaft schlafen'],
+  sehen: ['يرى', 'sehe siehst sieht sehen seht sehen'], nehmen: ['يأخذ', 'nehme nimmst nimmt nehmen nehmt nehmen'], mögen: ['يحبّ', 'mag magst mag mögen mögt mögen'],
+  können: ['يستطيع', 'kann kannst kann können könnt können'], müssen: ['يجب', 'muss musst muss müssen müsst müssen'], wollen: ['يريد', 'will willst will wollen wollt wollen'],
+  dürfen: ['مسموح', 'darf darfst darf dürfen dürft dürfen'], sollen: ['ينبغي', 'soll sollst soll sollen sollt sollen'], möchten: ['يودّ', 'möchte möchtest möchte möchten möchtet möchten'],
+  war: ['كان (sein – Präteritum)', 'war warst war waren wart waren'], hatte: ['كان عنده (haben – Präteritum)', 'hatte hattest hatte hatten hattet hatten'],
+};
+
+const PERF = [
+  ['spielen', 'لعب', 'hat', 'gespielt'], ['machen', 'فعل', 'hat', 'gemacht'], ['kaufen', 'اشترى', 'hat', 'gekauft'], ['kochen', 'طبخ', 'hat', 'gekocht'], ['lernen', 'تعلّم', 'hat', 'gelernt'],
+  ['arbeiten', 'عمل', 'hat', 'gearbeitet'], ['essen', 'أكل', 'hat', 'gegessen'], ['trinken', 'شرب', 'hat', 'getrunken'], ['lesen', 'قرأ', 'hat', 'gelesen'], ['sehen', 'رأى', 'hat', 'gesehen'],
+  ['schreiben', 'كتب', 'hat', 'geschrieben'], ['schlafen', 'نام', 'hat', 'geschlafen'], ['einkaufen', 'تسوّق', 'hat', 'eingekauft'], ['anrufen', 'اتّصل', 'hat', 'angerufen'],
+  ['telefonieren', 'اتّصل هاتفياً', 'hat', 'telefoniert'], ['besuchen', 'زار', 'hat', 'besucht'], ['verstehen', 'فهم', 'hat', 'verstanden'],
+  ['fahren', 'سافر', 'ist', 'gefahren'], ['gehen', 'ذهب', 'ist', 'gegangen'], ['fliegen', 'طار', 'ist', 'geflogen'], ['kommen', 'جاء', 'ist', 'gekommen'], ['bleiben', 'بقي', 'ist', 'geblieben'],
+  ['aufstehen', 'استيقظ', 'ist', 'aufgestanden'], ['schwimmen', 'سبح', 'ist', 'geschwommen'], ['passieren', 'حدث', 'ist', 'passiert'],
+];
+
+const KOMP = [['billig', 'billiger', 'رخيص'], ['schön', 'schöner', 'جميل'], ['groß', 'größer', 'كبير'], ['alt', 'älter', 'قديم'], ['gut', 'besser', 'جيّد'], ['gern', 'lieber', 'بحبّ'],
+  ['viel', 'mehr', 'كثير'], ['teuer', 'teurer', 'غالٍ'], ['klein', 'kleiner', 'صغير'], ['jung', 'jünger', 'شابّ'], ['lang', 'länger', 'طويل'], ['kurz', 'kürzer', 'قصير']];
+
+const PRAEP = {
+  in: ['Der Ball ist ___ dem Karton.', 'in', 'الكرة داخل الصندوق. (in + dem = im)'], auf: ['Der Ball ist ___ dem Karton.', 'auf', 'الكرة على الصندوق.'],
+  unter: ['Der Ball ist ___ dem Tisch.', 'unter', 'الكرة تحت الطاولة.'], über: ['Der Ball ist ___ dem Karton.', 'über', 'الكرة فوق الصندوق.'],
+  neben: ['Der Ball ist ___ dem Karton.', 'neben', 'الكرة بجانب الصندوق.'], vor: ['Der Ball ist ___ dem Karton.', 'vor', 'الكرة أمام الصندوق.'],
+  hinter: ['Der Ball ist ___ dem Karton.', 'hinter', 'الكرة خلف الصندوق.'], zwischen: ['Der Ball ist ___ den Kartons.', 'zwischen', 'الكرة بين الصندوقين.'],
+  an: ['Das Bild hängt ___ der Wand.', 'an', 'الصورة معلّقة على الحائط.'],
+};
+
+</script>
+<script>
+(() => {
+  'use strict';
+  document.documentElement.lang = 'ar'; document.documentElement.dir = 'rtl';
+  const KEY = 'sprachbahn.v1';
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const rnd = (n) => Math.floor(Math.random() * n);
+  const shuffle = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const pick = (a, n) => shuffle(a).slice(0, n);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const S = { level: 'a11', topic: null, topicBy: {}, xp: 0, prog: {}, sound: true, voice: true };
+  const load = () => { try { Object.assign(S, JSON.parse(localStorage.getItem(KEY)) || {}); } catch (e) { /* storage blocked */ } };
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ level: S.level, topic: S.topic, topicBy: S.topicBy, xp: S.xp, prog: S.prog, sound: S.sound, voice: S.voice })); } catch (e) { /* storage blocked */ } };
+
+  // ---------- data prep ----------
+  const parseWord = (s) => {
+    const [pic, de, ar, pr] = s.split('|');
+    const m = de.match(/^(der|die|das) (.+)$/);
+    const pl = /\(Pl\.\)/.test(de);
+    return { pic, de, ar, pr, art: m ? (pl ? 'pl' : m[1]) : null, noun: m ? m[2].replace(' (Pl.)', '') : null, plain: de.replace(' (Pl.)', '').replace(' …', '') };
+  };
+  for (const L of Object.values(DATA)) {
+    L.T = L.topics.map((t) => ({ ...t, W: t.words.map(parseWord) }));
+    const seen = new Set();
+    const all = L.T.flatMap((t) => t.W).filter((w) => !seen.has(w.de) && seen.add(w.de));
+    L.mix = { id: 'mix', no: '∞', de: 'Endstation', ar: 'محطّة المراجعة الشاملة', W: all, sent: L.T.flatMap((t) => t.sent || []),
+      conj: [...new Set(L.T.flatMap((t) => t.conj || []))], perf: 'all', special: L === DATA.a11 ? ['zahlen', 'uhr', 'konj'] : ['perfekt', 'praep', 'konj', 'komp'] };
+  }
+  const topicObj = () => { const L = DATA[S.level]; return S.topic === 'mix' ? L.mix : (L.T.find((t) => t.id === S.topic) || L.T[0]); };
+  const isSpellable = (w) => /^[A-Za-zÄÖÜäöüß]{3,12}$/.test(w.noun || w.plain);
+
+  const GM = {
+    quiz: { board: 'BLITZ-QUIZ', de: 'Blitz-Quiz', ar: 'اختر المعنى الصحيح بسرعة' },
+    memory: { board: 'MEMORY', de: 'Memory', ar: 'اقلب البطاقات وجد الأزواج' },
+    hoeren: { board: 'HÖR-QUIZ', de: 'Hör-Quiz', ar: 'استمع واختر الصورة' },
+    artikel: { board: 'DER DIE DAS', de: 'Der · Die · Das', ar: 'ضع الاسم في صندوق أداته' },
+    wortbau: { board: 'WORTSALAT', de: 'Wortsalat', ar: 'رتّب الحروف لتكوين الكلمة' },
+    satzbau: { board: 'SATZBAU', de: 'Satzbau', ar: 'رتّب الكلمات لتكوين الجملة' },
+    zahlen: { board: 'ZAHLEN-JAGD', de: 'Zahlen-Jagd', ar: 'اقرأ واسمع الأرقام من 0 إلى 100' },
+    uhr: { board: 'UHRZEIT', de: 'Wie spät ist es?', ar: 'اقرأ الساعة بالألمانية' },
+    konj: { board: 'VERB-TURBO', de: 'Verb-Turbo', ar: 'صرّف الفعل مع الضمير' },
+    perfekt: { board: 'PERFEKT-PROFI', de: 'Perfekt-Profi', ar: 'haben أم sein؟ واسم المفعول' },
+    praep: { board: 'PRÄPOSITIONEN', de: 'Wo ist der Ball?', ar: 'اختر حرف الجرّ المناسب' },
+    komp: { board: 'KOMPARATIV', de: 'Größer, besser!', ar: 'صيغة المقارنة: أكبر، أفضل …' },
+  };
+  const gamesFor = (t) => {
+    const g = [...(t.special || [])];
+    const nouns = t.W.filter((w) => w.art && w.art !== 'pl');
+    if (t.W.length >= 4) g.push('quiz');
+    if (t.W.length >= 6) g.push('memory');
+    if (t.W.length >= 4) g.push('hoeren');
+    if (nouns.length >= 6) g.push('artikel');
+    if (t.W.filter(isSpellable).length >= 4) g.push('wortbau');
+    if ((t.sent || []).length >= 3) g.push('satzbau');
+    return g;
+  };
+  const progKey = (t, g) => `${S.level}:${t.id}:${g}`;
+  const getStars = (t, g) => S.prog[progKey(t, g)] || 0;
+  const starsHTML = (n, max = 3) => `<span class="stars">${'★'.repeat(n)}<i>${'★'.repeat(max - n)}</i></span>`;
+
+  // ---------- pictures ----------
+  function flagSVG(code) {
+    const svg = (inner) => `<svg viewBox="0 0 60 40" aria-hidden="true">${inner}<rect width="60" height="40" fill="none" stroke="rgba(0,0,0,.18)" stroke-width="1.2"/></svg>`;
+    const hs = (a, b, c) => svg(`<rect width="60" height="13.4" fill="${a}"/><rect y="13.3" width="60" height="13.4" fill="${b}"/><rect y="26.6" width="60" height="13.4" fill="${c}"/>`);
+    const vs = (a, b, c) => svg(`<rect width="20.1" height="40" fill="${a}"/><rect x="20" width="20.1" height="40" fill="${b}"/><rect x="40" width="20" height="40" fill="${c}"/>`);
+    const star = (cx, cy, r, fill, rot = -90) => { const p = []; for (let i = 0; i < 10; i++) { const rr = i % 2 ? r * 0.4 : r; const a = ((rot + i * 36) * Math.PI) / 180; p.push(`${(cx + rr * Math.cos(a)).toFixed(2)},${(cy + rr * Math.sin(a)).toFixed(2)}`); } return `<polygon points="${p.join(' ')}" fill="${fill}"/>`; };
+    switch (code) {
+      case 'de': return hs('#000', '#dd0000', '#ffce00');
+      case 'at': return hs('#c8102e', '#fff', '#c8102e');
+      case 'ch': return svg('<rect width="60" height="40" fill="#da291c"/><rect x="26" y="9" width="8" height="22" fill="#fff"/><rect x="19" y="16" width="22" height="8" fill="#fff"/>');
+      case 'fr': return vs('#0055a4', '#fff', '#ef4135');
+      case 'it': return vs('#009246', '#fff', '#ce2b37');
+      case 'es': return svg('<rect width="60" height="40" fill="#aa151b"/><rect y="10" width="60" height="20" fill="#f1bf00"/>');
+      case 'eg': return svg('<rect width="60" height="13.4" fill="#ce1126"/><rect y="13.3" width="60" height="13.4" fill="#fff"/><rect y="26.6" width="60" height="13.4" fill="#000"/><circle cx="30" cy="20" r="4" fill="#c09300"/>');
+      case 'tn': return svg(`<rect width="60" height="40" fill="#e70013"/><circle cx="30" cy="20" r="10" fill="#fff"/><circle cx="31" cy="20" r="7.5" fill="#e70013"/><circle cx="33" cy="20" r="6" fill="#fff"/>${star(32.5, 20, 4.2, '#e70013', 180)}`);
+      case 'ma': return svg('<rect width="60" height="40" fill="#c1272d"/><polygon points="30,9 33.5,25.5 19.5,15.5 40.5,15.5 26.5,25.5" fill="none" stroke="#006233" stroke-width="2"/>');
+      case 'dz': return svg(`<rect width="30" height="40" fill="#006233"/><rect x="30" width="30" height="40" fill="#fff"/><circle cx="30" cy="20" r="9" fill="#d21034"/><circle cx="32.5" cy="20" r="7.3" fill="#fff"/>${star(35, 20, 4.2, '#d21034', 180)}`);
+      case 'tr': return svg(`<rect width="60" height="40" fill="#e30a17"/><circle cx="24" cy="20" r="10" fill="#fff"/><circle cx="26.5" cy="20" r="8" fill="#e30a17"/>${star(36, 20, 5, '#fff', 180)}`);
+      case 'jp': return svg('<rect width="60" height="40" fill="#fff"/><circle cx="30" cy="20" r="11" fill="#bc002d"/>');
+      default: return '';
+    }
+  }
+  function pvSVG(kind, cls = '') {
+    const box = '<rect x="27" y="28" width="28" height="22" rx="2" fill="#d6a36a" stroke="#92400e" stroke-width="1.5"/>';
+    const ball = (x, y, r = 7) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#ef4444" stroke="#991b1b" stroke-width="1"/><circle cx="${x - 2}" cy="${y - 2}" r="${r / 3}" fill="#fca5a5"/>`;
+    const floor = '<line x1="2" y1="50" x2="78" y2="50" stroke="#94a3b8" stroke-width="1.5"/>';
+    let inner = '';
+    switch (kind) {
+      case 'in': inner = `${ball(41, 41)}<rect x="27" y="28" width="28" height="22" rx="2" fill="#d6a36a" fill-opacity="0.45" stroke="#92400e" stroke-width="1.5"/>`; break;
+      case 'auf': inner = box + ball(41, 21); break;
+      case 'unter': inner = '<rect x="18" y="24" width="46" height="5" fill="#92400e"/><rect x="21" y="29" width="4" height="21" fill="#92400e"/><rect x="57" y="29" width="4" height="21" fill="#92400e"/>' + ball(41, 43); break;
+      case 'über': inner = `${box}${ball(41, 10)}<line x1="41" y1="18" x2="41" y2="26" stroke="#94a3b8" stroke-dasharray="2 2"/>`; break;
+      case 'neben': inner = box + ball(66, 43); break;
+      case 'vor': inner = box + ball(41, 46, 8.5); break;
+      case 'hinter': inner = ball(48, 25) + box; break;
+      case 'zwischen': inner = '<rect x="6" y="28" width="22" height="22" rx="2" fill="#d6a36a" stroke="#92400e" stroke-width="1.5"/><rect x="54" y="28" width="22" height="22" rx="2" fill="#d6a36a" stroke="#92400e" stroke-width="1.5"/>' + ball(41, 43); break;
+      case 'an': inner = '<rect x="0" y="0" width="80" height="50" fill="#e2e8f0"/><circle cx="40" cy="8" r="1.5" fill="#334155"/><path d="M40,8 L30,16 M40,8 L50,16" stroke="#334155"/><rect x="26" y="16" width="28" height="22" fill="#fff" stroke="#92400e" stroke-width="2.5"/><path d="M29,35 L36,25 L41,31 L45,27 L51,35 Z" fill="#22c55e"/>'; break;
+      default: break;
+    }
+    return `<svg class="${cls}" viewBox="0 0 80 54" aria-hidden="true">${kind === 'an' ? '' : floor}${inner}</svg>`;
+  }
+  const picHTML = (p) => {
+    if (p.startsWith('flag:')) return flagSVG(p.slice(5));
+    if (p.startsWith('sw:')) return `<span class="swatch" style="background:${p.slice(3)}"></span>`;
+    if (p.startsWith('txt:')) return `<span class="txtpic">${esc(p.slice(4))}</span>`;
+    if (p.startsWith('pv:')) return pvSVG(p.slice(3));
+    return `<span class="em">${p}</span>`;
+  };
+  const deHTML = (w) => {
+    if (w.art === 'pl') return `<b class="a-pl">die</b> ${esc(w.noun)} <small>(Pl.)</small>`;
+    if (w.art) return `<b class="a-${w.art}">${w.art}</b> ${esc(w.noun)}`;
+    return esc(w.de);
+  };
+  const revealWord = (w) => `<span class="de">${deHTML(w)}</span> = ${esc(w.ar)} · <span class="pr">${esc(w.pr)}</span>`;
+
+  // ---------- sound + voice ----------
+  let AC = null;
+  function beep(type) {
+    if (!S.sound) return;
+    try {
+      AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+      const t = AC.currentTime;
+      const seq = { ok: [[660, 0], [880, 0.08]], bad: [[200, 0], [160, 0.1]], win: [[523, 0], [659, 0.1], [784, 0.2], [1046, 0.32]], flip: [[520, 0]] }[type] || [];
+      for (const [f, d] of seq) {
+        const o = AC.createOscillator(); const g = AC.createGain();
+        o.type = type === 'bad' ? 'sawtooth' : 'triangle'; o.frequency.value = f;
+        g.gain.setValueAtTime(0.0001, t + d); g.gain.exponentialRampToValueAtTime(type === 'flip' ? 0.04 : 0.11, t + d + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + d + 0.18);
+        o.connect(g).connect(AC.destination); o.start(t + d); o.stop(t + d + 0.2);
+      }
+    } catch (e) { /* audio unavailable */ }
+  }
+  let deVoice = null;
+  const pickVoice = () => { try { const vs = speechSynthesis.getVoices(); deVoice = vs.find((v) => /^de[-_]DE/i.test(v.lang)) || vs.find((v) => /^de/i.test(v.lang)) || null; } catch (e) { deVoice = null; } };
+  if ('speechSynthesis' in window) { pickVoice(); try { speechSynthesis.addEventListener('voiceschanged', pickVoice); } catch (e) { /* old API */ } }
+  const ttsOK = () => !!deVoice;
+  function speak(text, slow) {
+    if (!('speechSynthesis' in window)) return;
+    try {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(String(text).replace(/\s*\(Pl\.\)/, '').replace('…', ''));
+      u.lang = 'de-DE'; if (deVoice) u.voice = deVoice; u.rate = slow ? 0.6 : 0.92;
+      speechSynthesis.speak(u);
+    } catch (e) { /* speech unavailable */ }
+  }
+
+  // ---------- header, lines, stations, board ----------
+  const RANKS = [[0, 'Fahrgast', 'راكب'], [150, 'Pendler', 'مسافر يومي'], [400, 'Schaffner', 'مراقب التذاكر'], [800, 'Lokführer', 'سائق القطار'], [1500, 'Zugchef', 'رئيس القطار'], [3000, 'Bahnhofsvorsteher', 'ناظر المحطّة']];
+  function updateXP() {
+    $('#xp').textContent = S.xp.toLocaleString('de-DE');
+    const r = [...RANKS].reverse().find((x) => S.xp >= x[0]);
+    const el = $('#rank'); el.textContent = r[1]; el.title = r[2];
+    $('#soundBtn').setAttribute('aria-pressed', S.sound); $('#voiceBtn').setAttribute('aria-pressed', S.voice);
+  }
+  function levelStars(lv) {
+    const L = DATA[lv]; let got = 0; let max = 0;
+    for (const t of [...L.T, L.mix]) for (const g of gamesFor(t)) { got += S.prog[`${lv}:${t.id}:${g}`] || 0; max += 3; }
+    return [got, max];
+  }
+  function renderLines() {
+    $('#lines').innerHTML = ['a11', 'a12'].map((lv) => {
+      const L = DATA[lv]; const [got, max] = levelStars(lv);
+      return `<button class="line-btn" data-level="${lv}" aria-pressed="${S.level === lv}" style="--lc:var(--line-${lv})">
+        <span class="line-badge">${L.name}</span><span><b>${lv === 'a11' ? 'الخط الأوّل: البداية' : 'الخط الثاني: نحو امتحان A1'}</b><span class="sub">${L.T.length} محطّة · ${L.T.reduce((a, t) => a + t.W.length, 0)} كلمة</span></span>
+        <span class="line-prog">★ ${got}/${max}</span></button>`;
+    }).join('');
+  }
+  function renderStations() {
+    const L = DATA[S.level];
+    $('#mapLine').textContent = `Linie ${L.name}`;
+    $('#stations').innerHTML = [...L.T, L.mix].map((t) => {
+      const gs = gamesFor(t); const got = gs.reduce((a, g) => a + getStars(t, g), 0); const max = gs.length * 3;
+      const s = max ? Math.min(3, Math.floor((got / max) * 3 + 0.0001)) : 0;
+      return `<button class="st ${t.id === 'mix' ? 'final' : ''}" data-topic="${t.id}" aria-current="${t.id === S.topic}"><span class="dot"></span>
+        <span class="st-card"><span class="st-no"><span class="h">H</span>${t.id === 'mix' ? 'ENDSTATION' : 'LEKTION ' + t.no}</span>
+        <span class="st-de" style="display:block">${esc(t.de)}</span><span class="st-ar" style="display:block">${esc(t.ar)}</span>
+        <span style="display:flex;justify-content:space-between;align-items:center;gap:6px">${starsHTML(s)}<small class="st-ar">${got}/${max}</small></span></span></button>`;
+    }).join('');
+  }
+  const hhmm = (d) => `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+  const FLAPCH = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ0123456789';
+  function flapIn(el, text, delay) {
+    const chars = [...text];
+    el.innerHTML = chars.map((c) => (c === ' ' ? '<span class="fl sp"></span>' : '<span class="fl"></span>')).join('');
+    const spans = [...el.children];
+    if (delay < 0 || reduced()) { spans.forEach((s, i) => { s.textContent = chars[i] === ' ' ? '' : chars[i]; }); return; }
+    let tick = 0;
+    setTimeout(() => {
+      const id = setInterval(() => {
+        tick += 1; let done = true;
+        spans.forEach((s, i) => { if (chars[i] === ' ') return; if (tick < 4 + i * 1.5) { s.textContent = FLAPCH[rnd(FLAPCH.length)]; done = false; } else s.textContent = chars[i]; });
+        if (done) clearInterval(id);
+      }, 45);
+    }, delay);
+  }
+  function renderBoard(flip) {
+    const t = topicObj(); const games = gamesFor(t); const now = new Date();
+    $('#board').innerHTML = `<div class="bd-h"><div class="bd-title">ABFAHRT<small>المغادرة · اختر قطاراً</small></div><div class="bd-clock" id="bdClock">${hhmm(now)}</div></div>
+      <div class="bd-st"><span class="lab">HALTESTELLE · المحطّة</span><b>${esc(t.de)}</b><span class="ar">${esc(t.ar)}</span></div>
+      <div class="rows">${games.map((g, i) => `<button class="row" data-game="${g}"><span class="tm">${hhmm(new Date(now.getTime() + (i + 1) * 7 * 60000))}</span>
+        <span class="nm"><span class="flaps" data-text="${GM[g].board}"></span><span class="ziel" style="display:block">${GM[g].ar}</span></span>
+        <span class="gl"><small>GLEIS</small><b>${i + 1}</b>${starsHTML(getStars(t, g))}</span></button>`).join('')}</div>
+      <div class="bd-foot"><span>${t.W.length} كلمة · ${(t.sent || []).length} جملة</span><span>${ttsOK() ? 'الصوت الألماني جاهز' : 'لا يوجد صوت ألماني في هذا الجهاز'}</span></div>`;
+    $$('.flaps', $('#board')).forEach((el, i) => flapIn(el, el.dataset.text, flip ? 120 + i * 110 : -1));
+  }
+  function refresh(flip) {
+    document.documentElement.style.setProperty('--line', `var(--line-${S.level})`);
+    renderLines(); renderStations(); renderBoard(flip); updateXP();
+  }
+
+  // ---------- game shell ----------
+  const ov = $('#overlay'); const stage = $('#stage'); const trackEl = $('#track'); const timerEl = $('#timer');
+  let G = null;
+  const clearTimers = () => { if (!G) return; G.timers.forEach(clearTimeout); G.timers = []; if (G.raf) cancelAnimationFrame(G.raf); G.raf = null; };
+  function openGame(key) {
+    const t = topicObj();
+    G = { key, t, score: 0, correct: 0, total: 0, streak: 0, best: 0, missed: [], timers: [], n: 1 };
+    $('#gTitle').textContent = GM[key].de; $('#gSub').textContent = `${GM[key].ar} · ${t.de}`;
+    ov.hidden = false; document.body.style.overflow = 'hidden'; timerEl.hidden = true;
+    ENGINES[key](t);
+    setTimeout(() => $('#gClose').focus({ preventScroll: true }), 50);
+  }
+  function closeGame() {
+    if (!G) return;
+    clearTimers(); try { speechSynthesis.cancel(); } catch (e) { /* none */ }
+    ov.hidden = true; document.body.style.overflow = ''; G = null; refresh(false);
+  }
+  function setupTrack(n) {
+    G.n = n;
+    trackEl.innerHTML = '<div class="rails"></div>' + Array.from({ length: n }, (_, i) => `<span class="stop" style="inset-inline-start:${((i + 1) / (n + 1)) * 100}%"></span>`).join('') + '<span class="train em">🚆</span>';
+    moveTrain(0); hud();
+  }
+  const moveTrain = (i) => { const tr = $('.train', trackEl); if (tr) tr.style.insetInlineStart = `${(i / (G.n + 1)) * 100}%`; };
+  const markStop = (i, ok) => { const s = $$('.stop', trackEl)[i]; if (s) s.classList.add(ok ? 'ok' : 'bad'); moveTrain(i + 1); };
+  function hud() {
+    $('#gScore').textContent = `${G.score} XP`;
+    const st = $('#gStreak'); st.textContent = `🔥 ×${G.streak}`; st.classList.remove('hot');
+    if (G.streak >= 3) { void st.offsetWidth; st.classList.add('hot'); }
+  }
+  const PRAISE = ['ممتاز! · Super!', 'رائع! · Toll!', 'أحسنت! · Sehr gut!', 'صحيح! · Richtig!', 'برافو! · Klasse!', 'ممتاز! · Prima!'];
+  const praise = () => PRAISE[rnd(PRAISE.length)];
+  function floatPts(p, el) {
+    if (!el) return;
+    const r = el.getBoundingClientRect(); const sr = stage.getBoundingClientRect();
+    const f = document.createElement('span'); f.className = 'float'; f.textContent = `+${p}`;
+    f.style.left = `${r.left - sr.left + r.width / 2 - 18}px`; f.style.top = `${r.top - sr.top + stage.scrollTop - 6}px`;
+    stage.appendChild(f); setTimeout(() => f.remove(), 1000);
+  }
+  function award(ok, bonus, el) {
+    G.total += 1;
+    if (ok) {
+      G.correct += 1; G.streak += 1; G.best = Math.max(G.best, G.streak);
+      const pts = Math.max(2, 10 + (bonus || 0) + Math.min(G.streak - 1, 5));
+      G.score += pts; floatPts(pts, el); beep('ok');
+    } else { G.streak = 0; beep('bad'); }
+    hud();
+  }
+  function startTimer(sec, onEnd) {
+    timerEl.hidden = false; const bar = $('i', timerEl); const t0 = performance.now(); G.tLeft = sec;
+    const step = () => {
+      if (!G) return;
+      const left = Math.max(0, sec - (performance.now() - t0) / 1000); G.tLeft = left; bar.style.transform = `scaleX(${left / sec})`;
+      if (left <= 0) { G.raf = null; onEnd(); return; }
+      G.raf = requestAnimationFrame(step);
+    };
+    if (G.raf) cancelAnimationFrame(G.raf);
+    G.raf = requestAnimationFrame(step);
+  }
+  const stopTimer = () => { if (G && G.raf) { cancelAnimationFrame(G.raf); G.raf = null; } };
+  const fbHTML = (ok, title, body, sayText, last) => `<div class="fb ${ok ? 'ok' : 'bad'}"><div class="msg"><b>${title}</b>${body || ''}</div>
+    ${sayText ? `<button class="say" data-say="${esc(sayText)}"><span class="em">🔊</span> استمع</button>` : ''}<button class="btn" id="nextBtn">${last ? 'النتيجة ←' : 'التالي ←'}</button></div>`;
+  function queueNext(fn, ms) { G.next = () => { if (!G) return; G.next = null; fn(); }; $('#nextBtn').onclick = () => G && G.next && G.next(); if (ms) G.timers.push(setTimeout(() => G && G.next && G.next(), ms)); }
+
+  // ---------- choice engine (quiz, hören, zahlen, uhr, konj, perfekt, praep, komp) ----------
+  function runChoice(rounds, opts = {}) {
+    setupTrack(rounds.length);
+    let i = 0;
+    const show = () => {
+      if (!G) return;
+      if (i >= rounds.length) { finish(); return; }
+      const R = rounds[i]; G.locked = false;
+      stage.innerHTML = `<div class="prompt">${R.prompt}</div><div class="opts">${R.options.map((o, k) => `<button class="opt" data-k="${k}"><span class="k">${k + 1}</span>${o.html}</button>`).join('')}</div><div id="fbSlot"></div>`;
+      if (R.onShow) R.onShow();
+      if (R.say && (S.voice || R.forceSay)) G.timers.push(setTimeout(() => speak(R.say), 300));
+      $$('.opt', stage).forEach((b) => { b.onclick = () => choose(+b.dataset.k); });
+      if (opts.timer) startTimer(opts.timer, () => choose(-1)); else timerEl.hidden = true;
+      G.onKey = (e) => { if (/^[1-4]$/.test(e.key) && !G.locked && +e.key <= R.options.length) choose(+e.key - 1); else if (e.key === 'Enter' && G.locked && G.next) G.next(); };
+    };
+    const choose = (k) => {
+      if (!G || G.locked) return;
+      G.locked = true; stopTimer();
+      const R = rounds[i]; const btns = $$('.opt', stage); const okK = R.options.findIndex((o) => o.ok); const ok = k === okK;
+      btns.forEach((b, j) => { b.disabled = true; if (j === okK) b.classList.add('ok'); else if (j === k) b.classList.add('bad'); });
+      award(ok, opts.timer && ok ? Math.round((G.tLeft / opts.timer) * 5) : 0, btns[okK]); markStop(i, ok);
+      if (!ok) G.missed.push(R.reveal);
+      if (R.sayReveal && S.voice && !R.say) speak(R.sayReveal);
+      $('#fbSlot').innerHTML = fbHTML(ok, ok ? praise() : (k < 0 ? '⏱️ انتهى الوقت! الجواب:' : '✗ ليس صحيحاً. الجواب:'), R.reveal, R.sayReveal || R.say, i + 1 >= rounds.length);
+      queueNext(() => { i += 1; show(); }, ok ? 1500 : 0);
+    };
+    show();
+  }
+
+  function quizRounds(words, n = 10) {
+    return pick(words, Math.min(n, words.length)).map((w) => {
+      const others = pick(words.filter((x) => x.ar !== w.ar && x.de !== w.de), 3);
+      const set = shuffle([w, ...others]);
+      if (rnd(2) === 0) {
+        return { prompt: `<div class="pic">${picHTML(w.pic)}</div><div class="big-de">${deHTML(w)}</div><div class="hint">ما معنى هذه الكلمة؟</div>`, say: w.plain,
+          options: set.map((x) => ({ html: `<span>${esc(x.ar)}</span>`, ok: x === w })), reveal: revealWord(w) };
+      }
+      return { prompt: `<div class="pic">${picHTML(w.pic)}</div><div class="big-ar">${esc(w.ar)}</div><div class="hint">كيف نقولها بالألمانية؟</div>`,
+        options: set.map((x) => ({ html: `<span class="de">${deHTML(x)}</span>`, ok: x === w })), reveal: revealWord(w), sayReveal: w.plain };
+    });
+  }
+  const noVoiceNote = (txt) => (ttsOK() ? '' : `<div class="notice">لا يوجد صوت ألماني في هذا الجهاز، فاقرأ الكلمة: <b class="de">${esc(txt)}</b></div>`);
+  function hoerRounds(words, n = 10) {
+    return pick(words, Math.min(n, words.length)).map((w) => {
+      const others = pick(words.filter((x) => x.pic !== w.pic && x.ar !== w.ar), 3);
+      return { prompt: `<button class="play" data-say="${esc(w.plain)}" aria-label="استمع مرة أخرى"><span class="em">🔊</span></button>
+        <div class="hint">استمع واختر الصورة · <button class="say" data-say="${esc(w.plain)}" data-slow="1"><span class="em">🐢</span> ببطء</button></div>${noVoiceNote(w.plain)}`,
+        say: w.plain, forceSay: true, options: shuffle([w, ...others]).map((x) => ({ html: `<span class="pic">${picHTML(x.pic)}</span><small>${esc(x.ar)}</small>`, ok: x === w })), reveal: revealWord(w) };
+    });
+  }
+  const ONES = ['null', 'eins', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun', 'zehn', 'elf', 'zwölf', 'dreizehn', 'vierzehn', 'fünfzehn', 'sechzehn', 'siebzehn', 'achtzehn', 'neunzehn'];
+  const TENS = ['', '', 'zwanzig', 'dreißig', 'vierzig', 'fünfzig', 'sechzig', 'siebzig', 'achtzig', 'neunzig'];
+  const numDe = (n) => { if (n < 20) return ONES[n]; if (n === 100) return 'hundert'; const t = Math.floor(n / 10); const u = n % 10; return u ? `${u === 1 ? 'ein' : ONES[u]}und${TENS[t]}` : TENS[t]; };
+  function numDistr(n) {
+    const out = []; const add = (x) => { if (x >= 0 && x <= 100 && x !== n && !out.includes(x)) out.push(x); };
+    if (n > 20 && n % 10) add((n % 10) * 10 + Math.floor(n / 10));
+    shuffle([n + 1, n - 1, n + 10, n - 10, n + 2, n + 11, n - 9]).forEach(add);
+    return out.slice(0, 3);
+  }
+  function zahlenRounds() {
+    const rounds = [];
+    for (let i = 0; i < 10; i++) {
+      const n = i < 3 ? rnd(13) : (i < 5 ? 13 + rnd(8) : 21 + rnd(80));
+      const set = shuffle([n, ...numDistr(n)]);
+      if (i % 2 === 0) {
+        rounds.push({ prompt: `<div class="big-de" style="font-family:var(--f-display);font-size:76px;line-height:1">${n}</div><div class="hint">اختر الكلمة الألمانية الصحيحة</div>`,
+          options: set.map((x) => ({ html: `<span class="de">${numDe(x)}</span>`, ok: x === n })), reveal: `<span class="de">${n} = ${numDe(n)}</span>`, sayReveal: numDe(n) });
+      } else {
+        rounds.push({ prompt: `<button class="play" data-say="${numDe(n)}" aria-label="استمع"><span class="em">🔊</span></button><div class="hint">استمع: أيّ رقم هذا؟</div>${noVoiceNote(numDe(n))}`,
+          say: numDe(n), forceSay: true, options: set.map((x) => ({ html: `<span class="de" style="font-family:var(--f-display);font-size:30px;font-weight:800">${x}</span>`, ok: x === n })),
+          reveal: `<span class="de">${numDe(n)} = ${n}</span>` });
+      }
+    }
+    return rounds;
+  }
+  const HW = ['', 'eins', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun', 'zehn', 'elf', 'zwölf'];
+  const norm12 = (x) => ((x - 1 + 120) % 12) + 1;
+  function timeDe(h, m) {
+    const H = norm12(h); const N = norm12(h + 1);
+    switch (m) {
+      case 0: return `${H === 1 ? 'ein' : HW[H]} Uhr`;
+      case 5: return `fünf nach ${HW[H]}`; case 10: return `zehn nach ${HW[H]}`; case 15: return `Viertel nach ${HW[H]}`; case 20: return `zwanzig nach ${HW[H]}`;
+      case 25: return `fünf vor halb ${HW[N]}`; case 30: return `halb ${HW[N]}`; case 35: return `fünf nach halb ${HW[N]}`; case 40: return `zwanzig vor ${HW[N]}`;
+      case 45: return `Viertel vor ${HW[N]}`; case 50: return `zehn vor ${HW[N]}`; default: return `fünf vor ${HW[N]}`;
+    }
+  }
+  function clockSVG() {
+    let marks = '';
+    for (let i = 0; i < 60; i++) { const a = (i * 6 * Math.PI) / 180; const r1 = i % 5 ? 84 : 78; marks += `<line x1="${100 + r1 * Math.sin(a)}" y1="${100 - r1 * Math.cos(a)}" x2="${100 + 88 * Math.sin(a)}" y2="${100 - 88 * Math.cos(a)}" stroke="var(--ink)" stroke-width="${i % 5 ? 1.5 : 3.5}"/>`; }
+    for (let i = 1; i <= 12; i++) { const a = (i * 30 * Math.PI) / 180; marks += `<text x="${100 + 64 * Math.sin(a)}" y="${100 - 64 * Math.cos(a) + 6}" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="800" font-size="18" fill="var(--ink)">${i}</text>`; }
+    return `<svg class="clock-svg" viewBox="0 0 200 200" aria-label="ساعة"><circle cx="100" cy="100" r="94" fill="var(--surface)" stroke="var(--ink)" stroke-width="6"/>${marks}
+      <line class="hand hh" x1="100" y1="106" x2="100" y2="54" stroke="var(--ink)" stroke-width="9" stroke-linecap="round"/>
+      <line class="hand mh" x1="100" y1="110" x2="100" y2="24" stroke="var(--rot)" stroke-width="4.5" stroke-linecap="round"/><circle cx="100" cy="100" r="7" fill="var(--ink)"/><circle cx="100" cy="100" r="3" fill="var(--rot)"/></svg>`;
+  }
+  function uhrRounds() {
+    const MIN = [30, 15, 45, 0, 30, 5, 50, 20, 40, 25, 35, 55, 10, 45, 15];
+    const used = new Set(); const rounds = []; let angH = 0; let angM = 0;
+    while (rounds.length < 8) {
+      const h = 1 + rnd(12); const m = MIN[rounds.length % MIN.length]; const key = `${h}:${m}`;
+      if (used.has(key)) continue; used.add(key);
+      const correct = timeDe(h, m); const cands = [];
+      [timeDe(h - 1, m), timeDe(h + 1, m), timeDe(h, (m + 15) % 60), timeDe(h, (m + 30) % 60), timeDe(h, (m + 45) % 60)].forEach((x) => { if (x !== correct && !cands.includes(x)) cands.push(x); });
+      const ds = m === 30 ? [timeDe(h - 1, 30), ...shuffle(cands.filter((x) => x !== timeDe(h - 1, 30)))].slice(0, 3) : shuffle(cands).slice(0, 3);
+      const tH = (h % 12) * 30 + m * 0.5; const tM = m * 6;
+      const fromH = angH; const fromM = angM;
+      let toH = tH; while (toH <= fromH) toH += 360; let toM = tM; while (toM <= fromM) toM += 360;
+      angH = toH; angM = toM;
+      const digits = `${h}:${String(m).padStart(2, '0')}`; const off = `${h}:${String(m).padStart(2, '0')} / ${h + 12}:${String(m).padStart(2, '0')}`;
+      rounds.push({ prompt: `${clockSVG()}<div class="hint">كم الساعة؟ (بالطريقة اليومية)</div>`,
+        onShow: () => { const hh = $('.hh', stage); const mh = $('.mh', stage); hh.style.transition = 'none'; mh.style.transition = 'none'; hh.style.transform = `rotate(${fromH}deg)`; mh.style.transform = `rotate(${fromM}deg)`;
+          requestAnimationFrame(() => requestAnimationFrame(() => { hh.style.transition = ''; mh.style.transition = ''; hh.style.transform = `rotate(${toH}deg)`; mh.style.transform = `rotate(${toM}deg)`; })); },
+        options: shuffle([correct, ...ds]).map((x) => ({ html: `<span class="de">${x}</span>`, ok: x === correct })),
+        reveal: `<span class="de">${digits} → Es ist ${correct}.</span> <small>(${off})</small>${m === 30 ? ' · ⚠️ <b class="de">halb</b> = نصف ساعة <b>قبل</b> الساعة التالية' : ''}`, sayReveal: `Es ist ${correct}.` });
+    }
+    return rounds;
+  }
+  const PRON = [['ich', 'أنا'], ['du', 'أنتَ / أنتِ'], ['er / sie / es', 'هو / هي'], ['wir', 'نحن'], ['ihr', 'أنتم'], ['sie / Sie', 'هم / حضرتك']];
+  function konjRounds(verbs, n = 10) {
+    const rounds = [];
+    for (let i = 0; i < n; i++) {
+      const v = verbs[rnd(verbs.length)]; const [ar, forms] = CONJ[v]; const F = forms.split(' '); const p = rnd(6);
+      const pron = p === 2 ? ['er', 'sie', 'es'][rnd(3)] : (p === 5 ? ['sie', 'Sie'][rnd(2)] : PRON[p][0]);
+      const pronAr = { er: 'هو', sie: p === 2 ? 'هي' : 'هم', es: 'هو (محايد)', Sie: 'حضرتك' }[pron] || PRON[p][1];
+      const correct = F[p]; const others = shuffle([...new Set(F)].filter((f) => f !== correct)).slice(0, 3);
+      const name = v === 'war' ? 'sein · Präteritum' : (v === 'hatte' ? 'haben · Präteritum' : v);
+      rounds.push({ prompt: `<div class="big-de">${pron} + ${name}</div><div class="hint">${pronAr} · ${ar}</div>`,
+        options: shuffle([correct, ...others]).map((x) => ({ html: `<span class="de">${pron} ${x}</span>`, ok: x === correct })),
+        reveal: `<span class="de">${pron} ${correct}</span><div class="conj-t">${PRON.map((pp, j) => `<span>${pp[0]}</span><b>${F[j]}</b><small>${pp[1]}</small>`).join('')}</div>`, sayReveal: `${pron} ${correct}` });
+    }
+    return rounds;
+  }
+  function perfRounds(mode, n = 10) {
+    const pool = PERF.filter((p) => (mode === 'haben' ? p[2] === 'hat' : true));
+    return pick(pool, Math.min(n, pool.length)).map(([inf, ar, aux, part]) => {
+      const other = aux === 'hat' ? 'ist' : 'hat';
+      const wrong = part.endsWith('en') ? `${part.slice(0, -2)}t` : (part.endsWith('et') ? `${part.slice(0, -2)}en` : `${part.slice(0, -1)}en`);
+      const correct = `${aux} ${part}`;
+      const opts = [...new Set([correct, `${other} ${part}`, `${aux} ${wrong}`, `${other} ${wrong}`])];
+      return { prompt: `<div class="big-de">er ___ <span style="color:var(--muted)">(${inf})</span></div><div class="hint">${ar} — صيغة الماضي Perfekt</div>`,
+        options: shuffle(opts).map((o) => ({ html: `<span class="de">er ${o}</span>`, ok: o === correct })),
+        reveal: `<span class="de">${inf} → er ${correct}</span> · ${aux === 'ist' ? 'مع <b class="de">sein</b>: حركة أو تغيّر حالة' : 'مع <b class="de">haben</b>'}`, sayReveal: `er ${correct}` };
+    });
+  }
+  function praepRounds() {
+    const keys = Object.keys(PRAEP);
+    return pick(keys, 8).map((k) => {
+      const [s, ans, ar] = PRAEP[k]; const final = k === 'in' ? 'Der Ball ist im Karton.' : s.replace('___', ans);
+      return { prompt: `<div>${pvSVG(k, 'pv-svg')}</div><div class="blank-s">${esc(s).replace('___', '<u>?</u>')}</div>`,
+        options: shuffle([k, ...pick(keys.filter((x) => x !== k), 3)]).map((x) => ({ html: `<span class="de" style="font-size:22px">${x}</span>`, ok: x === k })),
+        reveal: `<span class="de">${final}</span> · ${ar}`, sayReveal: final };
+    });
+  }
+  const SUP = { gut: 'besten', gern: 'liebsten', viel: 'meisten', groß: 'größten', alt: 'ältesten', kurz: 'kürzesten', teuer: 'teuersten', jung: 'jüngsten', lang: 'längsten', billig: 'billigsten', schön: 'schönsten', klein: 'kleinsten' };
+  function kompRounds() {
+    return pick(KOMP, 10).map(([b, k, ar]) => {
+      const um = b.replace(/[aou]/, (c) => ({ a: 'ä', o: 'ö', u: 'ü' }[c]));
+      const cands = [...new Set([`${b}er`, `${um}er`, `${b}ste`, ...pick(KOMP.filter((x) => x[1] !== k).map((x) => x[1]), 2)])].filter((x) => x !== k && !/eü/.test(x));
+      return { prompt: `<div class="big-de">${b} → ?</div><div class="hint">${ar} → أكثر … (Komparativ)</div>`,
+        options: shuffle([k, ...shuffle(cands).slice(0, 3)]).map((o) => ({ html: `<span class="de">${o}</span>`, ok: o === k })),
+        reveal: `<span class="de">${b} → ${k} → am ${SUP[b]}</span>`, sayReveal: `${b}, ${k}, am ${SUP[b]}` };
+    });
+  }
+
+  // ---------- memory ----------
+  function runMemory(t) {
+    const ws = pick(t.W, 6); setupTrack(6);
+    const cards = shuffle(ws.flatMap((w, i) => [{ i, side: 'de', w }, { i, side: 'ar', w }]));
+    let open = []; let pairs = 0; let moves = 0; let lock = false;
+    stage.innerHTML = `<div class="mem-info"><span>اقلب بطاقتين: الكلمة الألمانية ومعناها</span><span id="memMoves">المحاولات: 0</span></div>
+      <div class="mem">${cards.map((c, k) => `<button class="card" data-k="${k}" aria-label="بطاقة ${k + 1}"><span class="face back"></span><span class="face front">${c.side === 'de' ? `<span class="de">${deHTML(c.w)}</span>` : `<span class="pic">${picHTML(c.w.pic)}</span><span>${esc(c.w.ar)}</span>`}</span></button>`).join('')}</div>`;
+    G.onKey = () => {};
+    $$('.card', stage).forEach((b) => {
+      b.onclick = () => {
+        if (lock || b.classList.contains('open') || b.classList.contains('done')) return;
+        const c = cards[+b.dataset.k]; b.classList.add('open'); beep('flip');
+        if (c.side === 'de' && S.voice) speak(c.w.plain);
+        open.push([b, c]);
+        if (open.length < 2) return;
+        moves += 1; $('#memMoves').textContent = `المحاولات: ${moves}`;
+        const [[b1, c1], [b2, c2]] = open; open = [];
+        if (c1.i === c2.i) {
+          pairs += 1; G.timers.push(setTimeout(() => { b1.classList.add('done'); b2.classList.add('done'); }, 250));
+          G.correct += 1; G.total += 1; G.streak += 1; G.best = Math.max(G.best, G.streak);
+          const pts = 12 + Math.min(G.streak, 5); G.score += pts; floatPts(pts, b2); beep('ok'); markStop(pairs - 1, true); hud();
+          if (pairs === 6) G.timers.push(setTimeout(() => finish({ stars: moves <= 9 ? 3 : moves <= 13 ? 2 : 1, acc: 6 / moves, label: `${moves} محاولة` }), 900));
+        } else {
+          lock = true; G.streak = 0; hud(); beep('bad');
+          G.missed.push(`<span class="de">${deHTML(c1.w)}</span> = ${esc(c1.w.ar)}`);
+          G.timers.push(setTimeout(() => { b1.classList.add('miss'); b2.classList.add('miss'); }, 350));
+          G.timers.push(setTimeout(() => { b1.classList.remove('open', 'miss'); b2.classList.remove('open', 'miss'); lock = false; }, 1100));
+        }
+      };
+    });
+  }
+
+  // ---------- der / die / das ----------
+  function runArtikel(t) {
+    let nouns = t.W.filter((w) => w.art && w.art !== 'pl');
+    if (nouns.length < 8) nouns = DATA[S.level].mix.W.filter((w) => w.art && w.art !== 'pl');
+    const list = pick(nouns, 12); setupTrack(list.length);
+    let i = 0; let lives = 3;
+    const show = () => {
+      if (!G) return;
+      if (i >= list.length || lives <= 0) { finish(); return; }
+      const w = list[i]; G.locked = false;
+      stage.innerHTML = `<div class="sorter"><div class="mem-info"><span>في أيّ صندوق تضع هذه الكلمة؟ (المفاتيح 1 · 2 · 3)</span><span class="lives">${'♥'.repeat(lives)}<span style="opacity:.22">${'♥'.repeat(3 - lives)}</span></span></div>
+        <div class="noun" id="noun"><span class="pic">${picHTML(w.pic)}</span><span class="w">${esc(w.noun)}</span><span>${esc(w.ar)}</span></div>
+        <div class="bins">${['der', 'die', 'das'].map((a, k) => `<button class="bin ${a}" data-a="${a}">${a}<small>${['مذكّر', 'مؤنّث', 'محايد'][k]}</small></button>`).join('')}</div><div id="fbSlot"></div></div>`;
+      $$('.bin', stage).forEach((b) => { b.onclick = () => choose(b.dataset.a); });
+      G.onKey = (e) => { const a = { 1: 'der', 2: 'die', 3: 'das' }[e.key]; if (a && !G.locked) choose(a); else if (e.key === 'Enter' && G.next) G.next(); };
+    };
+    const choose = (a) => {
+      if (!G || G.locked) return;
+      G.locked = true; const w = list[i]; const ok = a === w.art;
+      const good = $(`.bin.${w.art}`, stage); const noun = $('#noun');
+      const nr = noun.getBoundingClientRect(); const br = good.getBoundingClientRect();
+      noun.style.transform = `translate(${br.left + br.width / 2 - (nr.left + nr.width / 2)}px, ${br.top - (nr.top + nr.height / 2)}px) scale(.2)`; noun.style.opacity = '0';
+      good.classList.add('glow'); if (!ok) { $(`.bin.${a}`, stage).classList.add('wrong'); lives -= 1; G.missed.push(revealWord(w)); }
+      award(ok, 0, good); markStop(i, ok); if (S.voice) speak(w.plain);
+      $('#fbSlot').innerHTML = fbHTML(ok, ok ? praise() : '✗ الأداة الصحيحة:', `<span class="de">${deHTML(w)}</span> · <span class="pr">${esc(w.pr)}</span>`, w.plain, i + 1 >= list.length || lives <= 0);
+      queueNext(() => { i += 1; show(); }, ok ? 1200 : 0);
+    };
+    show();
+  }
+
+  // ---------- Wortsalat ----------
+  function runWortbau(t) {
+    const list = pick(t.W.filter(isSpellable), 6); setupTrack(list.length);
+    let i = 0;
+    const show = () => {
+      if (!G) return;
+      if (i >= list.length) { finish(); return; }
+      const w = list[i]; const word = w.noun || w.plain; const letters = [...word];
+      let tiles = shuffle(letters.map((c) => c)); let guard = 0;
+      while (tiles.join('') === word && guard++ < 8) tiles = shuffle(tiles);
+      const filled = Array(letters.length).fill(-1); let hints = 0; let tries = 0; let lockedN = 0; let done = false;
+      stage.innerHTML = `<div class="prompt"><div class="pic">${picHTML(w.pic)}</div><div class="big-ar">${esc(w.ar)}</div>
+        <div class="hint">${w.art && w.art !== 'pl' ? `الأداة: <b class="a-${w.art} de">${w.art}</b> · ` : ''}${letters.length} حروف · اكتب بلوحة المفاتيح أو اضغط على الحروف</div></div>
+        <div class="slots" id="slots">${letters.map((_, k) => `<span class="slot" data-k="${k}"></span>`).join('')}</div>
+        <div class="tiles" style="margin-top:18px">${tiles.map((c, k) => `<button class="tile" data-t="${k}">${esc(c)}</button>`).join('')}</div>
+        <div class="tools"><button class="btn ghost" id="hintBtn">💡 تلميح (−3)</button><button class="btn ghost" id="clrBtn">⌫ مسح</button><button class="btn ghost" id="skipBtn">أظهر الحلّ</button></div><div id="fbSlot"></div>`;
+      const slots = $$('.slot', stage); const tileEls = $$('.tile', stage);
+      const paint = () => {
+        slots.forEach((s, k) => { const ti = filled[k]; s.textContent = ti >= 0 ? tiles[ti] : ''; s.classList.toggle('filled', ti >= 0); s.classList.toggle('hint', k < lockedN); });
+        tileEls.forEach((b, k) => b.classList.toggle('used', filled.includes(k)));
+      };
+      const complete = (ok, skipped) => {
+        done = true; G.locked = true;
+        if (ok) { $('#slots').classList.add('ok'); award(true, -(hints * 3 + tries * 2), $('#slots')); markStop(i, true); }
+        else { filled.fill(-1); slots.forEach((s, k) => { s.textContent = letters[k]; s.classList.add('filled'); }); award(false); markStop(i, false); G.missed.push(revealWord(w)); }
+        if (S.voice) speak(w.plain);
+        $('#fbSlot').innerHTML = fbHTML(ok, ok ? praise() : (skipped ? 'الحلّ:' : '✗'), revealWord(w), w.plain, i + 1 >= list.length);
+        queueNext(() => { i += 1; show(); }, ok ? 1500 : 0);
+      };
+      const check = () => {
+        if (filled.includes(-1)) return;
+        const guess = filled.map((ti) => tiles[ti]).join('');
+        if (guess === word) { complete(true); return; }
+        tries += 1; beep('bad'); const sl = $('#slots'); sl.classList.remove('bad'); void sl.offsetWidth; sl.classList.add('bad');
+        G.timers.push(setTimeout(() => { for (let k = lockedN; k < filled.length; k++) filled[k] = -1; paint(); }, 650));
+      };
+      const place = (ti) => { if (done || filled.includes(ti)) return; const k = filled.indexOf(-1); if (k < 0) return; filled[k] = ti; beep('flip'); paint(); check(); };
+      tileEls.forEach((b) => { b.onclick = () => place(+b.dataset.t); });
+      slots.forEach((s) => { s.onclick = () => { const k = +s.dataset.k; if (done || k < lockedN || filled[k] < 0) return; filled[k] = -1; paint(); }; });
+      $('#clrBtn').onclick = () => { if (done) return; for (let k = lockedN; k < filled.length; k++) filled[k] = -1; paint(); };
+      $('#hintBtn').onclick = () => {
+        if (done || lockedN >= letters.length - 1) return;
+        hints += 1; lockedN += 1; filled.fill(-1);
+        for (let k = 0; k < lockedN; k++) { const ti = tiles.findIndex((c, j) => c === letters[k] && !filled.includes(j)); filled[k] = ti; }
+        paint();
+      };
+      $('#skipBtn').onclick = () => { if (!done) complete(false, true); };
+      G.onKey = (e) => {
+        if (e.key === 'Enter' && G.next) { G.next(); return; }
+        if (done) return;
+        if (e.key === 'Backspace') { for (let k = filled.length - 1; k >= lockedN; k--) if (filled[k] >= 0) { filled[k] = -1; break; } paint(); return; }
+        if (e.key.length === 1) { const ti = tiles.findIndex((c, j) => c.toLowerCase() === e.key.toLowerCase() && !filled.includes(j)); if (ti >= 0) place(ti); }
+      };
+      G.locked = false;
+    };
+    show();
+  }
+
+  // ---------- Satzbau ----------
+  function runSatzbau(t) {
+    const list = pick(t.sent, Math.min(5, t.sent.length)); setupTrack(list.length);
+    let i = 0;
+    const show = () => {
+      if (!G) return;
+      if (i >= list.length) { finish(); return; }
+      const [de, ar] = list[i]; const tokens = de.split(' ');
+      let order = shuffle(tokens.map((_, k) => k)); let guard = 0;
+      while (order.every((v, k) => v === k) && guard++ < 8) order = shuffle(order);
+      let ans = []; let hints = 0; let tries = 0; let done = false;
+      stage.innerHTML = `<div class="prompt"><div class="big-ar">${esc(ar)}</div><div class="hint">رتّب الكلمات الألمانية بالترتيب الصحيح · تذكّر: الفعل في المكان الثاني!</div></div>
+        <div class="answer" id="ans" data-empty="اضغط على الكلمات بالترتيب…"></div><div class="chips" id="chips">${order.map((k) => `<button class="chip" data-k="${k}">${esc(tokens[k])}</button>`).join('')}</div>
+        <div class="tools"><button class="btn gelb" id="chkBtn">تحقّق ✓</button><button class="btn ghost" id="hintBtn">💡 تلميح (−3)</button><button class="btn ghost" id="clrBtn">⌫ مسح</button></div><div id="fbSlot"></div>`;
+      const ansEl = $('#ans');
+      const paint = () => {
+        ansEl.innerHTML = ans.map((k, j) => `<button class="chip" data-j="${j}">${esc(tokens[k])}</button>`).join('');
+        $$('#chips .chip', stage).forEach((c) => c.classList.toggle('used', ans.includes(+c.dataset.k)));
+        $$('.chip', ansEl).forEach((c) => { c.onclick = () => { if (done) return; ans.splice(+c.dataset.j, 1); paint(); }; });
+      };
+      $$('#chips .chip', stage).forEach((c) => { c.onclick = () => { if (done || ans.includes(+c.dataset.k)) return; ans.push(+c.dataset.k); beep('flip'); paint(); }; });
+      const finishRound = (ok) => {
+        done = true; ansEl.classList.add(ok ? 'ok' : 'bad');
+        award(ok, -(hints * 3 + tries * 2), ansEl); markStop(i, ok); if (!ok) G.missed.push(`<span class="de">${esc(de)}</span> = ${esc(ar)}`);
+        if (S.voice || !ok) speak(de);
+        $('#fbSlot').innerHTML = fbHTML(ok, ok ? praise() : '✗ الترتيب الصحيح:', `<span class="de">${esc(de)}</span>`, de, i + 1 >= list.length);
+        queueNext(() => { i += 1; show(); }, ok ? 1800 : 0);
+      };
+      $('#chkBtn').onclick = () => {
+        if (done || ans.length < tokens.length) { ansEl.classList.remove('bad'); void ansEl.offsetWidth; ansEl.classList.add('bad'); return; }
+        const guess = ans.map((k) => tokens[k]).join(' ');
+        if (guess === de) { finishRound(true); return; }
+        tries += 1; beep('bad'); ansEl.classList.remove('bad'); void ansEl.offsetWidth; ansEl.classList.add('bad');
+        if (tries >= 3) { ans = tokens.map((_, k) => k); paint(); finishRound(false); }
+      };
+      $('#hintBtn').onclick = () => {
+        if (done) return;
+        let good = 0; while (good < ans.length && tokens[ans[good]] === tokens[good]) good += 1;
+        ans = ans.slice(0, good); if (good < tokens.length) { const k = tokens.findIndex((tk, j) => tk === tokens[good] && !ans.includes(j)); ans.push(k); hints += 1; }
+        paint();
+      };
+      $('#clrBtn').onclick = () => { if (done) return; ans = []; paint(); };
+      G.onKey = (e) => { if (e.key === 'Enter') { if (G.next) G.next(); else $('#chkBtn').click(); } else if (e.key === 'Backspace' && !done) { ans.pop(); paint(); } };
+      G.locked = false;
+    };
+    show();
+  }
+
+  const ENGINES = {
+    quiz: (t) => runChoice(quizRounds(t.W), { timer: 12 }),
+    hoeren: (t) => runChoice(hoerRounds(t.W)),
+    zahlen: () => runChoice(zahlenRounds(), { timer: 15 }),
+    uhr: () => runChoice(uhrRounds()),
+    konj: (t) => runChoice(konjRounds(t.conj && t.conj.length ? t.conj : ['sein', 'haben']), { timer: 12 }),
+    perfekt: (t) => runChoice(perfRounds(t.perf || 'all')),
+    praep: () => runChoice(praepRounds()),
+    komp: () => runChoice(kompRounds()),
+    memory: runMemory, artikel: runArtikel, wortbau: runWortbau, satzbau: runSatzbau,
+  };
+
+  // ---------- results ----------
+  const MSG = [[3, 'مستوى ممتاز! أنت جاهز للمحطّة التالية 🚄'], [2, 'جيّد جداً! جرّب مرة أخرى للحصول على 3 نجوم'], [1, 'بداية جيّدة — راجع الكلمات وأعد المحاولة'], [0, 'لا بأس! كل قطار يبدأ ببطء. حاول مرة أخرى']];
+  function finish(extra = {}) {
+    if (!G) return;
+    stopTimer(); clearTimers(); timerEl.hidden = true; G.onKey = null; moveTrain(G.n + 1);
+    const acc = extra.acc !== undefined ? extra.acc : (G.total ? G.correct / G.total : 0);
+    const stars = extra.stars !== undefined ? extra.stars : (acc >= 0.9 ? 3 : acc >= 0.7 ? 2 : acc >= 0.4 ? 1 : 0);
+    const k = progKey(G.t, G.key); const prev = S.prog[k] || 0; if (stars > prev) S.prog[k] = stars;
+    S.xp += G.score; save(); updateXP();
+    stage.innerHTML = `<div class="result"><div class="r-ticket"><div class="r-top">${esc(GM[G.key].de)}<small>${esc(G.t.de)} · ${esc(G.t.ar)}</small></div>
+      <div class="r-stars">${[0, 1, 2].map((s) => (s < stars ? '<span>★</span>' : '<span><i>★</i></span>')).join('')}</div>
+      <div class="r-grid"><div><b>${G.correct}/${G.key === 'memory' ? 6 : G.total}</b><small>${extra.label || 'إجابة صحيحة'}</small></div><div><b>+${G.score}</b><small>XP</small></div><div><b>${G.best}</b><small>أطول سلسلة</small></div></div></div>
+      <div class="r-msg">${MSG.find((m) => stars >= m[0])[1]}</div>
+      ${stars > prev && prev > 0 ? '<div class="notice" style="display:inline-block">رقم قياسي جديد لهذه اللعبة!</div>' : ''}
+      ${G.missed.length ? `<ul class="review"><b>راجع هذه الكلمات:</b>${G.missed.slice(0, 6).map((m) => `<li>${m}</li>`).join('')}</ul>` : ''}
+      <div class="r-btns"><button class="btn gelb" id="againBtn">↻ العب مرة أخرى</button><button class="btn ghost" id="backBtn">رجوع إلى المحطّة</button></div></div>`;
+    $('#againBtn').onclick = () => { const key = G.key; closeGame(); openGame(key); };
+    $('#backBtn').onclick = closeGame;
+    beep('win'); if (stars >= 2) confetti();
+  }
+
+  // ---------- confetti ----------
+  function confetti() {
+    if (reduced()) return;
+    const cv = $('#confetti'); cv.hidden = false; const ctx = cv.getContext('2d');
+    const W = (cv.width = innerWidth); const H = (cv.height = innerHeight);
+    const css = getComputedStyle(document.documentElement);
+    const cols = ['--gelb', '--blau', '--rot', '--gruen', '--lila'].map((c) => css.getPropertyValue(c).trim() || '#f0ab00');
+    const P = Array.from({ length: 140 }, () => ({ x: W / 2 + (Math.random() - 0.5) * 200, y: H * 0.35, vx: (Math.random() - 0.5) * 14, vy: -Math.random() * 13 - 4, r: Math.random() * 6 + 4, c: cols[rnd(cols.length)], a: Math.random() * 6, va: (Math.random() - 0.5) * 0.4 }));
+    const t0 = performance.now();
+    const step = (now) => {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of P) { p.vy += 0.38; p.vx *= 0.99; p.x += p.vx; p.y += p.vy; p.a += p.va; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.a); ctx.fillStyle = p.c; ctx.fillRect(-p.r / 2, -p.r / 4, p.r, p.r / 2); ctx.restore(); }
+      if (now - t0 < 2600) requestAnimationFrame(step); else { ctx.clearRect(0, 0, W, H); cv.hidden = true; }
+    };
+    requestAnimationFrame(step);
+  }
+
+  // ---------- events ----------
+  function init() {
+    if (!DATA[S.level]) S.level = 'a11';
+    if (!S.topic || (S.topic !== 'mix' && !DATA[S.level].T.some((t) => t.id === S.topic))) S.topic = DATA[S.level].T[0].id;
+    refresh(true);
+    document.addEventListener('click', (e) => {
+      const lb = e.target.closest('.line-btn');
+      if (lb) { S.topicBy[S.level] = S.topic; S.level = lb.dataset.level; S.topic = S.topicBy[S.level] || DATA[S.level].T[0].id; save(); refresh(true); return; }
+      const st = e.target.closest('.st');
+      if (st) {
+        S.topic = st.dataset.topic; save(); renderStations(); renderBoard(true);
+        if (matchMedia('(max-width: 900px)').matches) $('#board').scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
+        return;
+      }
+      const row = e.target.closest('.row');
+      if (row) { openGame(row.dataset.game); return; }
+      const say = e.target.closest('[data-say]');
+      if (say) { speak(say.dataset.say, !!say.dataset.slow); return; }
+    });
+    $('#gClose').onclick = closeGame;
+    ov.addEventListener('click', (e) => { if (e.target === ov) closeGame(); });
+    $('#soundBtn').onclick = () => { S.sound = !S.sound; save(); updateXP(); if (S.sound) beep('ok'); };
+    $('#voiceBtn').onclick = () => { S.voice = !S.voice; save(); updateXP(); if (S.voice) speak('Hallo! Willkommen in der Sprachbahn.'); };
+    document.addEventListener('keydown', (e) => {
+      if (ov.hidden) return;
+      if (e.key === 'Escape') { closeGame(); return; }
+      if (G && G.onKey && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        if (e.key === 'Backspace' || e.key === 'Enter') e.preventDefault();
+        G.onKey(e);
+      }
+    });
+    setInterval(() => { const c = $('#bdClock'); if (c) c.textContent = hhmm(new Date()); }, 15000);
+    if ('speechSynthesis' in window) setTimeout(() => { pickVoice(); renderBoard(false); }, 1200);
+  }
+
+  try { window.claude?.hot?.snapshot?.(() => ({ level: S.level, topic: S.topic })); } catch (e) { /* no hot reload */ }
+  const start = (data) => { load(); if (data && data.level && DATA[data.level]) { S.level = data.level; S.topic = data.topic; } init(); };
+  if (window.claude?.hot?.ready) window.claude.hot.ready(start); else start(window.claude?.hot?.data ?? {});
+})();
+
+</script>
+
+</body>
+</html>

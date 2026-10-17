@@ -712,6 +712,76 @@ details.more[open] summary::after { transform: rotate(180deg); }
 .stamps { grid-template-columns: repeat(10, 1fr); } .stamp { width: 28px; height: 28px; font-size: 14px; }
 @media (max-width: 700px) { .stamps { grid-template-columns: repeat(7, 1fr); } }
 
+/* ---------- v8: microphone states, settings, welcome, grammar trainer ---------- */
+#homeV > .wrap, #lessonsV > .wrap, #lessonV > .wrap, .stage > * { zoom: var(--zoom, 1); }
+.no-pr .pr { display: none !important; }
+.mic { min-height: 48px; justify-content: center; }
+.mic[data-st="wait"] { background: var(--muted); box-shadow: 0 5px 0 color-mix(in srgb, var(--muted) 55%, #000); animation: none; }
+.mic[data-st="hear"] { background: var(--ok); box-shadow: 0 5px 0 color-mix(in srgb, var(--ok) 55%, #000); }
+.mic[data-st="think"] { background: var(--blau); box-shadow: 0 5px 0 color-mix(in srgb, var(--blau) 55%, #000); animation: none; }
+.mic.recm { background: var(--lila); box-shadow: 0 5px 0 color-mix(in srgb, var(--lila) 55%, #000); }
+.mic.recm.rec { animation: recpulse2 1s ease-in-out infinite; }
+@keyframes recpulse2 { 50% { box-shadow: 0 0 0 10px color-mix(in srgb, var(--lila) 25%, transparent), 0 5px 0 color-mix(in srgb, var(--lila) 55%, #000); } }
+.mic-live { background: var(--surface); border: 1.5px dashed var(--ok); border-radius: 12px; padding: 6px 14px; font-size: 16px; max-width: 580px; animation: pop .25s ease; }
+.mic-err { text-align: start; color: var(--ink); background: var(--why-bg); border: 1px solid var(--why-line); margin: 0; line-height: 1.7; }
+.mic-err a, .mt-checks a { color: var(--blau); font-weight: 700; word-break: break-all; }
+.mic-err .tools { justify-content: flex-start; margin: 6px 0 0; }
+.rec-fb small { color: var(--muted); }
+.mtest { display: grid; justify-items: center; gap: 12px; max-width: 560px; margin: 14px auto 0; text-align: center; }
+.mt-checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; width: 100%; text-align: start; }
+.mt-checks li { display: flex; gap: 8px; align-items: flex-start; background: var(--surface-2); border-radius: 10px; padding: 8px 12px; font-size: 14px; }
+.mt-checks li.n { background: var(--bad-bg); } .mt-checks li.w { background: var(--why-bg); }
+.mt-say { font-size: 16px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.mt-say .de { font-weight: 800; font-size: 19px; }
+.meter { width: min(100%, 320px); height: 12px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--rule); overflow: hidden; }
+.meter i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--ok), var(--gelb)); transition: width .08s linear; }
+.big-mic { font-size: 18px; padding: 15px 30px; }
+.mt-help { width: 100%; text-align: start; } .mt-help ul { margin: 0; padding-inline-start: 18px; display: grid; gap: 8px; font-size: 14px; }
+.mt-inline { margin-top: 10px; padding: 12px; border-radius: 14px; border: 1.5px solid var(--rule); background: var(--surface); width: 100%; max-width: 580px; display: grid; gap: 10px; }
+.mt-inline .mtest { margin: 0; }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--rule); }
+.seg button { border: 0; background: none; border-radius: 9px; padding: 8px 12px; font-weight: 700; font-size: 14px; color: var(--muted); min-height: 38px; }
+.seg button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(0, 0, 0, .15); outline: 2px solid var(--line); }
+.seg-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; margin-top: 18px; }
+.prefs { display: grid; gap: 10px; max-width: 680px; margin: 0 auto; }
+.pref { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; padding: 14px 16px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--rule); }
+.pref-t { display: grid; gap: 2px; min-width: 200px; flex: 1; } .pref-t b { font-size: 16px; } .pref-t small { font-size: 13px; color: var(--muted); }
+.wl { max-width: 640px; margin: 0 auto; display: grid; gap: 14px; text-align: center; }
+.wl h2 { margin: 4px 0 0; font-size: 24px; } .wl .hint { margin: -6px 0 0; }
+.wl .un-l { text-align: start; }
+.wl-dots { display: flex; gap: 8px; justify-content: center; } .wl-dots i { width: 34px; height: 6px; border-radius: 3px; background: var(--rule); } .wl-dots i.on { background: var(--gelb); } .wl-dots i.done { background: var(--ok); }
+.wl-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.wl-steps > div { display: grid; gap: 4px; justify-items: center; padding: 14px 10px; border-radius: 16px; background: var(--surface-2); }
+.wl-steps .em { font-size: 40px; line-height: 1.1; } .wl-steps b { font-size: 16px; } .wl-steps small { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.wl-tip { color: var(--ink); background: var(--why-bg); border: 1px solid var(--why-line); text-align: start; font-size: 14.5px; margin: 0; }
+.wl-lv { display: grid; gap: 10px; }
+.wl-lv button { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px; align-items: center; text-align: start; padding: 14px 16px; border-radius: 16px; border: 2px solid var(--rule); background: var(--surface); transition: border-color .2s, transform .15s; }
+.wl-lv button:hover, .wl-lv button[aria-pressed="true"] { border-color: var(--lc); transform: translateY(-1px); }
+.wl-lv .em { font-size: 34px; } .wl-lv .wl-tx { display: grid; } .wl-lv b { font-size: 17px; } .wl-lv small { font-size: 13px; color: var(--muted); }
+.wl-lv .bd { font-family: var(--f-display); font-weight: 800; font-size: 18px; padding: 2px 10px; border-radius: 9px; background: var(--lc); color: #fff; direction: ltr; }
+.wl-lv [data-wlv="a11"] .bd { color: var(--gelb-ink); }
+.micban { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; width: 100%; text-align: start; margin-top: 12px; padding: 12px 16px; border-radius: 16px; border: 1.5px dashed color-mix(in srgb, var(--rot) 55%, var(--rule)); background: color-mix(in srgb, var(--rot) 7%, var(--surface)); }
+.micban .em { font-size: 28px; } .micban b { display: block; font-size: 15.5px; } .micban small { font-size: 13px; color: var(--muted); } .micban .go { font-weight: 800; color: var(--rot); white-space: nowrap; }
+/* levels: one compact row of chips instead of six big cards */
+.lvl { display: flex; gap: 8px; overflow-x: auto; padding: 4px 4px 10px; margin: 0 -4px 6px; scroll-snap-type: x proximity; scrollbar-width: thin; }
+.lvl-b { flex: 1 0 96px; display: grid; justify-items: center; gap: 5px; padding: 10px 8px 9px; scroll-snap-align: start; grid-template-columns: none; text-align: center; }
+.lvl-b .bd { grid-row: auto; font-size: 20px; padding: 2px 12px; }
+.lvl-b .sub { font-size: 12px; white-space: nowrap; } .lvl-b .lbar { width: 100%; }
+.lv-h h2 { color: var(--ink); }
+.gh-lv { margin-top: 14px; } .gh-lv .lvl-b { flex-basis: 76px; padding: 8px 6px; }
+.gh { display: grid; gap: 10px; }
+.gh-r { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 12px; align-items: center; padding: 12px 14px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--rule); }
+.gh-r.final { border-color: var(--gelb); }
+.gh-r .ic { font-size: 28px; grid-row: span 2; align-self: start; } .gh-t { display: grid; } .gh-t b { font-size: 15.5px; } .gh-t small { font-size: 12.5px; color: var(--muted); }
+.gh-b { display: flex; flex-wrap: wrap; gap: 6px; } .gh-b .say { font-size: 13.5px; padding: 6px 12px; } .gh-b .say.done { border-color: var(--ok); } .gh-b .st { color: var(--gelb); letter-spacing: -2px; }
+.tf-w { background: var(--why-bg); border-bottom: 3px solid var(--why-line); padding: 0 6px; border-radius: 6px; }
+.tf-o { font-size: 20px; font-weight: 800; }
+@media (max-width: 600px) {
+  .wl-steps { grid-template-columns: 1fr; } .wl-steps > div { grid-template-columns: auto minmax(0, 1fr); justify-items: start; text-align: start; column-gap: 12px; } .wl-steps .em { grid-row: span 2; font-size: 34px; }
+  .pref .seg { width: 100%; } .pref .seg button { flex: 1; }
+  .lvl-b { flex-basis: 74px; } .lvl-b .bd { font-size: 18px; padding: 2px 8px; }
+}
+
 @media (max-width: 600px) {
   .lena-hero { grid-template-columns: 76px minmax(0, 1fr); } .lena-av { width: 76px; }
   .lena-cta { grid-template-columns: 60px minmax(0, 1fr); } .lena-cta .btn { grid-column: 1 / -1; }
@@ -745,8 +815,7 @@ details.more[open] summary::after { transform: rotate(180deg); }
   <div class="spacer"></div>
   <div class="chipstat" title="الأيام المتتالية"><span class="em">🔥</span><b id="streakTop">0</b></div>
   <div class="chipstat xp-chip" title="نقاطك"><span class="em">⭐</span><b id="xp">0</b></div>
-  <button class="icon-btn" id="soundBtn" aria-pressed="true" title="المؤثرات الصوتية"><span class="em">🔔</span></button>
-  <button class="icon-btn" id="voiceBtn" aria-pressed="true" title="النطق الألماني التلقائي"><span class="em">🗣️</span></button>
+  <button class="icon-btn" id="setBtn" title="الإعدادات: الميكروفون، سرعة الصوت، حجم الخط" aria-label="الإعدادات"><span class="em">⚙️</span></button>
 </div></div>
 
 <div id="homeV"><div class="wrap home2">
@@ -755,11 +824,11 @@ details.more[open] summary::after { transform: rotate(180deg); }
 </div></div>
 
 <div id="lessonsV" hidden><div class="wrap home-main">
-  <div class="sec-h"><h1 class="h1s">📚 الدروس</h1><span>اختر المستوى ثم ادرس بالترتيب — درس كل يوم أو يومين.</span></div>
+  <div class="sec-h"><h1 class="h1s">📚 الدروس</h1><span>اختر مستواك، ثم ادرس الدروس بالترتيب — درس كل يوم أو يومين.</span></div>
   <div class="lvl" id="lvl"></div>
-  <div class="acad" id="acad"></div>
-  <div class="sec-h"><h2 id="planTitle">خطة الدراسة من A1 إلى B1</h2><span id="lvlInfo"></span></div>
+  <div class="sec-h lv-h"><h2 id="planTitle"></h2><span id="lvlInfo"></span></div>
   <div class="lessons" id="lessons"></div>
+  <div class="acad" id="acad" style="margin-top:22px"></div>
 </div></div>
 
 <div id="lessonV" hidden><div class="wrap lesson-v" id="lessonIn"></div></div>
@@ -775,7 +844,7 @@ details.more[open] summary::after { transform: rotate(180deg); }
   </div>
 </div></div>
 
-<footer><div class="wrap">Sprachbahn Akademie A1 · مبني على كتابي «Deutsch A1.1» و«Deutsch A1.2». لينا وسكّان المدينة شخصيات افتراضية: أصواتهم هي الأصوات الألمانية الموجودة في جهازك، والتعرّف على نطقك يعمل في Chrome و Edge (يُرسل المتصفّح الصوت إلى خدمة التعرّف الخاصة به). المدينة ثلاثية الأبعاد مبنية بمكتبة three.js. تقدّمك يُحفظ في هذا المتصفّح فقط. الشهادة تحفيزية وليست شهادة رسمية.</div></footer>
+<footer><div class="wrap">Sprachbahn Akademie A1 · مبني على كتابي «Deutsch A1.1» و«Deutsch A1.2». لينا وسكّان المدينة شخصيات افتراضية: أصواتهم هي الأصوات الألمانية الموجودة في جهازك. التعرّف على نطقك يعمل في Chrome و Edge و Safari (يُرسل المتصفّح الصوت إلى خدمة التعرّف الخاصة به)، وفي المتصفّحات الأخرى تسجّل صوتك وتقارنه بصوت لينا. المدينة ثلاثية الأبعاد مبنية بمكتبة three.js. تقدّمك يُحفظ في هذا المتصفّح فقط. الشهادة تحفيزية وليست شهادة رسمية.</div></footer>
 
 <div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="gTitle">
   <div class="win">
@@ -3387,6 +3456,600 @@ const LEVEL_OF = {};
   }
 }
 
+// A1.1 grammar drills: [sentence with ___, correct, [wrong, wrong], why (Arabic), translation]
+Object.assign(GQ, {
+  hallo: [
+    ['Wie ___ du?', 'heißt', ['heiße', 'heißen'], 'مع [[du]] ينتهي الفعل بـ [[-st]]، وبعد ß نضيف [[t]] فقط: [[du heißt]].', 'ما اسمك؟'],
+    ['Ich ___ Lena.', 'heiße', ['heißt', 'heißen'], 'مع [[ich]] ينتهي الفعل بـ [[-e]]: [[ich heiße]].', 'اسمي لينا.'],
+    ['Wie heißen ___? – Ich heiße Müller.', 'Sie', ['du', 'ihr'], 'الفعل [[heißen]] (بدون -st) وفي موقف رسمي: [[Sie]] بحرف كبير.', 'ما اسم حضرتك؟ – اسمي مولر.'],
+    ['Woher ___ Sie?', 'kommen', ['kommst', 'kommt'], 'مع [[Sie]] (حضرتك) الفعل مثل المصدر: [[Sie kommen]].', 'من أين حضرتك؟'],
+    ['Ich ___ aus Syrien.', 'komme', ['kommst', 'kommen'], '[[ich]] + الفعل بـ [[-e]]: [[ich komme]].', 'أنا من سوريا.'],
+    ['Wie geht es ___? – Gut, danke!', 'dir', ['du', 'dich'], 'بعد [[Wie geht es]] نقول [[dir]] (لصديق) أو [[Ihnen]] (رسمي) — وليس [[du]].', 'كيف حالك؟ – بخير، شكراً!'],
+    ['Wie geht es ___, Frau Schmidt?', 'Ihnen', ['dir', 'Sie'], 'مع [[Frau]] و [[Herr]] نتكلّم رسمياً: [[Wie geht es Ihnen?]]', 'كيف حال حضرتك يا سيدة شميت؟'],
+    ['___ bist du? – Ich bin Ali.', 'Wer', ['Wie', 'Wo'], '[[Wer]] = مَن؟ للسؤال عن الشخص. [[Wie]] = كيف، [[Wo]] = أين.', 'مَن أنت؟ – أنا علي.'],
+    ['Ich ___ Student.', 'bin', ['ist', 'bist'], 'الفعل [[sein]]: [[ich bin]] · [[du bist]] · [[er ist]].', 'أنا طالب.'],
+    ['Du ___ sehr nett.', 'bist', ['bin', 'ist'], '[[du bist]] = أنت (تكون).', 'أنت لطيف جداً.'],
+    ['Was ___ Ihre Telefonnummer?', 'ist', ['bist', 'sind'], 'الفاعل [[Ihre Telefonnummer]] مفرد (هي) → [[ist]].', 'ما رقم هاتف حضرتك؟'],
+    ['Kommst ___ aus Marokko?', 'du', ['Sie', 'ich'], 'الفعل [[kommst]] بـ [[-st]] يأتي مع [[du]] فقط.', 'هل أنت من المغرب؟'],
+  ],
+  zahlen: [
+    ['Ich bin ___ Jahre alt. (25)', 'fünfundzwanzig', ['zwanzigfünf', 'fünfzwanzig'], 'الآحاد أوّلاً ثم [[und]] ثم العشرات، كلمة واحدة: [[fünf‑und‑zwanzig]].', 'عمري 25 سنة.'],
+    ['Das kostet ___ Euro. (16)', 'sechzehn', ['sechszehn', 'sechzig'], '[[16 = sechzehn]] بدون s! و [[sechzig]] = 60.', 'هذا يكلّف 16 يورو.'],
+    ['Mein Sohn ist ___ Jahre alt. (17)', 'siebzehn', ['siebenzehn', 'siebzig'], '[[17 = siebzehn]] بدون en، و [[siebzig]] = 70.', 'ابني عمره 17 سنة.'],
+    ['Die Nummer ist ___. (30)', 'dreißig', ['dreizig', 'dreizehn'], '[[30]] شاذّ: [[dreißig]] بـ ß وليس ‑zig. و [[dreizehn]] = 13.', 'الرقم 30.'],
+    ['Ich habe ___ Kinder. (2)', 'zwei', ['zwai', 'zehn'], '[[2 = zwei]] تُكتب ei وتُنطق «تسفاي». و [[zehn]] = 10.', 'عندي طفلان.'],
+    ['Wie alt ___ du? – Ich bin 20.', 'bist', ['bin', 'ist'], 'السؤال عن العمر: [[Wie alt bist du?]] أو رسمياً [[Wie alt sind Sie?]]', 'كم عمرك؟ – عمري 20.'],
+    ['Wie alt ___ Sie?', 'sind', ['ist', 'bist'], 'رسمياً: [[Sie sind]].', 'كم عمر حضرتك؟'],
+    ['Das Fahrrad kostet ___ Euro. (100)', 'hundert', ['zehnzig', 'tausend'], '[[100 = (ein)hundert]]، و [[1000 = tausend]].', 'الدرّاجة تكلّف 100 يورو.'],
+    ['___ kostet das? – Drei Euro.', 'Wie viel', ['Wie alt', 'Wo'], 'للسؤال عن السعر: [[Wie viel kostet das?]]', 'بكم هذا؟ – ثلاثة يوروهات.'],
+    ['Meine Hausnummer ist ___. (21)', 'einundzwanzig', ['einsundzwanzig', 'zwanzigeins'], 'الرقم [[1]] في الأرقام المركّبة يصبح [[ein]]: [[einundzwanzig]].', 'رقم بيتي 21.'],
+    ['Ich wohne in Zimmer ___. (12)', 'zwölf', ['zweizehn', 'zwanzig'], '[[11 = elf]] و [[12 = zwölf]] لهما اسمان خاصّان.', 'أسكن في الغرفة 12.'],
+    ['Wir sind ___ Personen. (3)', 'drei', ['dreißig', 'dreizehn'], '[[3 = drei]] (دراي)، [[13 = dreizehn]]، [[30 = dreißig]].', 'نحن 3 أشخاص.'],
+  ],
+  verben: [
+    ['Wir ___ Deutsch.', 'lernen', ['lernt', 'lernst'], '[[wir]] + الفعل بـ [[-en]] (مثل المصدر): [[wir lernen]].', 'نحن نتعلّم الألمانية.'],
+    ['Er ___ in Berlin.', 'wohnt', ['wohnen', 'wohnst'], '[[er / sie / es]] + الفعل بـ [[-t]]: [[er wohnt]].', 'هو يسكن في برلين.'],
+    ['Ihr ___ sehr gut.', 'spielt', ['spielen', 'spielst'], '[[ihr]] (أنتم) + [[-t]]: [[ihr spielt]].', 'أنتم تلعبون جيداً جداً.'],
+    ['Du ___ Kaffee.', 'trinkst', ['trinkt', 'trinken'], '[[du]] + [[-st]]: [[du trinkst]].', 'أنت تشرب القهوة.'],
+    ['Maria ___ Arabisch.', 'spricht', ['sprecht', 'sprechen'], 'الفعل [[sprechen]] يتغيّر: [[e → i]] مع du و er/sie: [[sie spricht]].', 'ماريا تتكلّم العربية.'],
+    ['Was ___ du heute?', 'machst', ['macht', 'machen'], '[[du machst]].', 'ماذا تفعل اليوم؟'],
+    ['Ich ___ Musik.', 'höre', ['hört', 'hören'], '[[ich]] + [[-e]]: [[ich höre]].', 'أنا أسمع الموسيقى.'],
+    ['Er ___ ein Buch.', 'liest', ['lest', 'lesen'], 'الفعل [[lesen]]: [[e → ie]] مع du و er: [[er liest]].', 'هو يقرأ كتاباً.'],
+    ['Du ___ in Hamburg.', 'arbeitest', ['arbeitst', 'arbeiten'], 'إذا انتهى جذع الفعل بـ [[t]] نضيف [[e]]: [[du arbeitest]].', 'أنت تعمل في هامبورغ.'],
+    ['Anna und Tom ___ Pizza.', 'essen', ['isst', 'esst'], '[[Anna und Tom]] = [[sie]] (هم) → [[-en]]: [[sie essen]].', 'آنا وتوم يأكلان البيتزا.'],
+    ['___ ihr auch Englisch?', 'Sprecht', ['Spricht', 'Sprechen'], '[[ihr sprecht]] (بدون تغيير الحرف مع ihr). وفي السؤال الفعل أوّلاً.', 'هل تتكلّمون الإنجليزية أيضاً؟'],
+    ['Heute ___ ich Fußball.', 'spiele', ['spielt', 'spielen'], 'الفعل في المكان الثاني، ثم الفاعل: [[Heute spiele ich …]]', 'اليوم ألعب كرة القدم.'],
+  ],
+  laender: [
+    ['Ich komme ___ Tunesien.', 'aus', ['in', 'nach'], '[[aus]] = من (الأصل): [[Ich komme aus …]]', 'أنا من تونس.'],
+    ['Ich wohne ___ Deutschland.', 'in', ['aus', 'nach'], '[[in]] = في (مكان السكن).', 'أسكن في ألمانيا.'],
+    ['Ich komme aus ___ Türkei.', 'der', ['die', 'den'], 'بعض البلدان لها أداة: [[die Türkei]] → [[aus der Türkei]].', 'أنا من تركيا.'],
+    ['Sie kommt aus ___ USA.', 'den', ['der', 'die'], '[[die USA]] جمع → [[aus den USA]].', 'هي من الولايات المتّحدة.'],
+    ['In Ägypten ___ man Arabisch.', 'spricht', ['sprecht', 'sprichst'], '[[man]] مثل [[er]]: [[man spricht]].', 'في مصر يتكلّم الناس العربية.'],
+    ['Woher ___ ihr?', 'kommt', ['kommen', 'kommst'], '[[ihr kommt]].', 'من أين أنتم؟'],
+    ['Heute ___ wir nach Wien.', 'fahren', ['fahrt', 'fährt'], 'الفعل في المكان الثاني، و [[wir fahren]].', 'اليوم نسافر إلى فيينا.'],
+    ['In Deutschland ___ ich Deutsch.', 'lerne', ['lernst', 'lernt'], 'بعد [[In Deutschland]] يأتي الفعل ثانياً ثم [[ich]].', 'في ألمانيا أتعلّم الألمانية.'],
+    ['___ sprechen Sie? – Arabisch und Französisch.', 'Welche Sprachen', ['Woher', 'Wo'], 'للسؤال عن اللغات: [[Welche Sprachen sprechen Sie?]]', 'ما اللغات التي تتكلّمها حضرتك؟ – العربية والفرنسية.'],
+    ['Ich bin ___. (من سوريا)', 'Syrer', ['Syrien', 'Syrisch'], 'الجنسية للرجل: [[Syrer]]، للمرأة: [[Syrerin]]. البلد: [[Syrien]]، اللغة: [[Arabisch]].', 'أنا سوري.'],
+    ['Amira kommt aus Marokko. Sie ist ___.', 'Marokkanerin', ['Marokkaner', 'Marokko'], 'للمرأة نضيف [[-in]]: [[Marokkaner → Marokkanerin]].', 'أميرة من المغرب. هي مغربية.'],
+    ['Wo ___ Sie? – In Köln.', 'wohnen', ['wohnt', 'wohnst'], '[[Sie wohnen]].', 'أين تسكن حضرتك؟ – في كولونيا.'],
+  ],
+  berufe: [
+    ['Sie ist ___ von Beruf.', 'Ärztin', ['Arzt', 'Ärzte'], 'للمرأة: [[Arzt → Ärztin]].', 'هي طبيبة.'],
+    ['Mein Bruder ist ___.', 'Koch', ['Köchin', 'Kochin'], 'للرجل: [[Koch]]، للمرأة: [[Köchin]].', 'أخي طبّاخ.'],
+    ['Ich arbeite ___ Krankenpfleger.', 'als', ['wie', 'für'], '[[arbeiten als]] + المهنة (بدون أداة).', 'أعمل ممرّضاً.'],
+    ['Was ___ du von Beruf?', 'bist', ['ist', 'bin'], 'السؤال عن المهنة: [[Was bist du von Beruf?]] أو [[Was sind Sie von Beruf?]]', 'ما مهنتك؟'],
+    ['Lisa ist ___.', 'Verkäuferin', ['Verkäufer', 'Verkaufin'], '[[Verkäufer]] + [[in]] = [[Verkäuferin]].', 'ليزا بائعة.'],
+    ['Wo ___ Sie? – Bei Siemens.', 'arbeiten', ['arbeitet', 'arbeitest'], '[[Sie arbeiten]].', 'أين تعمل حضرتك؟ – في سيمنز.'],
+    ['Er arbeitet ___ einem Krankenhaus.', 'in', ['zu', 'auf'], 'مكان العمل: [[in einem Krankenhaus]] أو [[bei einer Firma]].', 'يعمل في مستشفى.'],
+    ['Meine Schwester ist ___.', 'Friseurin', ['Friseur', 'Friseure'], 'للمرأة: [[Friseur → Friseurin]].', 'أختي مصفّفة شعر.'],
+    ['Ich ___ Taxifahrer.', 'bin', ['habe', 'arbeite'], 'المهنة مع [[sein]] بدون أداة: [[Ich bin Taxifahrer.]] (أو [[Ich arbeite als …]]).', 'أنا سائق تاكسي.'],
+    ['Er ist Student. Er ___ Informatik.', 'studiert', ['studieren', 'studierst'], '[[er studiert]].', 'هو طالب. يدرس المعلوماتية.'],
+    ['Frau Weber ist ___.', 'Polizistin', ['Polizist', 'Polizisten'], 'للمرأة: [[Polizist → Polizistin]].', 'السيدة فيبر شرطية.'],
+    ['Arbeitest du ___ Kellner?', 'als', ['wie', 'bei'], '[[als]] + المهنة.', 'هل تعمل نادلاً؟'],
+  ],
+  familie: [
+    ['Das ist ___ Mutter.', 'meine', ['mein', 'meinen'], '[[die Mutter]] مؤنّث → [[meine Mutter]].', 'هذه أمّي.'],
+    ['Das ist ___ Vater.', 'mein', ['meine', 'meiner'], '[[der Vater]] مذكّر → [[mein Vater]].', 'هذا أبي.'],
+    ['Wie heißt ___ Bruder?', 'dein', ['deine', 'du'], '[[der Bruder]] → [[dein Bruder]] (أخوك).', 'ما اسم أخيك؟'],
+    ['Ali hat eine Schwester. ___ Schwester heißt Mona.', 'Seine', ['Ihre', 'Sein'], 'لـ [[Ali]] (هو): [[sein / seine]]. و [[die Schwester]] → [[seine]].', 'لعلي أخت. أخته اسمها منى.'],
+    ['Sara hat einen Sohn. ___ Sohn ist fünf.', 'Ihr', ['Sein', 'Ihre'], 'لـ [[Sara]] (هي): [[ihr / ihre]]. و [[der Sohn]] → [[ihr Sohn]].', 'لسارة ابن. ابنها عمره خمس سنوات.'],
+    ['Ich ___ zwei Brüder.', 'habe', ['hat', 'habst'], 'الفعل [[haben]]: [[ich habe]] · [[du hast]] · [[er hat]].', 'لي أخوان.'],
+    ['___ du Geschwister?', 'Hast', ['Hat', 'Habt'], '[[du hast]].', 'هل لك إخوة؟'],
+    ['Das sind ___ Eltern.', 'unsere', ['unser', 'unseren'], 'الجمع [[die Eltern]] → [[unsere]].', 'هذان والدانا.'],
+    ['Meine Tochter ___ ein Kind.', 'hat', ['habe', 'hast'], '[[sie hat]].', 'ابنتي لها طفل.'],
+    ['Wie alt sind ___ Kinder, Herr Kaya?', 'Ihre', ['deine', 'ihre'], 'رسمياً: [[Ihr / Ihre]] بحرف كبير = لحضرتك.', 'كم عمر أولاد حضرتك يا سيد كايا؟'],
+    ['Wir haben ___ Kinder.', 'keine', ['kein', 'nicht'], 'نفي الجمع: [[keine Kinder]].', 'ليس لنا أولاد.'],
+    ['Ist das ___ Frau, Karim?', 'deine', ['dein', 'deinen'], '[[die Frau]] → [[deine Frau]].', 'هل هذه زوجتك يا كريم؟'],
+  ],
+  dinge: [
+    ['Das ist ___ Tisch.', 'ein', ['eine', 'einen'], '[[der Tisch]] → نكرة: [[ein Tisch]].', 'هذه طاولة.'],
+    ['Das ist ___ Lampe.', 'eine', ['ein', 'einer'], '[[die Lampe]] → [[eine Lampe]].', 'هذا مصباح.'],
+    ['Ist das ein Handy? – Nein, das ist ___ Handy.', 'kein', ['keine', 'nicht'], '[[das Handy]] → النفي: [[kein Handy]].', 'هل هذا هاتف؟ – لا، هذا ليس هاتفاً.'],
+    ['Das ist keine Uhr. Das ist ___ Kamera.', 'eine', ['ein', 'einen'], '[[die Kamera]] → [[eine]].', 'هذه ليست ساعة. هذه كاميرا.'],
+    ['Das ist ein Stuhl. ___ Stuhl ist neu.', 'Der', ['Die', 'Das'], 'أوّل مرّة: [[ein]]، وبعدها نعرفه: [[der Stuhl]].', 'هذا كرسي. الكرسي جديد.'],
+    ['Das ist ein Buch. ___ Buch ist interessant.', 'Das', ['Der', 'Die'], '[[das Buch]].', 'هذا كتاب. الكتاب ممتع.'],
+    ['Die Brille ist schön. ___ ist teuer.', 'Sie', ['Er', 'Es'], '[[die Brille]] → الضمير [[sie]].', 'النظّارة جميلة. هي غالية.'],
+    ['Ist das ___ Kuli? – Ja, das ist ein Kuli.', 'ein', ['eine', 'einen'], '[[der Kuli]] → [[ein Kuli]].', 'هل هذا قلم؟ – نعم، هذا قلم.'],
+    ['Wie heißt das ___ Deutsch?', 'auf', ['in', 'mit'], '[[auf Deutsch]] = بالألمانية.', 'ما اسم هذا بالألمانية؟'],
+    ['Hier ist ___ Computer. Er ist kaputt.', 'ein', ['eine', 'einen'], '[[der Computer]] → [[ein]]، والضمير [[er]].', 'هنا حاسوب. هو معطّل.'],
+    ['Haben Sie ___ Stift? – Ja, hier bitte.', 'einen', ['ein', 'eine'], 'بعد [[haben]] (مفعول به) المذكّر: [[ein → einen]].', 'هل عند حضرتك قلم؟ – نعم، تفضّل.'],
+    ['Das ist kein Tisch. Das ist ___ Schrank.', 'ein', ['eine', 'einen'], '[[der Schrank]] → [[ein Schrank]].', 'هذه ليست طاولة. هذه خزانة.'],
+  ],
+  farben: [
+    ['Die Banane ist ___.', 'gelb', ['gelbe', 'gelber'], 'بعد [[sein]] الصفة بدون نهاية: [[Die Banane ist gelb.]]', 'الموزة صفراء.'],
+    ['Das Auto ist ___.', 'rot', ['rote', 'rotes'], 'بعد [[ist]] لا نضيف نهاية للصفة.', 'السيّارة حمراء.'],
+    ['___ Farbe hat dein Handy?', 'Welche', ['Wie', 'Was'], 'السؤال عن اللون: [[Welche Farbe hat …?]]', 'ما لون هاتفك؟'],
+    ['Die Jacke ist nicht schwarz, sie ist ___.', 'blau', ['blaue', 'blauen'], 'الصفة بعد [[ist]] بدون نهاية.', 'السترة ليست سوداء، هي زرقاء.'],
+    ['Wie ___ das Wetter? – Schön!', 'ist', ['sind', 'bist'], '[[das Wetter]] مفرد → [[ist]].', 'كيف الطقس؟ – جميل!'],
+    ['Die Schuhe ___ braun.', 'sind', ['ist', 'bist'], '[[die Schuhe]] جمع → [[sind]].', 'الأحذية بنّية.'],
+    ['Die Tasche ist nicht neu, sie ist ___.', 'alt', ['jung', 'neu'], 'عكس [[neu]] للأشياء هو [[alt]]. أمّا [[jung]] فللأشخاص فقط.', 'الحقيبة ليست جديدة، هي قديمة.'],
+    ['___ Lieblingsfarbe ist Grün.', 'Meine', ['Mein', 'Meinen'], '[[die Farbe]] → [[die Lieblingsfarbe]] → [[meine]].', 'لوني المفضّل هو الأخضر.'],
+    ['Der Kaffee ist ___. Er ist nicht kalt.', 'heiß', ['kalt', 'heiße'], '[[heiß]] = ساخن، عكس [[kalt]]. وبعد [[ist]] بدون نهاية.', 'القهوة ساخنة. ليست باردة.'],
+    ['Ist die Tomate rot? – Ja, ___ ist rot.', 'sie', ['er', 'es'], '[[die Tomate]] → [[sie]].', 'هل الطماطم حمراء؟ – نعم، هي حمراء.'],
+    ['Ist der Pullover grau? – Nein, ___ ist weiß.', 'er', ['sie', 'es'], '[[der Pullover]] → [[er]].', 'هل الكنزة رمادية؟ – لا، هي بيضاء.'],
+    ['Das Haus ist groß und ___.', 'schön', ['schöne', 'schönes'], 'صفتان بعد [[ist]]: بدون نهايات.', 'البيت كبير وجميل.'],
+  ],
+  essen: [
+    ['Ich möchte ___ Kaffee.', 'einen', ['ein', 'eine'], '[[der Kaffee]] مفعول به (Akkusativ): [[ein → einen]].', 'أريد قهوة.'],
+    ['Ich nehme ___ Pizza.', 'eine', ['einen', 'ein'], '[[die Pizza]] مؤنّث: لا يتغيّر في Akkusativ: [[eine]].', 'آخذ بيتزا.'],
+    ['Wir essen ___ Brot.', 'das', ['den', 'der'], '[[das Brot]] محايد: لا يتغيّر في Akkusativ.', 'نأكل الخبز.'],
+    ['Ich trinke ___ Tee.', 'den', ['der', 'dem'], 'المذكّر فقط يتغيّر في Akkusativ: [[der Tee → den Tee]].', 'أشرب الشاي.'],
+    ['Ich esse ___ Fleisch. Ich bin Vegetarier.', 'kein', ['keinen', 'nicht'], '[[das Fleisch]] → [[kein Fleisch]].', 'لا آكل اللحم. أنا نباتي.'],
+    ['Hast du ___ Apfel für mich?', 'einen', ['ein', 'eine'], '[[der Apfel]] → [[einen Apfel]].', 'هل عندك تفّاحة لي؟'],
+    ['Ich habe ___ Hunger.', 'keinen', ['kein', 'nicht'], '[[der Hunger]] → [[keinen Hunger]] (Akkusativ).', 'لست جائعاً.'],
+    ['___ du Milch? – Ja, gern.', 'Möchtest', ['Möchte', 'Möchten'], 'الفعل [[möchten]]: [[ich möchte]] · [[du möchtest]] · [[er möchte]].', 'هل تريد حليباً؟ – نعم، بكلّ سرور.'],
+    ['Er ___ gern Fisch.', 'isst', ['esst', 'esse'], 'الفعل [[essen]]: [[du isst]] · [[er isst]].', 'هو يحبّ أكل السمك.'],
+    ['Was ___ Sie trinken?', 'möchten', ['möchtest', 'möchte'], '[[Sie möchten]].', 'ماذا تريد حضرتك أن تشرب؟'],
+    ['Ich kaufe ___ Salat und ein Ei.', 'einen', ['ein', 'eine'], '[[der Salat]] → [[einen Salat]].', 'أشتري سلطة وبيضة.'],
+    ['Ich mag ___ Käse nicht.', 'den', ['der', 'dem'], '[[der Käse]] → Akkusativ: [[den Käse]].', 'لا أحبّ الجبن.'],
+  ],
+  zeit: [
+    ['Der Kurs beginnt ___ neun Uhr.', 'um', ['am', 'im'], 'مع الساعة: [[um]]: [[um 9 Uhr]].', 'الدورة تبدأ الساعة التاسعة.'],
+    ['___ Montag habe ich Deutsch.', 'Am', ['Um', 'Im'], 'مع الأيام: [[am]]: [[am Montag]].', 'يوم الإثنين عندي ألمانية.'],
+    ['Ich arbeite ___ acht bis fünf.', 'von', ['vom', 'um'], '[[von … bis …]] = من … إلى …', 'أعمل من الثامنة إلى الخامسة.'],
+    ['Es ist halb ___. (7:30)', 'acht', ['sieben', 'neun'], '[[halb acht]] = نصف ساعة قبل الثامنة = 7:30!', 'الساعة السابعة والنصف.'],
+    ['Es ist Viertel ___ drei. (2:45)', 'vor', ['nach', 'um'], '[[Viertel vor drei]] = ربع قبل الثالثة = 2:45.', 'الساعة الثالثة إلا ربعاً.'],
+    ['Es ist Viertel ___ vier. (4:15)', 'nach', ['vor', 'halb'], '[[Viertel nach vier]] = 4:15.', 'الساعة الرابعة والربع.'],
+    ['___ spät ist es?', 'Wie', ['Was', 'Wann'], 'نسأل عن الساعة: [[Wie spät ist es?]] أو [[Wie viel Uhr ist es?]]', 'كم الساعة؟'],
+    ['___ beginnt der Film? – Um acht.', 'Wann', ['Wie', 'Wo'], '[[Wann?]] = متى؟ للسؤال عن الوقت.', 'متى يبدأ الفيلم؟ – في الثامنة.'],
+    ['Am Wochenende ___ ich lange.', 'schlafe', ['schläft', 'schlafst'], 'الفعل ثانياً، و [[ich schlafe]] (التغيير ä فقط مع du و er).', 'في عطلة الأسبوع أنام طويلاً.'],
+    ['Um sieben Uhr ___ ich auf.', 'stehe', ['steht', 'aufstehe'], 'الفعل المنفصل [[aufstehen]]: [[ich stehe … auf]].', 'أستيقظ في السابعة.'],
+    ['Der Supermarkt ist von 8 ___ 20 Uhr offen.', 'bis', ['nach', 'um'], '[[von … bis …]].', 'السوبرماركت مفتوح من 8 إلى 20.'],
+    ['Ich ___ heute Abend fern.', 'sehe', ['fernsehe', 'sieht'], 'الفعل المنفصل [[fernsehen]]: [[ich sehe … fern]].', 'أشاهد التلفاز هذا المساء.'],
+  ],
+  freizeit: [
+    ['Ich ___ gern.', 'schwimme', ['schwimmen', 'schwimmt'], '[[gern]] بعد الفعل: [[Ich schwimme gern.]] = أحبّ السباحة.', 'أحبّ السباحة.'],
+    ['___ du gut kochen?', 'Kannst', ['Kann', 'Könnt'], 'الفعل [[können]]: [[ich kann]] · [[du kannst]] · [[er kann]].', 'هل تستطيع الطبخ جيداً؟'],
+    ['Ich kann sehr gut ___.', 'tanzen', ['tanze', 'tanzt'], 'بعد [[können]] يأتي المصدر في آخر الجملة.', 'أستطيع الرقص جيداً جداً.'],
+    ['Er ___ nicht schwimmen.', 'kann', ['kannst', 'können'], '[[er kann]] (بدون -t!).', 'هو لا يستطيع السباحة.'],
+    ['Wir ___ am Sonntag Tennis spielen.', 'können', ['könnt', 'kann'], '[[wir können]].', 'نستطيع أن نلعب التنس يوم الأحد.'],
+    ['Was ___ du gern?', 'machst', ['macht', 'machen'], '[[du machst]] + [[gern]].', 'ماذا تحبّ أن تفعل؟'],
+    ['Ich kann heute nicht ___. Ich bin krank.', 'kommen', ['komme', 'kommt'], 'المصدر في آخر الجملة مع [[können]].', 'لا أستطيع المجيء اليوم. أنا مريض.'],
+    ['Ihr ___ super singen!', 'könnt', ['können', 'kann'], '[[ihr könnt]].', 'تستطيعون الغناء بشكل رائع!'],
+    ['Sie spielt gern Gitarre, aber sie spielt ___ Klavier.', 'nicht gern', ['kein gern', 'gern nicht'], 'النفي: [[nicht gern]] = لا تحبّ.', 'تحبّ عزف الغيتار، لكنها لا تحبّ عزف البيانو.'],
+    ['___ Sie Deutsch sprechen?', 'Können', ['Kann', 'Kannst'], '[[Sie können]].', 'هل تستطيع حضرتك التكلّم بالألمانية؟'],
+    ['Am Wochenende ___ ich gern Rad.', 'fahre', ['fährt', 'fahren'], '[[ich fahre]] + [[gern]].', 'في عطلة الأسبوع أحبّ ركوب الدرّاجة.'],
+    ['Mein Hobby ___ Fotografieren.', 'ist', ['sind', 'hat'], '[[Mein Hobby ist …]] / [[Meine Hobbys sind …]]', 'هوايتي التصوير.'],
+  ],
+  wohnung: [
+    ['Wie ist die Küche? – ___ ist modern.', 'Sie', ['Er', 'Es'], '[[die Küche]] → [[sie]].', 'كيف المطبخ؟ – هو حديث.'],
+    ['Wie ist der Balkon? – ___ ist klein.', 'Er', ['Sie', 'Es'], '[[der Balkon]] → [[er]].', 'كيف الشرفة؟ – صغيرة.'],
+    ['Wie ist das Bad? – ___ ist sehr hell.', 'Es', ['Er', 'Sie'], '[[das Bad]] → [[es]].', 'كيف الحمّام؟ – مضيء جداً.'],
+    ['Die Wohnung hat drei ___.', 'Zimmer', ['Zimmern', 'Zimmers'], 'جمع [[das Zimmer]] = [[die Zimmer]] (بدون تغيير).', 'الشقّة فيها ثلاث غرف.'],
+    ['Wie sind die Möbel? – ___ sind neu.', 'Sie', ['Es', 'Er'], 'الجمع → [[sie]] + [[sind]].', 'كيف الأثاث؟ – جديد.'],
+    ['Wo ist das Sofa? – ___ ist im Wohnzimmer.', 'Es', ['Er', 'Sie'], '[[das Sofa]] → [[es]].', 'أين الأريكة؟ – في غرفة الجلوس.'],
+    ['Wie viel kostet die Wohnung? – ___ kostet 700 Euro.', 'Sie', ['Er', 'Es'], '[[die Wohnung]] → [[sie]].', 'بكم الشقّة؟ – تكلّف 700 يورو.'],
+    ['Ich wohne ___ dritten Stock.', 'im', ['in', 'am'], '[[im]] = [[in dem]]: [[im ersten / zweiten / dritten Stock]].', 'أسكن في الطابق الثالث.'],
+    ['Gibt es ___ Balkon?', 'einen', ['ein', 'eine'], 'بعد [[es gibt]] يأتي Akkusativ: [[der Balkon → einen Balkon]].', 'هل توجد شرفة؟'],
+    ['Im Haus gibt es ___ Aufzug.', 'keinen', ['kein', 'keine'], '[[der Aufzug]] → [[keinen]] بعد [[es gibt]].', 'في البناية لا يوجد مصعد.'],
+    ['Der Tisch ist schön. Wie viel kostet ___?', 'er', ['sie', 'es'], '[[der Tisch]] → [[er]].', 'الطاولة جميلة. بكم هي؟'],
+    ['Die Lampe ist neu. Ich finde ___ toll.', 'sie', ['ihn', 'es'], '[[die Lampe]] → في Akkusativ أيضاً [[sie]]. (للمذكّر: [[ihn]]).', 'المصباح جديد. أجده رائعاً.'],
+  ],
+});
+
+// A1.2 grammar drills
+Object.assign(GQ, {
+  gestern: [
+    ['Ich habe gestern Fußball ___.', 'gespielt', ['spielt', 'gespielen'], 'Perfekt = [[haben]] + اسم المفعول في الآخر: [[ge‑spiel‑t]].', 'لعبت كرة القدم أمس.'],
+    ['Wir ___ Pizza gegessen.', 'haben', ['sind', 'hat'], 'مع [[essen]] نستعمل [[haben]]: [[wir haben … gegessen]].', 'أكلنا بيتزا.'],
+    ['Hast du die Hausaufgaben ___?', 'gemacht', ['machen', 'gemachen'], '[[machen → gemacht]] (فعل عادي: ge…t).', 'هل عملت الواجبات؟'],
+    ['Er hat ein Buch ___.', 'gelesen', ['gelest', 'liest'], 'الأفعال الشاذّة: [[ge…en]]: [[lesen → gelesen]].', 'قرأ كتاباً.'],
+    ['Ich habe meine Mutter ___.', 'angerufen', ['geanrufen', 'anrufen'], 'الأفعال المنفصلة: [[ge]] في الوسط: [[an‑ge‑rufen]].', 'اتّصلت بأمّي.'],
+    ['Sie hat in Berlin ___.', 'studiert', ['gestudiert', 'studieren'], 'أفعال [[-ieren]] بدون [[ge]]: [[studiert]].', 'درست في برلين.'],
+    ['Was ___ ihr am Wochenende gemacht?', 'habt', ['hat', 'haben'], '[[ihr habt]].', 'ماذا عملتم في عطلة الأسبوع؟'],
+    ['Gestern ___ ich lange geschlafen.', 'habe', ['bin', 'hat'], '[[schlafen]] مع [[haben]]، والفعل المساعد ثانياً: [[Gestern habe ich …]]', 'أمس نمت طويلاً.'],
+    ['Ich habe Kaffee ___.', 'getrunken', ['getrinkt', 'trinkt'], '[[trinken → getrunken]] (شاذّ).', 'شربت قهوة.'],
+    ['Wir haben im Supermarkt ___.', 'eingekauft', ['geeinkauft', 'einkaufen'], '[[einkaufen → ein‑ge‑kauft]].', 'تسوّقنا في السوبرماركت.'],
+    ['Er hat mir eine E-Mail ___.', 'geschrieben', ['geschreibt', 'schreibt'], '[[schreiben → geschrieben]] (شاذّ).', 'كتب لي رسالة إلكترونية.'],
+    ['Habt ihr den Film ___?', 'gesehen', ['gesieht', 'sehen'], '[[sehen → gesehen]].', 'هل شاهدتم الفيلم؟'],
+  ],
+  urlaub: [
+    ['Ich ___ nach Spanien geflogen.', 'bin', ['habe', 'ist'], 'أفعال الحركة مع [[sein]]: [[ich bin … geflogen]].', 'سافرت بالطائرة إلى إسبانيا.'],
+    ['Wir sind mit dem Zug ___.', 'gefahren', ['gefahrt', 'fahren'], '[[fahren → gefahren]] مع [[sein]].', 'سافرنا بالقطار.'],
+    ['Er ___ spät nach Hause gekommen.', 'ist', ['hat', 'sind'], '[[kommen]] حركة → [[sein]]: [[er ist gekommen]].', 'رجع إلى البيت متأخّراً.'],
+    ['Der Urlaub ___ super!', 'war', ['hatte', 'warst'], 'الماضي من [[sein]]: [[ich war]] · [[du warst]] · [[er war]].', 'العطلة كانت رائعة!'],
+    ['Wo ___ du im Sommer?', 'warst', ['war', 'wart'], '[[du warst]].', 'أين كنت في الصيف؟'],
+    ['Wir ___ viel Spaß.', 'hatten', ['hattet', 'waren'], 'الماضي من [[haben]]: [[wir hatten]].', 'استمتعنا كثيراً.'],
+    ['Ich ___ keine Zeit.', 'hatte', ['hattest', 'war'], '[[ich hatte]] = لم يكن عندي.', 'لم يكن عندي وقت.'],
+    ['Seid ihr am Strand ___?', 'gewesen', ['gewest', 'gesein'], '[[sein → gewesen]] (مع [[sein]]).', 'هل كنتم على الشاطئ؟'],
+    ['Sie ist jeden Tag im Meer ___.', 'geschwommen', ['geschwimmt', 'schwimmt'], '[[schwimmen → geschwommen]].', 'سبحت في البحر كل يوم.'],
+    ['Wann ___ ihr in Paris angekommen?', 'seid', ['habt', 'sind'], '[[ankommen]] = وصل (حركة) → [[ihr seid … angekommen]].', 'متى وصلتم إلى باريس؟'],
+    ['Ich bin um sechs Uhr ___.', 'aufgestanden', ['geaufstanden', 'aufgestehen'], '[[aufstehen → auf‑ge‑standen]] مع [[sein]].', 'استيقظت في السادسة.'],
+    ['Das Wetter ___ leider schlecht.', 'war', ['waren', 'hatte'], '[[das Wetter]] مفرد → [[war]].', 'الطقس كان سيّئاً للأسف.'],
+  ],
+  modal: [
+    ['Ich ___ heute arbeiten.', 'muss', ['musst', 'müssen'], 'الفعل [[müssen]]: [[ich muss]] · [[du musst]] · [[er muss]].', 'يجب أن أعمل اليوم.'],
+    ['Du ___ hier nicht rauchen.', 'darfst', ['darf', 'dürfen'], 'الفعل [[dürfen]]: [[du darfst]].', 'لا يجوز لك التدخين هنا.'],
+    ['Wir wollen nach Berlin ___.', 'fahren', ['fahrt', 'gefahren'], 'الفعل الأساسي في الآخر بالمصدر: [[… fahren]].', 'نريد أن نسافر إلى برلين.'],
+    ['___ ihr morgen kommen?', 'Könnt', ['Können', 'Kannst'], '[[ihr könnt]].', 'هل تستطيعون المجيء غداً؟'],
+    ['Er ___ Arzt werden.', 'will', ['wollt', 'wille'], 'الفعل [[wollen]]: [[ich will]] · [[er will]] (بدون -t).', 'يريد أن يصبح طبيباً.'],
+    ['Sie ___ jeden Tag Tabletten nehmen.', 'muss', ['müssen', 'musst'], '[[sie (هي) muss]].', 'يجب أن تأخذ أقراصاً كل يوم.'],
+    ['Der Arzt sagt, ich ___ viel Wasser trinken.', 'soll', ['sollst', 'sollen'], '[[sollen]] = نصيحة أو أمر من شخص آخر: [[ich soll]].', 'الطبيب يقول إنّه عليّ أن أشرب كثيراً من الماء.'],
+    ['Ich möchte einen Termin ___.', 'machen', ['mache', 'gemacht'], 'بعد [[möchten]]: المصدر في الآخر.', 'أريد أن آخذ موعداً.'],
+    ['Darf ich hier ___?', 'parken', ['parke', 'parkt'], '[[Darf ich …?]] + المصدر.', 'هل يجوز لي أن أركن هنا؟'],
+    ['Kinder ___ nicht allein schwimmen.', 'dürfen', ['darf', 'dürft'], 'الجمع → [[dürfen]].', 'لا يجوز للأطفال السباحة وحدهم.'],
+    ['Was ___ du am Wochenende machen?', 'willst', ['will', 'wollt'], '[[du willst]].', 'ماذا تريد أن تفعل في عطلة الأسبوع؟'],
+    ['Heute ___ ich leider nicht kommen.', 'kann', ['kannst', 'können'], 'الفعل المساعد ثانياً: [[Heute kann ich …]]', 'اليوم لا أستطيع المجيء للأسف.'],
+  ],
+  koerper: [
+    ['___ Sie bitte hier!', 'Warten', ['Wartet', 'Wartest'], 'الأمر الرسمي: الفعل + [[Sie]]: [[Warten Sie!]]', 'انتظر هنا من فضلك!'],
+    ['___ viel Wasser, Ali!', 'Trink', ['Trinkst', 'Trinken'], 'الأمر مع [[du]]: بدون [[du]] وبدون [[-st]]: [[Trink!]]', 'اشرب الكثير من الماء يا علي!'],
+    ['Mein Kopf ___ weh.', 'tut', ['tun', 'tust'], 'مفرد: [[… tut weh]]، جمع: [[… tun weh]].', 'رأسي يؤلمني.'],
+    ['Meine Füße ___ weh.', 'tun', ['tut', 'tust'], 'الجمع [[die Füße]] → [[tun weh]].', 'قدماي تؤلمانني.'],
+    ['Ich ___ Halsschmerzen.', 'habe', ['bin', 'tue'], '[[Ich habe … Schmerzen]] = عندي ألم في …', 'عندي ألم في الحلق.'],
+    ['___ Sie bitte den Mund auf!', 'Machen', ['Macht', 'Machst'], 'الفعل المنفصل [[aufmachen]]: [[Machen Sie … auf!]]', 'افتح فمك من فضلك!'],
+    ['Nimm die Tabletten ___ dem Essen!', 'nach', ['zu', 'um'], '[[nach dem Essen]] = بعد الأكل.', 'خذ الأقراص بعد الأكل!'],
+    ['___ nicht so viel, Kinder!', 'Esst', ['Essen', 'Isst'], 'الأمر مع [[ihr]]: [[Esst!]] (بدون ihr).', 'لا تأكلوا كثيراً يا أطفال!'],
+    ['___ langsam, bitte!', 'Sprich', ['Sprech', 'Sprichst'], 'الفعل [[sprechen]] مع du: [[Sprich!]] (تغيير e → i يبقى).', 'تكلّم ببطء من فضلك!'],
+    ['___ ruhig, Lena!', 'Sei', ['Bist', 'Sein'], 'الأمر من [[sein]] مع du: [[Sei!]]', 'اهدئي يا لينا!'],
+    ['Gute Besserung! ___ zu Hause!', 'Bleib', ['Bleibst', 'Bleiben'], 'الأمر مع du: [[bleiben → Bleib!]]', 'شفاءً عاجلاً! ابقَ في البيت!'],
+    ['Was fehlt ___? – Ich habe Fieber.', 'Ihnen', ['Sie', 'Ihr'], '[[Was fehlt Ihnen?]] = ماذا بك؟ (عند الطبيب).', 'ماذا بحضرتك؟ – عندي حمّى.'],
+  ],
+  stadt: [
+    ['Ich fahre mit ___ Bus.', 'dem', ['den', 'der'], '[[mit]] + Dativ: [[der Bus → mit dem Bus]].', 'أذهب بالحافلة.'],
+    ['Ich gehe ___ Arzt.', 'zum', ['zur', 'zu der'], '[[zu + dem = zum]]: [[der Arzt → zum Arzt]].', 'أذهب إلى الطبيب.'],
+    ['Wie komme ich ___ Post?', 'zur', ['zum', 'nach'], '[[zu + der = zur]]: [[die Post → zur Post]].', 'كيف أصل إلى البريد؟'],
+    ['Er fährt mit ___ U-Bahn.', 'der', ['die', 'dem'], '[[die U-Bahn]] → Dativ: [[der U-Bahn]].', 'يركب المترو.'],
+    ['Wir fahren ___ Hamburg.', 'nach', ['zu', 'in'], 'مع أسماء المدن والبلدان: [[nach]]: [[nach Hamburg]].', 'نسافر إلى هامبورغ.'],
+    ['Gehen Sie ___ Ampel links.', 'an der', ['an die', 'am'], '[[die Ampel]] → [[an der Ampel]] (Dativ).', 'عند الإشارة اتّجه يساراً.'],
+    ['Ich wohne ___ meinen Eltern.', 'bei', ['zu', 'nach'], '[[bei]] = عند (في بيت شخص): [[bei meinen Eltern]].', 'أسكن عند والديّ.'],
+    ['Das Geschenk ist ___ meiner Freundin.', 'von', ['aus', 'bei'], '[[von]] + Dativ = من (شخص).', 'الهديّة من صديقتي.'],
+    ['Fahren Sie mit ___ Taxi!', 'dem', ['das', 'den'], '[[das Taxi]] → [[mit dem Taxi]].', 'اذهب بالتاكسي!'],
+    ['Ich gehe ___ Bahnhof.', 'zum', ['zur', 'nach'], '[[der Bahnhof]] → [[zum Bahnhof]].', 'أذهب إلى محطّة القطار.'],
+    ['Wir gehen heute ___ Hause.', 'nach', ['zu', 'zum'], 'إلى البيت: [[nach Hause]]. في البيت: [[zu Hause]].', 'نذهب اليوم إلى البيت.'],
+    ['Ich bin ___ Hause.', 'zu', ['nach', 'zum'], 'في البيت: [[zu Hause]].', 'أنا في البيت.'],
+  ],
+  praep: [
+    ['Das Buch liegt auf ___ Tisch.', 'dem', ['den', 'der'], '[[Wo?]] → Dativ: [[der Tisch → auf dem Tisch]].', 'الكتاب على الطاولة.'],
+    ['Die Lampe steht neben ___ Sofa.', 'dem', ['das', 'den'], '[[das Sofa]] → Dativ: [[dem Sofa]].', 'المصباح بجانب الأريكة.'],
+    ['Der Schlüssel ist in ___ Tasche.', 'der', ['die', 'dem'], '[[die Tasche]] → Dativ: [[der Tasche]].', 'المفتاح في الحقيبة.'],
+    ['Das Auto steht vor ___ Haus.', 'dem', ['das', 'der'], '[[das Haus]] → [[vor dem Haus]].', 'السيّارة أمام البيت.'],
+    ['Der Hund schläft ___ Bett.', 'im', ['in', 'in den'], '[[in + dem = im]].', 'الكلب ينام في السرير.'],
+    ['Das Bild hängt an ___ Wand.', 'der', ['die', 'dem'], '[[die Wand]] → [[an der Wand]].', 'الصورة معلّقة على الحائط.'],
+    ['Der Ball liegt zwischen ___ Stühlen.', 'den', ['die', 'der'], 'الجمع في Dativ: [[den … -n]]: [[zwischen den Stühlen]].', 'الكرة بين الكراسي.'],
+    ['Die Schuhe stehen unter ___ Bett.', 'dem', ['das', 'der'], '[[das Bett]] → [[unter dem Bett]].', 'الأحذية تحت السرير.'],
+    ['___ ist das Handy? – Auf dem Sofa.', 'Wo', ['Wohin', 'Wer'], 'للمكان الثابت: [[Wo?]] → الجواب بـ Dativ.', 'أين الهاتف؟ – على الأريكة.'],
+    ['Die Milch ist ___ Kühlschrank.', 'im', ['in', 'am'], '[[der Kühlschrank]] → [[in dem = im Kühlschrank]].', 'الحليب في الثلاجة.'],
+    ['Der Garten ist hinter ___ Haus.', 'dem', ['der', 'das'], '[[das Haus]] → [[hinter dem Haus]].', 'الحديقة خلف البيت.'],
+    ['Die Tasse steht auf ___ Regal.', 'dem', ['das', 'der'], '[[das Regal]] → [[auf dem Regal]].', 'الفنجان على الرفّ.'],
+  ],
+  kleidung: [
+    ['Das Kleid gefällt ___.', 'mir', ['mich', 'ich'], 'الفعل [[gefallen]] + Dativ: [[mir]]. [[Das gefällt mir]] = يعجبني.', 'الفستان يعجبني.'],
+    ['Gefällt ___ die Jacke?', 'dir', ['dich', 'du'], '[[du]] → Dativ: [[dir]].', 'هل تعجبك السترة؟'],
+    ['Die Schuhe ___ mir nicht.', 'gefallen', ['gefällt', 'gefallt'], '[[die Schuhe]] جمع → [[gefallen]].', 'الأحذية لا تعجبني.'],
+    ['Die Hose ist ___ als der Rock.', 'teurer', ['teuerer', 'mehr teuer'], 'المقارنة: [[teuer → teurer]] + [[als]].', 'البنطال أغلى من التنّورة.'],
+    ['Der Pullover ist ___ als die Jacke.', 'billiger', ['billig', 'mehr billig'], '[[billig → billiger]] + [[als]].', 'الكنزة أرخص من السترة.'],
+    ['Das Hemd gefällt mir ___ als das T-Shirt.', 'besser', ['guter', 'mehr gut'], '[[gut → besser]] (شاذّ).', 'القميص يعجبني أكثر من التي‑شيرت.'],
+    ['Die Jacke ist so warm ___ der Mantel.', 'wie', ['als', 'wenn'], 'التساوي: [[so … wie]].', 'السترة دافئة مثل المعطف.'],
+    ['Passt ___ die Hose, Frau Ali?', 'Ihnen', ['Sie', 'Ihr'], 'الفعل [[passen]] + Dativ: [[Passt Ihnen …?]]', 'هل يناسبك البنطال يا سيدة علي؟'],
+    ['Was ___ die Jacke? – 59 Euro.', 'kostet', ['kosten', 'kostest'], '[[die Jacke]] مفرد → [[kostet]].', 'بكم السترة؟ – 59 يورو.'],
+    ['Was kosten die ___?', 'Schuhe', ['Schuh', 'Schuhen'], 'جمع [[der Schuh]] = [[die Schuhe]].', 'بكم الأحذية؟'],
+    ['Ich finde den Rock ___.', 'schön', ['schöne', 'schönen'], 'بعد [[finden]] الصفة بدون نهاية: [[Ich finde ihn schön.]]', 'أجد التنّورة جميلة.'],
+    ['Wie gefällt ___ das Kleid? – Sehr gut!', 'Ihnen', ['Sie', 'Ihre'], 'الفعل [[gefallen]] + Dativ: [[Ihnen]] (رسمي).', 'كيف يعجبك الفستان؟ – جداً!'],
+  ],
+  feste: [
+    ['Ich habe am ___ Mai Geburtstag. (3.)', 'dritten', ['dreiten', 'dritte'], 'التاريخ بعد [[am]]: الرقم الترتيبي + [[-en]]: [[am dritten Mai]].', 'عيد ميلادي في الثالث من مايو.'],
+    ['Heute ist der ___ Juni. (1.)', 'erste', ['ersten', 'einte'], 'بعد [[der]]: [[der erste]]. وبعد [[am]]: [[am ersten]].', 'اليوم هو الأوّل من يونيو.'],
+    ['Ich komme nicht, ___ ich bin krank.', 'denn', ['weil', 'dass'], 'بعد [[denn]] الترتيب العادي (الفعل ثانياً). أمّا مع [[weil]] فالفعل في الآخر.', 'لن آتي لأنّي مريض.'],
+    ['Ich bin glücklich, denn heute ___ ich Geburtstag.', 'habe', ['hast', 'hat'], 'بعد [[denn]] جملة عادية: الفعل في المكان الثاني.', 'أنا سعيد لأنّ اليوم عيد ميلادي.'],
+    ['Herzlichen Glückwunsch ___ Geburtstag!', 'zum', ['zur', 'am'], '[[zu + dem = zum]]: [[der Geburtstag → zum Geburtstag]].', 'عيد ميلاد سعيد!'],
+    ['Wann hast du Geburtstag? – ___ 12. Oktober.', 'Am', ['Im', 'Um'], 'مع التاريخ: [[am]]. ومع الشهر وحده: [[im Oktober]].', 'متى عيد ميلادك؟ – في 12 أكتوبر.'],
+    ['Ich habe ___ Juli Urlaub.', 'im', ['am', 'um'], 'مع الأشهر: [[im]]: [[im Juli]].', 'عندي عطلة في يوليو.'],
+    ['Wir feiern, ___ wir haben ein Baby!', 'denn', ['weil', 'dann'], '[[denn]] = لأنّ، والفعل بعده ثانياً.', 'نحتفل لأنّه صار لنا طفل!'],
+    ['Ich lade ___ zu meiner Party ein.', 'dich', ['dir', 'du'], 'الفعل [[einladen]] + Akkusativ: [[dich]].', 'أدعوك إلى حفلتي.'],
+    ['Vielen Dank für ___ Einladung!', 'die', ['der', 'den'], '[[für]] + Akkusativ: [[die Einladung]] لا تتغيّر.', 'شكراً جزيلاً على الدعوة!'],
+    ['Heute ist der ___. (20.)', 'zwanzigste', ['zwanzigte', 'zwanzigsten'], 'من 20 فما فوق: [[-ste]]: [[der zwanzigste]].', 'اليوم هو العشرون.'],
+    ['Am ___ Januar ist Neujahr. (1.)', 'ersten', ['einsten', 'erste'], '[[am ersten Januar]].', 'في الأوّل من يناير رأس السنة.'],
+  ],
+  bahnhof: [
+    ['Zuerst kaufe ich eine Fahrkarte, dann ___ ich in den Zug.', 'steige', ['steigt', 'einsteige'], 'بعد [[dann]] الفعل ثانياً: [[dann steige ich …]].', 'أوّلاً أشتري تذكرة، ثم أركب القطار.'],
+    ['Der Zug ___ um 10 Uhr ab.', 'fährt', ['fahrt', 'abfährt'], 'الفعل المنفصل [[abfahren]]: [[Der Zug fährt … ab.]]', 'القطار ينطلق الساعة العاشرة.'],
+    ['Wann ___ der Zug in München an?', 'kommt', ['ankommt', 'kommen'], 'الفعل المنفصل [[ankommen]]: [[kommt … an]].', 'متى يصل القطار إلى ميونخ؟'],
+    ['Ich möchte eine Fahrkarte ___ Köln.', 'nach', ['zu', 'in'], '[[nach]] + مدينة.', 'أريد تذكرة إلى كولونيا.'],
+    ['Danach ___ wir ein Taxi.', 'nehmen', ['nimmt', 'nehmt'], 'بعد [[Danach]] الفعل ثانياً ثم الفاعل: [[Danach nehmen wir …]]', 'بعد ذلك نأخذ تاكسي.'],
+    ['Muss ich ___? – Ja, in Frankfurt.', 'umsteigen', ['umsteige', 'steigen um'], 'مع [[müssen]] المصدر في الآخر، والفعل المنفصل يبقى كلمة واحدة: [[umsteigen]].', 'هل يجب أن أبدّل القطار؟ – نعم، في فرانكفورت.'],
+    ['Der Zug hat zehn Minuten ___.', 'Verspätung', ['verspätet', 'spät'], '[[Verspätung haben]] = يتأخّر.', 'القطار متأخّر عشر دقائق.'],
+    ['Von ___ Gleis fährt der Zug?', 'welchem', ['welcher', 'welches'], '[[von]] + Dativ: [[das Gleis → von welchem Gleis]].', 'من أيّ رصيف ينطلق القطار؟'],
+    ['Einfach oder hin und ___?', 'zurück', ['her', 'weg'], '[[hin und zurück]] = ذهاب وإياب.', 'ذهاب فقط أم ذهاب وإياب؟'],
+    ['Ich ___ morgen früh nach Berlin.', 'fahre', ['fahrst', 'fährt'], '[[ich fahre]] (التغيير ä فقط مع du و er).', 'أسافر صباح الغد إلى برلين.'],
+    ['Zuerst ___ ich zum Bahnhof.', 'gehe', ['geht', 'gehst'], 'بعد [[Zuerst]] الفعل ثانياً: [[Zuerst gehe ich …]]', 'أوّلاً أذهب إلى المحطّة.'],
+    ['Der ICE fährt ___ Gleis 7.', 'von', ['aus', 'bei'], '[[von Gleis 7]] = من الرصيف 7.', 'قطار ICE ينطلق من الرصيف 7.'],
+  ],
+  amt: [
+    ['Ich bin verheiratet ___ habe zwei Kinder.', 'und', ['dann', 'denn'], '[[und]] يربط جملتين لهما نفس الفاعل. ([[dann]] يحتاج: [[dann habe ich]]).', 'أنا متزوّج ولي طفلان.'],
+    ['Füllen Sie bitte das Formular ___!', 'aus', ['an', 'ein'], '[[ausfüllen]] = يملأ (استمارة): [[Füllen Sie … aus!]]', 'املأ الاستمارة من فضلك!'],
+    ['Ich brauche ___ Termin.', 'einen', ['ein', 'eine'], '[[der Termin]] → [[einen Termin]].', 'أحتاج موعداً.'],
+    ['Haben Sie ___ Pass dabei?', 'Ihren', ['Ihr', 'Ihre'], '[[der Pass]] في Akkusativ: [[Ihren Pass]].', 'هل جواز سفرك معك؟'],
+    ['Ich bin ___ 1990 geboren.', 'im Jahr', ['am Jahr', 'in Jahr'], 'السنة: [[1990]] وحدها أو [[im Jahr 1990]] — وليس [[in 1990]].', 'وُلدت سنة 1990.'],
+    ['Wo ___ Sie geboren?', 'sind', ['haben', 'bist'], '[[geboren sein]]: [[Wo sind Sie geboren?]]', 'أين وُلدت حضرتك؟'],
+    ['Sind Sie ledig ___ verheiratet?', 'oder', ['und', 'aber'], '[[oder]] = أو (اختيار).', 'هل حضرتك أعزب أم متزوّج؟'],
+    ['Bitte ___ Sie hier.', 'unterschreiben', ['unterschreibt', 'unterschreibst'], 'الطلب الرسمي: [[unterschreiben Sie]].', 'وقّع هنا من فضلك.'],
+    ['Ich ___ meinen Ausweis verloren.', 'habe', ['bin', 'hat'], '[[verlieren]] مع [[haben]]: [[habe … verloren]].', 'أضعت بطاقة هويّتي.'],
+    ['Wann ___ Sie nach Deutschland gekommen?', 'sind', ['haben', 'ist'], '[[kommen]] حركة → [[sein]].', 'متى جئت حضرتك إلى ألمانيا؟'],
+    ['Ich wohne ___ der Goethestraße 5.', 'in', ['auf', 'bei'], 'العنوان: [[in der …straße]].', 'أسكن في شارع غوته 5.'],
+    ['___ Sie mir bitte helfen?', 'Können', ['Kann', 'Kannst'], 'طلب مهذّب: [[Können Sie …?]]', 'هل تستطيع حضرتك مساعدتي؟'],
+  ],
+  telefon: [
+    ['Kann ich bitte ___ Herrn Klein sprechen?', 'mit', ['zu', 'an'], '[[sprechen mit]] + Dativ: [[mit Herrn Klein]].', 'هل أستطيع التكلّم مع السيد كلاين؟'],
+    ['Ich rufe Sie morgen ___.', 'an', ['auf', 'zu'], 'الفعل المنفصل [[anrufen]]: [[Ich rufe Sie … an.]]', 'سأتّصل بحضرتك غداً.'],
+    ['Können Sie mich ___?', 'zurückrufen', ['zurückrufe', 'rufen zurück'], 'مع [[können]]: المصدر الكامل في الآخر: [[zurückrufen]].', 'هل تستطيع حضرتك معاودة الاتّصال بي؟'],
+    ['Hier ___ Sara Ali.', 'spricht', ['spreche', 'sprecht'], 'على الهاتف: [[Hier spricht …]] أو [[Hier ist …]]', 'معك سارة علي.'],
+    ['Er ist leider nicht da. Kann ich ___ etwas ausrichten?', 'ihm', ['ihn', 'er'], '[[ihm etwas ausrichten]] = أبلّغه رسالة (Dativ).', 'هو غير موجود للأسف. هل أبلّغه شيئاً؟'],
+    ['Wie ist ___ Telefonnummer, Herr Berg?', 'Ihre', ['Ihr', 'Ihren'], '[[die Nummer]] → [[Ihre]] (رسمي).', 'ما رقم هاتف حضرتك يا سيد بيرغ؟'],
+    ['Ich schreibe ___ eine SMS.', 'dir', ['dich', 'du'], 'نكتب لشخص (Dativ): [[dir]].', 'سأكتب لك رسالة قصيرة.'],
+    ['Ruf ___ bitte an!', 'mich', ['mir', 'ich'], 'الفعل [[anrufen]] + Akkusativ: [[mich]].', 'اتّصل بي من فضلك!'],
+    ['Entschuldigung, ich habe mich ___.', 'verwählt', ['verwählen', 'gewählt'], '[[sich verwählen]] = اتّصل بالرقم الخطأ.', 'عذراً، طلبت الرقم الخطأ.'],
+    ['Können Sie das bitte ___?', 'wiederholen', ['wiederhole', 'wiederholt'], 'المصدر في الآخر مع [[können]].', 'هل تستطيع حضرتك تكرار ذلك؟'],
+    ['Ich ___ Sie leider nicht verstehen.', 'kann', ['kannst', 'können'], '[[ich kann]].', 'للأسف لا أستطيع فهم حضرتك.'],
+    ['Bitte sprechen Sie ___.', 'langsamer', ['langsam mehr', 'mehr langsam'], 'المقارنة: [[langsam → langsamer]] = أبطأ.', 'تكلّم أبطأ من فضلك.'],
+  ],
+});
+
+// A2 extra grammar drills (added to each lesson's existing ones)
+(function (more) { const full = (q) => q[0].replace('___', q[1]); for (const id of Object.keys(more)) { const have = new Set((GQ[id] || []).map(full)); GQ[id] = (GQ[id] || []).concat(more[id].filter((q) => !have.has(full(q)))); } })({
+  kindheit: [
+    ['Als Kind ___ ich in Damaskus.', 'wohnte', ['wohnt', 'wohnten'], 'Präteritum للأفعال العادية: [[-te]]: [[ich wohnte]].', 'عندما كنت طفلاً سكنت في دمشق.'],
+    ['Als ich klein ___, hatte ich einen Hund.', 'war', ['bin', 'sein'], '[[als]] للماضي، والفعل في آخر الجملة الفرعية: [[als ich klein war]].', 'عندما كنت صغيراً كان عندي كلب.'],
+    ['Früher ___ wir kein Handy.', 'hatten', ['hattet', 'haben'], '[[wir hatten]].', 'في الماضي لم يكن عندنا هاتف محمول.'],
+    ['Mein Vater ___ jeden Tag mit dem Bus.', 'fuhr', ['fahrte', 'fährt'], 'فعل شاذّ: [[fahren → fuhr]].', 'كان أبي يركب الحافلة كل يوم.'],
+    ['Wir ___ oft im Garten.', 'spielten', ['spielte', 'spielen'], '[[wir spielten]].', 'كنّا نلعب كثيراً في الحديقة.'],
+    ['Ich ___ früher nicht schwimmen.', 'konnte', ['könnte', 'kann'], 'الفعل [[können]] في الماضي: [[konnte]] (بدون Umlaut).', 'لم أكن أستطيع السباحة في الماضي.'],
+  ],
+  verwandte: [
+    ['Ich besuche heute ___ Tante.', 'meine', ['meiner', 'meinem'], 'الفعل [[besuchen]] + Akkusativ: [[die Tante → meine Tante]].', 'أزور خالتي اليوم.'],
+    ['Ich telefoniere mit ___ Onkel.', 'meinem', ['meinen', 'mein'], '[[mit]] + Dativ: [[der Onkel → meinem Onkel]].', 'أتّصل بخالي.'],
+    ['Kennst du ___ Cousin? (sein)', 'seinen', ['seinem', 'sein'], 'Akkusativ مذكّر: [[seinen Cousin]].', 'هل تعرف ابن عمّه؟'],
+    ['Das ist das Auto ___ Schwester.', 'meiner', ['meine', 'meinem'], 'Genitiv مؤنّث: [[meiner Schwester]] = سيّارة أختي.', 'هذه سيّارة أختي.'],
+    ['Wir helfen ___ Großeltern.', 'unseren', ['unsere', 'unserer'], 'الفعل [[helfen]] + Dativ جمع: [[unseren Großeltern]].', 'نساعد جدّينا.'],
+    ['Sie wohnt bei ___ Eltern. (ihr)', 'ihren', ['ihre', 'ihrer'], '[[bei]] + Dativ جمع: [[ihren Eltern]].', 'تسكن عند والديها.'],
+  ],
+  gruende: [
+    ['Ich bleibe zu Hause, weil ich krank ___.', 'bin', ['sein', 'ist'], 'بعد [[weil]] الفعل المصرّف في الآخر: [[weil ich krank bin]].', 'أبقى في البيت لأنّي مريض.'],
+    ['Ich glaube, ___ er heute nicht kommt.', 'dass', ['weil', 'wenn'], '[[Ich glaube, dass …]] = أظنّ أنّ… والفعل في الآخر.', 'أظنّ أنّه لن يأتي اليوم.'],
+    ['___ es regnet, nehme ich den Bus.', 'Wenn', ['Dass', 'Denn'], '[[wenn]] = إذا / عندما. وبعد الجملة الفرعية يأتي الفعل أوّلاً: [[…, nehme ich …]]', 'إذا أمطرت آخذ الحافلة.'],
+    ['Wenn ich Zeit habe, ___ ich dich.', 'besuche', ['ich besuche', 'besuchen'], 'بعد الجملة الفرعية: الفعل مباشرة ثم الفاعل: [[…, besuche ich dich.]]', 'إذا كان عندي وقت أزورك.'],
+    ['Er sagt, dass er keine Zeit ___.', 'hat', ['haben', 'hast'], 'بعد [[dass]] الفعل في الآخر: [[dass er keine Zeit hat]].', 'يقول إنّه ليس عنده وقت.'],
+    ['Warum lernst du Deutsch? – ___ ich hier studieren möchte.', 'Weil', ['Denn', 'Dass'], 'جواب [[Warum?]] بـ [[Weil …]] والفعل في الآخر. ([[denn]] يحتاج الترتيب العادي).', 'لماذا تتعلّم الألمانية؟ – لأنّي أريد أن أدرس هنا.'],
+  ],
+  einrichten: [
+    ['Ich stelle die Lampe auf ___ Tisch.', 'den', ['dem', 'der'], '[[Wohin?]] (حركة) → Akkusativ: [[auf den Tisch]].', 'أضع المصباح على الطاولة.'],
+    ['Die Lampe steht auf ___ Tisch.', 'dem', ['den', 'der'], '[[Wo?]] (مكان ثابت) → Dativ: [[auf dem Tisch]].', 'المصباح على الطاولة.'],
+    ['Ich hänge das Bild an ___ Wand.', 'die', ['der', 'dem'], 'حركة → Akkusativ: [[an die Wand]].', 'أعلّق الصورة على الحائط.'],
+    ['Das Bild hängt an ___ Wand.', 'der', ['die', 'den'], 'مكان ثابت → Dativ: [[an der Wand]].', 'الصورة معلّقة على الحائط.'],
+    ['Leg das Buch bitte ___ Regal!', 'ins', ['im', 'in'], 'حركة: [[in + das = ins]].', 'ضع الكتاب في الرفّ من فضلك!'],
+    ['Wir ___ das Sofa vor das Fenster.', 'stellen', ['stehen', 'liegen'], '[[stellen]] (Wohin? + Akk) = نضع. أمّا [[stehen]] (Wo? + Dat) = موجود واقفاً.', 'نضع الأريكة أمام النافذة.'],
+  ],
+  alltag: [
+    ['Ich ___ mich jeden Morgen.', 'wasche', ['wäschst', 'waschen'], '[[sich waschen]]: [[ich wasche mich]].', 'أغتسل كل صباح.'],
+    ['Er rasiert ___ nicht.', 'sich', ['ihn', 'mich'], 'الضمير الانعكاسي لـ [[er / sie / es]]: [[sich]].', 'هو لا يحلق.'],
+    ['Wir freuen ___ auf das Wochenende.', 'uns', ['sich', 'euch'], '[[wir]] → [[uns]]: [[wir freuen uns auf …]]', 'نحن متشوّقون لعطلة الأسبوع.'],
+    ['Beeil ___! Der Bus kommt.', 'dich', ['dir', 'sich'], 'الأمر مع du: [[Beeil dich!]]', 'أسرع! الحافلة قادمة.'],
+    ['Ich putze ___ die Zähne.', 'mir', ['mich', 'sich'], 'إذا كان هناك مفعول آخر ([[die Zähne]]) يصبح الضمير Dativ: [[mir]].', 'أنظّف أسناني.'],
+    ['Habt ihr ___ schon angezogen?', 'euch', ['uns', 'sich'], '[[ihr]] → [[euch]].', 'هل لبستم ملابسكم؟'],
+  ],
+  aussehen: [
+    ['Sie hat ___ Haare.', 'lange', ['langen', 'langes'], 'جمع بدون أداة (Akkusativ): [[-e]]: [[lange Haare]].', 'لها شعر طويل.'],
+    ['Er trägt einen ___ Mantel.', 'schwarzen', ['schwarze', 'schwarzer'], 'Akkusativ مذكّر بعد [[einen]]: [[-en]].', 'يلبس معطفاً أسود.'],
+    ['Das ist ein ___ Mann.', 'großer', ['große', 'großen'], 'Nominativ مذكّر بعد [[ein]]: [[-er]].', 'هذا رجل طويل.'],
+    ['Die ___ Frau ist meine Lehrerin.', 'junge', ['jungen', 'junger'], 'بعد [[die]] (Nominativ مفرد): [[-e]].', 'المرأة الشابّة هي معلّمتي.'],
+    ['Ich mag dein ___ Kleid.', 'neues', ['neue', 'neuen'], 'محايد بعد [[dein]] (Akkusativ): [[-es]].', 'يعجبني فستانك الجديد.'],
+    ['Mit dem ___ Bart sieht er älter aus.', 'langen', ['lange', 'langer'], 'Dativ بعد [[dem]]: دائماً [[-en]].', 'باللحية الطويلة يبدو أكبر سنّاً.'],
+  ],
+  feiertage: [
+    ['Weihnachten ist ___ 25. Dezember.', 'am', ['im', 'um'], 'التاريخ: [[am]].', 'عيد الميلاد في 25 ديسمبر.'],
+    ['___ Ostern haben die Kinder Ferien.', 'An', ['Im', 'Um'], 'مع الأعياد: [[an Ostern]] أو [[zu Ostern]].', 'في عيد الفصح يكون للأطفال عطلة.'],
+    ['Die Party beginnt ___ 20 Uhr.', 'um', ['am', 'im'], 'الساعة: [[um]].', 'الحفلة تبدأ الساعة 20.'],
+    ['Wir feiern ___ Wochenende.', 'am', ['im', 'um'], '[[am Wochenende]].', 'نحتفل في عطلة الأسبوع.'],
+    ['Der Laden ist ___ 24. bis 26. Dezember geschlossen.', 'vom', ['von', 'am'], '[[vom … bis zum …]] (von + dem).', 'المحلّ مغلق من 24 إلى 26 ديسمبر.'],
+    ['Ich komme ___ einer Woche zurück.', 'in', ['vor', 'seit'], '[[in einer Woche]] = بعد أسبوع (في المستقبل). [[vor einer Woche]] = قبل أسبوع.', 'أرجع بعد أسبوع.'],
+  ],
+  reise: [
+    ['Der Zug ist ___ als der Bus.', 'schneller', ['schnell', 'schnellste'], 'المقارنة: [[-er]] + [[als]].', 'القطار أسرع من الحافلة.'],
+    ['Das Flugzeug ist am ___.', 'schnellsten', ['schnellste', 'schneller'], 'التفضيل: [[am …sten]].', 'الطائرة هي الأسرع.'],
+    ['Berlin ist die ___ Stadt Deutschlands.', 'größte', ['größten', 'größer'], 'التفضيل قبل الاسم: [[die größte Stadt]].', 'برلين أكبر مدينة في ألمانيا.'],
+    ['Im Sommer ist es ___ als im Winter.', 'wärmer', ['warmer', 'mehr warm'], '[[warm → wärmer]] (مع Umlaut).', 'في الصيف يكون الجوّ أدفأ من الشتاء.'],
+    ['Ich fahre ___ mit dem Zug als mit dem Auto.', 'lieber', ['gerner', 'mehr gern'], '[[gern → lieber → am liebsten]] (شاذّ).', 'أفضّل السفر بالقطار على السيّارة.'],
+    ['Das Hotel war nicht so teuer ___ das andere.', 'wie', ['als', 'dann'], '[[(nicht) so … wie]].', 'الفندق لم يكن غالياً مثل الآخر.'],
+  ],
+  wuensche: [
+    ['Ich ___ gern mehr Zeit.', 'hätte', ['hatte', 'habe'], 'التمنّي: [[hätte]] = ليت عندي.', 'ليت عندي وقتاً أكثر.'],
+    ['Wenn ich reich ___, würde ich reisen.', 'wäre', ['war', 'bin'], 'الشرط غير الحقيقي: [[wenn ich … wäre]].', 'لو كنت غنيّاً لسافرت.'],
+    ['___ Sie mir bitte helfen?', 'Könnten', ['Konnten', 'Könnt'], 'طلب مؤدّب جداً: [[Könnten Sie …?]]', 'هل يمكنك أن تساعدني من فضلك؟'],
+    ['Ich ___ gern einen Kaffee trinken.', 'würde', ['wurde', 'werde'], '[[würde]] + مصدر = أودّ.', 'أودّ أن أشرب قهوة.'],
+    ['An deiner Stelle ___ ich zum Arzt gehen.', 'würde', ['werde', 'wurde'], 'النصيحة: [[An deiner Stelle würde ich …]]', 'لو كنت مكانك لذهبت إلى الطبيب.'],
+    ['Du ___ mehr schlafen.', 'solltest', ['sollst', 'solltet'], 'النصيحة: [[du solltest]].', 'ينبغي أن تنام أكثر.'],
+  ],
+  restaurant: [
+    ['Ich brauche einen Löffel. Hast du ___?', 'einen', ['eins', 'eine'], 'الضمير يأخذ نهاية الأداة: [[der Löffel]] في Akk → [[einen]].', 'أحتاج ملعقة. هل عندك واحدة؟'],
+    ['Gibt es noch Brötchen? – Ja, da sind noch ___.', 'welche', ['eins', 'einen'], 'للجمع: [[welche]] = بعض.', 'هل بقي خبز؟ – نعم، ما زال هناك بعض.'],
+    ['Ich möchte ein Wasser. – Tut mir leid, wir haben ___ mehr.', 'keins', ['keinen', 'keiner'], '[[das Wasser]] → [[keins]].', 'أريد ماءً. – آسف، لم يبقَ لدينا.'],
+    ['Hier ist kein Messer. – Doch, da liegt ___.', 'eins', ['ein', 'einer'], 'المحايد كضمير: [[eins]].', 'لا توجد سكّين هنا. – بلى، هناك واحدة.'],
+    ['Haben Sie eine Speisekarte? – Ja, hier ist ___.', 'eine', ['einer', 'eins'], '[[die Karte]] → [[eine]].', 'هل عندك قائمة طعام؟ – نعم، هذه واحدة.'],
+    ['Ist hier ein Platz frei? – Nein, hier ist ___ frei.', 'keiner', ['kein', 'keinen'], '[[der Platz]] في Nominativ → [[keiner]].', 'هل هنا مكان فارغ؟ – لا، لا يوجد هنا مكان فارغ.'],
+  ],
+  interessen: [
+    ['Ich interessiere mich ___ Musik.', 'für', ['an', 'auf'], '[[sich interessieren für]] + Akk.', 'أهتمّ بالموسيقى.'],
+    ['Wir warten ___ den Bus.', 'auf', ['für', 'an'], '[[warten auf]] + Akk.', 'ننتظر الحافلة.'],
+    ['Er denkt oft ___ seine Familie.', 'an', ['über', 'von'], '[[denken an]] + Akk.', 'يفكّر كثيراً في عائلته.'],
+    ['Sie träumt ___ einem Haus am Meer.', 'von', ['über', 'auf'], '[[träumen von]] + Dativ.', 'تحلم ببيت على البحر.'],
+    ['Ich freue mich ___ deinen Besuch nächste Woche.', 'auf', ['für', 'an'], '[[sich freuen auf]] = متشوّق لشيء في المستقبل. ([[über]] = سعيد بشيء حدث).', 'أنا متشوّق لزيارتك الأسبوع القادم.'],
+    ['Sprichst du gern ___ Politik?', 'über', ['an', 'für'], '[[sprechen über]] + Akk = يتكلّم عن.', 'هل تحبّ الكلام عن السياسة؟'],
+  ],
+  infos: [
+    ['Können Sie mir sagen, wo der Bahnhof ___?', 'ist', ['sein', 'sind'], 'السؤال غير المباشر: الفعل في الآخر: [[wo der Bahnhof ist]].', 'هل تستطيع أن تقول لي أين المحطّة؟'],
+    ['Ich weiß nicht, ___ er kommt.', 'ob', ['wenn', 'falls'], 'سؤال نعم/لا غير مباشر: [[ob]] = إن كان / هل.', 'لا أعرف إن كان سيأتي.'],
+    ['Wissen Sie, wann der Kurs ___?', 'beginnt', ['beginnen', 'beginnst'], 'الفعل في آخر السؤال غير المباشر.', 'هل تعرف حضرتك متى تبدأ الدورة؟'],
+    ['Darf ich fragen, wie viel das ___?', 'kostet', ['kosten', 'kostest'], 'السؤال غير المباشر: [[wie viel das kostet]].', 'هل يمكنني أن أسأل بكم هذا؟'],
+    ['Weißt du, ___ Herr Berg wohnt?', 'wo', ['was', 'wer'], 'كلمة السؤال تبقى: [[wo]]، والفعل في الآخر.', 'هل تعرف أين يسكن السيد بيرغ؟'],
+    ['Können Sie mir erklären, wie man das Formular ___?', 'ausfüllt', ['füllt aus', 'ausfüllen'], 'في الجملة الفرعية يتّصل الفعل المنفصل: [[ausfüllt]].', 'هل تستطيع أن تشرح لي كيف تُملأ الاستمارة؟'],
+  ],
+  verkehr: [
+    ['Fahren Sie geradeaus bis ___ Kreuzung.', 'zur', ['zum', 'die'], '[[bis zu]] + Dativ: [[die Kreuzung → bis zur Kreuzung]].', 'اذهب مستقيماً حتى التقاطع.'],
+    ['Gehen Sie ___ die Brücke.', 'über', ['bei', 'aus'], '[[über]] = عبر / فوق: [[über die Brücke]].', 'اعبر الجسر.'],
+    ['Der Bus fährt ___ den Park.', 'durch', ['bei', 'aus'], '[[durch]] + Akk = عبر (من داخل).', 'الحافلة تمرّ عبر الحديقة.'],
+    ['Ich fahre jeden Tag ___ Arbeit.', 'zur', ['zum', 'nach'], '[[die Arbeit → zur Arbeit]].', 'أذهب كل يوم إلى العمل.'],
+    ['Das Kino ist ___ der Post.', 'gegenüber', ['gegen', 'zwischen'], '[[gegenüber]] + Dativ = مقابل.', 'السينما مقابل البريد.'],
+    ['Steigen Sie ___ Hauptbahnhof aus.', 'am', ['im', 'zum'], '[[am Hauptbahnhof aussteigen]].', 'انزل في المحطّة الرئيسية.'],
+  ],
+  arbeit: [
+    ['Ich habe keine Lust, heute ___.', 'zu arbeiten', ['arbeiten', 'zu arbeite'], '[[Lust haben]] + [[zu]] + مصدر.', 'ليس عندي رغبة في العمل اليوم.'],
+    ['Es ist wichtig, pünktlich ___.', 'zu sein', ['sein', 'zu bist'], '[[Es ist wichtig, … zu …]]', 'من المهمّ أن تكون دقيقاً في المواعيد.'],
+    ['Vergiss nicht, mich ___!', 'anzurufen', ['zu anrufen', 'anrufen'], 'الفعل المنفصل: [[zu]] في الوسط: [[an‑zu‑rufen]].', 'لا تنسَ أن تتّصل بي!'],
+    ['Ich versuche, mehr Deutsch ___.', 'zu sprechen', ['sprechen', 'zu spreche'], '[[versuchen]] + [[zu]] + مصدر.', 'أحاول أن أتكلّم الألمانية أكثر.'],
+    ['Er hat vor, eine neue Stelle ___.', 'zu suchen', ['suchen', 'zu sucht'], '[[vorhaben]] + [[zu]] + مصدر.', 'ينوي البحث عن وظيفة جديدة.'],
+    ['Ich kann gut ___.', 'kochen', ['zu kochen', 'koche'], 'بعد الأفعال المساعدة ([[können, müssen …]]) لا نستعمل [[zu]].', 'أستطيع الطبخ جيداً.'],
+  ],
+  technik: [
+    ['___ Sie zuerst den Computer aus!', 'Schalten', ['Schaltet', 'Schalte'], 'الأمر الرسمي: [[Schalten Sie … aus!]]', 'أطفئ الحاسوب أوّلاً!'],
+    ['___ das Handy bitte nicht in die Sonne!', 'Leg', ['Legst', 'Legen'], 'الأمر مع du: [[Leg!]]', 'لا تضع الهاتف في الشمس من فضلك!'],
+    ['Du ___ das Passwort öfter ändern.', 'solltest', ['sollte', 'solltet'], 'النصيحة: [[du solltest]].', 'ينبغي أن تغيّر كلمة السرّ أكثر.'],
+    ['___ ihr bitte leiser!', 'Seid', ['Sind', 'Seit'], 'الأمر من [[sein]] مع [[ihr]]: [[Seid!]]', 'كونوا أهدأ من فضلكم!'],
+    ['Drück bitte ___ den grünen Knopf!', 'auf', ['an', 'zu'], '[[auf den Knopf drücken]].', 'اضغط على الزرّ الأخضر من فضلك!'],
+    ['Man ___ das Gerät nicht mit Wasser putzen.', 'sollte', ['sollten', 'solltest'], '[[man]] مثل [[er]]: [[man sollte]].', 'لا ينبغي تنظيف الجهاز بالماء.'],
+  ],
+  reklamation: [
+    ['Der Mantel gehört ___.', 'mir', ['mich', 'ich'], 'الفعل [[gehören]] + Dativ.', 'المعطف لي.'],
+    ['Können Sie ___ helfen?', 'uns', ['wir', 'unser'], 'الفعل [[helfen]] + Dativ: [[uns]].', 'هل تستطيع حضرتك مساعدتنا؟'],
+    ['___ Hose möchten Sie umtauschen?', 'Welche', ['Welcher', 'Welches'], '[[die Hose]] → [[welche]].', 'أيّ بنطال تريد استبداله؟'],
+    ['Ich nehme ___ Pullover hier.', 'diesen', ['dieser', 'dieses'], 'Akkusativ مذكّر: [[diesen]].', 'آخذ هذه الكنزة هنا.'],
+    ['Das Handy funktioniert nicht. Es ist ___.', 'kaputt', ['kaputte', 'kaputtes'], 'بعد [[ist]] الصفة بدون نهاية.', 'الهاتف لا يعمل. إنّه معطّل.'],
+    ['Ich danke ___ für Ihre Hilfe.', 'Ihnen', ['Sie', 'Ihr'], 'الفعل [[danken]] + Dativ: [[Ihnen]].', 'أشكرك على مساعدتك.'],
+  ],
+});
+
+// B1 extra grammar drills (added to each lesson's existing ones)
+(function (more) { const full = (q) => q[0].replace('___', q[1]); for (const id of Object.keys(more)) { const have = new Set((GQ[id] || []).map(full)); GQ[id] = (GQ[id] || []).concat(more[id].filter((q) => !have.has(full(q)))); } })({
+  beziehungen: [
+    ['Das ist der Mann, ___ neben mir wohnt.', 'der', ['den', 'dem'], 'ضمير الوصل فاعل مذكّر: [[der]].', 'هذا هو الرجل الذي يسكن بجانبي.'],
+    ['Das ist die Frau, ___ ich gestern getroffen habe.', 'die', ['der', 'den'], 'مفعول به مؤنّث (Akk): [[die]].', 'هذه هي المرأة التي قابلتها أمس.'],
+    ['Der Freund, ___ ich helfe, heißt Omar.', 'dem', ['den', 'der'], 'الفعل [[helfen]] + Dativ: [[dem]].', 'الصديق الذي أساعده اسمه عمر.'],
+    ['Das Kind, ___ dort spielt, ist mein Sohn.', 'das', ['dass', 'der'], 'محايد: [[das]] (وليس [[dass]]).', 'الطفل الذي يلعب هناك هو ابني.'],
+    ['Die Leute, ___ wir eingeladen haben, kommen um acht.', 'die', ['denen', 'der'], 'جمع في Akk: [[die]].', 'الناس الذين دعوناهم يأتون في الثامنة.'],
+    ['Das sind die Freunde, mit ___ ich Fußball spiele.', 'denen', ['den', 'die'], 'جمع في Dativ: [[denen]].', 'هؤلاء هم الأصدقاء الذين ألعب معهم كرة القدم.'],
+  ],
+  umwelt: [
+    ['Der Müll ___ jeden Montag abgeholt.', 'wird', ['ist', 'werden'], 'Passiv: [[werden]] + Partizip II: [[wird abgeholt]].', 'تُجمع القمامة كل يوم إثنين.'],
+    ['Die Flaschen werden ___.', 'recycelt', ['recyceln', 'recycelte'], 'Passiv: [[werden]] + اسم المفعول.', 'يُعاد تدوير الزجاجات.'],
+    ['Hier ___ viel Plastik verwendet.', 'wird', ['werden', 'wurden'], '[[viel Plastik]] مفرد → [[wird]].', 'هنا يُستعمل بلاستيك كثير.'],
+    ['Das Haus wurde 1990 ___.', 'gebaut', ['gebaute', 'bauen'], 'Passiv في الماضي: [[wurde]] + Partizip II.', 'بُني البيت سنة 1990.'],
+    ['Die Bäume ___ letztes Jahr gepflanzt.', 'wurden', ['wurde', 'werdet'], 'جمع في الماضي: [[wurden]].', 'زُرعت الأشجار السنة الماضية.'],
+    ['Strom muss gespart ___.', 'werden', ['wird', 'worden'], 'مع فعل مساعد: [[muss … gespart werden]].', 'يجب توفير الكهرباء.'],
+  ],
+  kultur: [
+    ['Das ist ein sehr ___ Buch.', 'spannendes', ['gespanntes', 'spannende'], 'Partizip I [[spannend]] = مشوِّق، ونهايته [[-es]] بعد [[ein]] (محايد).', 'هذا كتاب مشوّق جداً.'],
+    ['Ich bin sehr ___ auf den Film.', 'gespannt', ['spannend', 'gespannte'], '[[gespannt sein auf]] = متشوّق (الشخص).', 'أنا متشوّق جداً للفيلم.'],
+    ['Das ___ Kind braucht Hilfe.', 'weinende', ['geweinte', 'weinenden'], 'Partizip I = يفعل الآن: [[das weinende Kind]].', 'الطفل الباكي يحتاج مساعدة.'],
+    ['Ich esse gern ___ Eier.', 'gekochte', ['kochende', 'gekochten'], 'Partizip II = تمّ فعله: [[gekochte Eier]] (جمع بدون أداة: [[-e]]).', 'أحبّ البيض المسلوق.'],
+    ['Der Film war sehr ___.', 'langweilig', ['gelangweilt', 'langweilige'], '[[langweilig]] = مملّ (الشيء). [[gelangweilt]] = يشعر بالملل (الشخص).', 'الفيلم كان مملاً جداً.'],
+    ['Wir haben das ___ Auto verkauft.', 'reparierte', ['reparierende', 'repariertes'], 'بعد [[das]] (Akk): [[-e]]: [[das reparierte Auto]].', 'بعنا السيّارة التي تمّ إصلاحها.'],
+  ],
+  traeume: [
+    ['Wenn ich mehr gelernt ___, hätte ich die Prüfung bestanden.', 'hätte', ['habe', 'hatte'], 'الماضي غير الحقيقي: [[hätte]] + Partizip II.', 'لو درست أكثر لنجحت في الامتحان.'],
+    ['Ich wäre gern mitgekommen, aber ich ___ keine Zeit.', 'hatte', ['hätte', 'habe'], 'الواقع (ما حدث فعلاً) بالماضي العادي: [[hatte]].', 'كنت أودّ المجيء معكم، لكن لم يكن عندي وقت.'],
+    ['Wenn du früher gekommen ___, hättest du ihn gesehen.', 'wärst', ['hättest', 'bist'], '[[kommen]] مع [[sein]] → [[wärst gekommen]].', 'لو جئت أبكر لرأيته.'],
+    ['Ich ___ das nie gemacht!', 'hätte', ['würde', 'wäre'], '[[machen]] مع [[haben]] → [[hätte … gemacht]].', 'ما كنت لأفعل ذلك أبداً!'],
+    ['Fast ___ ich den Zug verpasst.', 'hätte', ['habe', 'würde'], '[[Fast hätte ich …]] = كدت أن… (لكنّه لم يحدث).', 'كدت أن يفوتني القطار.'],
+    ['Wenn das Wetter schön gewesen ___, wären wir geschwommen.', 'wäre', ['hätte', 'war'], '[[sein]] → [[gewesen wäre]].', 'لو كان الطقس جميلاً لسبحنا.'],
+  ],
+  lebenslauf: [
+    ['Nachdem ich gegessen ___, ging ich spazieren.', 'hatte', ['habe', 'hätte'], 'بعد [[nachdem]] الماضي الأسبق: [[hatte … gegessen]].', 'بعد أن أكلت ذهبت أتمشّى.'],
+    ['Nachdem sie angekommen ___, rief sie mich an.', 'war', ['hatte', 'ist'], '[[ankommen]] مع [[sein]] → [[war angekommen]].', 'بعد أن وصلت اتّصلت بي.'],
+    ['___ ich nach Deutschland kam, lernte ich Englisch.', 'Bevor', ['Nachdem', 'Seit'], '[[bevor]] = قبل أن. ([[nachdem]] يحتاج Plusquamperfekt).', 'قبل أن آتي إلى ألمانيا تعلّمت الإنجليزية.'],
+    ['___ des Studiums arbeitete ich im Café.', 'Während', ['Bevor', 'Nachdem'], '[[während]] + Genitiv = خلال.', 'خلال الدراسة عملت في مقهى.'],
+    ['Ich ___ schon zwei Jahre in Köln gewohnt, als ich die Stelle bekam.', 'hatte', ['habe', 'war'], 'Plusquamperfekt: [[hatte … gewohnt]].', 'كنت قد سكنت في كولونيا سنتين عندما حصلت على الوظيفة.'],
+    ['Von 2015 ___ 2019 studierte ich Informatik.', 'bis', ['nach', 'zu'], '[[von … bis …]].', 'من 2015 إلى 2019 درست المعلوماتية.'],
+  ],
+  geld: [
+    ['Ich frage den ___.', 'Kunden', ['Kunde', 'Kundes'], 'n-Deklination: [[der Kunde → den Kunden]] (Akk / Dat / Gen).', 'أسأل الزبون.'],
+    ['Der Bankberater hilft dem ___.', 'Studenten', ['Student', 'Studente'], '[[der Student → dem Studenten]].', 'المستشار المصرفي يساعد الطالب.'],
+    ['Kennst du den ___ von Lisa?', 'Nachbarn', ['Nachbar', 'Nachbars'], '[[der Nachbar → den Nachbarn]].', 'هل تعرف جار ليزا؟'],
+    ['Das ist das Auto des ___.', 'Kollegen', ['Kollege', 'Kolleges'], 'Genitiv: [[des Kollegen]].', 'هذه سيّارة الزميل.'],
+    ['Der ___ wartet am Schalter.', 'Kunde', ['Kunden', 'Kundes'], 'في Nominativ بدون [[-n]]: [[der Kunde]].', 'الزبون ينتظر عند الشبّاك.'],
+    ['Ich habe mit einem ___ gesprochen.', 'Herrn', ['Herr', 'Herren'], '[[der Herr → einem Herrn]] (مفرد). [[Herren]] = جمع.', 'تكلّمت مع رجل.'],
+  ],
+  bewerbung: [
+    ['Ich lerne Deutsch, ___ hier zu arbeiten.', 'um', ['damit', 'für'], '[[um … zu]] = لكي (نفس الفاعل).', 'أتعلّم الألمانية لكي أعمل هنا.'],
+    ['Ich erkläre es dir, ___ du es verstehst.', 'damit', ['um', 'für'], 'فاعل مختلف: [[damit]] + جملة كاملة.', 'أشرحه لك لكي تفهمه.'],
+    ['Er ging, ohne Tschüss ___.', 'zu sagen', ['sagen', 'sagt'], '[[ohne … zu]] + مصدر.', 'ذهب دون أن يقول وداعاً.'],
+    ['Statt zu lernen, ___ er fern.', 'sieht', ['er sieht', 'sehen'], 'بعد الجملة المصدرية الفعل أوّلاً: [[…, sieht er fern.]]', 'بدل أن يدرس يشاهد التلفاز.'],
+    ['Ich schicke meinen Lebenslauf, um mich ___.', 'zu bewerben', ['bewerben', 'zu bewirbt'], '[[um … zu]] + مصدر في الآخر.', 'أرسل سيرتي الذاتية لكي أتقدّم للوظيفة.'],
+    ['Sie spart Geld, ___ sie ein Auto kaufen kann.', 'damit', ['um', 'zu'], 'جملة فرعية كاملة لها فاعل: [[damit]] + الفعل في الآخر.', 'توفّر المال لكي تستطيع شراء سيّارة.'],
+  ],
+  meinung: [
+    ['___ es regnet, gehe ich spazieren.', 'Obwohl', ['Trotzdem', 'Deshalb'], '[[obwohl]] = مع أنّ، والفعل في الآخر.', 'مع أنّها تمطر أذهب أتمشّى.'],
+    ['Es regnet. ___ gehe ich spazieren.', 'Trotzdem', ['Obwohl', 'Weil'], '[[trotzdem]] = مع ذلك، وبعده الفعل مباشرة.', 'إنّها تمطر. مع ذلك أذهب أتمشّى.'],
+    ['Ich bin müde, ___ gehe ich ins Bett.', 'deshalb', ['obwohl', 'weil'], '[[deshalb]] = لذلك + الفعل مباشرة.', 'أنا متعب، لذلك أذهب إلى السرير.'],
+    ['Die Wohnung ist günstig. ___ ist sie zentral.', 'Außerdem', ['Obwohl', 'Trotzdem'], '[[außerdem]] = بالإضافة إلى ذلك.', 'الشقّة رخيصة. بالإضافة إلى ذلك هي في المركز.'],
+    ['Obwohl er krank ist, ___ er zur Arbeit.', 'geht', ['er geht', 'gehen'], 'بعد الجملة الفرعية: الفعل أوّلاً ثم الفاعل.', 'مع أنّه مريض يذهب إلى العمل.'],
+    ['Meiner ___ nach ist das richtig.', 'Meinung', ['Meinen', 'Mein'], '[[Meiner Meinung nach]] = في رأيي.', 'في رأيي هذا صحيح.'],
+  ],
+  mieten: [
+    ['Die Wohnung ___ Freundes ist sehr groß.', 'meines', ['meinem', 'mein'], 'Genitiv مذكّر: [[meines Freundes]] (+s).', 'شقّة صديقي كبيرة جداً.'],
+    ['Wegen ___ Lärms kann ich nicht schlafen.', 'des', ['dem', 'der'], '[[wegen]] + Genitiv: [[des Lärms]].', 'بسبب الضجيج لا أستطيع النوم.'],
+    ['Trotz ___ hohen Miete ziehen wir ein.', 'der', ['die', 'dem'], '[[trotz]] + Genitiv مؤنّث: [[der]].', 'رغم الإيجار المرتفع ننتقل إليها.'],
+    ['Die Küche ___ Wohnung ist neu.', 'der', ['die', 'des'], 'Genitiv مؤنّث: [[der Wohnung]].', 'مطبخ الشقّة جديد.'],
+    ['Während ___ Besichtigung habe ich viele Fragen gestellt.', 'der', ['die', 'dem'], '[[während]] + Genitiv.', 'خلال المعاينة طرحت أسئلة كثيرة.'],
+    ['Das ist der Schlüssel ___ Hauses.', 'des', ['dem', 'das'], 'Genitiv محايد: [[des Hauses]].', 'هذا مفتاح البيت.'],
+  ],
+  bildung: [
+    ['Je mehr du lernst, ___ besser sprichst du.', 'desto', ['als', 'dann'], '[[je … desto]] = كلّما … كلّما.', 'كلّما تعلّمت أكثر تكلّمت أفضل.'],
+    ['Ich spreche ___ Arabisch als auch Deutsch.', 'sowohl', ['weder', 'entweder'], '[[sowohl … als auch]] = كلٌّ من … و…', 'أتكلّم العربية والألمانية كلتيهما.'],
+    ['Er spricht weder Englisch ___ Französisch.', 'noch', ['oder', 'und'], '[[weder … noch]] = لا … ولا.', 'لا يتكلّم الإنجليزية ولا الفرنسية.'],
+    ['Entweder wir lernen heute, ___ wir lernen morgen.', 'oder', ['noch', 'als'], '[[entweder … oder]] = إمّا … أو.', 'إمّا أن ندرس اليوم أو غداً.'],
+    ['Je früher du anfängst, desto schneller ___ du fertig.', 'bist', ['du bist', 'sein'], 'بعد [[desto]] + الصفة يأتي الفعل ثم الفاعل.', 'كلّما بدأت أبكر انتهيت أسرع.'],
+    ['Der Kurs ist nicht nur gut, ___ auch günstig.', 'sondern', ['aber', 'oder'], '[[nicht nur … sondern auch]].', 'الدورة ليست جيّدة فقط، بل رخيصة أيضاً.'],
+  ],
+  zukunft: [
+    ['Ich ___ nächstes Jahr nach Berlin ziehen.', 'werde', ['wird', 'werdet'], 'Futur I: [[werden]] + مصدر في الآخر: [[ich werde … ziehen]].', 'سأنتقل السنة القادمة إلى برلين.'],
+    ['Es ___ morgen regnen.', 'wird', ['werden', 'wirst'], '[[es wird]] + مصدر.', 'ستمطر غداً.'],
+    ['Wir werden das Problem ___.', 'lösen', ['gelöst', 'lösten'], 'بعد [[werden]] المصدر في الآخر.', 'سنحلّ المشكلة.'],
+    ['___ du mich morgen anrufen?', 'Wirst', ['Wird', 'Werdet'], '[[du wirst]].', 'هل ستتّصل بي غداً؟'],
+    ['Er wird wohl krank ___.', 'sein', ['ist', 'sind'], 'التوقّع: [[wird wohl … sein]] = على الأرجح هو مريض.', 'على الأرجح هو مريض.'],
+    ['In zehn Jahren ___ alle Autos elektrisch fahren.', 'werden', ['wird', 'werdet'], 'جمع: [[werden]].', 'بعد عشر سنوات ستسير كل السيّارات بالكهرباء.'],
+  ],
+  gesundheit: [
+    ['___ wartest du? – Auf das Ergebnis.', 'Worauf', ['Wofür', 'Woran'], 'سؤال عن شيء مع [[warten auf]]: [[Worauf?]]', 'ماذا تنتظر؟ – النتيجة.'],
+    ['Ich habe Angst vor der Operation. – Hab keine Angst ___!', 'davor', ['darauf', 'dafür'], '[[Angst vor]] → [[davor]].', 'أخاف من العملية. – لا تخف منها!'],
+    ['___ denkst du? – An meinen Termin.', 'Woran', ['Worauf', 'Wovon'], '[[denken an]] → [[Woran?]]', 'بماذا تفكّر؟ – بموعدي.'],
+    ['Der Urlaub kommt bald. Ich freue mich schon ___.', 'darauf', ['dafür', 'daran'], '[[sich freuen auf]] → [[darauf]].', 'العطلة قريبة. أنا متشوّق لها منذ الآن.'],
+    ['Ich muss mich ___ meine Gesundheit kümmern.', 'um', ['für', 'an'], '[[sich kümmern um]].', 'يجب أن أهتمّ بصحّتي.'],
+    ['Das ist ein Problem. Sprechen wir ___!', 'darüber', ['darauf', 'dafür'], '[[sprechen über]] → [[darüber]].', 'هذه مشكلة. لنتكلّم عنها!'],
+  ],
+  konflikte: [
+    ['Ich ___ mein Auto reparieren.', 'lasse', ['lässt', 'lassen'], '[[lassen]] + مصدر = أجعل شخصاً آخر يفعل: [[ich lasse … reparieren]].', 'أصلح سيّارتي عند ميكانيكي.'],
+    ['Er ___ sich die Haare schneiden.', 'lässt', ['lasst', 'lassen'], '[[er lässt]] (مع Umlaut).', 'يقصّ شعره عند الحلّاق.'],
+    ['___ mich bitte in Ruhe!', 'Lass', ['Lässt', 'Lassen'], 'الأمر مع du: [[Lass!]]', 'اتركني في حالي من فضلك!'],
+    ['Lass uns das Problem ___!', 'besprechen', ['besprochen', 'zu besprechen'], '[[Lass uns …]] + مصدر = دعنا… (بدون zu).', 'دعنا نناقش المشكلة!'],
+    ['Wir haben die Heizung ___.', 'reparieren lassen', ['repariert lassen', 'reparieren gelassen'], 'في Perfekt: [[haben … reparieren lassen]] (مصدران).', 'جعلنا التدفئة تُصلَح.'],
+    ['Meine Eltern ___ mich nicht allein reisen.', 'lassen', ['lässt', 'lasst'], 'جمع: [[sie lassen]] = لا يسمحون لي.', 'والداي لا يسمحان لي بالسفر وحدي.'],
+  ],
+  nachrichten: [
+    ['___ ich gestern nach Hause kam, war niemand da.', 'Als', ['Wenn', 'Wann'], 'مرّة واحدة في الماضي: [[als]].', 'عندما رجعت أمس إلى البيت لم يكن أحد هناك.'],
+    ['Immer ___ ich Nachrichten sehe, werde ich traurig.', 'wenn', ['als', 'wann'], 'للتكرار: [[(immer) wenn]].', 'كلّما شاهدت الأخبار حزنت.'],
+    ['___ ich in Deutschland wohne, lese ich deutsche Zeitungen.', 'Seit', ['Bis', 'Als'], '[[seit(dem)]] = منذ أن (وما زال مستمرّاً).', 'منذ أن أسكن في ألمانيا أقرأ الصحف الألمانية.'],
+    ['Warte hier, ___ ich zurückkomme.', 'bis', ['seit', 'als'], '[[bis]] = حتى.', 'انتظر هنا حتى أرجع.'],
+    ['___ du gehst, mach bitte das Licht aus.', 'Bevor', ['Nachdem', 'Seit'], '[[bevor]] = قبل أن.', 'قبل أن تذهب أطفئ الضوء من فضلك.'],
+    ['Während er die Zeitung ___, trinkt er Kaffee.', 'liest', ['lest', 'lesen'], 'بعد [[während]] الفعل في الآخر: [[liest]].', 'بينما يقرأ الجريدة يشرب القهوة.'],
+  ],
+  politik: [
+    ['Der Minister sagt, er ___ zufrieden.', 'sei', ['seid', 'seien'], 'Konjunktiv I من [[sein]]: [[er sei]].', 'الوزير يقول إنّه راضٍ.'],
+    ['Er sagt, er ___ keine Zeit.', 'habe', ['haben', 'habest'], 'Konjunktiv I: [[er habe]].', 'يقول إنّه ليس عنده وقت.'],
+    ['Die Zeitung schreibt, die Preise ___ gestiegen.', 'seien', ['sei', 'seid'], 'جمع: [[seien]].', 'تكتب الجريدة أنّ الأسعار ارتفعت.'],
+    ['Er erklärt, man ___ mehr Lehrer.', 'brauche', ['brauchen', 'brauchst'], '[[man brauche]] (Konjunktiv I).', 'يوضّح أنّنا نحتاج معلّمين أكثر.'],
+    ['Sie fragt, ___ die Wahl am Sonntag ist.', 'ob', ['dass', 'wenn'], 'سؤال نعم/لا منقول: [[ob]].', 'تسأل إن كانت الانتخابات يوم الأحد.'],
+    ['Der Kandidat meint, er ___ die Wahl gewinnen.', 'werde', ['werdet', 'werden'], 'Konjunktiv I من [[werden]]: [[er werde]].', 'المرشّح يرى أنّه سيفوز بالانتخابات.'],
+  ],
+  pruefung: [
+    ['Sehr ___ Damen und Herren,', 'geehrte', ['geehrter', 'geehrten'], 'بداية رسمية: [[Sehr geehrte Damen und Herren]].', 'السيّدات والسادة المحترمون،'],
+    ['Sehr ___ Herr Müller,', 'geehrter', ['geehrte', 'geehrten'], 'لرجل: [[Sehr geehrter Herr …]]، لامرأة: [[Sehr geehrte Frau …]].', 'السيّد مولر المحترم،'],
+    ['Mit freundlichen ___', 'Grüßen', ['Grüße', 'Grüß'], 'الختام الرسمي: [[Mit freundlichen Grüßen]] (Dativ جمع).', 'مع أطيب التحيّات'],
+    ['Ich ___ mich über eine schnelle Antwort freuen.', 'würde', ['wurde', 'wäre'], 'جملة مهذّبة في الختام: [[Ich würde mich freuen, …]]', 'سأكون سعيداً بردّ سريع منكم.'],
+    ['Ich schreibe Ihnen, ___ ich mich beschweren möchte.', 'weil', ['denn', 'um'], '[[weil]] + الفعل في الآخر.', 'أكتب لحضرتكم لأنّي أريد تقديم شكوى.'],
+    ['Könnten Sie mir bitte mitteilen, ___ der Kurs beginnt?', 'wann', ['wenn', 'als'], 'السؤال غير المباشر عن الوقت: [[wann]].', 'هل يمكنكم إبلاغي متى تبدأ الدورة؟'],
+  ],
+});
+
 </script>
 <script>
 (() => {
@@ -3427,10 +4090,10 @@ const LEVEL_OF = {};
     return { pic, de, ar, pr, art: m ? (pl ? 'pl' : m[1]) : null, noun: m ? m[2].replace(' (Pl.)', '') : null, plain: de.replace(' (Pl.)', '').replace(' …', '') };
   };
   const ALLMAP = new Map();
-  for (const L of Object.values(DATA)) {
-    L.T = L.topics.map((t) => ({ ...t, W: t.words.map((s) => { const w = parseWord(s); if (!ALLMAP.has(w.de)) ALLMAP.set(w.de, w); return ALLMAP.get(w.de); }) }));
+  for (const [lvk, L] of Object.entries(DATA)) {
+    L.T = L.topics.map((t) => ({ ...t, lv: lvk, W: t.words.map((s) => { const w = parseWord(s); if (!ALLMAP.has(w.de)) ALLMAP.set(w.de, w); return ALLMAP.get(w.de); }) }));
     const seen = new Set();
-    L.mix = { id: 'mix', no: '★', icon: '🏁', de: 'Endstation', ar: 'المراجعة الشاملة للمستوى', tip: 'كل كلمات وجمل المستوى مخلوطة — أفضل تدريب قبل الامتحان!',
+    L.mix = { id: 'mix', lv: lvk, no: '★', icon: '🏁', de: 'Endstation', ar: 'المراجعة الشاملة للمستوى', tip: 'كل كلمات وجمل المستوى مخلوطة — أفضل تدريب قبل الامتحان!',
       W: L.T.flatMap((t) => t.W).filter((w) => !seen.has(w.de) && seen.add(w.de)), sent: L.T.flatMap((t) => t.sent || []), dlg: L.T.flatMap((t) => t.dlg || []),
       conj: [...new Set(L.T.flatMap((t) => t.conj || []))], perf: 'all', special: L === DATA.a11 ? ['zahlen', 'uhr', 'konj'] : L === DATA.a12 ? ['perfekt', 'praep', 'konj', 'komp'] : ['konj', 'praep', 'komp'],
       gq: L.T.flatMap((t) => (typeof GQ !== 'undefined' && GQ[t.id]) || []) };
@@ -3450,6 +4113,12 @@ const LEVEL_OF = {};
       how: ['ترى كلمة ألمانية (أو عربية) و4 أجوبة.', 'اختر الترجمة الصحيحة. عندك 12 ثانية لكل سؤال.', 'بعد كل جواب: النطق، وجملة مثال، وقاعدة تساعدك على التذكّر.'], keys: 'لوحة المفاتيح: 1 · 2 · 3 · 4 للاختيار · Enter للتالي' },
     gram: { tab: 'ueben', rec: 1, ic: '🧠', ar: 'تمرين القاعدة', de: 'Grammatik', skill: 'القواعد', n: '10 جمل', min: 4, need: (t) => gqOf(t).length >= 4, d: 'جمل ينقصها جزء: اختر الشكل الصحيح حسب قاعدة الدرس.',
       how: ['ترى جملة ألمانية ينقصها جزء، مع ترجمتها العربية.', 'اختر الشكل الصحيح حسب قاعدة الدرس (اقرأها في «ملخّص الدرس» إذا احتجت).', 'بعد كل جواب تشرح لك لينا القاعدة بجملة قصيرة.'], keys: '1 · 2 · 3 للاختيار · Enter للتالي' },
+    gramtype: { tab: 'ueben', ic: '⌨️', ar: 'اكتب القاعدة', de: 'Grammatik schreiben', skill: 'القواعد والكتابة', n: '8 جمل', min: 5, need: (t) => gqOf(t).length >= 4, d: 'جملة ينقصها جزء: اكتب الشكل الصحيح بنفسك.',
+      how: ['ترى جملة ألمانية ينقصها جزء، مع ترجمتها العربية.', 'اكتب الشكل الصحيح بنفسك — أصعب من الاختيار، لكنه أفضل للحفظ.', 'زرّ 💡 يعطيك الحرف التالي. بعد كل جواب: شرح القاعدة.'], keys: 'Enter = تحقّق' },
+    gramtf: { tab: 'ueben', ic: '🕵️', ar: 'صحيحة أم خطأ؟', de: 'Richtig oder falsch?', skill: 'اكتشاف الأخطاء', n: '10 جمل', min: 3, need: (t) => gqOf(t).length >= 4, d: 'جملة فيها كلمة ملوّنة: هل هي صحيحة قواعدياً؟',
+      how: ['ترى جملة ألمانية فيها كلمة ملوّنة.', 'قرّر بسرعة: هل الجملة صحيحة ✓ أم فيها خطأ ✗؟', 'إذا كان فيها خطأ نُظهر لك الشكل الصحيح ولماذا. هكذا تتعلّم أن ترى أخطاءك.'], keys: '1 = صحيحة · 2 = فيها خطأ' },
+    gramorder: { tab: 'ueben', ic: '🧱', ar: 'رتّب جملة القاعدة', de: 'Grammatik-Satzbau', skill: 'ترتيب الجملة', n: '5 جمل', min: 4, need: (t) => gramSents(t).length >= 3, d: 'كلمات مخلوطة من جملة تستعمل قاعدة الدرس: رتّبها.',
+      how: ['ترى جملة عربية، وكلمات ألمانية مخلوطة.', 'اضغط على الكلمات بالترتيب الصحيح.', '⭐ انتبه لمكان الفعل: الثاني في الجملة العادية، وفي الآخر بعد weil / dass / wenn.'] },
     sprechen: { tab: 'ueben', rec: 1, ic: '🎤', ar: 'تكلّم مثل الألمان', de: 'Sprechen', skill: 'النطق والكلام', n: '8 كلمات وجمل', min: 5, need: (t) => t.W.length >= 4 || t.id === 'zahlen' || (t.sent || []).length >= 3, d: 'تسمع لينا، ثم تقولها في الميكروفون فتقيّم نطقك.',
       how: ['لينا تقول كلمة أو جملة بالألمانية 🔊 (وزر 🐢 يعيدها ببطء).', 'اضغط على 🎤 وقلها بصوت عالٍ. أوّل مرة: اسمح للمتصفّح باستعمال الميكروفون.', 'لينا تُظهر لك ما فهمته: الكلمات الصحيحة بالأخضر والخاطئة بالأحمر، مع نصائح نطق خاصة بالعرب.', 'عندك 3 محاولات لكل كلمة. بدون ميكروفون؟ قلها بصوت عالٍ وقيّم نطقك بنفسك.'], keys: 'Space = 🎤 تكلّم · Enter = التالي' },
     hoeren: { tab: 'ueben', ic: '🎧', ar: 'استمع واختر', de: 'Hör-Quiz', skill: 'الاستماع', n: '10 أسئلة', min: 3, need: (t) => t.W.length >= 4, d: 'تسمع كلمة ألمانية فتختار صورتها.',
@@ -3509,7 +4178,8 @@ const LEVEL_OF = {};
     const av = gamesFor(t); const out = [{ k: 'lesen', ar: 'الحصة مع لينا', sub: 'Unterricht' }];
     const first = (list) => list.find((x) => av.includes(x) && !out.some((o) => o.k === x));
     const add = (list, ar, sub) => { const k = first(list); if (k) out.push({ k, ar: ar || GM[k].ar, sub: sub || GM[k].de }); };
-    add(['gram', 'zahlen', 'uhr', 'konj', 'perfekt', 'praep', 'komp', 'quiz', 'hoeren'], null);
+    const g1 = ['zahlen', 'uhr', 'konj', 'perfekt', 'praep', 'komp', 'quiz', 'hoeren'];
+    add(/^a1/.test(t.lv || '') ? g1 : ['gram', ...g1], null);
     add(['sprechen'], null);
     add(['schreiben', 'lueckentext', 'satzbau'], null);
     add(['test', 'dialog', 'blitz'], null);
@@ -3639,7 +4309,7 @@ const LEVEL_OF = {};
   const ttsOK = () => !!deVoice;
   const talking = (on) => document.body.classList.toggle('talking', on);
   const utter = (text, slow, vo) => {
-    const u = new SpeechSynthesisUtterance(String(text).replace(/\s*\(Pl\.\)/, '').replace('…', '')); u.lang = 'de-DE'; u.rate = slow ? 0.6 : 0.92;
+    const u = new SpeechSynthesisUtterance(String(text).replace(/\s*\(Pl\.\)/, '').replace('…', '')); u.lang = 'de-DE'; u.rate = slow ? (S.rate === 'xs' ? 0.5 : 0.6) : (RATES[S.rate] || 0.92);
     const v = vo && vo.g === 'm' && deVoiceM ? deVoiceM : deVoice; if (v) u.voice = v; if (vo && vo.pitch && !(vo.g === 'm' && deVoiceM)) u.pitch = vo.pitch;
     u.addEventListener('start', () => talking(true)); u.addEventListener('end', () => talking(false)); u.addEventListener('error', () => talking(false));
     return u;
@@ -3688,7 +4358,6 @@ const LEVEL_OF = {};
   function updateTop() {
     $('#xp').textContent = S.xp.toLocaleString('de-DE'); $('#streakTop').textContent = streakView();
     $('.mark b').textContent = DATA[S.level].name.replace(/\.\d$/, '');
-    $('#soundBtn').setAttribute('aria-pressed', S.sound); $('#voiceBtn').setAttribute('aria-pressed', S.voice);
   }
   function renderHome() {
     renderLenaHero();
@@ -3698,9 +4367,11 @@ const LEVEL_OF = {};
       <div class="tiles">
         <button class="tile2 hot" data-nav="city"><span class="ic em">🏙️</span><b>المدينة الألمانية</b><span>عِش يوماً في ألمانيا: السوبرماركت، المخبز، الطبيب، البلدية…</span><small>${cityDone()} / ${CITY.length} مهامّ</small></button>
         <button class="tile2" data-nav="lessons"><span class="ic em">📚</span><b>كل الدروس</b><span>${totalLessons()} درساً في 6 مستويات: من A1.1 إلى B1.2</span><small>المستوى ${L.name}</small></button>
+        <button class="tile2" data-act="ghub"><span class="ic em">🧠</span><b>مدرّب القواعد</b><span>اختر · اكتب · صحيحة أم خطأ · رتّب</span><small>${gqTotal()} جملة تمرين</small></button>
         <button class="tile2" data-act="review" ${due ? '' : 'disabled'}><span class="ic em">🔁</span><b>المراجعة</b><span>${due ? 'كلمات حان وقت مراجعتها اليوم' : 'لا شيء للمراجعة الآن 👍'}</span><small>${due} كلمة</small></button>
         <button class="tile2" data-act="laute"><span class="ic em">🗣️</span><b>دليل النطق</b><span>الأصوات الصعبة على العرب، مع الميكروفون</span><small>${LAUTE.length} صوتاً</small></button>
       </div>
+      ${S.micOK ? '' : `<button class="micban" data-act="mictest"><span class="em">🎙️</span><span><b>هل يعمل الميكروفون؟</b><small>${micMode() === 'none' ? 'متصفّحك لا يدعمه — اعرف ماذا تفعل' : 'اختبره في 10 ثوانٍ، لتصحّح لينا نطقك'}</small></span><span class="go">اختبر ←</span></button>`}
       <div class="mini"><span>🔥 <b>${streakView()}</b> يوم متتالي</span><span>🧠 <b>${learnedCount(ALLW)}</b> كلمة محفوظة</span>${mist ? `<button class="say" data-act="mistakes">❌ تدرّب على أخطائي (${mist})</button>` : ''}
         <span class="goal"><span>🎯 هدف اليوم: ${dx} / ${S.goal} XP</span><span class="goalbar"><i style="width:${Math.min(100, (dx / S.goal) * 100)}%"></i></span></span></div>`;
     updateTop();
@@ -3708,12 +4379,11 @@ const LEVEL_OF = {};
   function renderLevels() {
     $('#lvl').innerHTML = LEVELS.map((lv) => {
       const L = DATA[lv]; const done = L.T.filter((t) => pathFor(t).every((s) => stepDone(t, s.k, lv))).length;
-      return `<button class="lvl-b" data-level="${lv}" aria-pressed="${S.level === lv}" style="--lc:var(--line-${lv})"><span class="bd">${L.name}</span>
-        <b>${LEVEL_AR[lv]}</b><span class="sub">${L.T.length} دروس · أكملت ${done} · ${learnedCount(L.mix.W)} / ${L.mix.W.length} كلمة محفوظة</span>
-        <span class="lbar"><i style="width:${(done / L.T.length) * 100}%"></i></span></button>`;
+      return `<button class="lvl-b" data-level="${lv}" aria-pressed="${S.level === lv}" style="--lc:var(--line-${lv})" title="${esc(LEVEL_AR[lv])}"><span class="bd">${L.name}</span>
+        <span class="sub">${done ? `✓ ${done} / ${L.T.length}` : `${L.T.length} دروس`}</span><span class="lbar"><i style="width:${(done / L.T.length) * 100}%"></i></span></button>`;
     }).join('');
     const L = DATA[S.level]; const w0 = WEEK0[S.level]; $('#lvlInfo').textContent = `المستوى ${L.name} = الأسابيع ${w0 + 1} – ${w0 + WEEKS(S.level)} · درس كل يوم أو يومين (≈ 20 دقيقة)`;
-    const tot = LEVELS.reduce((a, lv) => a + WEEKS(lv), 0); $('#planTitle').textContent = `خطة الدراسة: ${tot} أسبوعاً من A1 إلى B1`;
+    const tot = LEVELS.reduce((a, lv) => a + WEEKS(lv), 0); $('#planTitle').textContent = LEVEL_AR[S.level]; $('#lvlInfo').textContent += ` · الخطة كاملة: ${tot} أسبوعاً من A1 إلى B1`;
   }
   function lessonStatus(t) { const p = pathFor(t); const d = p.filter((s) => stepDone(t, s.k)).length; return { d, n: p.length, st: d === 0 ? 'new' : d === p.length ? 'done' : 'go' }; }
   function renderLessons() {
@@ -3814,6 +4484,7 @@ const LEVEL_OF = {};
   }
   function closeGame() {
     if (!G) return;
+    if (G.key === 'welcome' && !S.onb) { S.onb = 1; save(); }
     clearTimers(); try { speechSynthesis.cancel(); } catch (e) { /* none */ }
     ov.hidden = true; document.body.style.overflow = ''; G = null; if (ov.classList.contains('side')) exitTalk(); refreshView();
     if (toastLater) { toast(toastLater); toastLater = null; }
@@ -4563,6 +5234,9 @@ const LEVEL_OF = {};
     test: (t) => runRounds(testRounds(t), { finishExtra: () => ({ note: true }) }),
     sprechen: (t) => runSprechen(t),
     gram: (t) => runRounds(gramR(t)),
+    gramtype: (t) => runRounds(gramTypeR(t)),
+    gramtf: (t) => runRounds(gramTfR(t)),
+    gramorder: (t) => runSatzbau({ ...t, sent: gramSents(t) }),
     memory: runMemory, artikel: runArtikel, wortbau: runWortbau, satzbau: runSatzbau, verbinden: runVerbinden, wortsuche: runWortsuche, zugraetsel: runZug, ballons: runBallons, blitz: runBlitz, dialog: runDialog,
   };
 
@@ -4652,26 +5326,124 @@ const LEVEL_OF = {};
       <button class="ac ${c.ok ? 'gold' : ''}" data-act="cert"><span class="ic em">🎓</span><b>شهادة ${L.name}</b><span>${c.ok ? 'جاهزة! اكتب اسمك واطبعها' : `أكمل الدروس (${c.done}/${L.T.length}) أو انجح في الاختبار الشامل`}</span></button>`;
   }
 
-  // ---------- speech recognition ----------
+  // ---------- microphone: speech recognition + recorder fallback ----------
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  let srBlocked = false;
-  const srOK = () => !!SR && !srBlocked;
-  const MICERR = { 'no-speech': '🤫 لم أسمع شيئاً. اضغط على الميكروفون ثم تكلّم مباشرة وبصوت واضح.', 'audio-capture': '🎙️ لم نجد ميكروفوناً في جهازك.', network: '🌐 التعرّف على الصوت يحتاج اتصالاً بالإنترنت.',
-    'not-allowed': '🔒 الميكروفون غير مسموح هنا. اسمح به من إعدادات المتصفّح (أيقونة القفل بجانب العنوان)، أو افتح الموقع على GitHub في Chrome أو Edge.', 'language-not-supported': 'المتصفّح لا يدعم التعرّف على اللغة الألمانية.' };
-  MICERR['service-not-allowed'] = MICERR['not-allowed']; MICERR.timeout = MICERR['no-speech'];
-  function listenDe(ms = 7000) {
+  const UA = navigator.userAgent || '';
+  const ENV = {
+    inApp: /FBAN|FBAV|FB_IAB|Instagram|Line\/|WhatsApp|Snapchat|TikTok|MicroMessenger|; wv\)/i.test(UA),
+    ios: /iPad|iPhone|iPod/.test(UA) || (/Macintosh/.test(UA) && navigator.maxTouchPoints > 1),
+    android: /Android/i.test(UA),
+    brave: !!navigator.brave,
+    frame: (() => { try { return window.self !== window.top; } catch (e) { return true; } })(),
+  };
+  ENV.browser = ENV.brave ? 'Brave' : /Edg\//.test(UA) ? 'Edge' : /OPR\/|Opera/.test(UA) ? 'Opera' : /SamsungBrowser/.test(UA) ? 'Samsung Internet' : /Firefox|FxiOS/.test(UA) ? 'Firefox' : /CriOS/.test(UA) ? 'Chrome (iPhone)' : /Chrome\//.test(UA) ? 'Chrome' : /Safari\//.test(UA) ? 'Safari' : 'متصفّح آخر';
+  const SITE_URL = 'https://contactnasriimen-ctrl.github.io/sprachbahn-a1/';
+  const canRecord = () => !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+  // srState: '' = fine · 'blocked' = permission refused · 'broken' = the browser's recognition service does not work
+  let srState = ENV.brave ? 'broken' : ''; let netFails = 0; let micPrimed = false;
+  const srOK = () => !!SR && !srState && S.micMode !== 'rec';
+  const micMode = () => (srOK() ? 'sr' : canRecord() ? 'rec' : 'none');
+  const fixSteps = () => (ENV.frame ? `افتح الموقع مباشرة (وليس داخل هذه النافذة): <a href="${SITE_URL}" target="_blank" rel="noopener">${SITE_URL.replace('https://', '')}</a>`
+    : ENV.inApp ? 'أنت تفتح الموقع داخل تطبيق (واتساب، فيسبوك…). اضغط ⋮ أو ⋯ ثم «فتح في Chrome» أو «فتح في المتصفّح».'
+      : ENV.ios ? 'في iPhone: <b>الإعدادات ← Safari ← الميكروفون ← اسمح</b>، ثم أعد تحميل الصفحة.'
+        : ENV.android ? 'اضغط على 🔒 (أو ⓘ) بجانب عنوان الموقع ← <b>الأذونات ← الميكروفون ← اسمح</b>، ثم أعد تحميل الصفحة.'
+          : 'اضغط على 🔒 بجانب عنوان الموقع ← <b>الميكروفون ← اسمح</b>، ثم أعد تحميل الصفحة.');
+  const MICERR = {
+    'no-speech': '🤫 لم أسمع شيئاً. انتظر حتى يظهر «🔴 تكلّم الآن»، ثم تكلّم بصوت واضح وقريباً من الميكروفون.',
+    'audio-capture': '🎙️ لم أجد ميكروفوناً يعمل. تأكّد أنّه موصول وغير مكتوم، وأنّ تطبيقاً آخر (مكالمة، زوم…) لا يستعمله.',
+    network: '🌐 التعرّف على الكلام يحتاج اتصالاً بالإنترنت. تأكّد من الاتصال وحاول مرة أخرى.',
+    busy: '⏳ الميكروفون مشغول. انتظر ثانية ثم حاول مرة أخرى.',
+    'language-not-supported': 'المتصفّح لا يدعم التعرّف على الألمانية. جرّب Chrome أو Edge.',
+  };
+  const micErrText = (err) => {
+    if (err === 'not-allowed') return `🔒 الميكروفون غير مسموح. ${fixSteps()}`;
+    if (err === 'service-not-allowed') return ENV.ios ? '🔒 في iPhone يحتاج التعرّف على الكلام إلى «الإملاء»: <b>الإعدادات ← عام ← لوحة المفاتيح ← فعّل الإملاء</b>. أو استعمل «سجّل واستمع».' : `🔒 خدمة التعرّف على الكلام غير مسموحة هنا. ${fixSteps()}`;
+    if (err === 'broken') return `⚠️ متصفّحك (${ENV.browser}) لا يرسل الصوت إلى خدمة التعرّف على الكلام، فلا تستطيع لينا فهمك هنا. افتح الموقع في <b>Chrome</b> أو <b>Edge</b> — أو سجّل صوتك وقارنه بصوت لينا.`;
+    if (err === 'unsupported') return ENV.inApp ? `⚠️ ${fixSteps()}` : `⚠️ متصفّحك (${ENV.browser}) لا يدعم التعرّف على الكلام. أفضل تجربة في <b>Chrome</b> أو <b>Edge</b>. هنا: سجّل صوتك وقارنه بصوت لينا.`;
+    return MICERR[err] || MICERR['no-speech'];
+  };
+  const micErrHTML = (err) => `<div class="notice mic-err">${micErrText(err)}<div class="tools"><button class="say" data-act="mictest"><span class="em">🔧</span> اختبر الميكروفون وأصلحه</button></div></div>`;
+  async function primeMic() {
+    // ask for the permission once before listening, so the browser prompt does not eat the listening time
+    if (micPrimed || !(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) return '';
+    try { if (navigator.permissions && navigator.permissions.query) { const p = await navigator.permissions.query({ name: 'microphone' }); if (p.state === 'granted') { micPrimed = true; return ''; } } } catch (e) { /* query unsupported */ }
+    try { const s = await navigator.mediaDevices.getUserMedia({ audio: true }); s.getTracks().forEach((x) => x.stop()); micPrimed = true; await new Promise((r) => setTimeout(r, 250)); return ''; }
+    catch (e) { const n = (e && e.name) || ''; return /NotFound|DevicesNotFound|NotReadable|TrackStart/.test(n) ? 'audio-capture' : /NotAllowed|Security|Permission/.test(n) ? 'not-allowed' : ''; }
+  }
+  async function listenDe(ui = {}) {
+    // ui.state(s): wait → listen → hear → think · ui.live(text): words heard so far · ui.ctl.stop(): finish early
+    if (!SR) return { err: 'unsupported' };
+    const pe = await primeMic(); if (pe) { if (pe === 'not-allowed') srState = 'blocked'; return { err: pe }; }
     return new Promise((res) => {
-      if (!SR) { res({ err: 'language-not-supported' }); return; }
-      let r; try { r = new SR(); } catch (e) { res({ err: 'language-not-supported' }); return; }
-      r.lang = 'de-DE'; r.interimResults = false; r.maxAlternatives = 5; r.continuous = false;
-      let done = false; const fin = (o) => { if (done) return; done = true; try { r.abort(); } catch (e) { /* already stopped */ } res(o); };
-      r.onresult = (e) => fin({ alts: [...e.results[0]].map((a) => a.transcript) });
-      r.onerror = (e) => { if (e.error === 'not-allowed' || e.error === 'service-not-allowed') srBlocked = true; fin({ err: e.error === 'aborted' ? 'no-speech' : e.error }); };
-      r.onend = () => fin({ err: 'no-speech' });
+      let r; try { r = new SR(); } catch (e) { res({ err: 'unsupported' }); return; }
+      r.lang = 'de-DE'; r.interimResults = true; r.maxAlternatives = 5; r.continuous = false;
+      let done = false; let tm = null; let last = '';
+      const st = (s) => { try { if (ui.state) ui.state(s); } catch (e) { /* button gone */ } };
+      const fin = (o) => { if (done) return; done = true; clearTimeout(tm); try { r.abort(); } catch (e) { /* already stopped */ } if (o.alts) { netFails = 0; if (srState === 'blocked') srState = ''; } res(o); };
+      const finLast = () => fin(last ? { alts: [last] } : { err: 'no-speech' });
+      const arm = (ms) => { clearTimeout(tm); tm = setTimeout(finLast, ms); };
+      r.onstart = () => { st('listen'); arm(8000); };
+      r.onaudiostart = () => { st('listen'); arm(8000); };
+      r.onspeechstart = () => { st('hear'); arm(9000); };
+      r.onspeechend = () => { st('think'); arm(3000); };
+      r.onresult = (e) => {
+        let txt = ''; let isFin = false;
+        for (let k = 0; k < e.results.length; k++) { txt += e.results[k][0].transcript; if (e.results[k].isFinal) isFin = true; }
+        last = txt.trim(); st('hear'); if (ui.live) ui.live(last);
+        if (isFin) { const rr = e.results[e.results.length - 1]; const alts = [...rr].map((a) => a.transcript); if (e.results.length > 1) alts.unshift(txt); fin({ alts: alts.filter(Boolean) }); } else arm(3000);
+      };
+      r.onerror = (e) => {
+        const er = e.error || 'no-speech';
+        if (er === 'not-allowed') srState = 'blocked';
+        if (er === 'service-not-allowed') srState = ENV.ios ? 'broken' : 'blocked';
+        if (er === 'network' && navigator.onLine !== false && ++netFails >= 2) srState = 'broken';
+        if (er === 'aborted' || er === 'no-speech') { finLast(); return; }
+        fin({ err: er === 'network' && srState === 'broken' ? 'broken' : er });
+      };
+      r.onend = () => setTimeout(finLast, 350);
+      if (ui.ctl) ui.ctl.stop = () => { try { r.stop(); } catch (e) { finLast(); } };
       try { speechSynthesis.cancel(); } catch (e) { /* none */ }
-      try { r.start(); } catch (e) { fin({ err: 'no-speech' }); }
-      setTimeout(() => fin({ err: 'timeout' }), ms);
+      st('wait'); tm = setTimeout(finLast, 20000);
+      try { r.start(); } catch (e) { fin({ err: 'busy' }); }
     });
+  }
+  const MIC_ST = { wait: '⏳ لحظة… أشغّل الميكروفون', listen: '🔴 تكلّم الآن…', hear: '👂 أسمعك… اضغط لتنتهي', think: '💭 لحظة…' };
+  async function micListen(btn, live) {
+    // one recognition with visible states on the button; a second tap stops listening (that tap returns null)
+    if (btn.ctl) { if (btn.ctl.stop) btn.ctl.stop(); return null; }
+    const lbl = btn.innerHTML; const ctl = {}; btn.ctl = ctl; btn.classList.add('rec');
+    const r = await listenDe({ ctl, live, state: (s) => { btn.dataset.st = s; btn.innerHTML = MIC_ST[s]; } });
+    btn.ctl = null; btn.classList.remove('rec'); delete btn.dataset.st; btn.innerHTML = lbl;
+    return r;
+  }
+  async function recordVoice(btn, maxMs = 6000) {
+    // records the learner's voice (works without speech recognition) → { url } or { err }
+    if (!canRecord()) return { err: 'unsupported' };
+    let stream; try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch (e) { return { err: /NotFound|NotReadable/.test((e && e.name) || '') ? 'audio-capture' : 'not-allowed' }; }
+    micPrimed = true;
+    return new Promise((res) => {
+      let mr; let tm = null; const chunks = [];
+      try { mr = new MediaRecorder(stream); } catch (e) { stream.getTracks().forEach((x) => x.stop()); res({ err: 'unsupported' }); return; }
+      mr.ondataavailable = (e) => { if (e.data && e.data.size) chunks.push(e.data); };
+      mr.onstop = () => { clearTimeout(tm); stream.getTracks().forEach((x) => x.stop()); btn.stopRec = null; res(chunks.length ? { url: URL.createObjectURL(new Blob(chunks, { type: mr.mimeType || 'audio/webm' })) } : { err: 'no-speech' }); };
+      btn.stopRec = () => { if (mr.state !== 'inactive') mr.stop(); };
+      try { speechSynthesis.cancel(); } catch (e) { /* none */ }
+      mr.start(); tm = setTimeout(btn.stopRec, maxMs);
+    });
+  }
+  function playCompare(url, text) {
+    // the learner's recording first, then Lena saying the same thing
+    try { const a = new Audio(url); a.onended = () => setTimeout(() => speak(text), 350); a.play().catch(() => speak(text)); } catch (e) { speak(text); }
+  }
+  const recResHTML = (url, text) => `<div class="sp-fb mid rec-fb"><b>🎧 قارن: صوتك ← ثم صوت لينا</b><div class="tools" style="margin:0;justify-content:flex-start"><button class="say" data-playrec="${url}" data-text="${esc(text)}"><span class="em">▶️</span> صوتي ثم لينا</button>${sayBtn(text, ' لينا فقط')}${slowBtn(text)}</div><small>هل يشبه صوتك صوت لينا؟ ركّز على الحروف التي تختلف وسجّل مرة أخرى.</small></div>`;
+  async function recordInto(btn, res, text) {
+    // shared recorder button flow: tap = record, tap again = stop, then play back and compare
+    if (btn.stopRec) { btn.stopRec(); return null; }
+    const lbl = btn.innerHTML; btn.classList.add('rec'); btn.innerHTML = '⏺️ أسجّل صوتك… اضغط لتتوقّف';
+    const r = await recordVoice(btn); btn.classList.remove('rec'); btn.innerHTML = lbl;
+    if (r.err) { if (res) res.innerHTML = micErrHTML(r.err); return r; }
+    if (res) res.innerHTML = recResHTML(r.url, text); playCompare(r.url, text);
+    return r;
   }
   const normS = (s) => s.toLowerCase().replace(/\d+/g, (d) => (+d <= 100 ? numDe(+d) : d)).replace(/[.,!?;:„“"'…()–-]/g, ' ').replace(/\s+/g, ' ').trim();
   function scoreSpeech(alts, target) {
@@ -4689,16 +5461,216 @@ const LEVEL_OF = {};
       <div class="sp-words de">${sc.words.map((x) => `<span class="${x.ok ? 'y' : 'n'}">${esc(x.w)}</span>`).join(' ')}</div>
       ${sc.s < 0.85 ? `${tips ? lautTips(text) : ''}<div class="tools" style="margin:0;justify-content:flex-start">${sayBtn(text, ' استمع')}${slowBtn(text)}</div>` : ''}</div>`;
   }
-  const micBox = (text, label = 'دورك: قلها بصوت عالٍ') => `<div class="mic-box"><button class="mic" data-mic="${esc(text)}"><span class="em">🎤</span> ${label}</button><div class="mic-res"></div></div>`;
+  const liveHTML = '<div class="mic-live" hidden><span class="em">👂</span> <span class="de"></span></div>';
+  const showLive = (box) => (txt) => { const l = $('.mic-live', box); if (l) { l.hidden = !txt; $('.de', l).textContent = txt; } };
+  const micBox = (text, label = 'دورك: قلها بصوت عالٍ') => `<div class="mic-box"><button class="mic ${srOK() ? '' : 'recm'}" data-mic="${esc(text)}" data-lbl="${esc(label)}">${srOK() ? `<span class="em">🎤</span> ${label}` : '<span class="em">🎙️</span> سجّل صوتك وقارن'}</button>${liveHTML}<div class="mic-res"></div></div>`;
   async function micTry(btn) {
-    if (btn.classList.contains('rec')) return;
     const box = btn.closest('.mic-box'); const res = $('.mic-res', box); const text = btn.dataset.mic;
-    if (!srOK()) { res.innerHTML = `<div class="notice" style="margin:0">🎙️ ${SR ? MICERR['not-allowed'] : 'التعرّف على الصوت غير متاح في هذا المتصفّح (يعمل في Chrome و Edge).'} الآن: قلها بصوت عالٍ 3 مرّات ثم ${sayBtn(text, ' استمع إلى لينا')} وقارن.</div>`; return; }
-    const lbl = btn.innerHTML; btn.classList.add('rec'); btn.innerHTML = '<span class="em">🔴</span> أستمع إليك… تكلّم الآن';
-    const r = await listenDe(); btn.classList.remove('rec'); btn.innerHTML = lbl;
-    if (r.err) { res.innerHTML = `<div class="notice" style="margin:0">${MICERR[r.err] || MICERR['no-speech']}</div>`; return; }
+    const mode = micMode();
+    if (mode === 'none') { res.innerHTML = `${micErrHTML(SR ? srState || 'unsupported' : 'unsupported')}<div class="notice" style="margin:6px 0 0">الآن: قلها بصوت عالٍ 3 مرّات ثم ${sayBtn(text, ' استمع إلى لينا')} وقارن.</div>`; return; }
+    if (mode === 'rec') { if (!btn.classList.contains('recm')) { btn.classList.add('recm'); btn.innerHTML = '<span class="em">🎙️</span> سجّل صوتك وقارن'; } await recordInto(btn, res, text); return; }
+    const r = await micListen(btn, showLive(box)); if (!r) return; showLive(box)('');
+    if (r.err) { res.innerHTML = micErrHTML(r.err); if (!srOK() && canRecord()) { btn.classList.add('recm'); btn.innerHTML = '<span class="em">🎙️</span> سجّل صوتك وقارن'; } return; }
     const sc = scoreSpeech(r.alts, text); res.innerHTML = speechFbHTML(sc, text, true);
     if (G && sc.s >= 0.85 && !btn.dataset.paid) { btn.dataset.paid = '1'; G.score += 3; hud(); beep('ok'); } else if (sc.s < 0.6) beep('bad');
+  }
+
+  // ---------- microphone test ----------
+  async function micLevel(ms, onLvl) {
+    // measures how loud the microphone hears the learner (0…1) — proves the microphone itself works
+    let stream; try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch (e) { return { err: /NotFound|NotReadable/.test((e && e.name) || '') ? 'audio-capture' : 'not-allowed' }; }
+    micPrimed = true; let ctx = null; let max = 0;
+    try {
+      ctx = new (window.AudioContext || window.webkitAudioContext)(); const an = ctx.createAnalyser(); an.fftSize = 512; ctx.createMediaStreamSource(stream).connect(an);
+      const buf = new Uint8Array(an.fftSize); const t0 = performance.now();
+      await new Promise((done) => { const step = () => { an.getByteTimeDomainData(buf); let pk = 0; for (const v of buf) pk = Math.max(pk, Math.abs(v - 128) / 128); max = Math.max(max, pk); onLvl(pk); if (performance.now() - t0 < ms) requestAnimationFrame(step); else done(); }; step(); });
+    } catch (e) { max = -1; }
+    stream.getTracks().forEach((x) => x.stop()); try { if (ctx) ctx.close(); } catch (e) { /* closed */ }
+    return { max };
+  }
+  function micChecks() {
+    const ok = (c, t) => `<li class="${c}"><span class="em">${c === 'y' ? '✅' : c === 'w' ? '⚠️' : '❌'}</span><span>${t}</span></li>`;
+    return [
+      ok(SR ? (srState === 'broken' ? 'n' : 'y') : 'n', SR ? (srState === 'broken' ? `${ENV.browser}: التعرّف على الكلام لا يعمل في هذا المتصفّح` : `${ENV.browser}: يدعم التعرّف على الكلام`) : `${ENV.browser}: لا يدعم التعرّف على الكلام (أفضل: Chrome أو Edge)`),
+      ok(canRecord() ? 'y' : 'n', canRecord() ? 'التسجيل الصوتي متاح' : 'التسجيل الصوتي غير متاح'),
+      ENV.frame ? ok('w', `أنت داخل نافذة مدمجة: الميكروفون قد يكون ممنوعاً. <a href="${SITE_URL}" target="_blank" rel="noopener">افتح الموقع مباشرة ↗</a>`) : '',
+      ENV.inApp ? ok('w', 'أنت داخل تطبيق (واتساب/فيسبوك…): افتح الرابط في Chrome أو Safari') : '',
+      srState === 'blocked' ? ok('n', 'الإذن بالميكروفون مرفوض') : '',
+    ].join('');
+  }
+  function micTestHTML(compact) {
+    return `<div class="mtest">${compact ? '' : `<ul class="mt-checks">${micChecks()}</ul>`}
+      <div class="mt-say">قل: <span class="de">Guten Morgen! Ich heiße …</span> ${sayBtn('Guten Morgen!')}</div>
+      <div class="meter" aria-hidden="true"><i id="mtBar"></i></div>
+      <button class="mic big-mic" id="mtGo"><span class="em">🎤</span> ابدأ الاختبار</button>
+      <div id="mtRes" class="mic-res"></div>
+      ${compact ? '' : `<details class="more mt-help"><summary>🔧 كيف أسمح بالميكروفون؟</summary><div class="more-in"><ul>
+        <li><b>Chrome / Edge على الكمبيوتر:</b> اضغط على 🔒 بجانب العنوان ← الميكروفون ← اسمح ← أعد تحميل الصفحة.</li>
+        <li><b>Android:</b> 🔒 بجانب العنوان ← الأذونات ← الميكروفون ← اسمح. وفي إعدادات الهاتف: التطبيقات ← Chrome ← الأذونات ← الميكروفون.</li>
+        <li><b>iPhone:</b> استعمل Safari. الإعدادات ← Safari ← الميكروفون ← اسمح، وفعّل الإملاء: الإعدادات ← عام ← لوحة المفاتيح ← الإملاء.</li>
+        <li><b>Firefox / Brave / Opera:</b> لا تفهم الكلام الألماني — افتح الموقع في Chrome أو Edge، أو استعمل «سجّل واستمع».</li>
+        <li><b>داخل واتساب أو فيسبوك:</b> افتح الرابط في المتصفّح (⋮ ← فتح في Chrome).</li></ul></div></details>`}</div>`;
+  }
+  function bindMicTest(root, onDone) {
+    const go = $('#mtGo', root); const out = $('#mtRes', root); const bar = $('#mtBar', root);
+    go.onclick = async () => {
+      if (go.ctl) { if (go.ctl.stop) go.ctl.stop(); return; }
+      if (go.disabled) return; go.disabled = true; out.innerHTML = '';
+      let heardLvl = true;
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        go.innerHTML = '🎚️ تكلّم الآن… أقيس صوتك';
+        const lv = await micLevel(2500, (v) => { bar.style.width = `${Math.min(100, v * 260)}%`; }); bar.style.width = '0%';
+        if (lv.err) { if (lv.err === 'not-allowed') srState = 'blocked'; out.innerHTML = micErrHTML(lv.err); go.disabled = false; go.innerHTML = '<span class="em">🔁</span> حاول مرة أخرى'; return; }
+        heardLvl = lv.max < 0 || lv.max > 0.06;
+      }
+      if (srState === 'blocked') srState = '';
+      const mode = micMode();
+      if (mode === 'sr') {
+        go.disabled = false; const r = await micListen(go, (txt) => { out.innerHTML = `<div class="mic-live"><span class="em">👂</span> <span class="de">${esc(txt)}</span></div>`; }); if (!r) return;
+        if (r.err) { out.innerHTML = `${heardLvl ? '' : '<div class="notice">🔈 الميكروفون يسمع صوتاً ضعيفاً جداً: هل هو مكتوم؟ اقترب منه وتكلّم بصوت أعلى.</div>'}${micErrHTML(r.err)}`; go.innerHTML = '<span class="em">🔁</span> حاول مرة أخرى'; return; }
+        out.innerHTML = `<div class="sp-fb ok"><b>✅ الميكروفون يعمل! لينا تفهمك.</b><div>فهمتُ منك: «<span class="de">${esc(r.alts[0])}</span>»</div></div>`; beep('ok'); S.micOK = 1; save(); go.innerHTML = '<span class="em">🔁</span> اختبر مرة أخرى'; if (onDone) onDone(true);
+        return;
+      }
+      if (mode === 'rec') {
+        go.disabled = false; go.innerHTML = '<span class="em">🎙️</span> سجّل: Guten Morgen!';
+        out.innerHTML = `<div class="notice">${heardLvl ? '✅ الميكروفون يسمعك.' : '🔈 الصوت ضعيف جداً — هل الميكروفون مكتوم؟'} ${micErrText(SR ? srState || 'unsupported' : 'unsupported')}</div>`;
+        go.onclick = async () => { const r = await recordInto(go, out, 'Guten Morgen!'); if (r && r.url) { S.micOK = 2; save(); if (onDone) onDone(true); } };
+        return;
+      }
+      out.innerHTML = micErrHTML('unsupported'); go.disabled = false;
+    };
+  }
+  function openMicTest() {
+    if (G) closeGame();
+    openShell('mictest', { id: 'mictest', ar: 'الميكروفون', de: 'Mikrofon', session: true, W: [] }, '🎙️ اختبار الميكروفون', 'Mikrofon-Test');
+    G.onKey = null;
+    stage.innerHTML = `<div class="un-l">${lenaSVG()}<div class="bubble"><span class="de">Sag etwas! Ich höre zu.</span><small>قل شيئاً! أنا أستمع. هذا الاختبار يفحص الميكروفون خطوة بخطوة ويخبرك ماذا تفعل إذا لم يعمل.</small></div></div>${micTestHTML(false)}
+      <div class="seg-row"><b>طريقة التكلّم:</b><div class="seg" role="group"><button data-micmode="auto" aria-pressed="${S.micMode !== 'rec'}">🤖 لينا تفهم كلامي</button><button data-micmode="rec" aria-pressed="${S.micMode === 'rec'}">🎙️ أسجّل وأقارن بنفسي</button></div></div>`;
+    bindMicTest(stage);
+    $$('[data-micmode]', stage).forEach((b) => { b.onclick = () => { S.micMode = b.dataset.micmode; save(); openMicTest(); }; });
+  }
+
+  // ---------- settings ----------
+  const RATES = { n: 0.92, s: 0.78, xs: 0.65 };
+  const ZOOMS = { n: 1, l: 1.12, xl: 1.25 };
+  function applyPrefs() {
+    document.documentElement.style.setProperty('--zoom', ZOOMS[S.fs] || 1);
+    document.body.classList.toggle('no-pr', S.pr === 0);
+  }
+  const micStatus = () => {
+    const m = micMode();
+    if (m === 'sr') return S.micOK === 1 ? '✅ يعمل — لينا تفهم كلامك' : 'لم تختبره بعد — اضغط «اختبر» (10 ثوانٍ)';
+    if (m === 'rec') return S.micMode === 'rec' ? '🎙️ وضع «سجّل وقارن» مفعّل' : '🎙️ هذا المتصفّح يسجّل فقط (لا يفهم الكلام): ستقارن صوتك بصوت لينا';
+    return '❌ الميكروفون غير متاح في هذا المتصفّح';
+  };
+  function openSettings() {
+    if (G) closeGame();
+    openShell('settings', { id: 'settings', ar: 'الإعدادات', de: 'Einstellungen', session: true, W: [] }, '⚙️ الإعدادات', 'Einstellungen');
+    G.onKey = null;
+    const seg = (key, opts, cur) => `<div class="seg" role="group">${opts.map(([v, l]) => `<button data-pref="${key}" data-v="${v}" aria-pressed="${String(cur) === String(v)}">${l}</button>`).join('')}</div>`;
+    const row = (t, d, ctl) => `<div class="pref"><div class="pref-t"><b>${t}</b><small>${d}</small></div>${ctl}</div>`;
+    stage.innerHTML = `<div class="prefs">
+      ${row('🎙️ الميكروفون', micStatus(), '<button class="btn gelb" data-act="mictest">اختبر الميكروفون</button>')}
+      ${row('🤖 طريقة التكلّم', 'لينا تفهم كلامك وتصحّحه (Chrome / Edge) — أو تسجّل صوتك وتقارنه بنفسك', seg('micMode', [['auto', '🤖 لينا تفهمني'], ['rec', '🎙️ أسجّل وأقارن']], S.micMode === 'rec' ? 'rec' : 'auto'))}
+      ${row('🐢 سرعة صوت لينا', 'للمبتدئين: «بطيئة» أسهل للفهم', seg('rate', [['n', 'عادية'], ['s', 'بطيئة'], ['xs', 'بطيئة جداً']], S.rate || 'n'))}
+      ${row('🗣️ النطق التلقائي', 'لينا تقرأ كل كلمة وسؤال تلقائياً', seg('voice', [[1, 'نعم'], [0, 'لا']], S.voice ? 1 : 0))}
+      ${row('🔠 حجم الخط', 'كبّر النص إذا كان صغيراً على شاشتك', seg('fs', [['n', 'عادي'], ['l', 'كبير'], ['xl', 'كبير جداً']], S.fs || 'n'))}
+      ${row('🔤 النطق بالحروف العربية', 'مثلاً: <span class="de">Guten Morgen</span> = <span class="pr">جوتن مورجن</span>', seg('pr', [[1, 'ظاهر'], [0, 'مخفي']], S.pr === 0 ? 0 : 1))}
+      ${row('🔔 المؤثرات الصوتية', 'صوت قصير عند الجواب الصحيح والخاطئ', seg('sound', [[1, 'نعم'], [0, 'لا']], S.sound ? 1 : 0))}
+      ${row('🎯 هدف اليوم', 'الدرس الكامل ≈ 60 نقطة', seg('goal', [[30, '30 · خفيف'], [60, '60 · عادي'], [120, '120 · مكثّف']], S.goal))}
+      ${row('👋 الجولة التعريفية', 'كيف يعمل الموقع؟ (دقيقة واحدة)', '<button class="btn ghost" data-act="welcome">أعد الجولة</button>')}
+    </div>`;
+    $$('[data-pref]', stage).forEach((b) => { b.onclick = () => { setPref(b.dataset.pref, b.dataset.v); $$(`[data-pref="${b.dataset.pref}"]`, stage).forEach((x) => x.setAttribute('aria-pressed', x === b)); }; });
+  }
+  function setPref(k, v) {
+    if (k === 'micMode') S.micMode = v;
+    else if (k === 'rate') { S.rate = v; speak('Guten Morgen! Wie geht es dir?'); }
+    else if (k === 'fs') S.fs = v; else if (k === 'pr') S.pr = +v; else if (k === 'goal') S.goal = +v;
+    else if (k === 'voice') S.voice = !!+v; else if (k === 'sound') { S.sound = !!+v; if (S.sound) beep('ok'); }
+    save(); applyPrefs(); updateTop();
+  }
+  function setLevel(lv) {
+    if (!DATA[lv]) return;
+    S.topicBy[S.level] = S.topic; S.level = lv; S.topic = S.topicBy[lv] || DATA[lv].T[0].id;
+    document.documentElement.style.setProperty('--line', `var(--line-${lv})`); save();
+  }
+  function continueLearning() { const nu = nextUp(); S.topic = nu.t.id; if (isCity(nu.s.k)) goPlace(nu.s.k.slice(5)); else { show('lesson'); openGame(nu.s.k); } }
+
+  // ---------- welcome tour (first visit) ----------
+  function openWelcome() {
+    if (G) closeGame();
+    openShell('welcome', { id: 'welcome', ar: 'أهلاً', de: 'Willkommen', session: true, W: [] }, '👋 أهلاً بك', 'Willkommen in der Sprachbahn');
+    G.onKey = null; let step = 0;
+    const LV = [['a11', '🌱', 'لا أعرف الألمانية', 'أبدأ من الصفر: التحيّة، الأرقام، أوّل جمل'], ['a12', '🙂', 'أعرف القليل', 'أعرف التحيّة والأرقام وجملاً بسيطة'], ['a21', '💬', 'أنهيت A1', 'أريد الماضي والجمل الفرعية (A2)'], ['b11', '🗣️', 'أتكلّم في الحياة اليومية', 'أنهيت A2 وأريد B1']];
+    const draw = () => {
+      if (!G) return;
+      const dots = `<div class="wl-dots">${[0, 1, 2].map((k) => `<i class="${k === step ? 'on' : k < step ? 'done' : ''}"></i>`).join('')}</div>`;
+      if (step === 0) {
+        stage.innerHTML = `<div class="wl">${dots}<div class="un-l">${lenaSVG()}<div class="bubble"><span class="de">Hallo! Ich bin Lena.</span><small>أهلاً! أنا لينا، معلّمتك. أعلّمك الألمانية خطوة بخطوة: بصوت ألماني حقيقي وشرح بالعربية.</small></div></div>
+          <h2>كيف تتعلّم هنا؟ 3 خطوات</h2>
+          <div class="wl-steps"><div><span class="em">👩‍🏫</span><b>1 · تعلّم مع لينا</b><small>الكلمات بصوت ألماني، ومعناها ونطقها بالحروف العربية، والقاعدة ببساطة</small></div>
+            <div><span class="em">✍️</span><b>2 · تمرّن</b><small>تمارين قصيرة، وبعد كل جواب: لماذا هو صحيح أو خطأ</small></div>
+            <div><span class="em">🏙️</span><b>3 · تكلّم في المدينة</b><small>السوبرماركت، الطبيب، البلدية… كما في الحياة الحقيقية</small></div></div>
+          <div class="notice wl-tip">💡 <b>سرّ النجاح:</b> لا تختر شيئاً! اضغط كل يوم على الزرّ الأصفر <b>«▶ تابع»</b> في الصفحة الرئيسية، ونأخذك إلى الخطوة التالية. ≈ 20 دقيقة يومياً.</div>
+          <div class="cta-row"><button class="btn big gelb" id="wlNext">التالي ←</button></div></div>`;
+        speak('Hallo! Ich bin Lena. Willkommen!');
+      } else if (step === 1) {
+        stage.innerHTML = `<div class="wl">${dots}<h2>ما مستواك في الألمانية؟</h2><p class="hint">تستطيع تغييره لاحقاً من «📚 الدروس».</p>
+          <div class="wl-lv">${LV.map(([lv, ic, t, d]) => `<button data-wlv="${lv}" style="--lc:var(--line-${lv})" aria-pressed="${S.level === lv}"><span class="em">${ic}</span><span class="wl-tx"><b>${t}</b><small>${d}</small></span><span class="bd">${DATA[lv].name}</span></button>`).join('')}</div></div>`;
+        $$('[data-wlv]', stage).forEach((b) => { b.onclick = () => { setLevel(b.dataset.wlv); step = 2; draw(); }; });
+      } else {
+        stage.innerHTML = `<div class="wl">${dots}<h2>🎙️ اختبر الميكروفون</h2><p class="hint">لينا تستمع إلى نطقك وتصحّحه. اضغط على الزرّ الأحمر، واسمح للمتصفّح باستعمال الميكروفون، ثم قل الجملة.</p>
+          ${micTestHTML(true)}<div class="cta-row"><button class="btn big gelb" id="wlGo">▶ ابدأ الدرس الأوّل</button></div><div class="cta-row" style="margin-top:6px"><button class="btn ghost" id="wlSkip">لاحقاً</button></div></div>`;
+        bindMicTest(stage);
+        $('#wlGo').onclick = () => { S.onb = 1; save(); closeGame(); continueLearning(); };
+        $('#wlSkip').onclick = () => { S.onb = 1; save(); closeGame(); show('home'); };
+      }
+      const nx = $('#wlNext'); if (nx) nx.onclick = () => { step += 1; draw(); };
+    };
+    draw();
+  }
+
+  // ---------- more grammar drills ----------
+  const gramSents = (t) => gqOf(t).map(([s, ok, , , ar]) => [s.replace('___', ok), ar]).filter(([d]) => { const n = d.split(' ').length; return n >= 3 && n <= 9 && !/[–—:/…()]|\?.+[.?!]/.test(d); });
+  function gramTypeR(t, n = 8) {
+    const gr = GR[t.id];
+    return pick(gqOf(t).filter(([, ok]) => ok.length <= 26), n).map(([s, ok, , why, ar]) => {
+      const full = s.replace('___', ok); const nw = ok.split(' ').length;
+      return { kind: 'input', answer: ok, task: 'اكتب الجزء الناقص', sayReveal: full, reveal: `<span class="de" style="font-weight:800">${esc(full)}</span>`, why: `<div>💡 ${tipHTML(why)}</div>`,
+        prompt: `<div class="big-ar">${esc(ar)}</div><div class="blank-s">${esc(s).replace('___', '<u>?</u>')}</div><div class="hint">${nw > 1 ? `${nw} كلمات` : `كلمة واحدة · ${[...ok].length} حروف`}${gr ? ` · 📘 ${tipHTML(esc(gr.t))}` : ''}</div>` };
+    });
+  }
+  function gramTfR(t, n = 10) {
+    return pick(gqOf(t), n).map(([s, ok, wr, why, ar]) => {
+      const right = rnd(2) === 0; const used = right ? ok : wr[rnd(wr.length)]; const full = s.replace('___', ok);
+      return { task: 'هل الجملة صحيحة؟', prompt: `<div class="big-ar">${esc(ar)}</div><div class="blank-s">${esc(s).replace('___', `<b class="tf-w">${esc(used)}</b>`)}</div>`,
+        options: [{ html: '<span class="tf-o">✓ صحيحة</span>', ok: right }, { html: '<span class="tf-o">✗ فيها خطأ</span>', ok: !right }], sayReveal: full,
+        reveal: right ? `✓ <span class="de" style="font-weight:800">${esc(full)}</span>` : `<span class="de"><s>${esc(used)}</s></span> ← <span class="de" style="font-weight:800">${esc(full)}</span>`, why: `<div>💡 ${tipHTML(why)}</div>` };
+    });
+  }
+  const GMODES = { gram: '🧠 اختر', gramtype: '⌨️ اكتب', gramtf: '🕵️ صحيحة أم خطأ؟', gramorder: '🧱 رتّب' };
+  const gqTotal = () => LEVELS.reduce((a, l) => a + DATA[l].T.reduce((b, t) => b + gqOf(t).length, 0), 0);
+  function openGrammarHub(lv = S.level) {
+    if (G) closeGame();
+    openShell('ghub', { id: 'ghub', ar: 'مدرّب القواعد', de: 'Grammatik-Trainer', session: true, W: [] }, '🧠 مدرّب القواعد', 'Grammatik-Trainer · A1 → B1');
+    G.onKey = null; const L = DATA[lv];
+    stage.innerHTML = `<div class="un-l">${lenaSVG()}<div class="bubble"><span class="de">Grammatik ist wie ein Puzzle!</span><small>القواعد مثل لعبة تركيب! هنا <b>${gqTotal()}</b> جملة تمرين. اختر القاعدة، ثم طريقة التمرين: اختر · اكتب · صحيحة أم خطأ · رتّب.</small></div></div>
+      <div class="lvl gh-lv">${LEVELS.map((l) => `<button class="lvl-b" data-ghlv="${l}" aria-pressed="${l === lv}" style="--lc:var(--line-${l})"><span class="bd">${DATA[l].name}</span></button>`).join('')}</div>
+      <div class="gh">${[...L.T, L.mix].filter((t) => gqOf(t).length >= 4).map((t) => {
+        const gr = GR[t.id];
+        return `<div class="gh-r ${t.id === 'mix' ? 'final' : ''}"><span class="ic em">${t.icon || '🏁'}</span><div class="gh-t"><b>${gr ? tipHTML(esc(gr.t)) : 'كل قواعد المستوى مخلوطة'}</b><small>${t.id === 'mix' ? `🏁 المراجعة الشاملة ${L.name}` : `الدرس ${t.no}: ${esc(t.ar)}`} · ${gqOf(t).length} جملة</small></div>
+          <div class="gh-b">${Object.keys(GMODES).filter((k) => GM[k].need(t)).map((k) => { const st = getStars(t, k, lv); return `<button class="say ${st ? 'done' : ''}" data-gh="${lv}|${t.id}|${k}">${GMODES[k]}${st ? ` <span class="st">${'★'.repeat(st)}</span>` : ''}</button>`; }).join('')}</div></div>`;
+      }).join('')}</div>`;
+    $$('[data-ghlv]', stage).forEach((b) => { b.onclick = () => openGrammarHub(b.dataset.ghlv); });
+    $$('[data-gh]', stage).forEach((b) => { b.onclick = () => { const [l, id, k] = b.dataset.gh.split('|'); closeGame(); setLevel(l); S.topic = id; save(); show('lesson'); openGame(k); }; });
+  }
+
+  function micInline(btn) {
+    // a compact microphone test right where the problem appeared, without leaving the exercise
+    $$('.mt-inline', stage).forEach((x) => x.remove());
+    const host = btn.closest('.mic-err') || btn.parentElement;
+    host.insertAdjacentHTML('afterend', `<div class="mt-inline"><ul class="mt-checks">${micChecks()}</ul>${micTestHTML(true)}</div>`);
+    bindMicTest(host.nextElementSibling);
   }
 
   // ---------- pronunciation guide ----------
@@ -4924,34 +5896,43 @@ const LEVEL_OF = {};
     const show = () => {
       if (!G) return;
       if (i >= items.length) { finish(); return; }
-      const it = items[i]; let tries = 0; let best = null; let done = false; G.locked = false;
-      const selfHTML = '<div class="notice" style="text-align:center;margin:0">🎙️ قلها بصوت عالٍ 3 مرّات، ثم قيّم نطقك بصدق:</div><div class="self"><button class="btn ok" data-self="2">😊 نطقتها جيداً</button><button class="btn" data-self="1">😐 تقريباً</button><button class="btn bad" data-self="0">😕 صعبة عليّ</button></div>';
+      const it = items[i]; let tries = 0; let best = null; let done = false; G.locked = false; const mode = micMode();
+      const selfBtns = '<div class="self"><button class="btn ok" data-self="2">😊 نطقتها جيداً</button><button class="btn" data-self="1">😐 تقريباً</button><button class="btn bad" data-self="0">😕 صعبة عليّ</button></div>';
+      const selfHTML = `<div class="notice" style="text-align:center;margin:0">🎙️ قلها بصوت عالٍ 3 مرّات، ثم قيّم نطقك بصدق:</div>${selfBtns}`;
+      const micHTML = mode === 'sr' ? `<button class="mic" id="micBtn"><span class="em">🎤</span> اضغط وتكلّم</button><small class="hint" id="tryN" style="color:var(--muted)">عندك 3 محاولات</small>${liveHTML}`
+        : mode === 'rec' ? `<button class="mic recm" id="recBtn"><span class="em">🎙️</span> سجّل صوتك وقارن</button><small class="hint" style="color:var(--muted)">تسمع صوتك ثم صوت لينا</small><div class="mic-res" id="recRes"></div><div class="notice" style="text-align:center;margin:0">بعد المقارنة، قيّم نطقك بصدق:</div>${selfBtns}`
+          : selfHTML;
       stage.innerHTML = `<div class="prompt"><span class="task">${it.w ? 'استمع ثم قل الكلمة' : it.num !== undefined ? 'استمع ثم قل الرقم' : 'استمع ثم قل الجملة كاملة'}</span>
         ${it.w ? `<div class="pic">${picHTML(it.w.pic)}</div>` : it.num !== undefined ? `<div class="big-de" style="font-family:var(--f-display);font-size:64px;line-height:1">${it.num}</div>` : ''}
         <div class="big-de">${it.w ? deHTML(it.w) : esc(it.de)}</div><div class="hint">${esc(it.ar)}${it.pr ? ` · <span class="pr">${esc(it.pr)}</span>` : ''}</div>
         <div class="tools" style="margin:0">${sayBtn(it.de, ' استمع إلى لينا')}${slowBtn(it.de)}</div></div>
         <div class="why" style="max-width:560px;margin:0 auto"><b class="t">👩‍🏫 نصائح لينا للنطق</b>${lautTips(it.de) || '<div>🗣️ تكلّم بوضوح وببطء، ولا تنسَ الحرف الأخير.</div>'}</div>
-        <div class="mic-box big">${srOK() ? '<button class="mic" id="micBtn"><span class="em">🎤</span> اضغط وتكلّم</button><small class="hint" id="tryN" style="color:var(--muted)">عندك 3 محاولات</small>' : selfHTML}<div class="mic-res" id="micRes"></div></div><div id="fbSlot"></div>`;
+        <div class="mic-box big">${micHTML}<div class="mic-res" id="micRes"></div></div><div id="fbSlot"></div>`;
       if (S.voice) G.timers.push(setTimeout(() => speak(it.de), 300));
       const resolveS = (ok, pts) => {
         if (done || !G) return; done = true; G.locked = true;
         award(ok, pts, $('.mic-box', stage)); markStop(i, ok); if (it.w) learn(it.w, ok);
         if (!ok) G.missed.push(`<span class="de">${esc(it.de)}</span> = ${esc(it.ar)}`);
-        $$('[data-self], #micBtn', stage).forEach((b) => { b.disabled = true; });
+        $$('[data-self], #micBtn, #recBtn', stage).forEach((b) => { b.disabled = true; });
         const why = `${best ? `<div>🎯 أفضل نتيجة لك: <b>${best.pct}%</b></div>` : ''}${ok ? '' : '<div>👂 استمع إلى لينا ببطء 🐢، ثم كرّر الكلمة مقطعاً مقطعاً، ثم كاملة.</div>'}${it.w && EX[it.w.de] ? exHTML(it.w.de) : ''}`;
         $('#fbSlot').innerHTML = fbHTML(ok, ok ? `${praise()} نطقك جيّد` : '💪 هذه تحتاج إلى تدريب أكثر:', `<span class="de" style="font-weight:800">${esc(it.de)}</span> = ${esc(it.ar)}`, why, it.de, i + 1 >= items.length, ok);
         queueNext(() => { i += 1; show(); }, ok ? 2600 : 0);
       };
       const bindSelf = () => $$('[data-self]', stage).forEach((b) => { b.onclick = () => resolveS(+b.dataset.self >= 1, +b.dataset.self === 2 ? 2 : -3); });
       bindSelf();
+      const rb = $('#recBtn');
+      if (rb) rb.onclick = () => { if (!done) recordInto(rb, $('#recRes'), it.de); };
       const mb = $('#micBtn');
       if (mb) {
         mb.onclick = async () => {
-          if (done || mb.classList.contains('rec')) return;
-          mb.classList.add('rec'); mb.innerHTML = '<span class="em">🔴</span> أستمع إليك… تكلّم الآن';
-          const r = await listenDe(); if (!G || done) return;
-          mb.classList.remove('rec'); mb.innerHTML = '<span class="em">🎤</span> حاول مرة أخرى';
-          if (r.err) { $('#micRes').innerHTML = `<div class="notice" style="margin:0">${MICERR[r.err] || MICERR['no-speech']}</div>${srBlocked ? selfHTML : ''}`; if (srBlocked) { mb.remove(); bindSelf(); } return; }
+          if (done) return;
+          const r = await micListen(mb, showLive($('.mic-box', stage))); if (!r || !G || done) return;
+          showLive($('.mic-box', stage))(''); mb.innerHTML = '<span class="em">🎤</span> حاول مرة أخرى';
+          if (r.err) {
+            $('#micRes').innerHTML = micErrHTML(r.err);
+            if (!srOK()) { mb.remove(); const tn = $('#tryN'); if (tn) tn.remove(); $('#micRes').insertAdjacentHTML('afterend', canRecord() ? `<button class="mic recm" id="recBtn"><span class="em">🎙️</span> سجّل صوتك وقارن</button><div class="mic-res" id="recRes"></div><div class="notice" style="text-align:center;margin:0">بعد المقارنة، قيّم نطقك بصدق:</div>${selfBtns}` : selfHTML); const rb2 = $('#recBtn'); if (rb2) rb2.onclick = () => { if (!done) recordInto(rb2, $('#recRes'), it.de); }; bindSelf(); }
+            return;
+          }
           tries += 1; const sc = scoreSpeech(r.alts, it.de); if (!best || sc.s > best.s) best = sc;
           $('#micRes').innerHTML = speechFbHTML(sc, it.de, false); const tn = $('#tryN'); if (tn) tn.textContent = `المحاولة ${tries} من 3`;
           if (sc.s >= 0.85) { beep('ok'); G.timers.push(setTimeout(() => resolveS(true, Math.round(sc.s * 5) - tries + 1), 900)); }
@@ -5464,7 +6445,7 @@ const LEVEL_OF = {};
       const order = shuffle(st.o.map((_, k) => k));
       act.innerHTML = `<div class="q"><span>${st.hear ? `❓ ${esc(st.q)} <small>(استمع جيداً — النص مخفي)</small>` : '💬 ماذا تقول؟ اختر الردّ المناسب'}</span><button class="say" id="hintBtn">💡 ساعدني</button></div>
         <div class="replies ${st.hear ? 'ar' : ''}">${order.map((k, j) => `<button class="reply" data-k="${k}"><span class="kn">${j + 1}</span>${st.hear ? `<span>${esc(st.o[k][0])}</span>` : `<span class="de">${esc(fill(st.o[k][0]))}</span><small class="trx">${esc(fill(st.o[k][1]))}</small>`}</button>`).join('')}</div>
-        ${!st.hear && srOK() ? '<div class="mic-box"><button class="mic" id="plMic"><span class="em">🎤</span> أجب بصوتك</button><div class="mic-res" id="plMicRes"></div></div>' : ''}<div id="fbSlot"></div>`;
+        ${!st.hear && srOK() ? '<div class="mic-box"><button class="mic" id="plMic"><span class="em">🎤</span> أجب بصوتك</button>${liveHTML}<div class="mic-res" id="plMicRes"></div></div>' : ''}<div id="fbSlot"></div>`;
       let over = false;
       const choose = (k) => {
         if (over || !G) return; const btn = $(`.reply[data-k="${k}"]`, act); if (!btn || btn.disabled) return;
@@ -5489,10 +6470,9 @@ const LEVEL_OF = {};
       };
       const mb = $('#plMic');
       if (mb) mb.onclick = async () => {
-        if (over || mb.classList.contains('rec')) return; const res = $('#plMicRes');
-        mb.classList.add('rec'); mb.innerHTML = '<span class="em">🔴</span> أستمع إليك… تكلّم الآن';
-        const r = await listenDe(); if (!G) return; mb.classList.remove('rec'); mb.innerHTML = '<span class="em">🎤</span> أجب بصوتك';
-        if (r.err) { res.innerHTML = `<div class="notice" style="margin:0">${MICERR[r.err] || MICERR['no-speech']}</div>`; return; }
+        if (over) return; const res = $('#plMicRes'); const live = showLive(mb.closest('.mic-box'));
+        const r = await micListen(mb, live); if (!r || !G || over) return; live('');
+        if (r.err) { res.innerHTML = micErrHTML(r.err); if (!srOK()) mb.remove(); return; }
         const cands = st.o.map((o, k) => ({ k, s: scoreSpeech(r.alts, fill(o[0])) })).filter(({ k }) => !$(`.reply[data-k="${k}"]`, act).disabled).sort((a, b) => b.s.s - a.s.s);
         const bestC = cands[0];
         if (!bestC || bestC.s.s < 0.55) { res.innerHTML = `<div class="notice" style="margin:0">🤔 فهمتُ: «<span class="de">${esc(r.alts[0] || '')}</span>» — هذا لا يشبه أيّ ردّ. حاول مرة أخرى أو اختر بالضغط.</div>`; beep('bad'); return; }
@@ -5558,7 +6538,8 @@ const LEVEL_OF = {};
     if (!DATA[S.level]) S.level = 'a11';
     if (!S.topic || (S.topic !== 'mix' && !DATA[S.level].T.some((t) => t.id === S.topic))) S.topic = DATA[S.level].T[0].id;
     document.documentElement.style.setProperty('--line', `var(--line-${S.level})`);
-    show(S.view);
+    applyPrefs(); show(S.view);
+    if (!S.onb) { if (S.xp > 0 || Object.keys(S.prog).length || Object.keys(S.read).length) { S.onb = 1; save(); } else setTimeout(() => { if (!G) openWelcome(); }, 500); }
     document.addEventListener('click', (e) => {
       if (!ov.hidden && !ov.contains(e.target)) return;
       const nv = e.target.closest('[data-nav]'); if (nv && ov.hidden) { show(nv.dataset.nav); return; }
@@ -5566,7 +6547,11 @@ const LEVEL_OF = {};
       if (act && !act.disabled) {
         const a = act.dataset.act;
         if (a === 'home') { if (!ov.hidden) closeGame(); show('home'); return; }
-        if (a === 'continue') { const nu = nextUp(); S.topic = nu.t.id; if (isCity(nu.s.k)) goPlace(nu.s.k.slice(5)); else { show('lesson'); openGame(nu.s.k); } return; }
+        if (a === 'continue') { continueLearning(); return; }
+        if (a === 'mictest') { if (G && !['settings', 'mictest', 'welcome'].includes(G.key)) { micInline(act); return; } openMicTest(); return; }
+        if (a === 'settings') { openSettings(); return; }
+        if (a === 'welcome') { openWelcome(); return; }
+        if (a === 'ghub') { openGrammarHub(); return; }
         if (a === 'laute') { openLaute(); return; }
         if (a === 'cert') { openCert(); return; }
         if (a === 'lenahi') { lenaHello(); return; }
@@ -5576,17 +6561,17 @@ const LEVEL_OF = {};
       const pl = e.target.closest('[data-place]'); if (pl && ov.hidden) { goPlace(pl.dataset.place, !!pl.dataset.auto); return; }
       const sa = e.target.closest('[data-speakall]'); if (sa) { const row = $('.cta-row[data-all]'); if (row) speakList(JSON.parse(row.dataset.all)); return; }
       const lb = e.target.closest('[data-level]');
-      if (lb && lb.classList.contains('lvl-b')) { S.topicBy[S.level] = S.topic; S.level = lb.dataset.level; S.topic = S.topicBy[S.level] || DATA[S.level].T[0].id; document.documentElement.style.setProperty('--line', `var(--line-${S.level})`); save(); refreshView(); return; }
+      if (lb && lb.classList.contains('lvl-b')) { setLevel(lb.dataset.level); refreshView(); return; }
       const op = e.target.closest('[data-open]'); if (op) { openLesson(op.dataset.open); return; }
       const st = e.target.closest('[data-step]'); if (st && ov.hidden) { doStep(st.dataset.step); return; }
       const g = e.target.closest('[data-game]'); if (g && ov.hidden) { openGame(g.dataset.game); return; }
       const mic = e.target.closest('[data-mic]'); if (mic) { micTry(mic); return; }
+      const pr = e.target.closest('[data-playrec]'); if (pr) { playCompare(pr.dataset.playrec, pr.dataset.text); return; }
       const say = e.target.closest('[data-say]'); if (say) { speak(say.dataset.say, !!say.dataset.slow, say.dataset.g ? { g: say.dataset.g, pitch: +say.dataset.p || 1 } : null); }
     });
     $('#gClose').onclick = closeGame;
     ov.addEventListener('click', (e) => { if (e.target === ov) closeGame(); });
-    $('#soundBtn').onclick = () => { S.sound = !S.sound; save(); updateTop(); if (S.sound) beep('ok'); };
-    $('#voiceBtn').onclick = () => { S.voice = !S.voice; save(); updateTop(); if (S.voice) speak('Hallo! Willkommen in der Sprachbahn.'); };
+    $('#setBtn').onclick = () => openSettings();
     document.addEventListener('keydown', (e) => {
       if (ov.hidden) return;
       if (e.key === 'Escape') { closeGame(); return; }

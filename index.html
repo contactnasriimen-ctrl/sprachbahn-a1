@@ -21,7 +21,7 @@
   --gelb: #f0ab00; --gelb-ink: #392900; --blau: #2459c4; --rot: #cf343a; --gruen: #1b8a4e; --lila: #7a4bd8; --orange: #e0681a;
   --board: #10161c; --board-2: #1b232b; --flap: #f2b705; --board-ink: #f4f1e6;
   --ok: #1b8a4e; --ok-bg: #e1f4e9; --bad: #cf343a; --bad-bg: #fbe4e5; --why-bg: #fff7e0; --why-line: #f0c75a;
-  --line-a11: #f0ab00; --line-a12: #2459c4; --line: var(--line-a11);
+  --line-a11: #f0ab00; --line-a12: #2459c4; --line-a2: #1b8a4e; --line-b1: #7a4bd8; --line: var(--line-a11);
   --sky1: #9fd3f0; --sky2: #e9f5fb; --sun: #ffd25a; --hill1: #b9dcc2; --hill2: #8cc49d; --hill3: #5f9f74; --ground: #c9b48a; --rail: #6b7783; --star: 0;
   --shadow: 0 1px 0 rgba(19, 32, 43, .05), 0 12px 30px -18px rgba(19, 32, 43, .4);
   --f-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
@@ -35,7 +35,7 @@
   --gelb: #f5b914; --gelb-ink: #2a1e00; --blau: #6a97f2; --rot: #f0656a; --gruen: #43c482; --lila: #a888f2; --orange: #f08a45;
   --board: #05080b; --board-2: #121a21; --flap: #f5bf1a; --board-ink: #f4f1e6;
   --ok: #43c482; --ok-bg: #12301f; --bad: #f0656a; --bad-bg: #3a1618; --why-bg: #2c2410; --why-line: #8a6d1d;
-  --line-a11: #f5b914; --line-a12: #6a97f2;
+  --line-a11: #f5b914; --line-a12: #6a97f2; --line-a2: #43c482; --line-b1: #a888f2;
   --sky1: #071526; --sky2: #1b3352; --sun: #f3efd9; --hill1: #1d3a3b; --hill2: #17302f; --hill3: #112424; --ground: #2a2620; --rail: #8996a3; --star: 1;
   --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 14px 32px -16px rgba(0, 0, 0, .8); color-scheme: dark; } }
 :root[data-theme="dark"] {
@@ -43,7 +43,7 @@
   --gelb: #f5b914; --gelb-ink: #2a1e00; --blau: #6a97f2; --rot: #f0656a; --gruen: #43c482; --lila: #a888f2; --orange: #f08a45;
   --board: #05080b; --board-2: #121a21; --flap: #f5bf1a; --board-ink: #f4f1e6;
   --ok: #43c482; --ok-bg: #12301f; --bad: #f0656a; --bad-bg: #3a1618; --why-bg: #2c2410; --why-line: #8a6d1d;
-  --line-a11: #f5b914; --line-a12: #6a97f2;
+  --line-a11: #f5b914; --line-a12: #6a97f2; --line-a2: #43c482; --line-b1: #a888f2;
   --sky1: #071526; --sky2: #1b3352; --sun: #f3efd9; --hill1: #1d3a3b; --hill2: #17302f; --hill3: #112424; --ground: #2a2620; --rail: #8996a3; --star: 1;
   --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 14px 32px -16px rgba(0, 0, 0, .8); color-scheme: dark; }
 
@@ -755,7 +755,7 @@ details.more[open] summary::after { transform: rotate(180deg); }
   <div class="sec-h"><h1 class="h1s">📚 الدروس</h1><span>اختر المستوى ثم ادرس بالترتيب — درس كل يوم أو يومين.</span></div>
   <div class="lvl" id="lvl"></div>
   <div class="acad" id="acad"></div>
-  <div class="sec-h"><h2>خطة 6 أسابيع</h2><span id="lvlInfo"></span></div>
+  <div class="sec-h"><h2>خطة الدراسة: 12 أسبوعاً من A1 إلى B1</h2><span id="lvlInfo"></span></div>
   <div class="lessons" id="lessons"></div>
 </div></div>
 
@@ -1635,6 +1635,1115 @@ const CITY = [
       { n: ['Natürlich. Hier ist Ihre Quittung. Schönen Tag noch!', 'طبعاً. هذا إيصالك. يوماً سعيداً!'], end: 1 }] },
 ];
 
+// Levels A2 and B1. Each lesson carries everything it needs:
+//   w:   [pic, German, Arabic, Arabic-letter pronunciation, example (de), example (ar)]
+//   gr:  grammar box { t, p, tab, ex }   gq: drills [sentence with ___, correct, [wrong, wrong], why (ar), translation (ar)]
+// data5z.js merges these into DATA / EX / GR / GQ.
+const MORE = { a2: [], b1: [] };
+const GQ = {};
+Object.assign(CONJ, {
+  konnte: ['استطاعَ (können – Präteritum)', 'konnte konntest konnte konnten konntet konnten'],
+  musste: ['كان عليه (müssen – Präteritum)', 'musste musstest musste mussten musstet mussten'],
+  wollte: ['أرادَ (wollen – Präteritum)', 'wollte wolltest wollte wollten wolltet wollten'],
+  durfte: ['سُمح له (dürfen – Präteritum)', 'durfte durftest durfte durften durftet durften'],
+});
+
+MORE.a2.push({ id: 'kindheit', no: 1, de: 'Als ich ein Kind war', ar: 'الطفولة والذكريات', icon: '🧸', special: ['konj'], conj: ['war', 'hatte', 'konnte', 'musste', 'wollte'],
+  tip: 'مع [[sein, haben]] وأفعال الكيفية نستعمل Präteritum: [[ich war, ich hatte, ich konnte]]. ولحدث واحد في الماضي: [[Als ich klein war, …]]',
+  w: [
+    ['🧸', 'die Kindheit', 'الطفولة', 'دي كيندهايت', 'In meiner Kindheit habe ich in Sousse gewohnt.', 'في طفولتي سكنتُ في سوسة.'],
+    ['🏫', 'die Grundschule', 'المدرسة الابتدائية', 'دي گروندشوله', 'Mit sechs Jahren bin ich in die Grundschule gekommen.', 'في السادسة دخلتُ المدرسة الابتدائية.'],
+    ['👫', 'der Kindergarten', 'روضة الأطفال', 'دَر كيندَرگارتِن', 'Im Kindergarten hatte ich viele Freunde.', 'في الروضة كان عندي أصدقاء كثيرون.'],
+    ['🛝', 'der Spielplatz', 'ساحة اللعب', 'دَر شپيلپلاتس', 'Wir waren jeden Tag auf dem Spielplatz.', 'كنّا كل يوم في ساحة اللعب.'],
+    ['🪀', 'das Spielzeug', 'الألعاب (للأطفال)', 'داس شپيلتسويك', 'Mein Lieblingsspielzeug war ein rotes Auto.', 'لعبتي المفضّلة كانت سيارة حمراء.'],
+    ['🧗', 'klettern', 'يتسلّق', 'كلِتَّرن', 'Als Kind bin ich gern auf Bäume geklettert.', 'وأنا طفل كنتُ أحبّ تسلّق الأشجار.'],
+    ['😜', 'frech', 'شقيّ', 'فرِش', 'Mein kleiner Bruder war sehr frech.', 'كان أخي الصغير شقيّاً جداً.'],
+    ['🙈', 'schüchtern', 'خجول', 'شُوشتَرن', 'Als Kind war ich sehr schüchtern.', 'وأنا طفل كنتُ خجولاً جداً.'],
+    ['☝️', 'streng', 'صارم', 'شترِنگ', 'Unsere Lehrerin war streng, aber nett.', 'كانت معلّمتنا صارمة لكنّها لطيفة.'],
+    ['💭', 'die Erinnerung', 'الذكرى', 'دي إيرينَرونگ', 'Ich habe schöne Erinnerungen an meine Oma.', 'عندي ذكريات جميلة عن جدّتي.'],
+    ['⏳', 'als', 'عندما (مرّة في الماضي)', 'آلس', 'Als ich zehn war, sind wir umgezogen.', 'عندما كنتُ في العاشرة انتقلنا.'],
+    ['💪', 'konnte', 'استطاعَ', 'كونتِه', 'Mit fünf konnte ich schon schwimmen.', 'في الخامسة كنتُ أستطيع السباحة.'],
+    ['📏', 'musste', 'كان عليه', 'موسته', 'Ich musste früh ins Bett gehen.', 'كان عليّ أن أنام مبكّراً.'],
+    ['🙋', 'wollte', 'أرادَ', 'ڤولتِه', 'Ich wollte Pilot werden.', 'أردتُ أن أصبح طيّاراً.'],
+    ['🚫', 'durfte', 'سُمح له', 'دورفتِه', 'Ich durfte nicht allein in die Stadt gehen.', 'لم يُسمح لي أن أذهب إلى المدينة وحدي.']],
+  sent: [['Als ich klein war, habe ich in Tunis gewohnt.', 'عندما كنتُ صغيراً سكنتُ في تونس.'], ['Ich hatte einen Hund und zwei Katzen.', 'كان عندي كلب وقطّتان.'], ['Mit sieben konnte ich schon lesen.', 'في السابعة كنتُ أستطيع القراءة.'],
+    ['Wir mussten jeden Tag Hausaufgaben machen.', 'كان علينا كل يوم أن نعمل الواجبات.'], ['Meine Eltern waren streng, aber lieb.', 'كان والداي صارمين لكن حنونين.'], ['Wenn es geregnet hat, haben wir drinnen gespielt.', 'كلّما أمطرت كنّا نلعب في الداخل.']],
+  dlg: [
+    ['Wo hast du als Kind gewohnt?', 'أين سكنتَ وأنت طفل؟', 'Ich habe in einem kleinen Dorf gewohnt.', 'سكنتُ في قرية صغيرة.', ['Ich wohne als Kind in Berlin.', 'Ich war in einem kleinen Dorf gewohnt.']],
+    ['Was wolltest du werden?', 'ماذا أردتَ أن تصبح؟', 'Ich wollte Ärztin werden.', 'أردتُ أن أصبح طبيبة.', ['Ich wollte Ärztin geworden.', 'Ich will Ärztin wurde.']],
+    ['Durftest du lange fernsehen?', 'هل كان مسموحاً لك أن تشاهد التلفاز طويلاً؟', 'Nein, nur eine Stunde am Tag.', 'لا، ساعة واحدة فقط في اليوم.', ['Nein, ich bin eine Stunde.', 'Ja, ich durfte fernsehen nicht.']],
+    ['Hattest du ein Lieblingsspielzeug?', 'هل كانت عندك لعبة مفضّلة؟', 'Ja, ich hatte einen Teddybären.', 'نعم، كان عندي دبّ محشوّ.', ['Ja, ich war einen Teddybären.', 'Ja, ich habe einen Teddybär gehattet.']]],
+  gr: { t: 'الماضي البسيط (Präteritum) و als', p: [
+    'مع [[sein]] و [[haben]] وأفعال الكيفية نستعمل في الكلام <b>Präteritum</b> (وليس Perfekt): [[ich war · ich hatte · ich konnte]].',
+    'أفعال الكيفية في Präteritum: بدون Umlaut + [[‑te]]: [[können → konnte · müssen → musste · dürfen → durfte · wollen → wollte]].',
+    '⭐ مع [[ich]] و [[er / sie / es]] الشكل نفسه بدون نهاية: [[ich war = er war · ich konnte = sie konnte]].',
+    '[[als]] = عندما (حدث <b>مرّة واحدة</b> في الماضي) · [[wenn]] = كلّما (يتكرّر). بعدهما يذهب الفعل إلى <b>آخر</b> الجملة: [[Als ich klein war, …]]',
+    'إذا بدأت الجملة بـ [[als]] يأتي الفعل الأساسي مباشرة بعد الفاصلة: [[Als ich zehn war, <b>sind</b> wir umgezogen.]]'],
+    tab: [['', 'sein', 'haben', 'können', 'müssen'], ['ich', 'war', 'hatte', 'konnte', 'musste'], ['du', 'warst', 'hattest', 'konntest', 'musstest'], ['er / sie / es', 'war', 'hatte', 'konnte', 'musste'], ['wir', 'waren', 'hatten', 'konnten', 'mussten'], ['ihr', 'wart', 'hattet', 'konntet', 'musstet'], ['sie / Sie', 'waren', 'hatten', 'konnten', 'mussten']],
+    ex: [['Als Kind war ich sehr schüchtern.', 'وأنا طفل كنتُ خجولاً جداً.'], ['Wir hatten keinen Fernseher.', 'لم يكن عندنا تلفاز.'], ['Ich musste meiner Mutter helfen.', 'كان عليّ أن أساعد أمّي.'], ['Als ich 18 war, habe ich Abitur gemacht.', 'عندما كنتُ في الثامنة عشرة حصلتُ على البكالوريا.']] },
+  gq: [
+    ['Als Kind ___ ich sehr schüchtern.', 'war', ['bin', 'hatte'], 'الماضي من [[sein]] مع ich: [[war]].', 'وأنا طفل كنتُ خجولاً جداً.'],
+    ['Wir ___ keinen Fernseher.', 'hatten', ['hatte', 'waren'], 'الماضي من [[haben]] مع wir: [[hatten]] (‑n).', 'لم يكن عندنا تلفاز.'],
+    ['Mit fünf ___ ich schon schwimmen.', 'konnte', ['kann', 'konntest'], 'Präteritum من [[können]] مع ich: [[konnte]] — بدون Umlaut.', 'في الخامسة كنتُ أستطيع السباحة.'],
+    ['Du ___ immer früh ins Bett gehen.', 'musstest', ['musste', 'müsstest'], 'مع du النهاية ‑st: [[musstest]]. ([[müsstest]] = Konjunktiv II)', 'كان عليك دائماً أن تنام مبكّراً.'],
+    ['___ ich zehn war, sind wir nach Deutschland gekommen.', 'Als', ['Wenn', 'Wann'], '[[als]] لحدث واحد في الماضي. [[wann]] للسؤال فقط.', 'عندما كنتُ في العاشرة جئنا إلى ألمانيا.'],
+    ['___ es geregnet hat, haben wir immer drinnen gespielt.', 'Wenn', ['Als', 'Ob'], '[[immer]] = يتكرّر ← [[wenn]] (كلّما).', 'كلّما أمطرت كنّا نلعب في الداخل.'],
+    ['Als ich klein war, ___ einen Hund.', 'hatte ich', ['ich hatte', 'ich habe'], 'بعد جملة [[als]] يأتي الفعل أوّلاً: [[…, hatte ich …]].', 'عندما كنتُ صغيراً كان عندي كلب.'],
+    ['Meine Eltern ___ sehr streng.', 'waren', ['war', 'wart'], 'مع الجمع (sie): [[waren]].', 'كان والداي صارمين جداً.'],
+    ['Ich ___ nicht allein in die Stadt gehen.', 'durfte', ['darf', 'durftet'], 'Präteritum من [[dürfen]] مع ich: [[durfte]].', 'لم يُسمح لي أن أذهب إلى المدينة وحدي.'],
+    ['Ihr ___ viel Glück!', 'hattet', ['hatten', 'hattest'], 'مع ihr النهاية ‑t: [[hattet]].', 'كان عندكم حظّ كبير!']] });
+
+MORE.a2.push({ id: 'gruende', no: 2, de: 'Warum? – Weil …', ar: 'الأسباب والآراء', icon: '🤔',
+  tip: 'بعد [[weil, dass, wenn]] يذهب الفعل المصرَّف إلى <b>آخر الجملة</b>: [[…, weil ich krank bin.]] أمّا بعد [[deshalb]] فالفعل في المكان الثاني: [[Deshalb bleibe ich zu Hause.]]',
+  w: [
+    ['🤔', 'der Grund', 'السبب', 'دَر گرونت', 'Was ist der Grund für deine Verspätung?', 'ما سبب تأخّرك؟'],
+    ['💬', 'die Meinung', 'الرأي', 'دي ماينونگ', 'Was ist deine Meinung?', 'ما رأيك؟'],
+    ['❓', 'weil', 'لأنّ', 'ڤايل', 'Ich lerne Deutsch, weil ich in Deutschland arbeite.', 'أتعلّم الألمانية لأنّي أعمل في ألمانيا.'],
+    ['🗣️', 'dass', 'أنّ', 'داس', 'Ich glaube, dass er recht hat.', 'أظنّ أنّه على حقّ.'],
+    ['🔀', 'wenn', 'إذا / كلّما', 'ڤِن', 'Wenn ich Zeit habe, rufe ich dich an.', 'إذا كان عندي وقت أتّصل بك.'],
+    ['➡️', 'deshalb', 'لذلك', 'دِسهالب', 'Ich bin krank, deshalb bleibe ich zu Hause.', 'أنا مريض، لذلك أبقى في البيت.'],
+    ['🧠', 'glauben', 'يعتقد', 'گلاوبِن', 'Ich glaube, das ist richtig.', 'أعتقد أنّ هذا صحيح.'],
+    ['💡', 'denken', 'يفكّر / يظنّ', 'دِنكِن', 'Ich denke, dass wir zu spät sind.', 'أظنّ أنّنا متأخّرون.'],
+    ['👍', 'finden', 'يرى (رأياً)', 'فيندِن', 'Ich finde den Film langweilig.', 'أرى الفيلم مملّاً.'],
+    ['🤞', 'hoffen', 'يأمل', 'هوفِّن', 'Ich hoffe, dass du bald kommst.', 'آمل أن تأتي قريباً.'],
+    ['⭐', 'wichtig', 'مهمّ', 'ڤيشتيش', 'Es ist wichtig, dass du pünktlich bist.', 'من المهمّ أن تكون في الموعد.'],
+    ['🎲', 'vielleicht', 'ربّما', 'فيلايشت', 'Vielleicht komme ich morgen.', 'ربّما آتي غداً.'],
+    ['✔️', 'sicher', 'متأكّد', 'زيشَر', 'Bist du sicher?', 'هل أنت متأكّد؟'],
+    ['✅', 'recht haben', 'يكون على حقّ', 'رِشت هابِن', 'Du hast recht!', 'أنت على حقّ!']],
+  sent: [['Ich komme nicht, weil ich arbeiten muss.', 'لن آتي لأنّه يجب أن أعمل.'], ['Ich finde, dass Deutsch schwer ist.', 'أرى أنّ الألمانية صعبة.'], ['Wenn das Wetter schön ist, gehen wir spazieren.', 'إذا كان الطقس جميلاً نذهب للتنزّه.'],
+    ['Er ist müde, deshalb geht er früh schlafen.', 'هو متعب، لذلك ينام مبكّراً.'], ['Ich hoffe, dass du die Prüfung bestehst.', 'آمل أن تنجح في الامتحان.'], ['Warum lernst du Deutsch?', 'لماذا تتعلّم الألمانية؟']],
+  dlg: [
+    ['Warum lernst du Deutsch?', 'لماذا تتعلّم الألمانية؟', 'Weil ich in Deutschland studieren möchte.', 'لأنّي أريد أن أدرس في ألمانيا.', ['Weil ich möchte in Deutschland studieren.', 'Deshalb ich studiere in Deutschland.']],
+    ['Wie findest du die Stadt?', 'ما رأيك في المدينة؟', 'Ich finde, dass sie sehr schön ist.', 'أرى أنّها جميلة جداً.', ['Ich finde, dass sie ist sehr schön.', 'Ich finde die Stadt gefunden.']],
+    ['Kommst du heute Abend mit?', 'هل تأتي معنا هذا المساء؟', 'Wenn ich Zeit habe, komme ich gern.', 'إذا كان عندي وقت آتي بكل سرور.', ['Wenn ich habe Zeit, ich komme gern.', 'Weil ich komme gern.']],
+    ['Warum warst du nicht im Kurs?', 'لماذا لم تكن في الدرس؟', 'Ich war krank, deshalb bin ich zu Hause geblieben.', 'كنتُ مريضاً، لذلك بقيتُ في البيت.', ['Ich war krank, deshalb ich bin zu Hause geblieben.', 'Weil ich war krank.']]],
+  gr: { t: 'الجمل الفرعية: weil · dass · wenn', p: [
+    'الجملة الفرعية تبدأ بأداة ربط مثل [[weil]] (لأنّ)، [[dass]] (أنّ)، [[wenn]] (إذا / كلّما)، ويذهب الفعل المصرَّف إلى <b>آخرها</b>.',
+    'مثال: [[Ich lerne Deutsch.]] + [[Ich arbeite in Berlin.]] ← [[Ich lerne Deutsch, weil ich in Berlin <b>arbeite</b>.]]',
+    'مع فعلين (كيفية أو Perfekt) يكون الفعل المصرَّف هو الأخير تماماً: [[…, weil ich arbeiten <b>muss</b>.]] · [[…, dass er gekommen <b>ist</b>.]]',
+    'إذا بدأتَ بالجملة الفرعية، يأتي فعل الجملة الأساسية مباشرة بعد الفاصلة: [[Wenn ich Zeit habe, <b>komme</b> ich.]]',
+    '⚠️ [[deshalb]] (لذلك) ليست أداة جملة فرعية: بعدها الفعل في المكان الثاني: [[Deshalb <b>bleibe</b> ich zu Hause.]]'],
+    tab: [['الأداة', 'المعنى', 'مثال'], ['weil', 'لأنّ', '…, weil ich krank bin.'], ['dass', 'أنّ', 'Ich glaube, dass er kommt.'], ['wenn', 'إذا / كلّما', 'Wenn es regnet, bleibe ich hier.'], ['deshalb', 'لذلك — الفعل ثانياً', 'Deshalb bleibe ich hier.']],
+    ex: [['Ich bleibe zu Hause, weil ich krank bin.', 'أبقى في البيت لأنّي مريض.'], ['Ich glaube, dass der Bus gleich kommt.', 'أظنّ أنّ الحافلة ستأتي حالاً.'], ['Wenn du willst, helfe ich dir.', 'إذا أردتَ أساعدك.'], ['Es regnet, deshalb nehme ich den Bus.', 'إنّها تمطر، لذلك آخذ الحافلة.']] },
+  gq: [
+    ['Ich bleibe zu Hause, weil ich krank ___.', 'bin', ['ist', 'sein'], 'بعد [[weil]] الفعل المصرَّف في آخر الجملة: [[weil ich krank bin]].', 'أبقى في البيت لأنّي مريض.'],
+    ['Ich glaube, ___ er heute kommt.', 'dass', ['das', 'weil'], '[[dass]] (أنّ) بعد أفعال مثل [[glauben, denken, hoffen]]. [[das]] أداة أو ضمير.', 'أظنّ أنّه سيأتي اليوم.'],
+    ['___ ich Zeit habe, rufe ich dich an.', 'Wenn', ['Weil', 'Dass'], 'شرط ← [[wenn]] = إذا.', 'إذا كان عندي وقت أتّصل بك.'],
+    ['Ich lerne Deutsch, weil ich in Deutschland ___.', 'arbeiten möchte', ['möchte arbeiten', 'arbeiten möchten'], 'مع فعلين يكون المصرَّف ([[möchte]]) هو الأخير.', 'أتعلّم الألمانية لأنّي أريد أن أعمل في ألمانيا.'],
+    ['Es regnet, deshalb ___ ich den Bus.', 'nehme', ['ich nehme', 'nehmen'], 'بعد [[deshalb]] الفعل مباشرة (المكان الثاني): [[deshalb nehme ich]].', 'إنّها تمطر، لذلك آخذ الحافلة.'],
+    ['Wenn das Wetter schön ist, ___ wir spazieren.', 'gehen', ['wir gehen', 'geht'], 'بعد الجملة الفرعية يأتي الفعل أوّلاً: [[…, gehen wir]].', 'إذا كان الطقس جميلاً نذهب للتنزّه.'],
+    ['Ich hoffe, dass du die Prüfung ___.', 'bestehst', ['bestehen', 'bestanden'], 'الفعل المصرَّف مع du في آخر الجملة: [[dass du … bestehst]].', 'آمل أن تنجح في الامتحان.'],
+    ['Er sagt, dass er gestern zu Hause geblieben ___.', 'ist', ['hat', 'sind'], 'Perfekt من [[bleiben]] مع sein، و[[ist]] في آخر الجملة.', 'يقول إنّه بقي في البيت أمس.'],
+    ['Warum kommst du nicht? – ___ ich arbeiten muss.', 'Weil', ['Deshalb', 'Dass'], 'للجواب عن [[Warum?]] نبدأ بـ [[Weil …]].', 'لماذا لا تأتي؟ – لأنّه يجب أن أعمل.'],
+    ['Ich finde, dass Deutsch nicht so schwer ___.', 'ist', ['sind', 'bin'], '[[Deutsch]] مفرد ← [[ist]] في آخر الجملة بعد [[dass]].', 'أرى أنّ الألمانية ليست صعبة جداً.']] });
+
+MORE.a2.push({ id: 'einrichten', no: 3, de: 'Die Wohnung einrichten', ar: 'تأثيث الشقّة', icon: '🛋️', special: ['praep'],
+  tip: '[[Wo?]] (مكان ثابت) ← Dativ: [[Das Bild hängt an der Wand.]] · [[Wohin?]] (حركة) ← Akkusativ: [[Ich hänge das Bild an die Wand.]]',
+  w: [
+    ['🪑', 'der Sessel', 'الكرسي المريح', 'دَر زِسِّل', 'Der Sessel steht neben dem Sofa.', 'الكرسي المريح بجانب الأريكة.'],
+    ['📚', 'das Regal', 'الرفّ', 'داس ريگال', 'Ich stelle die Bücher ins Regal.', 'أضع الكتب في الرفّ.'],
+    ['🧶', 'der Teppich', 'السجّادة', 'دَر تِپِّش', 'Der Teppich liegt unter dem Tisch.', 'السجّادة تحت الطاولة.'],
+    ['💡', 'die Stehlampe', 'المصباح الواقف', 'دي شتيلامپِه', 'Die Stehlampe steht in der Ecke.', 'المصباح الواقف في الزاوية.'],
+    ['🪟', 'der Vorhang', 'الستارة', 'دَر فورهانگ', 'Der Vorhang hängt am Fenster.', 'الستارة معلّقة على النافذة.'],
+    ['🛏️', 'das Kissen', 'الوسادة', 'داس كيسِّن', 'Ich lege das Kissen auf das Sofa.', 'أضع الوسادة على الأريكة.'],
+    ['🪞', 'der Spiegel', 'المرآة', 'دَر شپيگِل', 'Der Spiegel hängt im Flur.', 'المرآة معلّقة في الممرّ.'],
+    ['🗄️', 'die Kommode', 'خزانة الأدراج', 'دي كوموده', 'Die Kommode steht im Schlafzimmer.', 'خزانة الأدراج في غرفة النوم.'],
+    ['📦', 'der Umzug', 'الانتقال (من سكن)', 'دَر أومتسوك', 'Der Umzug war sehr anstrengend.', 'كان الانتقال متعباً جداً.'],
+    ['🏠', 'einrichten', 'يؤثّث', 'آينريشتِن', 'Wir richten die neue Wohnung ein.', 'نؤثّث الشقّة الجديدة.'],
+    ['⬇️', 'stellen', 'يضع (واقفاً)', 'شتِلِّن', 'Wohin stellst du den Schrank?', 'أين تضع الخزانة؟'],
+    ['🧍', 'stehen', 'موضوع (واقفاً)', 'شتيئِن', 'Der Schrank steht an der Wand.', 'الخزانة عند الحائط.'],
+    ['📥', 'legen', 'يضع (مسطّحاً)', 'لِيگِن', 'Ich lege das Buch auf den Tisch.', 'أضع الكتاب على الطاولة.'],
+    ['🛌', 'liegen', 'موضوع (مسطّحاً)', 'ليـگِن', 'Das Buch liegt auf dem Tisch.', 'الكتاب على الطاولة.'],
+    ['🖼️', 'hängen', 'يعلّق / معلّق', 'هِنگِن', 'Ich hänge das Bild an die Wand.', 'أعلّق الصورة على الحائط.']],
+  sent: [['Wohin stellen wir das Sofa?', 'أين نضع الأريكة؟'], ['Stell das Sofa vor das Fenster!', 'ضع الأريكة أمام النافذة!'], ['Jetzt steht das Sofa vor dem Fenster.', 'الآن الأريكة أمام النافذة.'],
+    ['Ich lege den Teppich unter den Tisch.', 'أضع السجّادة تحت الطاولة.'], ['Die Lampe hängt über dem Esstisch.', 'المصباح معلّق فوق طاولة الطعام.'], ['Wo liegt mein Handy?', 'أين هاتفي؟']],
+  dlg: [
+    ['Wohin stellen wir den Schrank?', 'أين نضع الخزانة؟', 'Stellen wir ihn an die Wand.', 'لنضعها عند الحائط.', ['Stellen wir ihn an der Wand.', 'Er steht an die Wand.']],
+    ['Wo ist meine Brille?', 'أين نظّارتي؟', 'Sie liegt auf dem Tisch.', 'إنّها على الطاولة.', ['Sie liegt auf den Tisch.', 'Sie legt auf dem Tisch.']],
+    ['Wohin hängst du das Bild?', 'أين تعلّق الصورة؟', 'Ich hänge es über das Sofa.', 'أعلّقها فوق الأريكة.', ['Ich hänge es über dem Sofa.', 'Ich hänge über das Sofa es.']],
+    ['Wie war der Umzug?', 'كيف كان الانتقال؟', 'Anstrengend, aber jetzt ist alles fertig.', 'متعب، لكن الآن كل شيء جاهز.', ['Anstrengend, aber jetzt alles ist fertig.', 'Ich bin der Umzug.']]],
+  gr: { t: 'حروف الجرّ المتغيّرة: Wo? أم Wohin?', p: [
+    'تسعة حروف جرّ تأخذ Dativ أو Akkusativ: [[in, an, auf, unter, über, vor, hinter, neben, zwischen]].',
+    '[[Wo?]] (أين؟ مكان ثابت، لا حركة) ← <b>Dativ</b>: [[Das Buch liegt auf <b>dem</b> Tisch.]]',
+    '[[Wohin?]] (إلى أين؟ حركة إلى مكان) ← <b>Akkusativ</b>: [[Ich lege das Buch auf <b>den</b> Tisch.]]',
+    'أزواج الأفعال: [[stellen → stehen · legen → liegen · setzen → sitzen · hängen → hängen]]. الأوّل حركة (Wohin + Akk)، والثاني حالة (Wo + Dat).',
+    'اختصارات: [[in dem = im · an dem = am · in das = ins · an das = ans]].'],
+    tab: [['', 'der', 'die', 'das', 'Plural'], ['Wo? (Dativ)', 'dem Tisch', 'der Wand', 'dem Bett', 'den Stühlen'], ['Wohin? (Akkusativ)', 'den Tisch', 'die Wand', 'das Bett', 'die Stühle']],
+    ex: [['Ich stelle die Lampe neben das Sofa.', 'أضع المصباح بجانب الأريكة.'], ['Die Lampe steht neben dem Sofa.', 'المصباح بجانب الأريكة.'], ['Ich hänge den Spiegel an die Wand.', 'أعلّق المرآة على الحائط.'], ['Der Spiegel hängt an der Wand.', 'المرآة معلّقة على الحائط.']] },
+  gq: [
+    ['Das Buch liegt auf ___ Tisch.', 'dem', ['den', 'der'], '[[Wo?]] (لا حركة) ← Dativ: [[der Tisch → dem Tisch]].', 'الكتاب على الطاولة.'],
+    ['Ich lege das Buch auf ___ Tisch.', 'den', ['dem', 'die'], '[[Wohin?]] (حركة) ← Akkusativ: [[der Tisch → den Tisch]].', 'أضع الكتاب على الطاولة.'],
+    ['Das Bild hängt an ___ Wand.', 'der', ['die', 'den'], 'Wo? ← Dativ: [[die Wand → der Wand]].', 'الصورة معلّقة على الحائط.'],
+    ['Ich hänge das Bild an ___ Wand.', 'die', ['der', 'dem'], 'Wohin? ← Akkusativ: [[die Wand]] (المؤنّث لا يتغيّر في Akkusativ).', 'أعلّق الصورة على الحائط.'],
+    ['Der Schrank ___ an der Wand.', 'steht', ['stellt', 'stehen'], 'حالة (Wo + Dativ) ← [[stehen]]. أمّا [[stellen]] فحركة.', 'الخزانة عند الحائط.'],
+    ['Ich ___ die Flasche in den Kühlschrank.', 'stelle', ['stehe', 'liege'], 'حركة إلى مكان ([[in den]] = Akkusativ) ← [[stellen]].', 'أضع القنينة في الثلاجة.'],
+    ['Die Katze ___ unter dem Sofa.', 'liegt', ['legt', 'liegen'], 'حالة ([[unter dem]] = Dativ) ← [[liegen]].', 'القطّة مستلقية تحت الأريكة.'],
+    ['Wir gehen heute ___ Kino.', 'ins', ['im', 'in der'], 'حركة: [[in das = ins]] (das Kino).', 'نذهب اليوم إلى السينما.'],
+    ['Wir sind gerade ___ Kino.', 'im', ['ins', 'in die'], 'مكان ثابت: [[in dem = im]].', 'نحن الآن في السينما.'],
+    ['Stell den Stuhl zwischen ___ Tisch und das Sofa!', 'den', ['dem', 'der'], 'حركة ← Akkusativ: [[zwischen den Tisch und das Sofa]].', 'ضع الكرسي بين الطاولة والأريكة!']] });
+
+// A2 lessons 4–6
+MORE.a2.push({ id: 'alltag', no: 4, de: 'Mein Alltag', ar: 'حياتي اليومية', icon: '⏰',
+  tip: 'الفعل الانعكاسي يأتي مع ضمير يعود على الفاعل: [[ich wasche mich · du wäschst dich · er wäscht sich]]. وإذا كان هناك مفعول آخر: [[Ich wasche mir die Hände.]]',
+  w: [
+    ['⏰', 'aufwachen', 'يستيقظ', 'آوفڤاخِن', 'Ich wache jeden Tag um sechs Uhr auf.', 'أستيقظ كل يوم في السادسة.'],
+    ['🚿', 'sich duschen', 'يستحمّ', 'زيش دوشِن', 'Ich dusche mich morgens.', 'أستحمّ صباحاً.'],
+    ['🧼', 'sich waschen', 'يغتسل', 'زيش ڤاشِن', 'Das Kind wäscht sich die Hände.', 'الطفل يغسل يديه.'],
+    ['👔', 'sich anziehen', 'يرتدي ملابسه', 'زيش آنتسيئِن', 'Ich ziehe mich schnell an.', 'أرتدي ملابسي بسرعة.'],
+    ['💇', 'sich kämmen', 'يمشّط شعره', 'زيش كِمِّن', 'Sie kämmt sich vor dem Spiegel.', 'تمشّط شعرها أمام المرآة.'],
+    ['🏃', 'sich beeilen', 'يستعجل', 'زيش بِئايلِن', 'Beeil dich, der Bus kommt!', 'أسرع، الحافلة قادمة!'],
+    ['😌', 'sich ausruhen', 'يرتاح', 'زيش آوسروئِن', 'Am Wochenende ruhe ich mich aus.', 'في نهاية الأسبوع أرتاح.'],
+    ['😄', 'sich freuen', 'يفرح', 'زيش فرويِن', 'Ich freue mich auf den Urlaub.', 'أنا متشوّق للإجازة.'],
+    ['😠', 'sich ärgern', 'ينزعج', 'زيش إرگَرن', 'Er ärgert sich über den Stau.', 'ينزعج من الازدحام.'],
+    ['🤝', 'sich treffen', 'يلتقي', 'زيش ترِفِّن', 'Wir treffen uns um acht vor dem Kino.', 'نلتقي في الثامنة أمام السينما.'],
+    ['🪑', 'sich setzen', 'يجلس', 'زيش زِتسِن', 'Bitte setzen Sie sich!', 'تفضّل بالجلوس!'],
+    ['🪥', 'die Zahnbürste', 'فرشاة الأسنان', 'دي تسانبُورستِه', 'Meine Zahnbürste ist im Bad.', 'فرشاة أسناني في الحمّام.'],
+    ['🔔', 'der Wecker', 'المنبّه', 'دَر ڤِكَّر', 'Der Wecker klingelt um sechs.', 'المنبّه يرنّ في السادسة.'],
+    ['⏱️', 'pünktlich', 'في الموعد', 'پُونكتليش', 'Ich bin immer pünktlich.', 'أنا دائماً في الموعد.'],
+    ['📋', 'der Alltag', 'الحياة اليومية', 'دَر آلتاك', 'Mein Alltag ist ziemlich stressig.', 'حياتي اليومية مرهقة إلى حدّ ما.']],
+  sent: [['Ich stehe um sechs Uhr auf und dusche mich.', 'أستيقظ في السادسة وأستحمّ.'], ['Wir treffen uns am Samstag im Park.', 'نلتقي يوم السبت في الحديقة.'], ['Beeil dich, wir sind spät dran!', 'أسرع، نحن متأخّرون!'],
+    ['Ich freue mich auf das Wochenende.', 'أنا متشوّق لنهاية الأسبوع.'], ['Er zieht sich eine Jacke an.', 'يرتدي سترة.'], ['Nach der Arbeit ruhe ich mich aus.', 'بعد العمل أرتاح.']],
+  dlg: [
+    ['Wann stehst du normalerweise auf?', 'متى تستيقظ عادةً؟', 'Ich stehe um halb sieben auf.', 'أستيقظ في السادسة والنصف.', ['Ich stehe auf um halb sieben mich.', 'Ich aufstehe um halb sieben.']],
+    ['Wo treffen wir uns?', 'أين نلتقي؟', 'Wir treffen uns vor dem Bahnhof.', 'نلتقي أمام المحطّة.', ['Wir treffen uns vor den Bahnhof.', 'Wir treffen sich vor dem Bahnhof.']],
+    ['Freust du dich auf die Ferien?', 'هل أنت متشوّق للعطلة؟', 'Ja, ich freue mich sehr darauf!', 'نعم، أنا متشوّق جداً لها!', ['Ja, ich freue dich sehr!', 'Ja, ich freue mir sehr.']],
+    ['Warum ärgerst du dich?', 'لماذا أنت منزعج؟', 'Weil mein Bus schon wieder zu spät ist.', 'لأنّ حافلتي متأخّرة مرّة أخرى.', ['Weil mein Bus ist schon wieder zu spät.', 'Ich ärgere mich nicht dich.']]],
+  gr: { t: 'الأفعال الانعكاسية (sich …)', p: [
+    'الفعل الانعكاسي يعني أنّ الفاعل يفعل الشيء لنفسه: [[sich waschen]] = يغسل نفسه. والضمير يتغيّر مع الفاعل.',
+    'الضمائر (Akkusativ): [[ich → mich · du → dich · er / sie / es → sich · wir → uns · ihr → euch · sie / Sie → sich]].',
+    'إذا كان في الجملة مفعول آخر نستعمل Dativ: [[Ich wasche <b>mir</b> die Hände.]] · [[Du putzt <b>dir</b> die Zähne.]]',
+    'الضمير يأتي بعد الفعل مباشرة: [[Ich <b>freue mich</b> auf den Urlaub.]] وفي الجملة الفرعية: [[…, weil ich mich beeilen muss.]]',
+    'أفعال مهمّة: [[sich freuen, sich ärgern, sich beeilen, sich treffen, sich ausruhen, sich setzen, sich anziehen, sich vorstellen]].'],
+    tab: [['', 'Akkusativ', 'Dativ', 'مثال'], ['ich', 'mich', 'mir', 'Ich wasche mich.'], ['du', 'dich', 'dir', 'Du wäschst dir die Hände.'], ['er / sie / es', 'sich', 'sich', 'Er freut sich.'], ['wir', 'uns', 'uns', 'Wir treffen uns.'], ['ihr', 'euch', 'euch', 'Beeilt euch!'], ['sie / Sie', 'sich', 'sich', 'Setzen Sie sich!']],
+    ex: [['Ich ziehe mich an.', 'أرتدي ملابسي.'], ['Ich ziehe mir einen Pullover an.', 'أرتدي كنزة.'], ['Wir treffen uns morgen.', 'نلتقي غداً.'], ['Freust du dich?', 'هل أنت سعيد؟']] },
+  gq: [
+    ['Ich wasche ___ jeden Morgen.', 'mich', ['mir', 'sich'], 'مع ich وبدون مفعول آخر: [[mich]].', 'أغتسل كل صباح.'],
+    ['Ich wasche ___ die Hände.', 'mir', ['mich', 'dich'], 'يوجد مفعول آخر ([[die Hände]]) ← Dativ: [[mir]].', 'أغسل يديّ.'],
+    ['Er freut ___ auf den Urlaub.', 'sich', ['ihn', 'ihm'], 'مع er / sie / es الضمير الانعكاسي دائماً [[sich]].', 'هو متشوّق للإجازة.'],
+    ['Wir treffen ___ um acht Uhr.', 'uns', ['sich', 'euch'], 'مع wir: [[uns]].', 'نلتقي في الثامنة.'],
+    ['Beeil ___, der Zug fährt gleich!', 'dich', ['dir', 'sich'], 'أمر للمخاطب (du): [[Beeil dich!]]', 'أسرع، القطار سيغادر حالاً!'],
+    ['Bitte setzen Sie ___!', 'sich', ['Sie', 'Ihnen'], 'مع Sie الضمير الانعكاسي [[sich]] بحرف صغير.', 'تفضّل بالجلوس!'],
+    ['Ihr müsst ___ beeilen.', 'euch', ['ihr', 'sich'], 'مع ihr: [[euch]].', 'يجب أن تستعجلوا.'],
+    ['Ich ziehe ___ eine warme Jacke an.', 'mir', ['mich', 'mein'], 'مفعول آخر ([[eine Jacke]]) ← Dativ: [[mir]].', 'أرتدي سترة دافئة.'],
+    ['Nach der Arbeit ___ ich mich aus.', 'ruhe', ['ruht', 'ruhen'], '[[sich ausruhen]] فعل منفصل: [[ich ruhe mich aus]].', 'بعد العمل أرتاح.'],
+    ['Ärgerst du ___ über das Wetter?', 'dich', ['dir', 'sich'], 'مع du وبدون مفعول آخر: [[dich]].', 'هل تنزعج من الطقس؟']] });
+
+MORE.a2.push({ id: 'aussehen', no: 5, de: 'Aussehen und Charakter', ar: 'المظهر والشخصية', icon: '🧑‍🦱',
+  tip: 'الصفة قبل الاسم تأخذ نهاية: [[der nette Mann · ein netter Mann · eine nette Frau · ein nettes Kind]]. وبعد [[sein]] بدون نهاية: [[Der Mann ist nett.]]',
+  w: [
+    ['👱', 'blond', 'أشقر', 'بلونت', 'Sie hat lange, blonde Haare.', 'لها شعر أشقر طويل.'],
+    ['🦱', 'lockig', 'مجعّد', 'لوكيش', 'Mein Bruder hat lockige Haare.', 'لأخي شعر مجعّد.'],
+    ['🧍', 'schlank', 'نحيف (رشيق)', 'شلانك', 'Der Mann ist groß und schlank.', 'الرجل طويل ورشيق.'],
+    ['🏋️', 'kräftig', 'قويّ البنية', 'كرِفتيش', 'Mein Vater ist sehr kräftig.', 'أبي قويّ البنية جداً.'],
+    ['🧔', 'der Bart', 'اللحية', 'دَر بارت', 'Er hat einen kurzen Bart.', 'له لحية قصيرة.'],
+    ['😊', 'freundlich', 'ودود', 'فرويندليش', 'Die neue Kollegin ist sehr freundlich.', 'الزميلة الجديدة ودودة جداً.'],
+    ['🤞', 'ehrlich', 'صادق', 'إيرليش', 'Ein ehrlicher Freund ist wichtig.', 'الصديق الصادق مهمّ.'],
+    ['😂', 'lustig', 'مرح', 'لوستيش', 'Mein Onkel ist ein lustiger Mensch.', 'عمّي إنسان مرح.'],
+    ['🧘', 'geduldig', 'صبور', 'گِدولديش', 'Eine gute Lehrerin ist geduldig.', 'المعلّمة الجيّدة صبورة.'],
+    ['😤', 'ungeduldig', 'قليل الصبر', 'أونگِدولديش', 'Warum bist du so ungeduldig?', 'لماذا أنت قليل الصبر هكذا؟'],
+    ['💁', 'hübsch', 'جميل', 'هُوبش', 'Das ist ein hübsches Kleid.', 'هذا فستان جميل.'],
+    ['😐', 'ernst', 'جادّ', 'إرنست', 'Er ist oft sehr ernst.', 'هو غالباً جادّ جداً.'],
+    ['🤗', 'nett', 'لطيف', 'نِت', 'Sie hat einen netten Mann.', 'لها زوج لطيف.'],
+    ['👀', 'aussehen', 'يبدو (في المظهر)', 'آوسزيئِن', 'Du siehst heute müde aus.', 'تبدو متعباً اليوم.'],
+    ['🧑', 'der Mensch', 'الإنسان', 'دَر مِنش', 'Sie ist ein sehr offener Mensch.', 'إنّها إنسانة منفتحة جداً.']],
+  sent: [['Wie sieht dein Bruder aus?', 'كيف يبدو أخوك؟'], ['Er ist groß und hat kurze, schwarze Haare.', 'هو طويل وله شعر أسود قصير.'], ['Ich suche einen ehrlichen Freund.', 'أبحث عن صديق صادق.'],
+    ['Die freundliche Verkäuferin hat mir geholfen.', 'البائعة الودودة ساعدتني.'], ['Sie trägt ein rotes Kleid.', 'تلبس فستاناً أحمر.'], ['Meine beste Freundin ist sehr lustig.', 'صديقتي المفضّلة مرحة جداً.']],
+  dlg: [
+    ['Wie sieht deine Schwester aus?', 'كيف تبدو أختك؟', 'Sie hat lange, dunkle Haare.', 'لها شعر داكن طويل.', ['Sie hat lange, dunkel Haare.', 'Sie sieht lang aus Haare.']],
+    ['Was für ein Mensch ist dein Chef?', 'أيّ نوع من الأشخاص مديرك؟', 'Er ist ein sehr geduldiger Mann.', 'إنّه رجل صبور جداً.', ['Er ist ein sehr geduldige Mann.', 'Er ist sehr ein geduldig Mann.']],
+    ['Welche Jacke nimmst du?', 'أيّ سترة تأخذ؟', 'Ich nehme die blaue Jacke.', 'آخذ السترة الزرقاء.', ['Ich nehme die blauen Jacke.', 'Ich nehme blau die Jacke.']],
+    ['Wie findest du den neuen Kollegen?', 'ما رأيك في الزميل الجديد؟', 'Ich finde ihn sehr nett.', 'أراه لطيفاً جداً.', ['Ich finde ihn sehr netten.', 'Ich finde er sehr nett.']]],
+  gr: { t: 'نهايات الصفات (Adjektivdeklination)', p: [
+    'الصفة <b>بعد</b> [[sein]] أو [[werden]] لا تأخذ نهاية: [[Die Jacke ist blau.]]',
+    'الصفة <b>قبل</b> الاسم تأخذ نهاية. بعد [[der / die / das]] (Nominativ) النهاية [[‑e]]: [[der nette Mann · die nette Frau · das nette Kind]]، وفي الجمع [[‑en]]: [[die netten Leute]].',
+    'بعد [[ein / eine]] تُظهر الصفة جنس الاسم: [[ein nett<b>er</b> Mann · eine nett<b>e</b> Frau · ein nett<b>es</b> Kind]].',
+    'في Akkusativ يتغيّر المذكّر فقط: [[den netten Mann · einen netten Mann]]. وفي Dativ النهاية دائماً [[‑en]]: [[mit dem netten Mann]].',
+    'بدون أداة (مثلاً في الجمع) تأخذ الصفة نهاية الأداة: [[Sie hat lange Haare.]] · [[Ich trinke heißen Tee.]]'],
+    tab: [['', 'der / ein', 'die / eine', 'das / ein', 'Plural'], ['بعد der / die / das', 'der neue Mantel', 'die neue Jacke', 'das neue Hemd', 'die neuen Schuhe'], ['بعد ein / eine', 'ein neuer Mantel', 'eine neue Jacke', 'ein neues Hemd', 'neue Schuhe'], ['Akkusativ', 'einen neuen Mantel', 'eine neue Jacke', 'ein neues Hemd', 'neue Schuhe']],
+    ex: [['Das ist ein schöner Tag.', 'هذا يوم جميل.'], ['Ich kaufe einen warmen Mantel.', 'أشتري معطفاً دافئاً.'], ['Die kleine Katze schläft.', 'القطّة الصغيرة نائمة.'], ['Wir wohnen in einem großen Haus.', 'نسكن في بيت كبير.']] },
+  gq: [
+    ['Das ist ein ___ Mann.', 'netter', ['nette', 'nettes'], 'مذكّر بعد [[ein]] (Nominativ): [[‑er]].', 'هذا رجل لطيف.'],
+    ['Das ist eine ___ Frau.', 'nette', ['netter', 'netten'], 'مؤنّث بعد [[eine]]: [[‑e]].', 'هذه امرأة لطيفة.'],
+    ['Das ist ein ___ Kind.', 'nettes', ['netter', 'nette'], 'محايد بعد [[ein]]: [[‑es]].', 'هذا طفل لطيف.'],
+    ['Der ___ Mantel ist teuer.', 'neue', ['neuer', 'neuen'], 'بعد [[der]] في Nominativ: [[‑e]].', 'المعطف الجديد غالٍ.'],
+    ['Ich kaufe einen ___ Mantel.', 'warmen', ['warmer', 'warme'], 'مذكّر في Akkusativ: [[einen warmen Mantel]].', 'أشتري معطفاً دافئاً.'],
+    ['Die Jacke ist ___.', 'blau', ['blaue', 'blauen'], 'بعد [[sein]] لا نهاية: [[ist blau]].', 'السترة زرقاء.'],
+    ['Sie hat ___ Haare.', 'lange', ['langen', 'langer'], 'جمع بدون أداة: [[‑e]] ([[lange Haare]]).', 'لها شعر طويل.'],
+    ['Wir wohnen in einem ___ Haus.', 'großen', ['großes', 'große'], 'في Dativ النهاية دائماً [[‑en]]: [[in einem großen Haus]].', 'نسكن في بيت كبير.'],
+    ['Die ___ Schuhe gefallen mir.', 'neuen', ['neue', 'neuer'], 'جمع بعد [[die]]: [[‑en]].', 'يعجبني الحذاء الجديد.'],
+    ['Ich trinke gern ___ Tee.', 'heißen', ['heißer', 'heiß'], 'مذكّر في Akkusativ بدون أداة: [[heißen Tee]].', 'أحبّ شرب الشاي الساخن.']] });
+
+MORE.a2.push({ id: 'reise', no: 6, de: 'Reisen und vergleichen', ar: 'السفر والمقارنة', icon: '✈️', special: ['komp'],
+  tip: 'المقارنة: الصفة + [[‑er]] + [[als]]: [[schneller als]]. الأفضل: [[am + ‑sten]]: [[am schnellsten]]. المساواة: [[so … wie]]: [[so groß wie]].',
+  w: [
+    ['🛏️', 'die Unterkunft', 'مكان الإقامة', 'دي أونتَركونفت', 'Wir suchen eine günstige Unterkunft.', 'نبحث عن مكان إقامة رخيص.'],
+    ['🏨', 'die Jugendherberge', 'نُزُل الشباب', 'دي يوگِنتهِربِرگِه', 'Die Jugendherberge ist billiger als das Hotel.', 'نُزُل الشباب أرخص من الفندق.'],
+    ['📝', 'buchen', 'يحجز', 'بوخِن', 'Ich habe das Zimmer online gebucht.', 'حجزتُ الغرفة عبر الإنترنت.'],
+    ['🧳', 'das Gepäck', 'الأمتعة', 'داس گِپِك', 'Mein Gepäck ist zu schwer.', 'أمتعتي ثقيلة جداً.'],
+    ['🌄', 'die Aussicht', 'المنظر', 'دي آوسزيشت', 'Das Zimmer hat eine tolle Aussicht.', 'للغرفة منظر رائع.'],
+    ['🏰', 'die Sehenswürdigkeit', 'المَعلَم السياحي', 'دي زيئِنسڤُورديشكايت', 'Das Schloss ist die schönste Sehenswürdigkeit.', 'القصر هو أجمل معلم سياحي.'],
+    ['🗺️', 'der Reiseführer', 'الدليل السياحي', 'دَر رايزِفُورَر', 'Im Reiseführer stehen viele Tipps.', 'في الدليل السياحي نصائح كثيرة.'],
+    ['🌍', 'das Ausland', 'الخارج (بلد آخر)', 'داس آوسلانت', 'Ich war noch nie im Ausland.', 'لم أسافر قطّ إلى الخارج.'],
+    ['✈️', 'der Flug', 'الرحلة الجوّية', 'دَر فلوك', 'Der Flug dauert drei Stunden.', 'تستغرق الرحلة ثلاث ساعات.'],
+    ['💸', 'günstig', 'رخيص (مناسب)', 'گُونستيش', 'Im Winter sind die Flüge günstiger.', 'في الشتاء الرحلات أرخص.'],
+    ['🚀', 'schneller', 'أسرع', 'شنِلَّر', 'Der Zug ist schneller als der Bus.', 'القطار أسرع من الحافلة.'],
+    ['🥇', 'am schönsten', 'الأجمل', 'آم شُونستِن', 'Im Frühling ist es hier am schönsten.', 'في الربيع يكون المكان هنا في أجمل حالاته.'],
+    ['🟰', 'so … wie', 'مثل (في المقارنة)', 'زو … ڤي', 'Der Bus ist so teuer wie der Zug.', 'الحافلة غالية مثل القطار.'],
+    ['👍', 'besser', 'أفضل', 'بِسَّر', 'Das Hotel ist besser als die Pension.', 'الفندق أفضل من النُّزُل.'],
+    ['📈', 'am meisten', 'الأكثر', 'آم مايستِن', 'Mir gefällt Hamburg am meisten.', 'تعجبني هامبورغ أكثر من كل المدن.']],
+  sent: [['Der Zug ist schneller als das Auto.', 'القطار أسرع من السيارة.'], ['Das Hotel ist teurer als die Jugendherberge.', 'الفندق أغلى من نُزُل الشباب.'], ['Im Sommer ist es hier am wärmsten.', 'في الصيف يكون الجوّ هنا الأدفأ.'],
+    ['München ist nicht so groß wie Berlin.', 'ميونخ ليست كبيرة مثل برلين.'], ['Wir haben eine günstige Unterkunft gebucht.', 'حجزنا مكان إقامة رخيصاً.'], ['Was ist die schönste Stadt in Deutschland?', 'ما أجمل مدينة في ألمانيا؟']],
+  dlg: [
+    ['Fährst du lieber mit dem Zug oder mit dem Bus?', 'هل تفضّل السفر بالقطار أم بالحافلة؟', 'Mit dem Zug, er ist schneller als der Bus.', 'بالقطار، إنّه أسرع من الحافلة.', ['Mit dem Zug, er ist schneller wie der Bus.', 'Mit dem Zug, er ist mehr schnell als der Bus.']],
+    ['Wo habt ihr übernachtet?', 'أين بتّم؟', 'In einer Jugendherberge, das war am günstigsten.', 'في نُزُل للشباب، كان الأرخص.', ['In einer Jugendherberge, das war am günstigste.', 'In einer Jugendherberge, das war günstigsten.']],
+    ['Ist Hamburg so groß wie Berlin?', 'هل هامبورغ كبيرة مثل برلين؟', 'Nein, Berlin ist größer.', 'لا، برلين أكبر.', ['Nein, Berlin ist großer.', 'Nein, Berlin ist mehr groß.']],
+    ['Was hat dir am besten gefallen?', 'ماذا أعجبك أكثر شيء؟', 'Die Aussicht von den Bergen hat mir am besten gefallen.', 'أعجبني المنظر من الجبال أكثر شيء.', ['Die Aussicht hat mir am gutesten gefallen.', 'Die Aussicht hat mir am besser gefallen.']]],
+  gr: { t: 'المقارنة والتفضيل (Komparativ / Superlativ)', p: [
+    'المقارنة: الصفة + [[‑er]] + [[als]] (من): [[Der Zug ist schnell<b>er als</b> der Bus.]]',
+    'الصفات القصيرة غالباً تأخذ Umlaut: [[alt → älter · groß → größer · jung → jünger · warm → wärmer]].',
+    'التفضيل: [[am + الصفة + ‑sten]]: [[am schnellsten · am schönsten]]. وبعد [[‑t / ‑s / ‑ß / ‑z]] نضيف e: [[am ältesten · am heißesten]].',
+    'قبل الاسم: [[der schnellste Zug · die schönste Stadt]].',
+    'المساواة: [[so … wie]]: [[Der Bus ist so teuer wie der Zug.]] ⚠️ شواذ: [[gut → besser → am besten · viel → mehr → am meisten · gern → lieber → am liebsten]].'],
+    tab: [['الصفة', 'Komparativ', 'Superlativ'], ['schnell', 'schneller', 'am schnellsten'], ['groß', 'größer', 'am größten'], ['teuer', 'teurer', 'am teuersten'], ['gut', 'besser', 'am besten'], ['viel', 'mehr', 'am meisten'], ['gern', 'lieber', 'am liebsten']],
+    ex: [['Der Flug ist teurer als der Zug.', 'الطيران أغلى من القطار.'], ['Im Juli ist es am heißesten.', 'في يوليو يكون الجوّ الأحرّ.'], ['Ich reise am liebsten im Frühling.', 'أفضّل السفر في الربيع.'], ['Köln ist nicht so groß wie Hamburg.', 'كولونيا ليست كبيرة مثل هامبورغ.']] },
+  gq: [
+    ['Der Zug ist schneller ___ der Bus.', 'als', ['wie', 'so'], 'بعد صيغة المقارنة ([[‑er]]) نستعمل [[als]].', 'القطار أسرع من الحافلة.'],
+    ['Der Bus ist so teuer ___ der Zug.', 'wie', ['als', 'dann'], 'للمساواة: [[so … wie]].', 'الحافلة غالية مثل القطار.'],
+    ['Berlin ist ___ als München.', 'größer', ['großer', 'mehr groß'], '[[groß → größer]] (مع Umlaut).', 'برلين أكبر من ميونخ.'],
+    ['Im Juli ist es am ___.', 'heißesten', ['heißsten', 'heißer'], 'بعد [[ß]] نضيف e: [[am heißesten]].', 'في يوليو يكون الجوّ الأحرّ.'],
+    ['Das Essen hier ist ___ als dort.', 'besser', ['guter', 'mehr gut'], 'شاذّ: [[gut → besser → am besten]].', 'الطعام هنا أفضل منه هناك.'],
+    ['Ich reise am ___ mit dem Zug.', 'liebsten', ['gernsten', 'lieber'], 'شاذّ: [[gern → lieber → am liebsten]].', 'أفضّل السفر بالقطار.'],
+    ['Die Wohnung ist ___ als das Hotel.', 'teurer', ['teuerer', 'teuer'], 'مع [[teuer]] تسقط e: [[teurer]].', 'الشقّة أغلى من الفندق.'],
+    ['Das ist die ___ Stadt in Deutschland.', 'schönste', ['schönsten', 'schöner'], 'التفضيل قبل الاسم بعد [[die]]: [[die schönste Stadt]].', 'هذه أجمل مدينة في ألمانيا.'],
+    ['Mein Bruder ist zwei Jahre ___ als ich.', 'älter', ['alter', 'mehr alt'], '[[alt → älter]] (مع Umlaut).', 'أخي أكبر منّي بسنتين.'],
+    ['Wer arbeitet am ___?', 'meisten', ['vielsten', 'mehr'], 'شاذّ: [[viel → mehr → am meisten]].', 'من يعمل أكثر من الجميع؟']] });
+
+// A2 lessons 7–9
+MORE.a2.push({ id: 'wuensche', no: 7, de: 'Wünsche und höfliche Bitten', ar: 'الأمنيات والطلبات المهذّبة', icon: '🌠',
+  tip: 'للتمنّي والأدب نستعمل Konjunktiv II: [[Ich würde gern …]] · [[Ich hätte gern …]] · [[Könnten Sie …?]] · [[Wenn ich Zeit hätte, würde ich …]]',
+  w: [
+    ['🌠', 'der Wunsch', 'الأمنية', 'دَر ڤونش', 'Mein größter Wunsch ist eine Weltreise.', 'أكبر أمنياتي رحلة حول العالم.'],
+    ['💭', 'der Traum', 'الحلم', 'دَر تراوم', 'Ein eigenes Haus ist mein Traum.', 'بيت خاصّ بي هو حلمي.'],
+    ['🛌', 'träumen', 'يحلم', 'ترويمِن', 'Ich träume von einem Haus am Meer.', 'أحلم ببيت على البحر.'],
+    ['💰', 'reich', 'غنيّ', 'رايش', 'Wenn ich reich wäre, würde ich viel reisen.', 'لو كنتُ غنيّاً لسافرتُ كثيراً.'],
+    ['🌐', 'die Weltreise', 'رحلة حول العالم', 'دي ڤِلترايزِه', 'Wir möchten eine Weltreise machen.', 'نريد أن نقوم برحلة حول العالم.'],
+    ['🙏', 'würde', 'كان سـ… (للتمنّي والأدب)', 'ڤُوردِه', 'Ich würde gern Spanisch lernen.', 'أودّ أن أتعلّم الإسبانية.'],
+    ['🎁', 'hätte', 'لو كان عنده', 'هِتِّه', 'Ich hätte gern mehr Zeit.', 'أتمنّى لو كان عندي وقت أكثر.'],
+    ['🌈', 'wäre', 'لو كان', 'ڤيرِه', 'Das wäre toll!', 'سيكون هذا رائعاً!'],
+    ['🤲', 'könnte', 'لو استطاع / هل يمكن', 'كُونتِه', 'Könnten Sie mir bitte helfen?', 'هل يمكنك مساعدتي من فضلك؟'],
+    ['👉', 'sollte', 'ينبغي', 'زولتِه', 'Du solltest mehr schlafen.', 'ينبغي أن تنام أكثر.'],
+    ['🍀', 'das Glück', 'الحظّ / السعادة', 'داس گلُوك', 'Viel Glück bei der Prüfung!', 'حظّاً سعيداً في الامتحان!'],
+    ['🏝️', 'die Insel', 'الجزيرة', 'دي إينزِل', 'Ich würde gern auf einer Insel leben.', 'أودّ أن أعيش على جزيرة.'],
+    ['😕', 'leider', 'للأسف', 'لايدَر', 'Ich habe leider keine Zeit.', 'للأسف ليس عندي وقت.'],
+    ['🎯', 'der Plan', 'الخطّة', 'دَر پلان', 'Was sind deine Pläne für die Zukunft?', 'ما خططك للمستقبل؟'],
+    ['🤩', 'toll', 'رائع', 'تول', 'Das ist eine tolle Idee!', 'هذه فكرة رائعة!']],
+  sent: [['Ich würde gern in Deutschland arbeiten.', 'أودّ أن أعمل في ألمانيا.'], ['Könnten Sie das bitte wiederholen?', 'هل يمكنك أن تعيد ذلك من فضلك؟'], ['Wenn ich Zeit hätte, würde ich dich besuchen.', 'لو كان عندي وقت لزرتُك.'],
+    ['Ich hätte gern einen Kaffee, bitte.', 'أودّ قهوة من فضلك.'], ['Das wäre wirklich schön!', 'سيكون هذا جميلاً حقاً!'], ['Du solltest mehr Wasser trinken.', 'ينبغي أن تشرب ماءً أكثر.']],
+  dlg: [
+    ['Was würdest du mit einer Million Euro machen?', 'ماذا كنتَ ستفعل بمليون يورو؟', 'Ich würde ein Haus kaufen und reisen.', 'كنتُ سأشتري بيتاً وأسافر.', ['Ich werde ein Haus gekauft.', 'Ich würde ein Haus kaufe.']],
+    ['Könnten Sie mir bitte helfen?', 'هل يمكنك مساعدتي من فضلك؟', 'Ja, natürlich. Was kann ich für Sie tun?', 'نعم، طبعاً. كيف أساعدك؟', ['Ja, ich könnte natürlich.', 'Nein, Sie könnten.']],
+    ['Was wünschst du dir?', 'ماذا تتمنّى؟', 'Ich hätte gern mehr Zeit für meine Familie.', 'أتمنّى لو كان عندي وقت أكثر لعائلتي.', ['Ich hätte gern mehr Zeit für meiner Familie.', 'Ich habe gern mehr Zeit gehabt.']],
+    ['Ich bin immer so müde.', 'أنا متعب دائماً.', 'Du solltest früher ins Bett gehen.', 'ينبغي أن تنام مبكّراً.', ['Du solltest früher ins Bett gehst.', 'Du sollst früher gehen ins Bett.']]],
+  gr: { t: 'التمنّي والأدب: Konjunktiv II', p: [
+    'Konjunktiv II يعبّر عن <b>أمنية</b> أو شيء <b>غير حقيقي</b> أو <b>طلب مهذّب</b>.',
+    'لأغلب الأفعال: [[würde]] + <b>المصدر</b> في آخر الجملة: [[Ich würde gern nach Japan <b>reisen</b>.]]',
+    'أشكال خاصّة مهمّة: [[sein → wäre · haben → hätte · können → könnte · sollen → sollte · müssen → müsste]].',
+    'الشرط غير الحقيقي: [[Wenn ich reich <b>wäre</b>, <b>würde</b> ich viel reisen.]] (لكنّني لستُ غنيّاً)',
+    'الأدب: [[Könnten Sie …?]] أكثر أدباً من [[Können Sie …?]] · [[Ich hätte gern …]] = أودّ أن آخذ… · النصيحة: [[Du solltest …]]'],
+    tab: [['', 'werden', 'haben', 'sein', 'können'], ['ich', 'würde', 'hätte', 'wäre', 'könnte'], ['du', 'würdest', 'hättest', 'wärst', 'könntest'], ['er / sie / es', 'würde', 'hätte', 'wäre', 'könnte'], ['wir', 'würden', 'hätten', 'wären', 'könnten'], ['ihr', 'würdet', 'hättet', 'wärt', 'könntet'], ['sie / Sie', 'würden', 'hätten', 'wären', 'könnten']],
+    ex: [['Ich würde gern ein Auto kaufen.', 'أودّ أن أشتري سيارة.'], ['Wenn ich mehr Geld hätte, würde ich umziehen.', 'لو كان عندي مال أكثر لانتقلتُ.'], ['Könnten Sie bitte langsamer sprechen?', 'هل يمكنك أن تتكلّم ببطء أكثر من فضلك؟'], ['Das wäre super!', 'سيكون هذا رائعاً!']] },
+  gq: [
+    ['Ich ___ gern nach Japan reisen.', 'würde', ['werde', 'wurde'], 'أمنية ← [[würde]] + المصدر. ([[werde]] = مستقبل · [[wurde]] = ماضٍ)', 'أودّ أن أسافر إلى اليابان.'],
+    ['Wenn ich reich ___, würde ich ein Haus kaufen.', 'wäre', ['war', 'bin'], 'شرط غير حقيقي ← [[wäre]] (Konjunktiv II من sein).', 'لو كنتُ غنيّاً لاشتريتُ بيتاً.'],
+    ['___ Sie mir bitte helfen?', 'Könnten', ['Konnten', 'Kannst'], 'طلب مهذّب: [[Könnten Sie …?]] (مع Umlaut).', 'هل يمكنك مساعدتي من فضلك؟'],
+    ['Ich ___ gern einen Tee.', 'hätte', ['hatte', 'habe gehabt'], 'للطلب المهذّب: [[Ich hätte gern …]].', 'أودّ شاياً.'],
+    ['Du ___ mehr schlafen.', 'solltest', ['sollst', 'sollte'], 'نصيحة: [[du solltest]] (‑st مع du).', 'ينبغي أن تنام أكثر.'],
+    ['Wenn ich Zeit hätte, ___ ich dich besuchen.', 'würde', ['werde', 'hätte'], 'الجملة الثانية: [[würde]] + المصدر: [[würde … besuchen]].', 'لو كان عندي وقت لزرتُك.'],
+    ['Das ___ wirklich toll!', 'wäre', ['würde', 'hätte'], 'Konjunktiv II من [[sein]]: [[Das wäre toll!]]', 'سيكون هذا رائعاً حقاً!'],
+    ['Was ___ du an meiner Stelle machen?', 'würdest', ['würde', 'wirst'], 'مع du: [[würdest]].', 'ماذا كنتَ ستفعل مكاني؟'],
+    ['Wir ___ gern ein größeres Auto.', 'hätten', ['hätte', 'haben gehabt'], 'مع wir: [[hätten]].', 'نتمنّى لو كانت عندنا سيارة أكبر.'],
+    ['Ich würde gern Spanisch ___.', 'lernen', ['lerne', 'gelernt'], 'بعد [[würde]] يأتي <b>المصدر</b> في الآخر.', 'أودّ أن أتعلّم الإسبانية.']] });
+
+MORE.a2.push({ id: 'interessen', no: 8, de: 'Hobbys und Interessen', ar: 'الهوايات والاهتمامات', icon: '🎸',
+  tip: 'بعض الأفعال تأتي مع حرف جرّ ثابت يجب حفظه: [[warten auf · sich interessieren für · Angst haben vor]]. للسؤال: [[Worauf?]] وللجواب القصير: [[darauf]].',
+  w: [
+    ['🔭', 'sich interessieren für', 'يهتمّ بـ', 'زيش إينتِرِسّيرِن فُور', 'Ich interessiere mich für Musik.', 'أهتمّ بالموسيقى.'],
+    ['⌛', 'warten auf', 'ينتظر', 'ڤارتِن آوف', 'Ich warte auf den Bus.', 'أنتظر الحافلة.'],
+    ['🎉', 'sich freuen auf', 'يتشوّق إلى', 'زيش فرويِن آوف', 'Wir freuen uns auf die Party.', 'نحن متشوّقون للحفلة.'],
+    ['💭', 'denken an', 'يفكّر في', 'دِنكِن آن', 'Ich denke oft an meine Familie.', 'أفكّر كثيراً في عائلتي.'],
+    ['🗨️', 'sprechen über', 'يتحدّث عن', 'شپرِشِن أوبَر', 'Wir sprechen über den Film.', 'نتحدّث عن الفيلم.'],
+    ['😋', 'Lust haben auf', 'يرغب في', 'لوست هابِن آوف', 'Hast du Lust auf Kino?', 'هل ترغب في السينما؟'],
+    ['😨', 'Angst haben vor', 'يخاف من', 'آنگست هابِن فور', 'Mein Sohn hat Angst vor Hunden.', 'ابني يخاف من الكلاب.'],
+    ['🛡️', 'sich kümmern um', 'يعتني بـ', 'زيش كُومَّرن أوم', 'Ich kümmere mich um meine Oma.', 'أعتني بجدّتي.'],
+    ['⚽', 'der Verein', 'النادي', 'دَر فِرآين', 'Ich bin in einem Fußballverein.', 'أنا في نادٍ لكرة القدم.'],
+    ['🎫', 'das Mitglied', 'العضو', 'داس ميتگليت', 'Der Verein hat hundert Mitglieder.', 'للنادي مئة عضو.'],
+    ['👥', 'die Mannschaft', 'الفريق', 'دي مانشافت', 'Unsere Mannschaft hat gewonnen.', 'فاز فريقنا.'],
+    ['🏋️', 'das Training', 'التدريب', 'داس ترينينگ', 'Das Training ist jeden Dienstag.', 'التدريب كل يوم ثلاثاء.'],
+    ['🎨', 'die Ausstellung', 'المعرض', 'دي آوسشتِلّونگ', 'Die Ausstellung im Museum ist sehr interessant.', 'المعرض في المتحف مثير جداً.'],
+    ['🥾', 'wandern', 'يمشي في الطبيعة', 'ڤاندَرن', 'Am Sonntag gehen wir wandern.', 'يوم الأحد نذهب للمشي في الطبيعة.'],
+    ['❓', 'worauf', 'على ماذا / إلى ماذا', 'ڤوراوف', 'Worauf wartest du?', 'ماذا تنتظر؟']],
+  sent: [['Ich interessiere mich für Fußball.', 'أهتمّ بكرة القدم.'], ['Worauf wartest du? – Auf meinen Freund.', 'ماذا تنتظر؟ – صديقي.'], ['Wir freuen uns auf den Sommer.', 'نحن متشوّقون للصيف.'],
+    ['Hast du Lust auf einen Spaziergang?', 'هل ترغب في نزهة؟'], ['Sie hat Angst vor der Prüfung.', 'تخاف من الامتحان.'], ['Er spricht gern über Politik.', 'يحبّ الحديث عن السياسة.']],
+  dlg: [
+    ['Wofür interessierst du dich?', 'بماذا تهتمّ؟', 'Ich interessiere mich für Kunst und Musik.', 'أهتمّ بالفنّ والموسيقى.', ['Ich interessiere mich an Kunst.', 'Ich interessiere für Kunst mich.']],
+    ['Worauf freust du dich?', 'إلى ماذا تتشوّق؟', 'Ich freue mich auf die Ferien.', 'أنا متشوّق للعطلة.', ['Ich freue mich auf den Ferien.', 'Ich freue mich für die Ferien.']],
+    ['Hast du heute Abend Lust auf Kino?', 'هل ترغب في السينما هذا المساء؟', 'Ja, gute Idee! Um wie viel Uhr?', 'نعم، فكرة جيّدة! في أيّ ساعة؟', ['Ja, ich habe Lust für Kino.', 'Ja, ich habe Kino auf Lust.']],
+    ['Bist du in einem Verein?', 'هل أنت في نادٍ؟', 'Ja, ich bin Mitglied in einem Schwimmverein.', 'نعم، أنا عضو في نادٍ للسباحة.', ['Ja, ich bin Mitglied auf einem Schwimmverein.', 'Ja, ich bin ein Verein.']]],
+  gr: { t: 'أفعال مع حروف جرّ ثابتة', p: [
+    'كثير من الأفعال الألمانية تأتي مع حرف جرّ <b>ثابت</b> يجب حفظه مع الفعل، لأنّه غالباً يختلف عن العربية.',
+    'مع Akkusativ: [[warten auf · sich freuen auf · sich interessieren für · denken an · sprechen über · sich kümmern um]].',
+    'مع Dativ: [[Angst haben vor · träumen von · teilnehmen an · fragen nach]].',
+    'السؤال عن شيء: [[wo(r) + حرف الجرّ]]: [[Worauf wartest du?]] · [[Wofür interessierst du dich?]] — وعن شخص: [[Auf wen wartest du?]]',
+    'الجواب القصير: [[da(r) + حرف الجرّ]]: [[Ich warte darauf.]] · [[Ich freue mich darauf.]] (نضيف r قبل حرف العلّة)'],
+    tab: [['الفعل', 'المعنى', 'السؤال', 'الجواب القصير'], ['warten auf + Akk', 'ينتظر', 'Worauf?', 'darauf'], ['sich interessieren für + Akk', 'يهتمّ بـ', 'Wofür?', 'dafür'], ['denken an + Akk', 'يفكّر في', 'Woran?', 'daran'], ['sprechen über + Akk', 'يتحدّث عن', 'Worüber?', 'darüber'], ['Angst haben vor + Dat', 'يخاف من', 'Wovor?', 'davor']],
+    ex: [['Ich warte auf meine Schwester.', 'أنتظر أختي.'], ['Wofür interessierst du dich?', 'بماذا تهتمّ؟'], ['Er denkt an seine Heimat.', 'يفكّر في وطنه.'], ['Ich freue mich darauf!', 'أنا متشوّق لذلك!']] },
+  gq: [
+    ['Ich warte ___ den Bus.', 'auf', ['für', 'an'], '[[warten auf]] + Akkusativ.', 'أنتظر الحافلة.'],
+    ['Ich interessiere mich ___ Musik.', 'für', ['an', 'über'], '[[sich interessieren für]].', 'أهتمّ بالموسيقى.'],
+    ['Er hat Angst ___ Hunden.', 'vor', ['von', 'für'], '[[Angst haben vor]] + Dativ.', 'يخاف من الكلاب.'],
+    ['Wir sprechen ___ den Film.', 'über', ['von', 'auf'], '[[sprechen über]] + Akkusativ = يتحدّث عن.', 'نتحدّث عن الفيلم.'],
+    ['Ich denke oft ___ meine Familie.', 'an', ['auf', 'über'], '[[denken an]] + Akkusativ.', 'أفكّر كثيراً في عائلتي.'],
+    ['___ wartest du? – Auf den Zug.', 'Worauf', ['Wofür', 'Was'], 'السؤال عن شيء مع [[auf]]: [[Worauf?]]', 'ماذا تنتظر؟ – القطار.'],
+    ['Freust du dich auf den Urlaub? – Ja, ich freue mich sehr ___.', 'darauf', ['dafür', 'worauf'], 'الجواب القصير: [[da + r + auf = darauf]].', 'هل أنت متشوّق للإجازة؟ – نعم، جداً.'],
+    ['Hast du Lust ___ eine Pizza?', 'auf', ['für', 'zu'], '[[Lust haben auf]] + Akkusativ.', 'هل ترغب في بيتزا؟'],
+    ['Sie träumt ___ einem Haus am Meer.', 'von', ['vor', 'über'], '[[träumen von]] + Dativ.', 'تحلم ببيت على البحر.'],
+    ['Ich kümmere mich ___ meine kleine Schwester.', 'um', ['für', 'an'], '[[sich kümmern um]] + Akkusativ.', 'أعتني بأختي الصغيرة.']] });
+
+MORE.a2.push({ id: 'infos', no: 9, de: 'Informationen erfragen', ar: 'السؤال عن المعلومات', icon: 'ℹ️',
+  tip: 'السؤال غير المباشر أكثر أدباً: [[Wo ist der Bahnhof?]] ← [[Wissen Sie, wo der Bahnhof ist?]] والفعل في الآخر. وسؤال نعم/لا يصبح مع [[ob]]: [[Wissen Sie, ob …?]]',
+  w: [
+    ['ℹ️', 'die Auskunft', 'المعلومة / الاستعلامات', 'دي آوسكونفت', 'Können Sie mir eine Auskunft geben?', 'هل يمكنك أن تعطيني معلومة؟'],
+    ['🕘', 'die Öffnungszeiten (Pl.)', 'مواعيد الفتح', 'دي إفنونگستسايتِن', 'Wissen Sie, wie die Öffnungszeiten sind?', 'هل تعرف ما هي مواعيد الفتح؟'],
+    ['🪟', 'der Schalter', 'الشبّاك', 'دَر شالتَر', 'Gehen Sie bitte zu Schalter drei.', 'اذهب إلى الشبّاك رقم 3 من فضلك.'],
+    ['📄', 'der Antrag', 'الطلب (الرسمي)', 'دَر آنتراك', 'Ich möchte einen Antrag stellen.', 'أريد أن أقدّم طلباً.'],
+    ['🖊️', 'beantragen', 'يطلب رسمياً', 'بِئانتراگِن', 'Ich muss einen neuen Pass beantragen.', 'يجب أن أطلب جواز سفر جديداً.'],
+    ['✍️', 'ausfüllen', 'يملأ (استمارة)', 'آوسفُولِّن', 'Füllen Sie bitte das Formular aus.', 'املأ الاستمارة من فضلك.'],
+    ['📁', 'die Unterlagen (Pl.)', 'الأوراق / الوثائق', 'دي أونتَرلاگِن', 'Haben Sie alle Unterlagen dabei?', 'هل معك كل الأوراق؟'],
+    ['💶', 'die Gebühr', 'الرسوم', 'دي گِبُور', 'Die Gebühr beträgt zwanzig Euro.', 'الرسوم عشرون يورو.'],
+    ['📅', 'die Frist', 'المهلة', 'دي فريست', 'Die Frist endet am Freitag.', 'تنتهي المهلة يوم الجمعة.'],
+    ['📣', 'Bescheid sagen', 'يُخبر', 'بِشايت زاگِن', 'Sag mir bitte Bescheid!', 'أخبرني من فضلك!'],
+    ['❔', 'ob', 'هل (في السؤال غير المباشر)', 'أوپ', 'Ich weiß nicht, ob er kommt.', 'لا أعرف هل سيأتي.'],
+    ['🤷', 'wissen', 'يعرف (معلومة)', 'ڤيسِّن', 'Wissen Sie, wo der Bahnhof ist?', 'هل تعرف أين المحطّة؟'],
+    ['🧾', 'die Bescheinigung', 'الإفادة / الشهادة', 'دي بِشاينيگونگ', 'Ich brauche eine Bescheinigung für meinen Arbeitgeber.', 'أحتاج إفادة لصاحب عملي.'],
+    ['🔢', 'die Wartenummer', 'رقم الانتظار', 'دي ڤارتِنومَّر', 'Ziehen Sie bitte eine Wartenummer.', 'خذ رقم انتظار من فضلك.'],
+    ['🏢', 'die Behörde', 'الدائرة الحكومية', 'دي بِهُوردِه', 'Die Behörde ist am Montag geschlossen.', 'الدائرة مغلقة يوم الإثنين.']],
+  sent: [['Können Sie mir sagen, wo das Bürgeramt ist?', 'هل يمكنك أن تخبرني أين مكتب البلدية؟'], ['Wissen Sie, wann der Zug kommt?', 'هل تعرف متى يأتي القطار؟'], ['Ich weiß nicht, ob ich einen Termin brauche.', 'لا أعرف هل أحتاج موعداً.'],
+    ['Ich möchte wissen, wie viel das kostet.', 'أريد أن أعرف كم يكلّف هذا.'], ['Füllen Sie bitte diesen Antrag aus.', 'املأ هذا الطلب من فضلك.'], ['Sagen Sie mir bitte Bescheid, wenn die Unterlagen fertig sind.', 'أخبرني من فضلك عندما تكون الأوراق جاهزة.']],
+  dlg: [
+    ['Entschuldigung, wissen Sie, wo Zimmer 12 ist?', 'عفواً، هل تعرف أين الغرفة 12؟', 'Ja, im zweiten Stock links.', 'نعم، في الطابق الثاني على اليسار.', ['Ja, wo ist Zimmer 12.', 'Ich weiß, ob Zimmer 12.']],
+    ['Können Sie mir sagen, ob ich hier richtig bin?', 'هل يمكنك أن تخبرني هل أنا في المكان الصحيح؟', 'Ja, Sie sind hier richtig.', 'نعم، أنت في المكان الصحيح.', ['Ja, ob Sie richtig sind.', 'Ja, Sie sind hier richtig sind.']],
+    ['Was brauche ich für den Antrag?', 'ماذا أحتاج للطلب؟', 'Ihren Pass und ein Foto.', 'جواز سفرك وصورة.', ['Sie brauchen ob einen Pass.', 'Für den Antrag ich brauche Pass.']],
+    ['Wie hoch ist die Gebühr?', 'كم الرسوم؟', 'Die Gebühr beträgt fünfzehn Euro.', 'الرسوم خمسة عشر يورو.', ['Die Gebühr ist hoch fünfzehn.', 'Fünfzehn Euro beträgt ist.']]],
+  gr: { t: 'الأسئلة غير المباشرة (indirekte Fragen)', p: [
+    'السؤال غير المباشر أكثر أدباً، ويبدأ بعبارة مثل: [[Wissen Sie, … · Können Sie mir sagen, … · Ich möchte wissen, … · Ich weiß nicht, …]]',
+    'مع كلمة سؤال ([[wo, wann, wie, was, warum, wie viel]]) تبقى كلمة السؤال، ويذهب الفعل إلى <b>الآخر</b>: [[Wo ist der Bahnhof?]] ← [[Wissen Sie, wo der Bahnhof <b>ist</b>?]]',
+    'سؤال نعم/لا (بدون كلمة سؤال) يصبح مع [[ob]] (هل): [[Kommt er?]] ← [[Ich weiß nicht, <b>ob</b> er <b>kommt</b>.]]',
+    'مع فعلين: [[Können Sie mir sagen, wann ich kommen <b>muss</b>?]]',
+    '⚠️ لا تخلط: [[ob]] = هل (سؤال) · [[wenn]] = إذا (شرط).'],
+    tab: [['السؤال المباشر', 'السؤال غير المباشر'], ['Wo ist das Amt?', 'Wissen Sie, wo das Amt ist?'], ['Wann kommt der Bus?', 'Können Sie mir sagen, wann der Bus kommt?'], ['Ist das Büro offen?', 'Wissen Sie, ob das Büro offen ist?'], ['Was kostet das?', 'Ich möchte wissen, was das kostet.']],
+    ex: [['Wissen Sie, wie spät es ist?', 'هل تعرف كم الساعة؟'], ['Ich weiß nicht, ob er zu Hause ist.', 'لا أعرف هل هو في البيت.'], ['Können Sie mir sagen, wo ich unterschreiben muss?', 'هل يمكنك أن تخبرني أين يجب أن أوقّع؟'], ['Ich möchte wissen, warum das so lange dauert.', 'أريد أن أعرف لماذا يستغرق هذا وقتاً طويلاً.']] },
+  gq: [
+    ['Wissen Sie, wo der Bahnhof ___?', 'ist', ['sein', 'sind'], 'في السؤال غير المباشر الفعل في الآخر: [[wo der Bahnhof ist]].', 'هل تعرف أين المحطّة؟'],
+    ['Ich weiß nicht, ___ er heute kommt.', 'ob', ['wenn', 'dass'], 'سؤال نعم/لا غير مباشر ← [[ob]] (هل).', 'لا أعرف هل سيأتي اليوم.'],
+    ['Können Sie mir sagen, wann der Zug ___?', 'abfährt', ['fährt ab', 'abfahren'], 'الفعل المنفصل يلتصق في آخر الجملة الفرعية: [[wann der Zug abfährt]].', 'هل يمكنك أن تخبرني متى يغادر القطار؟'],
+    ['Ich möchte wissen, was das ___.', 'kostet', ['kosten', 'kostet das'], 'كلمة السؤال تبقى والفعل في الآخر: [[was das kostet]].', 'أريد أن أعرف كم يكلّف هذا.'],
+    ['Wissen Sie, ___ das Büro heute offen ist?', 'ob', ['wo', 'wenn'], 'السؤال الأصلي [[Ist das Büro offen?]] (نعم/لا) ← [[ob]].', 'هل تعرف هل المكتب مفتوح اليوم؟'],
+    ['Können Sie mir sagen, wo ich ___ muss?', 'unterschreiben', ['unterschreibe', 'unterschrieben'], 'مع [[muss]] في الآخر يأتي المصدر قبله: [[wo ich unterschreiben muss]].', 'هل يمكنك أن تخبرني أين يجب أن أوقّع؟'],
+    ['Ich weiß nicht, wie ___.', 'er heißt', ['heißt er', 'er heißen'], 'الترتيب: كلمة السؤال + الفاعل + الفعل: [[wie er heißt]].', 'لا أعرف ما اسمه.'],
+    ['Füllen Sie bitte das Formular ___.', 'aus', ['an', 'ein'], '[[ausfüllen]] = يملأ: [[Füllen Sie … aus.]]', 'املأ الاستمارة من فضلك.'],
+    ['Wissen Sie, wie lange die Frist ___?', 'dauert', ['dauern', 'dauert sie'], 'الفعل في آخر الجملة الفرعية: [[wie lange die Frist dauert]].', 'هل تعرف كم تستمرّ المهلة؟'],
+    ['Sagen Sie mir bitte ___, wenn der Pass fertig ist.', 'Bescheid', ['Auskunft', 'Antrag'], 'تعبير ثابت: [[Bescheid sagen]] = يُخبر.', 'أخبرني من فضلك عندما يكون الجواز جاهزاً.']] });
+
+// A2 lessons 10–12
+MORE.a2.push({ id: 'arbeit', no: 10, de: 'Arbeit und Beruf', ar: 'العمل والوظيفة', icon: '💼',
+  tip: 'بعد أفعال مثل [[versuchen, vergessen, anfangen]] وعبارات مثل [[Es ist wichtig …]] نستعمل [[zu]] + المصدر في الآخر: [[Ich versuche, pünktlich zu sein.]]',
+  w: [
+    ['🏢', 'der Arbeitgeber', 'صاحب العمل', 'دَر آربايتگيبَر', 'Mein Arbeitgeber zahlt pünktlich.', 'صاحب عملي يدفع في الموعد.'],
+    ['👷', 'der Arbeitnehmer', 'العامل / الموظّف', 'دَر آربايتنيمَر', 'Arbeitnehmer haben ein Recht auf Urlaub.', 'للعاملين حقّ في الإجازة.'],
+    ['🧑‍💼', 'der Kollege', 'الزميل', 'دَر كوليگِه', 'Mein Kollege hilft mir oft.', 'زميلي يساعدني كثيراً.'],
+    ['👩‍💼', 'die Kollegin', 'الزميلة', 'دي كوليگين', 'Meine Kollegin kommt aus Polen.', 'زميلتي من بولندا.'],
+    ['🗣️', 'die Besprechung', 'الاجتماع', 'دي بِشپرِشونگ', 'Die Besprechung beginnt um zehn.', 'يبدأ الاجتماع في العاشرة.'],
+    ['⏰', 'die Überstunden (Pl.)', 'ساعات العمل الإضافية', 'دي أوبَرشتوندِن', 'Diese Woche habe ich viele Überstunden gemacht.', 'هذا الأسبوع عملتُ ساعات إضافية كثيرة.'],
+    ['💶', 'das Gehalt', 'الراتب', 'داس گِهالت', 'Das Gehalt kommt am Monatsende.', 'يأتي الراتب في آخر الشهر.'],
+    ['🔄', 'die Schicht', 'الوردية', 'دي شيشت', 'Ich arbeite in der Nachtschicht.', 'أعمل في الوردية الليلية.'],
+    ['📃', 'der Vertrag', 'العقد', 'دَر فِرتراك', 'Ich habe einen festen Vertrag.', 'عندي عقد ثابت.'],
+    ['📨', 'sich bewerben', 'يتقدّم لوظيفة', 'زيش بِڤِربِن', 'Ich bewerbe mich bei einer Firma in Köln.', 'أتقدّم لوظيفة في شركة في كولونيا.'],
+    ['💺', 'die Stelle', 'الوظيفة', 'دي شتِلِّه', 'Ich suche eine neue Stelle.', 'أبحث عن وظيفة جديدة.'],
+    ['🚪', 'kündigen', 'يستقيل / يُنهي العقد', 'كُونديگِن', 'Er hat seine Stelle gekündigt.', 'استقال من وظيفته.'],
+    ['🏖️', 'der Urlaubsantrag', 'طلب الإجازة', 'دَر أورلاوبسآنتراك', 'Ich stelle einen Urlaubsantrag für August.', 'أقدّم طلب إجازة لشهر أغسطس.'],
+    ['🤦', 'vergessen', 'ينسى', 'فِرگِسِّن', 'Vergiss nicht, die Tür abzuschließen!', 'لا تنسَ أن تقفل الباب!'],
+    ['🎯', 'versuchen', 'يحاول', 'فِرزوخِن', 'Ich versuche, pünktlich zu sein.', 'أحاول أن أكون في الموعد.']],
+  sent: [['Es ist wichtig, pünktlich zu sein.', 'من المهمّ أن تكون في الموعد.'], ['Ich habe keine Zeit, heute Überstunden zu machen.', 'ليس عندي وقت لأعمل ساعات إضافية اليوم.'], ['Vergiss nicht, den Chef anzurufen!', 'لا تنسَ أن تتّصل بالمدير!'],
+    ['Ich habe angefangen, Deutsch zu lernen.', 'بدأتُ أتعلّم الألمانية.'], ['Wir haben morgen eine wichtige Besprechung.', 'عندنا غداً اجتماع مهمّ.'], ['Sie bewirbt sich um eine Stelle als Pflegerin.', 'تتقدّم لوظيفة ممرّضة.']],
+  dlg: [
+    ['Wann beginnt deine Schicht?', 'متى تبدأ ورديتك؟', 'Meine Schicht beginnt um sechs Uhr morgens.', 'تبدأ ورديتي في السادسة صباحاً.', ['Meine Schicht beginnt um sechs Uhr zu.', 'Ich beginne zu Schicht.']],
+    ['Hast du Lust, heute Abend essen zu gehen?', 'هل ترغب أن نذهب للعشاء هذا المساء؟', 'Gern, aber ich muss bis acht arbeiten.', 'بكل سرور، لكن يجب أن أعمل حتى الثامنة.', ['Gern, ich habe Lust zu essen gehen zu.', 'Gern, aber ich muss bis acht zu arbeiten.']],
+    ['Was ist wichtig bei der Arbeit?', 'ما المهمّ في العمل؟', 'Es ist wichtig, freundlich und pünktlich zu sein.', 'من المهمّ أن تكون ودوداً وفي الموعد.', ['Es ist wichtig, zu sein freundlich.', 'Es ist wichtig freundlich sein zu.']],
+    ['Warum hast du gekündigt?', 'لماذا استقلت؟', 'Weil ich eine bessere Stelle gefunden habe.', 'لأنّي وجدتُ وظيفة أفضل.', ['Weil ich habe eine bessere Stelle gefunden.', 'Deshalb ich habe gekündigt.']]],
+  gr: { t: 'المصدر مع zu (Infinitiv mit zu)', p: [
+    'بعد بعض الأفعال والعبارات يأتي فعل ثانٍ بصيغة [[zu]] + المصدر في <b>آخر</b> الجملة: [[Ich versuche, Deutsch <b>zu sprechen</b>.]]',
+    'أفعال مهمّة: [[versuchen, vergessen, anfangen, aufhören, vorhaben, Lust haben, Zeit haben]].',
+    'عبارات: [[Es ist wichtig / schwer / leicht / schön, … zu …]]: [[Es ist schwer, früh aufzustehen.]]',
+    'مع الأفعال المنفصلة يدخل [[zu]] في الوسط: [[anrufen → anzurufen · aufstehen → aufzustehen · einkaufen → einzukaufen]].',
+    '⚠️ بعد أفعال الكيفية ([[können, müssen, wollen …]]) وبعد [[werden]] <b>لا</b> نستعمل zu: [[Ich muss arbeiten.]]'],
+    tab: [['الجملة', 'zu + Infinitiv'], ['Ich versuche, …', 'pünktlich zu sein.'], ['Ich habe keine Lust, …', 'heute zu kochen.'], ['Vergiss nicht, …', 'mich anzurufen!'], ['Es ist wichtig, …', 'Deutsch zu lernen.']],
+    ex: [['Ich habe vor, nächstes Jahr zu heiraten.', 'أنوي أن أتزوّج في السنة القادمة.'], ['Es ist nicht leicht, eine Wohnung zu finden.', 'ليس من السهل أن تجد شقّة.'], ['Hör auf, so laut zu sprechen!', 'توقّف عن الكلام بصوت عالٍ هكذا!'], ['Er hat vergessen, die Tür abzuschließen.', 'نسي أن يقفل الباب.']] },
+  gq: [
+    ['Ich versuche, pünktlich ___.', 'zu sein', ['sein', 'zu bin'], 'بعد [[versuchen]]: [[zu]] + المصدر: [[zu sein]].', 'أحاول أن أكون في الموعد.'],
+    ['Ich muss heute lange ___.', 'arbeiten', ['zu arbeiten', 'arbeite'], 'بعد أفعال الكيفية لا نستعمل zu: [[muss … arbeiten]].', 'يجب أن أعمل طويلاً اليوم.'],
+    ['Vergiss nicht, mich ___!', 'anzurufen', ['zu anrufen', 'anrufen'], 'فعل منفصل ← [[zu]] في الوسط: [[anzurufen]].', 'لا تنسَ أن تتّصل بي!'],
+    ['Es ist wichtig, Deutsch ___.', 'zu lernen', ['lernen', 'zu lernt'], 'بعد [[Es ist wichtig, …]]: [[zu]] + المصدر.', 'من المهمّ أن تتعلّم الألمانية.'],
+    ['Ich habe keine Lust, heute ___.', 'zu kochen', ['kochen', 'koche'], 'بعد [[Lust haben]]: [[zu]] + المصدر.', 'ليست عندي رغبة في الطبخ اليوم.'],
+    ['Es ist schwer, früh ___.', 'aufzustehen', ['zu aufstehen', 'aufstehen zu'], '[[aufstehen]] منفصل: [[aufzustehen]].', 'من الصعب أن تستيقظ مبكّراً.'],
+    ['Er hat angefangen, Gitarre ___.', 'zu spielen', ['spielen', 'gespielt'], 'بعد [[anfangen]]: [[zu spielen]].', 'بدأ يعزف على الغيتار.'],
+    ['Ich will mich bei dieser Firma ___.', 'bewerben', ['zu bewerben', 'bewerbe'], 'بعد [[wollen]] (فعل كيفية) لا نستعمل zu.', 'أريد أن أتقدّم لهذه الشركة.'],
+    ['Ich habe vor, im Sommer ___.', 'zu kündigen', ['kündigen', 'gekündigt'], 'بعد [[vorhaben]]: [[zu kündigen]].', 'أنوي أن أستقيل في الصيف.'],
+    ['Hör auf, so viel ___!', 'zu arbeiten', ['arbeiten', 'arbeitest'], 'بعد [[aufhören]]: [[zu]] + المصدر.', 'توقّف عن العمل كثيراً هكذا!']] });
+
+MORE.a2.push({ id: 'technik', no: 11, de: 'Handy und Internet', ar: 'الهاتف والإنترنت', icon: '📱',
+  tip: 'للنصيحة: [[Du solltest …]] أو الأمر: [[Lade die App herunter!]] (du) · [[Ladet …!]] (ihr) · [[Laden Sie …!]] (Sie). في أمر du نحذف du والنهاية ‑st.',
+  w: [
+    ['🔋', 'der Akku', 'البطارية', 'دَر آكو', 'Mein Akku ist fast leer.', 'بطاريتي فارغة تقريباً.'],
+    ['🔌', 'das Ladegerät', 'الشاحن', 'داس لادِگِريت', 'Hast du ein Ladegerät für mich?', 'هل عندك شاحن لي؟'],
+    ['📲', 'die App', 'التطبيق', 'دي إپ', 'Mit dieser App kann man Deutsch lernen.', 'بهذا التطبيق يمكن تعلّم الألمانية.'],
+    ['⬇️', 'herunterladen', 'يحمّل (تنزيل)', 'هِرونتَرلادِن', 'Lade die App kostenlos herunter!', 'حمّل التطبيق مجاناً!'],
+    ['💾', 'speichern', 'يحفظ', 'شپايشَرن', 'Speichern Sie die Datei!', 'احفظ الملفّ!'],
+    ['🗑️', 'löschen', 'يحذف', 'لُوشِن', 'Ich habe die Nachricht gelöscht.', 'حذفتُ الرسالة.'],
+    ['🔑', 'das Passwort', 'كلمة السرّ', 'داس پاسڤورت', 'Wähle ein sicheres Passwort!', 'اختر كلمة سرّ آمنة!'],
+    ['📎', 'der Anhang', 'المرفق', 'دَر آنهانگ', 'Der Lebenslauf ist im Anhang.', 'السيرة الذاتية في المرفق.'],
+    ['📶', 'das WLAN', 'الواي فاي', 'داس ڤيلان', 'Wie ist das WLAN-Passwort?', 'ما كلمة سرّ الواي فاي؟'],
+    ['💬', 'die Nachricht', 'الرسالة', 'دي ناخريشت', 'Schick mir eine Nachricht!', 'أرسل لي رسالة!'],
+    ['🔄', 'aktualisieren', 'يحدّث', 'آكتوآليزيرِن', 'Du solltest das Handy aktualisieren.', 'ينبغي أن تحدّث الهاتف.'],
+    ['🖱️', 'klicken', 'ينقر', 'كليكِّن', 'Klicken Sie auf den Link!', 'انقر على الرابط!'],
+    ['🌐', 'online', 'عبر الإنترنت', 'أونلاين', 'Ich kaufe oft online ein.', 'أتسوّق كثيراً عبر الإنترنت.'],
+    ['⚠️', 'der Betrug', 'الاحتيال', 'دَر بِتروك', 'Pass auf, das ist Betrug!', 'انتبه، هذا احتيال!'],
+    ['📧', 'die E-Mail', 'البريد الإلكتروني', 'دي إيميل', 'Ich schreibe dir eine E-Mail.', 'أكتب لك بريداً إلكترونياً.']],
+  sent: [['Du solltest ein sicheres Passwort wählen.', 'ينبغي أن تختار كلمة سرّ آمنة.'], ['Klicken Sie nicht auf unbekannte Links!', 'لا تنقر على روابط مجهولة!'], ['Speicher die Datei, bevor du das Programm schließt!', 'احفظ الملفّ قبل أن تغلق البرنامج!'],
+    ['Mein Akku ist leer, kannst du mir dein Ladegerät leihen?', 'بطاريتي فارغة، هل يمكنك أن تعيرني شاحنك؟'], ['Ich habe die App gestern heruntergeladen.', 'حمّلتُ التطبيق أمس.'], ['Schickt mir die Fotos per E-Mail!', 'أرسلوا لي الصور بالبريد الإلكتروني!']],
+  dlg: [
+    ['Mein Handy ist so langsam. Was soll ich machen?', 'هاتفي بطيء جداً. ماذا أفعل؟', 'Du solltest alte Apps löschen.', 'ينبغي أن تحذف التطبيقات القديمة.', ['Du solltest alte Apps löschst.', 'Du sollst löschen alte Apps.']],
+    ['Wie ist das WLAN-Passwort?', 'ما كلمة سرّ الواي فاي؟', 'Es steht auf dem Router.', 'إنّها مكتوبة على جهاز الراوتر.', ['Das WLAN ist Passwort.', 'Ich habe das WLAN gelöscht.']],
+    ['Ich habe eine komische E-Mail von meiner Bank bekommen.', 'وصلني بريد غريب من بنكي.', 'Klick nicht auf den Link, das ist vielleicht Betrug!', 'لا تنقر على الرابط، ربّما هذا احتيال!', ['Klickst nicht den Link!', 'Du klicken nicht auf den Link!']],
+    ['Kannst du mir die Datei schicken?', 'هل يمكنك أن ترسل لي الملفّ؟', 'Ja, ich schicke sie dir als Anhang.', 'نعم، أرسله لك كمرفق.', ['Ja, ich schicke dir als Anhang sie.', 'Ja, ich schicke mir die Datei.']]],
+  gr: { t: 'الأمر والنصيحة (Imperativ · sollte)', p: [
+    'الأمر مع [[du]]: الفعل بدون [[du]] وبدون النهاية [[‑st]]: [[du schreibst → Schreib!]] · [[du nimmst → Nimm!]] — والأفعال a → ä بدون Umlaut: [[du fährst → Fahr!]]',
+    'الأمر مع [[ihr]]: مثل المضارع بدون [[ihr]]: [[ihr schreibt → Schreibt!]]',
+    'الأمر المهذّب مع [[Sie]]: الفعل أوّلاً ثم [[Sie]]: [[Schreiben Sie!]] · [[Klicken Sie hier!]]',
+    'الأفعال المنفصلة: الجزء الثاني في الآخر: [[Lade die App herunter!]] · [[Ruf mich an!]] ⚠️ شاذّ: [[sein → Sei! · Seid! · Seien Sie!]]',
+    'النصيحة الألطف: [[Du solltest …]] + المصدر في الآخر: [[Du solltest mehr schlafen.]] · [[Sie sollten …]]'],
+    tab: [['المصدر', 'du', 'ihr', 'Sie'], ['kommen', 'Komm!', 'Kommt!', 'Kommen Sie!'], ['nehmen', 'Nimm!', 'Nehmt!', 'Nehmen Sie!'], ['fahren', 'Fahr!', 'Fahrt!', 'Fahren Sie!'], ['anrufen', 'Ruf an!', 'Ruft an!', 'Rufen Sie an!'], ['sein', 'Sei!', 'Seid!', 'Seien Sie!']],
+    ex: [['Ruf mich bitte heute Abend an!', 'اتّصل بي هذا المساء من فضلك!'], ['Seid bitte leise!', 'كونوا هادئين من فضلكم!'], ['Nehmen Sie bitte Platz!', 'تفضّل بالجلوس!'], ['Du solltest das Passwort ändern.', 'ينبغي أن تغيّر كلمة السرّ.']] },
+  gq: [
+    ['___ mich bitte morgen an!', 'Ruf', ['Rufst', 'Rufen'], 'أمر مع du بدون ‑st: [[Ruf … an!]]', 'اتّصل بي غداً من فضلك!'],
+    ['___ Sie bitte hier!', 'Unterschreiben', ['Unterschreibt', 'Unterschreib'], 'أمر مهذّب: [[Unterschreiben Sie!]]', 'وقّع هنا من فضلك!'],
+    ['Kinder, ___ bitte leise!', 'seid', ['sind', 'sei'], 'أمر مع ihr من [[sein]]: [[Seid!]]', 'يا أطفال، كونوا هادئين من فضلكم!'],
+    ['___ das Buch!', 'Nimm', ['Nehm', 'Nimmst'], 'تغيّر e → i يبقى في أمر du: [[Nimm!]]', 'خذ الكتاب!'],
+    ['Lade die App ___!', 'herunter', ['unter', 'runter herunter'], 'فعل منفصل: [[herunterladen → Lade … herunter!]]', 'حمّل التطبيق!'],
+    ['Du ___ ein neues Passwort wählen.', 'solltest', ['sollte', 'solltet'], 'نصيحة مع du: [[du solltest]].', 'ينبغي أن تختار كلمة سرّ جديدة.'],
+    ['___ vorsichtig mit fremden Links!', 'Sei', ['Bist', 'Sein'], 'أمر du من [[sein]]: [[Sei!]]', 'كن حذراً مع الروابط الغريبة!'],
+    ['___ bitte langsamer!', 'Fahr', ['Fähr', 'Fährst'], 'أفعال a → ä لا تأخذ Umlaut في الأمر: [[Fahr!]]', 'قُد ببطء أكثر من فضلك!'],
+    ['Sie sollten die Datei ___.', 'speichern', ['speichert', 'gespeichert'], 'بعد [[sollten]] يأتي المصدر في الآخر.', 'ينبغي أن تحفظ الملفّ.'],
+    ['Ihr zwei, ___ mir bitte die Fotos!', 'schickt', ['schick', 'schicken'], 'أمر مع ihr: [[Schickt!]]', 'أنتما الاثنان، أرسلا لي الصور من فضلكما!']] });
+
+MORE.a2.push({ id: 'reklamation', no: 12, de: 'Einkaufen und reklamieren', ar: 'الشراء والشكوى والاستبدال', icon: '🛍️',
+  tip: 'بعض الأفعال تأخذ <b>Dativ</b>: [[gefallen, passen, gehören, helfen, schmecken, danken]]: [[Die Jacke gefällt mir.]] · [[Kann ich Ihnen helfen?]]',
+  w: [
+    ['🔁', 'umtauschen', 'يستبدل', 'أومتاوشِن', 'Ich möchte diese Hose umtauschen.', 'أريد أن أستبدل هذا البنطلون.'],
+    ['↩️', 'zurückgeben', 'يُرجع', 'تسوروكگيبِن', 'Kann ich das Handy zurückgeben?', 'هل يمكنني إرجاع الهاتف؟'],
+    ['🧾', 'der Kassenzettel', 'إيصال الشراء', 'دَر كاسِّنتسِتِّل', 'Haben Sie den Kassenzettel noch?', 'هل ما زال معك الإيصال؟'],
+    ['🛡️', 'die Garantie', 'الضمان', 'دي گارانتي', 'Das Gerät hat zwei Jahre Garantie.', 'للجهاز ضمان سنتين.'],
+    ['💔', 'kaputt', 'معطّل / مكسور', 'كاپوت', 'Der Toaster ist schon kaputt.', 'المحمّصة معطّلة من الآن.'],
+    ['📣', 'reklamieren', 'يشتكي (على بضاعة)', 'ريكلاميرِن', 'Ich möchte diesen Fernseher reklamieren.', 'أريد أن أشتكي على هذا التلفاز.'],
+    ['💵', 'das Geld zurück', 'استرجاع المال', 'داس گِلت تسوروك', 'Ich möchte bitte mein Geld zurück.', 'أريد استرجاع مالي من فضلك.'],
+    ['😍', 'gefallen', 'يُعجِب', 'گِفالِّن', 'Die Jacke gefällt mir sehr.', 'السترة تعجبني جداً.'],
+    ['👖', 'passen', 'يناسب (المقاس)', 'پاسِّن', 'Die Hose passt mir nicht.', 'البنطلون لا يناسبني.'],
+    ['🏷️', 'gehören', 'يخصّ', 'گِهُورِن', 'Wem gehört diese Tasche?', 'لمن هذه الحقيبة؟'],
+    ['🆘', 'helfen', 'يساعد', 'هِلفِن', 'Können Sie mir helfen?', 'هل يمكنك مساعدتي؟'],
+    ['😋', 'schmecken', 'يعجب طعمه', 'شمِكِّن', 'Der Kuchen schmeckt mir.', 'الكعكة لذيذة بالنسبة لي.'],
+    ['❓', 'welcher', 'أيّ', 'ڤِلشَر', 'Welcher Pullover gefällt dir?', 'أيّ كنزة تعجبك؟'],
+    ['👉', 'dieser', 'هذا', 'ديزَر', 'Dieser Mantel ist im Angebot.', 'هذا المعطف عليه تخفيض.'],
+    ['🔧', 'die Reparatur', 'التصليح', 'دي رِپاراتور', 'Die Reparatur dauert eine Woche.', 'يستغرق التصليح أسبوعاً.']],
+  sent: [['Ich möchte diesen Toaster umtauschen, er ist kaputt.', 'أريد أن أستبدل هذه المحمّصة، إنّها معطّلة.'], ['Die Schuhe passen mir leider nicht.', 'للأسف الحذاء لا يناسبني.'], ['Haben Sie den Kassenzettel dabei?', 'هل معك الإيصال؟'],
+    ['Welche Farbe gefällt dir besser?', 'أيّ لون يعجبك أكثر؟'], ['Wem gehört das Fahrrad?', 'لمن الدرّاجة؟'], ['Kann ich Ihnen helfen?', 'هل يمكنني مساعدتك؟']],
+  dlg: [
+    ['Was kann ich für Sie tun?', 'كيف أساعدك؟', 'Ich möchte diese Jacke umtauschen. Sie passt mir nicht.', 'أريد أن أستبدل هذه السترة. إنّها لا تناسبني.', ['Ich möchte diese Jacke umtauschen. Sie passt mich nicht.', 'Ich möchte umtauschen. Die Jacke passt ich nicht.']],
+    ['Haben Sie den Kassenzettel noch?', 'هل ما زال معك الإيصال؟', 'Ja, hier ist er.', 'نعم، ها هو.', ['Ja, hier ist sie.', 'Ja, hier ist es.']],
+    ['Wie gefällt dir das Kleid?', 'كيف يعجبك الفستان؟', 'Es gefällt mir sehr gut!', 'يعجبني جداً!', ['Ich gefalle das Kleid.', 'Es gefällt mich sehr gut!']],
+    ['Welcher Fernseher ist günstiger?', 'أيّ تلفاز أرخص؟', 'Dieser hier ist im Angebot.', 'هذا هنا عليه تخفيض.', ['Diese hier ist im Angebot.', 'Welcher hier ist im Angebot.']]],
+  gr: { t: 'أفعال مع Dativ · welch- و dies-', p: [
+    'بعض الأفعال يأتي مفعولها في <b>Dativ</b> (وليس Akkusativ): [[gefallen, passen, gehören, helfen, schmecken, danken, gratulieren, antworten]].',
+    'الضمائر في Dativ: [[mir · dir · ihm · ihr · uns · euch · ihnen / Ihnen]]: [[Das Hemd gefällt <b>ihm</b>.]] · [[Ich helfe <b>dir</b>.]]',
+    'مع الأسماء: [[dem Mann · der Frau · dem Kind · den Kindern]]: [[Die Tasche gehört <b>der</b> Lehrerin.]]',
+    '[[welcher / welche / welches]] (أيّ؟) و [[dieser / diese / dieses]] (هذا / هذه) تأخذ نهايات [[der / die / das]].',
+    'في Akkusativ المذكّر: [[Welchen Pullover nimmst du? – Diesen.]]'],
+    tab: [['', 'der', 'die', 'das', 'Plural'], ['Nominativ', 'dieser / welcher', 'diese / welche', 'dieses / welches', 'diese / welche'], ['Akkusativ', 'diesen / welchen', 'diese / welche', 'dieses / welches', 'diese / welche'], ['Dativ', 'diesem / welchem', 'dieser / welcher', 'diesem / welchem', 'diesen / welchen']],
+    ex: [['Die Farbe gefällt mir nicht.', 'اللون لا يعجبني.'], ['Kann ich Ihnen helfen?', 'هل يمكنني مساعدتك؟'], ['Dieses Handy ist zu teuer.', 'هذا الهاتف غالٍ جداً.'], ['Welchen Rock nehmen Sie?', 'أيّ تنّورة تأخذين؟']] },
+  gq: [
+    ['Die Jacke gefällt ___ sehr.', 'mir', ['mich', 'ich'], '[[gefallen]] + Dativ: [[mir]].', 'السترة تعجبني جداً.'],
+    ['Kann ich ___ helfen?', 'Ihnen', ['Sie', 'Ihr'], '[[helfen]] + Dativ: [[Ihnen]] (المهذّب).', 'هل يمكنني مساعدتك؟'],
+    ['Die Schuhe passen ___ nicht.', 'mir', ['mich', 'meine'], '[[passen]] + Dativ: [[mir]].', 'الحذاء لا يناسبني.'],
+    ['Wem gehört die Tasche? – Sie gehört ___ Lehrerin.', 'der', ['die', 'den'], '[[gehören]] + Dativ: [[die Lehrerin → der Lehrerin]].', 'لمن الحقيبة؟ – إنّها للمعلّمة.'],
+    ['Schmeckt ___ der Kuchen?', 'dir', ['dich', 'du'], '[[schmecken]] + Dativ: [[dir]].', 'هل تعجبك الكعكة؟'],
+    ['___ Pullover gefällt dir?', 'Welcher', ['Welche', 'Welches'], '[[der Pullover]] مذكّر في Nominativ: [[welcher]].', 'أيّ كنزة تعجبك؟'],
+    ['Ich nehme ___ Mantel.', 'diesen', ['dieser', 'diesem'], '[[der Mantel]] في Akkusativ: [[diesen]].', 'آخذ هذا المعطف.'],
+    ['___ Handy ist kaputt.', 'Dieses', ['Dieser', 'Diese'], '[[das Handy]] محايد: [[dieses]].', 'هذا الهاتف معطّل.'],
+    ['Ich möchte diese Hose ___.', 'umtauschen', ['umtausche', 'tauschen um'], 'بعد [[möchte]] المصدر في الآخر: [[umtauschen]].', 'أريد أن أستبدل هذا البنطلون.'],
+    ['Ich danke ___ für die Hilfe.', 'Ihnen', ['Sie', 'Ihre'], '[[danken]] + Dativ: [[Ihnen]].', 'أشكرك على المساعدة.']] });
+
+// B1 lessons 1–3
+MORE.b1.push({ id: 'beziehungen', no: 1, de: 'Menschen und Beziehungen', ar: 'الناس والعلاقات', icon: '💞',
+  tip: 'الجملة الموصولة تصف اسماً: [[Der Mann, der dort steht, ist mein Nachbar.]] الضمير ([[der / die / das / den / dem]]) حسب جنس الاسم ودوره، والفعل في الآخر.',
+  w: [
+    ['💞', 'die Beziehung', 'العلاقة', 'دي بِتسيئونگ', 'Wir haben eine gute Beziehung.', 'بيننا علاقة جيّدة.'],
+    ['🤝', 'die Freundschaft', 'الصداقة', 'دي فرويندشافت', 'Unsere Freundschaft ist mir sehr wichtig.', 'صداقتنا مهمّة جداً بالنسبة لي.'],
+    ['👫', 'der Partner', 'الشريك', 'دَر پارتنَر', 'Mein Partner kommt aus Syrien.', 'شريكي من سوريا.'],
+    ['😍', 'sich verlieben', 'يقع في الحبّ', 'زيش فِرليبِن', 'Sie haben sich im Urlaub verliebt.', 'وقعا في الحبّ في الإجازة.'],
+    ['💔', 'sich trennen', 'ينفصل', 'زيش ترِنِّن', 'Nach fünf Jahren haben sie sich getrennt.', 'بعد خمس سنوات انفصلا.'],
+    ['💍', 'heiraten', 'يتزوّج', 'هايراتِن', 'Wir heiraten im Mai.', 'نتزوّج في مايو.'],
+    ['👰', 'die Hochzeit', 'حفل الزفاف', 'دي هوختسايت', 'Die Hochzeit war wunderschön.', 'كان حفل الزفاف رائعاً.'],
+    ['💑', 'die Ehe', 'الزواج', 'دي إيئِه', 'Eine Ehe braucht Vertrauen.', 'الزواج يحتاج إلى ثقة.'],
+    ['😡', 'der Streit', 'الشجار', 'دَر شترايت', 'Wir hatten gestern einen Streit.', 'تشاجرنا أمس.'],
+    ['🕊️', 'sich versöhnen', 'يتصالح', 'زيش فِرزُونِن', 'Nach dem Streit haben wir uns versöhnt.', 'بعد الشجار تصالحنا.'],
+    ['🔐', 'das Vertrauen', 'الثقة', 'داس فِرتراوِن', 'Vertrauen ist die Basis jeder Beziehung.', 'الثقة أساس كل علاقة.'],
+    ['😒', 'eifersüchtig', 'غيور', 'آيفَرزُوشتيش', 'Er ist sehr eifersüchtig.', 'هو غيور جداً.'],
+    ['🧑‍🤝‍🧑', 'der Bekannte', 'أحد المعارف', 'دَر بِكانتِه', 'Ein Bekannter hat mir die Wohnung gezeigt.', 'أحد معارفي أراني الشقّة.'],
+    ['🏘️', 'die Nachbarschaft', 'الحيّ / الجيرة', 'دي ناخبارشافت', 'In unserer Nachbarschaft wohnen viele Familien.', 'في حيّنا تسكن عائلات كثيرة.'],
+    ['🤗', 'sich verstehen', 'يتفاهم', 'زيش فِرشتيئِن', 'Ich verstehe mich gut mit meiner Schwester.', 'أتفاهم جيداً مع أختي.']],
+  sent: [['Das ist der Mann, der neben uns wohnt.', 'هذا هو الرجل الذي يسكن بجانبنا.'], ['Die Frau, die ich gestern getroffen habe, ist Ärztin.', 'المرأة التي التقيتها أمس طبيبة.'], ['Das Kind, dem ich geholfen habe, war sehr dankbar.', 'الطفل الذي ساعدته كان ممتنّاً جداً.'],
+    ['Ich verstehe mich gut mit meinen Kollegen.', 'أتفاهم جيداً مع زملائي.'], ['Sie haben sich nach einem Streit wieder versöhnt.', 'تصالحا من جديد بعد شجار.'], ['Vertrauen ist in einer Ehe sehr wichtig.', 'الثقة مهمّة جداً في الزواج.']],
+  dlg: [
+    ['Wer ist die Frau dort?', 'من هذه المرأة هناك؟', 'Das ist die Kollegin, die mir immer hilft.', 'هذه هي الزميلة التي تساعدني دائماً.', ['Das ist die Kollegin, die hilft mir immer.', 'Das ist die Kollegin, der mir immer hilft.']],
+    ['Wie habt ihr euch kennengelernt?', 'كيف تعارفتما؟', 'Bei einem Freund, der eine Party gemacht hat.', 'عند صديق أقام حفلة.', ['Bei einem Freund, den eine Party gemacht hat.', 'Bei einem Freund, der hat eine Party gemacht.']],
+    ['Ist das der Film, den du empfohlen hast?', 'هل هذا هو الفيلم الذي نصحتَ به؟', 'Ja, genau den meine ich!', 'نعم، هذا بالضبط ما أقصده!', ['Ja, genau der meine ich!', 'Ja, genau dem meine ich!']],
+    ['Wann heiratet ihr?', 'متى تتزوّجان؟', 'Im Sommer. Die Hochzeit feiern wir in Tunis.', 'في الصيف. سنحتفل بالزفاف في تونس.', ['Im Sommer. Wir heiraten uns in Tunis.', 'Im Sommer. Die Hochzeit wir feiern in Tunis.']]],
+  gr: { t: 'الجمل الموصولة (Relativsätze)', p: [
+    'الجملة الموصولة تعطي معلومات عن اسم، وتبدأ بضمير موصول بعد الفاصلة، والفعل المصرَّف في <b>آخرها</b>: [[Der Mann, der dort <b>steht</b>, …]]',
+    'الضمير يأخذ <b>جنس</b> الاسم (der / die / das / جمع) و<b>دوره</b> داخل الجملة الموصولة.',
+    'فاعل (Nominativ): [[Der Mann, <b>der</b> mir hilft …]] · مفعول به (Akkusativ): [[Der Mann, <b>den</b> ich kenne …]] · Dativ: [[Der Mann, <b>dem</b> ich helfe …]]',
+    'مع حرف جرّ يأتي حرف الجرّ قبل الضمير: [[Die Freundin, <b>mit der</b> ich wohne, …]] · [[Das Haus, <b>in dem</b> ich wohne, …]]',
+    'الضمائر تشبه أدوات التعريف، إلّا في Dativ الجمع: [[denen]]: [[Die Leute, mit denen ich arbeite, …]]'],
+    tab: [['', 'der', 'die', 'das', 'Plural'], ['Nominativ', 'der', 'die', 'das', 'die'], ['Akkusativ', 'den', 'die', 'das', 'die'], ['Dativ', 'dem', 'der', 'dem', 'denen']],
+    ex: [['Das ist die Stadt, in der ich geboren bin.', 'هذه هي المدينة التي وُلدتُ فيها.'], ['Der Kollege, den du kennst, hat gekündigt.', 'الزميل الذي تعرفه استقال.'], ['Die Kinder, denen ich helfe, lernen schnell.', 'الأطفال الذين أساعدهم يتعلّمون بسرعة.'], ['Das ist ein Freund, auf den ich mich verlassen kann.', 'هذا صديق يمكنني الاعتماد عليه.']] },
+  gq: [
+    ['Der Mann, ___ dort steht, ist mein Nachbar.', 'der', ['den', 'dem'], 'الرجل فاعل في الجملة الموصولة ← Nominativ: [[der]].', 'الرجل الذي يقف هناك جاري.'],
+    ['Der Mann, ___ ich gestern gesehen habe, ist Arzt.', 'den', ['der', 'dem'], 'مفعول به ([[ich habe ihn gesehen]]) ← Akkusativ: [[den]].', 'الرجل الذي رأيته أمس طبيب.'],
+    ['Die Frau, ___ ich geholfen habe, war sehr nett.', 'der', ['die', 'denen'], '[[helfen]] + Dativ، والاسم مؤنّث ← [[der]].', 'المرأة التي ساعدتها كانت لطيفة جداً.'],
+    ['Das Buch, ___ auf dem Tisch liegt, gehört mir.', 'das', ['dem', 'den'], 'محايد وفاعل ← [[das]].', 'الكتاب الموجود على الطاولة لي.'],
+    ['Die Leute, mit ___ ich arbeite, sind sehr nett.', 'denen', ['den', 'die'], 'جمع في Dativ (بعد [[mit]]) ← [[denen]].', 'الناس الذين أعمل معهم لطفاء جداً.'],
+    ['Das ist die Stadt, in ___ ich geboren bin.', 'der', ['die', 'dem'], '[[in]] + Dativ (مكان)، مؤنّث ← [[in der]].', 'هذه هي المدينة التي وُلدتُ فيها.'],
+    ['Das ist der Freund, ___ ich vertraue.', 'dem', ['den', 'der'], '[[vertrauen]] + Dativ، مذكّر ← [[dem]].', 'هذا هو الصديق الذي أثق به.'],
+    ['Die Kinder, ___ im Park spielen, sind laut.', 'die', ['denen', 'der'], 'جمع وفاعل ← [[die]].', 'الأطفال الذين يلعبون في الحديقة صاخبون.'],
+    ['Das ist das Café, ___ wir oft gehen.', 'in das', ['in dem', 'das'], 'حركة ([[wohin?]]) ← [[in das]] (Akkusativ).', 'هذا هو المقهى الذي نذهب إليه كثيراً.'],
+    ['Der Film, den wir gesehen ___, war spannend.', 'haben', ['hat', 'sind'], 'الفعل المصرَّف في آخر الجملة الموصولة، ومع [[wir]]: [[haben]].', 'الفيلم الذي شاهدناه كان مشوّقاً.']] });
+
+MORE.b1.push({ id: 'umwelt', no: 2, de: 'Umwelt und Klima', ar: 'البيئة والمناخ', icon: '🌍',
+  tip: 'المبني للمجهول (Passiv): [[werden]] + اسم المفعول في الآخر — المهمّ هو الفعل وليس الفاعل: [[Der Müll wird getrennt.]] · في الماضي: [[Das Haus wurde 1900 gebaut.]]',
+  w: [
+    ['🌿', 'die Umwelt', 'البيئة', 'دي أومڤِلت', 'Wir müssen die Umwelt schützen.', 'يجب أن نحمي البيئة.'],
+    ['🌡️', 'der Klimawandel', 'تغيّر المناخ', 'دَر كليماڤاندِل', 'Der Klimawandel ist ein großes Problem.', 'تغيّر المناخ مشكلة كبيرة.'],
+    ['⚡', 'die Energie', 'الطاقة', 'دي إينِرگي', 'Wir sollten Energie sparen.', 'ينبغي أن نوفّر الطاقة.'],
+    ['🔌', 'der Strom', 'الكهرباء', 'دَر شتروم', 'Der Strom wird immer teurer.', 'الكهرباء تصبح أغلى فأغلى.'],
+    ['💡', 'sparen', 'يوفّر', 'شپارِن', 'Mit LED-Lampen spart man Strom.', 'بمصابيح LED نوفّر الكهرباء.'],
+    ['♻️', 'recyceln', 'يعيد التدوير', 'ريسايكِلن', 'Glas wird recycelt.', 'يُعاد تدوير الزجاج.'],
+    ['🗑️', 'der Abfall', 'النفايات', 'دَر آبفال', 'Der Abfall wird getrennt.', 'تُفرز النفايات.'],
+    ['🏭', 'die Verschmutzung', 'التلوّث', 'دي فِرشموتسونگ', 'Die Verschmutzung der Luft ist gefährlich.', 'تلوّث الهواء خطير.'],
+    ['🛡️', 'schützen', 'يحمي', 'شُوتسِن', 'Die Wälder müssen geschützt werden.', 'يجب أن تُحمى الغابات.'],
+    ['☀️', 'erneuerbar', 'متجدّد', 'إرنويَربار', 'Sonne und Wind sind erneuerbare Energien.', 'الشمس والرياح طاقات متجدّدة.'],
+    ['🚰', 'verbrauchen', 'يستهلك', 'فِربراوخِن', 'Wir verbrauchen zu viel Wasser.', 'نستهلك ماءً كثيراً جداً.'],
+    ['🌱', 'nachhaltig', 'مستدام', 'ناخهالتيش', 'Nachhaltig leben ist nicht schwer.', 'العيش بشكل مستدام ليس صعباً.'],
+    ['🌳', 'der Wald', 'الغابة', 'دَر ڤالت', 'Im Wald ist die Luft sauber.', 'في الغابة الهواء نظيف.'],
+    ['🚲', 'umweltfreundlich', 'صديق للبيئة', 'أومڤِلتفرويندليش', 'Das Fahrrad ist umweltfreundlich.', 'الدرّاجة صديقة للبيئة.'],
+    ['🌊', 'der Plastikmüll', 'النفايات البلاستيكية', 'دَر پلاستيكمُول', 'Im Meer gibt es viel Plastikmüll.', 'في البحر نفايات بلاستيكية كثيرة.']],
+  sent: [['In Deutschland wird der Müll getrennt.', 'في ألمانيا تُفرز النفايات.'], ['Plastikflaschen werden recycelt.', 'يُعاد تدوير القناني البلاستيكية.'], ['Die Brücke wurde letztes Jahr gebaut.', 'بُني الجسر في السنة الماضية.'],
+    ['Der Wald muss geschützt werden.', 'يجب أن تُحمى الغابة.'], ['Wir sollten weniger Strom verbrauchen.', 'ينبغي أن نستهلك كهرباء أقلّ.'], ['Erneuerbare Energien werden immer wichtiger.', 'الطاقات المتجدّدة تصبح أكثر أهمّية.']],
+  dlg: [
+    ['Was passiert mit dem Altpapier?', 'ماذا يحدث للورق القديم؟', 'Es wird gesammelt und recycelt.', 'يُجمع ويُعاد تدويره.', ['Es wird sammeln und recyceln.', 'Es ist gesammelt wird.']],
+    ['Was tust du für die Umwelt?', 'ماذا تفعل من أجل البيئة؟', 'Ich fahre mit dem Fahrrad und spare Strom.', 'أركب الدرّاجة وأوفّر الكهرباء.', ['Ich werde mit dem Fahrrad gefahren.', 'Ich spare Strom gespart.']],
+    ['Wann wurde das Rathaus gebaut?', 'متى بُنيت البلدية؟', 'Es wurde im 19. Jahrhundert gebaut.', 'بُنيت في القرن التاسع عشر.', ['Es wird im 19. Jahrhundert gebaut worden.', 'Es hat im 19. Jahrhundert gebaut.']],
+    ['Wie kann man Wasser sparen?', 'كيف يمكن توفير الماء؟', 'Man sollte kürzer duschen.', 'ينبغي الاستحمام لوقت أقصر.', ['Man sollte kürzer geduscht.', 'Man wird kürzer duschen gespart.']]],
+  gr: { t: 'المبني للمجهول (Passiv)', p: [
+    'نستعمل Passiv عندما يكون <b>الفعل</b> أهمّ من الفاعل: [[Man trennt den Müll.]] ← [[Der Müll <b>wird</b> getrennt.]]',
+    'المضارع: [[werden]] (مصرَّف) + <b>اسم المفعول</b> في الآخر: [[Das Auto wird repariert.]] · [[Die Fenster werden geputzt.]]',
+    'الماضي (Präteritum): [[wurde / wurden]] + اسم المفعول: [[Das Haus <b>wurde</b> 1900 <b>gebaut</b>.]]',
+    'مع أفعال الكيفية: [[muss / kann / soll]] + اسم المفعول + [[werden]] في الآخر: [[Der Wald muss geschützt <b>werden</b>.]]',
+    'الفاعل (إذا ذكرناه) مع [[von]] + Dativ: [[Das Buch wurde <b>von</b> Goethe geschrieben.]]'],
+    tab: [['', 'Präsens', 'Präteritum'], ['ich', 'werde gefragt', 'wurde gefragt'], ['du', 'wirst gefragt', 'wurdest gefragt'], ['er / sie / es', 'wird gefragt', 'wurde gefragt'], ['wir', 'werden gefragt', 'wurden gefragt'], ['ihr', 'werdet gefragt', 'wurdet gefragt'], ['sie / Sie', 'werden gefragt', 'wurden gefragt']],
+    ex: [['Der Müll wird jeden Dienstag abgeholt.', 'تُجمع النفايات كل يوم ثلاثاء.'], ['Die Fenster werden geputzt.', 'تُنظّف النوافذ.'], ['Die Stadt wurde im Krieg zerstört.', 'دُمّرت المدينة في الحرب.'], ['Das Problem muss schnell gelöst werden.', 'يجب أن تُحلّ المشكلة بسرعة.']] },
+  gq: [
+    ['Der Müll ___ getrennt.', 'wird', ['ist', 'werden'], 'Passiv المضارع مع المفرد: [[wird]] + اسم المفعول.', 'تُفرز النفايات.'],
+    ['Plastikflaschen ___ recycelt.', 'werden', ['wird', 'wurde'], 'جمع ← [[werden]] + اسم المفعول.', 'يُعاد تدوير القناني البلاستيكية.'],
+    ['Das Haus wurde 1990 ___.', 'gebaut', ['bauen', 'baut'], 'بعد [[wurde]] يأتي اسم المفعول في الآخر: [[gebaut]].', 'بُني البيت في 1990.'],
+    ['Die Brücke ___ letztes Jahr repariert.', 'wurde', ['wird', 'würde'], 'الماضي ([[letztes Jahr]]) ← [[wurde]].', 'صُلّح الجسر في السنة الماضية.'],
+    ['Der Wald muss geschützt ___.', 'werden', ['wird', 'worden'], 'مع فعل كيفية: [[geschützt werden]] في الآخر.', 'يجب أن تُحمى الغابة.'],
+    ['Das Buch wurde ___ einer bekannten Autorin geschrieben.', 'von', ['durch die', 'mit'], 'الفاعل في Passiv مع [[von]] + Dativ.', 'كُتب الكتاب على يد كاتبة معروفة.'],
+    ['Die Fenster ___ jede Woche geputzt.', 'werden', ['wird', 'wurde'], 'جمع ([[die Fenster]]) ← [[werden]].', 'تُنظّف النوافذ كل أسبوع.'],
+    ['Man spart Energie. → Energie ___ gespart.', 'wird', ['werden', 'hat'], '[[die Energie]] مفرد ← [[wird gespart]].', 'تُوفَّر الطاقة.'],
+    ['Wann ___ die Briefe geschrieben?', 'wurden', ['wurde', 'würden'], 'جمع في الماضي ← [[wurden]].', 'متى كُتبت الرسائل؟'],
+    ['Hier darf nicht geraucht ___.', 'werden', ['wird', 'geworden'], 'مع [[darf]]: [[geraucht werden]] في الآخر.', 'هنا لا يُسمح بالتدخين.']] });
+
+MORE.b1.push({ id: 'traeume', no: 3, de: 'Was wäre, wenn …?', ar: 'لو كان… (الأمنيات والندم)', icon: '🌙',
+  tip: 'للماضي غير الحقيقي: [[hätte / wäre]] + اسم المفعول: [[Wenn ich das gewusst hätte, wäre ich gekommen.]] (لكنّي لم أكن أعرف)',
+  w: [
+    ['😔', 'bereuen', 'يندم', 'بِرويِن', 'Ich bereue meine Entscheidung nicht.', 'لا أندم على قراري.'],
+    ['🚪', 'die Chance', 'الفرصة', 'دي شانسِه', 'Das war eine große Chance für mich.', 'كانت هذه فرصة كبيرة لي.'],
+    ['⌛', 'verpassen', 'يفوّت', 'فِرپاسِّن', 'Ich habe den Zug verpasst.', 'فاتني القطار.'],
+    ['🔀', 'die Entscheidung', 'القرار', 'دي إنتشايدونگ', 'Das war eine schwere Entscheidung.', 'كان هذا قراراً صعباً.'],
+    ['🤔', 'sich entscheiden', 'يقرّر', 'زيش إنتشايدِن', 'Ich habe mich für Deutschland entschieden.', 'قرّرتُ ألمانيا.'],
+    ['🌧️', 'das Pech', 'سوء الحظّ', 'داس پِش', 'So ein Pech!', 'يا لسوء الحظّ!'],
+    ['🏆', 'der Erfolg', 'النجاح', 'دَر إرفولك', 'Viel Erfolg bei deiner Arbeit!', 'نجاحاً كبيراً في عملك!'],
+    ['🌟', 'erfolgreich', 'ناجح', 'إرفولكرايش', 'Sie ist eine erfolgreiche Ärztin.', 'إنّها طبيبة ناجحة.'],
+    ['🎯', 'das Ziel', 'الهدف', 'داس تسيل', 'Mein Ziel ist das B1-Zertifikat.', 'هدفي شهادة B1.'],
+    ['✨', 'verwirklichen', 'يحقّق (حلماً)', 'فِرڤيركليشِن', 'Ich möchte meinen Traum verwirklichen.', 'أريد أن أحقّق حلمي.'],
+    ['🦁', 'der Mut', 'الشجاعة', 'دَر موت', 'Man braucht Mut, um auszuwandern.', 'تحتاج إلى شجاعة لتهاجر.'],
+    ['🕊️', 'unabhängig', 'مستقلّ', 'أونآبهِنگيش', 'Ich möchte finanziell unabhängig sein.', 'أريد أن أكون مستقلّاً مالياً.'],
+    ['🎰', 'der Lottogewinn', 'ربح اليانصيب', 'دَر لوتوگِڤين', 'Was würdest du mit einem Lottogewinn machen?', 'ماذا كنتَ ستفعل بربح اليانصيب؟'],
+    ['⏪', 'hätte … gemacht', 'كان سيفعل (في الماضي)', 'هِتِّه … گِماخت', 'Ich hätte das anders gemacht.', 'كنتُ سأفعل ذلك بشكل مختلف.'],
+    ['🙏', 'wenn … nur', 'ليت… / لو أنّ… فقط', 'ڤِن … نور', 'Wenn ich nur mehr Zeit hätte!', 'ليت عندي وقتاً أكثر!']],
+  sent: [['Wenn ich mehr gelernt hätte, hätte ich die Prüfung bestanden.', 'لو درستُ أكثر لنجحتُ في الامتحان.'], ['Wenn du früher gekommen wärst, hättest du ihn gesehen.', 'لو جئتَ أبكر لرأيته.'], ['Ich hätte gern Medizin studiert.', 'كنتُ أودّ أن أدرس الطبّ.'],
+    ['An deiner Stelle wäre ich zum Arzt gegangen.', 'لو كنتُ مكانك لذهبتُ إلى الطبيب.'], ['Ich bereue nicht, dass ich nach Deutschland gekommen bin.', 'لا أندم على أنّني جئتُ إلى ألمانيا.'], ['Wenn ich nur den Zug nicht verpasst hätte!', 'ليت القطار لم يفُتني!']],
+  dlg: [
+    ['Was hättest du anders gemacht?', 'ماذا كنتَ ستفعل بشكل مختلف؟', 'Ich hätte früher Deutsch gelernt.', 'كنتُ سأتعلّم الألمانية أبكر.', ['Ich würde früher Deutsch gelernt.', 'Ich hätte früher Deutsch lernen gehabt.']],
+    ['Warum bist du nicht gekommen?', 'لماذا لم تأتِ؟', 'Wenn ich Zeit gehabt hätte, wäre ich gekommen.', 'لو كان عندي وقت لجئتُ.', ['Wenn ich Zeit gehabt hätte, hätte ich gekommen.', 'Wenn ich Zeit habe gehabt, ich wäre gekommen.']],
+    ['Bereust du deine Entscheidung?', 'هل تندم على قرارك؟', 'Nein, ich würde es wieder genauso machen.', 'لا، كنتُ سأفعلها بنفس الطريقة مرّة أخرى.', ['Nein, ich bereue mich nicht.', 'Nein, ich hätte es wieder machen.']],
+    ['Was ist dein größtes Ziel?', 'ما هدفك الأكبر؟', 'Ich möchte meinen Traum verwirklichen und eine eigene Firma gründen.', 'أريد أن أحقّق حلمي وأؤسّس شركة خاصّة.', ['Ich möchte meinen Traum verwirklicht.', 'Mein Ziel ist zu verwirklichen Traum.']]],
+  gr: { t: 'Konjunktiv II في الماضي والشرط غير الحقيقي', p: [
+    'للحاضر غير الحقيقي (A2): [[Wenn ich Zeit <b>hätte</b>, <b>würde</b> ich kommen.]]',
+    'للماضي غير الحقيقي (B1): [[hätte / wäre]] + <b>اسم المفعول</b>: [[Wenn ich Zeit gehabt <b>hätte</b>, <b>wäre</b> ich gekommen.]]',
+    'نختار [[hätte]] أو [[wäre]] كما في Perfekt: [[ich habe gemacht → ich hätte gemacht]] · [[ich bin gegangen → ich wäre gegangen]].',
+    'الندم بعد فوات الأوان: [[Ich hätte das nicht sagen sollen.]] · والنصيحة: [[An deiner Stelle wäre ich geblieben.]]',
+    'التمنّي: [[Wenn ich nur … hätte!]] · [[Hätte ich doch …!]] = ليتني…'],
+    tab: [['Perfekt', 'Konjunktiv II (Vergangenheit)'], ['ich habe gelernt', 'ich hätte gelernt'], ['du bist gekommen', 'du wärst gekommen'], ['er hat gewusst', 'er hätte gewusst'], ['wir sind geblieben', 'wir wären geblieben']],
+    ex: [['Wenn ich das gewusst hätte, hätte ich dir geholfen.', 'لو كنتُ أعرف ذلك لساعدتُك.'], ['Ohne dich wäre ich nicht so weit gekommen.', 'لولاك لما وصلتُ إلى هنا.'], ['Hättest du doch angerufen!', 'ليتك اتّصلت!'], ['Ich wäre gern länger geblieben.', 'كنتُ أودّ البقاء أطول.']] },
+  gq: [
+    ['Wenn ich mehr gelernt ___, hätte ich bestanden.', 'hätte', ['habe', 'wäre'], '[[lernen]] يأخذ haben ← [[hätte … gelernt]].', 'لو درستُ أكثر لنجحت.'],
+    ['Wenn du früher gekommen ___, hättest du ihn gesehen.', 'wärst', ['hättest', 'bist'], '[[kommen]] يأخذ sein ← [[wärst … gekommen]].', 'لو جئتَ أبكر لرأيته.'],
+    ['Ich ___ gern Medizin studiert.', 'hätte', ['wäre', 'würde'], 'ماضٍ غير حقيقي مع [[studieren]] (haben): [[hätte … studiert]].', 'كنتُ أودّ أن أدرس الطبّ.'],
+    ['An deiner Stelle ___ ich zum Arzt gegangen.', 'wäre', ['hätte', 'würde'], '[[gehen]] يأخذ sein ← [[wäre … gegangen]].', 'لو كنتُ مكانك لذهبتُ إلى الطبيب.'],
+    ['Wenn ich das gewusst hätte, hätte ich dir ___.', 'geholfen', ['helfen', 'hilft'], 'بعد [[hätte]] اسم المفعول: [[geholfen]].', 'لو كنتُ أعرف لساعدتُك.'],
+    ['Wenn ich jetzt Zeit ___, würde ich mitkommen.', 'hätte', ['hätte gehabt', 'habe'], 'الحاضر غير الحقيقي ([[jetzt]]) ← [[hätte]] فقط.', 'لو كان عندي وقت الآن لجئتُ معكم.'],
+    ['Ohne deine Hilfe ___ ich das nicht geschafft.', 'hätte', ['wäre', 'habe'], '[[schaffen]] يأخذ haben ← [[hätte … geschafft]].', 'لولا مساعدتك لما نجحتُ في ذلك.'],
+    ['Wir ___ gern länger geblieben.', 'wären', ['hätten', 'würden'], '[[bleiben]] يأخذ sein ← [[wären … geblieben]].', 'كنّا نودّ البقاء أطول.'],
+    ['Ich habe den Bus verpasst. Ich ___ früher aufstehen sollen.', 'hätte', ['wäre', 'würde'], 'ندم: [[hätte … sollen]].', 'فاتتني الحافلة. كان يجب أن أستيقظ أبكر.'],
+    ['___ ich doch nur mehr gespart!', 'Hätte', ['Wäre', 'Habe'], 'تمنٍّ في الماضي: [[Hätte ich doch …!]] ([[sparen]] ← haben).', 'ليتني ادّخرتُ أكثر!']] });
+
+// B1 lessons 4–6
+MORE.b1.push({ id: 'lebenslauf', no: 4, de: 'Lebenslauf und Migration', ar: 'السيرة الذاتية والهجرة', icon: '🧭',
+  tip: 'الماضي قبل الماضي (Plusquamperfekt): [[hatte / war]] + اسم المفعول. مع [[nachdem]]: [[Nachdem ich gegessen hatte, bin ich gegangen.]] (أوّلاً أكلت، ثم ذهبت)',
+  w: [
+    ['📜', 'der Lebenslauf', 'السيرة الذاتية', 'دَر ليبِنسلاوف', 'Schicken Sie uns Ihren Lebenslauf.', 'أرسل لنا سيرتك الذاتية.'],
+    ['🛠️', 'die Ausbildung', 'التكوين المهني', 'دي آوسبيلدونگ', 'Ich mache eine Ausbildung als Elektriker.', 'أقوم بتكوين مهني ككهربائي.'],
+    ['🎓', 'das Studium', 'الدراسة الجامعية', 'داس شتوديوم', 'Nach dem Studium habe ich in Tunis gearbeitet.', 'بعد الدراسة الجامعية عملتُ في تونس.'],
+    ['🏅', 'der Abschluss', 'الشهادة (التخرّج)', 'دَر آبشلوس', 'Ich habe einen Abschluss in Informatik.', 'عندي شهادة في المعلوماتية.'],
+    ['📑', 'das Zeugnis', 'كشف العلامات / الشهادة', 'داس تسويگنيس', 'Mein Zeugnis muss übersetzt werden.', 'يجب أن تُترجم شهادتي.'],
+    ['🧪', 'das Praktikum', 'التدريب العملي', 'داس پراكتيكوم', 'Ich habe ein Praktikum in einem Hotel gemacht.', 'قمتُ بتدريب عملي في فندق.'],
+    ['💼', 'die Berufserfahrung', 'الخبرة المهنية', 'دي بِروفسإرفارونگ', 'Ich habe fünf Jahre Berufserfahrung.', 'عندي خمس سنوات خبرة مهنية.'],
+    ['🧠', 'die Kenntnisse (Pl.)', 'المعارف / المهارات', 'دي كِنتنيسِّه', 'Ich habe gute Computerkenntnisse.', 'عندي معارف جيّدة في الحاسوب.'],
+    ['✈️', 'auswandern', 'يهاجر (يغادر بلده)', 'آوسڤاندَرن', 'Meine Familie ist 2015 ausgewandert.', 'هاجرت عائلتي في 2015.'],
+    ['🛬', 'einwandern', 'يهاجر (يدخل بلداً)', 'آينڤاندَرن', 'Viele Menschen sind nach Deutschland eingewandert.', 'هاجر كثير من الناس إلى ألمانيا.'],
+    ['🏡', 'die Heimat', 'الوطن', 'دي هايمات', 'Ich vermisse meine Heimat.', 'أشتاق إلى وطني.'],
+    ['🌱', 'aufwachsen', 'ينشأ', 'آوفڤاكسِن', 'Ich bin in einem kleinen Dorf aufgewachsen.', 'نشأتُ في قرية صغيرة.'],
+    ['⏮️', 'nachdem', 'بعد أن', 'ناخديم', 'Nachdem ich angekommen war, habe ich Deutsch gelernt.', 'بعد أن وصلتُ تعلّمتُ الألمانية.'],
+    ['⏭️', 'bevor', 'قبل أن', 'بِفور', 'Bevor ich nach Deutschland kam, habe ich in Tunis gearbeitet.', 'قبل أن آتي إلى ألمانيا عملتُ في تونس.'],
+    ['⏳', 'während', 'بينما / أثناء', 'ڤيرِنت', 'Während ich studierte, habe ich nebenbei gearbeitet.', 'بينما كنتُ أدرس كنتُ أعمل إلى جانب الدراسة.']],
+  sent: [['Nachdem ich mein Studium beendet hatte, bin ich ausgewandert.', 'بعد أن أنهيتُ دراستي هاجرتُ.'], ['Bevor ich nach Deutschland kam, hatte ich schon Deutsch gelernt.', 'قبل أن آتي إلى ألمانيا كنتُ قد تعلّمتُ الألمانية.'], ['Ich bin in Sfax aufgewachsen.', 'نشأتُ في صفاقس.'],
+    ['Während des Studiums habe ich ein Praktikum gemacht.', 'أثناء الدراسة قمتُ بتدريب عملي.'], ['Mein Abschluss wird in Deutschland anerkannt.', 'شهادتي معترف بها في ألمانيا.'], ['Als ich ankam, war der Zug schon abgefahren.', 'عندما وصلتُ كان القطار قد غادر.']],
+  dlg: [
+    ['Wo sind Sie aufgewachsen?', 'أين نشأت؟', 'Ich bin in Marokko aufgewachsen.', 'نشأتُ في المغرب.', ['Ich habe in Marokko aufgewachsen.', 'Ich bin in Marokko aufwachsen.']],
+    ['Was haben Sie gemacht, nachdem Sie angekommen waren?', 'ماذا فعلتَ بعد أن وصلت؟', 'Nachdem ich angekommen war, habe ich einen Sprachkurs besucht.', 'بعد أن وصلتُ حضرتُ دورة لغة.', ['Nachdem ich bin angekommen, ich habe einen Sprachkurs besucht.', 'Nachdem ich angekommen habe, besuchte ich.']],
+    ['Haben Sie Berufserfahrung?', 'هل لديك خبرة مهنية؟', 'Ja, ich habe drei Jahre als Krankenpfleger gearbeitet.', 'نعم، عملتُ ثلاث سنوات ممرّضاً.', ['Ja, ich bin drei Jahre als Krankenpfleger gearbeitet.', 'Ja, ich habe drei Jahre Erfahrung gemacht als.']],
+    ['Warum sind Sie nach Deutschland gekommen?', 'لماذا جئتَ إلى ألمانيا؟', 'Weil ich hier eine gute Ausbildung machen wollte.', 'لأنّي أردتُ أن أقوم بتكوين مهني جيّد هنا.', ['Weil ich wollte hier eine Ausbildung machen.', 'Weil ich hier eine Ausbildung gemacht wollte.']]],
+  gr: { t: 'الماضي قبل الماضي (Plusquamperfekt) · nachdem / bevor / während', p: [
+    'Plusquamperfekt = حدث وقع <b>قبل</b> حدث آخر في الماضي: [[hatte / war]] + اسم المفعول: [[Ich <b>hatte</b> schon <b>gegessen</b>, als er kam.]]',
+    'نختار [[hatte]] أو [[war]] كما في Perfekt: [[ich habe gelernt → ich hatte gelernt]] · [[ich bin gefahren → ich war gefahren]].',
+    '[[nachdem]] (بعد أن): الحدث الأوّل بـ Plusquamperfekt: [[Nachdem ich gefrühstückt <b>hatte</b>, bin ich zur Arbeit gefahren.]]',
+    '[[bevor]] (قبل أن) و [[während]] (بينما): الزمن نفسه في الجملتين: [[Bevor ich esse, wasche ich mir die Hände.]]',
+    'هذه أدوات جمل فرعية: الفعل في الآخر. ⚠️ [[während]] + Genitiv = أثناء: [[während des Studiums]]'],
+    tab: [['Perfekt', 'Plusquamperfekt'], ['ich habe gegessen', 'ich hatte gegessen'], ['du bist gekommen', 'du warst gekommen'], ['er hat gearbeitet', 'er hatte gearbeitet'], ['wir sind umgezogen', 'wir waren umgezogen']],
+    ex: [['Nachdem er die Prüfung bestanden hatte, hat er gefeiert.', 'بعد أن نجح في الامتحان احتفل.'], ['Bevor ich auswanderte, habe ich alles verkauft.', 'قبل أن أهاجر بعتُ كل شيء.'], ['Während ich koche, höre ich Musik.', 'بينما أطبخ أستمع إلى الموسيقى.'], ['Als wir ankamen, hatte der Film schon begonnen.', 'عندما وصلنا كان الفيلم قد بدأ.']] },
+  gq: [
+    ['Nachdem ich gegessen ___, bin ich spazieren gegangen.', 'hatte', ['habe', 'war'], 'الحدث الأوّل بعد [[nachdem]] ← Plusquamperfekt: [[hatte … gegessen]].', 'بعد أن أكلتُ ذهبتُ للتنزّه.'],
+    ['Nachdem er angekommen ___, hat er mich angerufen.', 'war', ['hatte', 'ist'], '[[ankommen]] يأخذ sein ← [[war … angekommen]].', 'بعد أن وصل اتّصل بي.'],
+    ['___ ich nach Deutschland kam, habe ich in Tunis gearbeitet.', 'Bevor', ['Nachdem', 'Während'], 'قبل أن ← [[bevor]].', 'قبل أن آتي إلى ألمانيا عملتُ في تونس.'],
+    ['___ ich koche, höre ich Musik.', 'Während', ['Bevor', 'Nachdem'], 'في الوقت نفسه ← [[während]] (بينما).', 'بينما أطبخ أستمع إلى الموسيقى.'],
+    ['Als wir ankamen, ___ der Film schon begonnen.', 'hatte', ['hat', 'war'], 'حدث قبل حدث آخر في الماضي ← [[hatte … begonnen]].', 'عندما وصلنا كان الفيلم قد بدأ.'],
+    ['Ich bin in einem kleinen Dorf ___.', 'aufgewachsen', ['aufwachsen', 'gewachsen auf'], 'اسم مفعول لفعل منفصل: [[auf‑ge‑wachsen]].', 'نشأتُ في قرية صغيرة.'],
+    ['Nachdem sie das Studium beendet hatte, ___ sie ausgewandert.', 'ist', ['hat', 'war'], 'الجملة الثانية بـ Perfekt، و[[auswandern]] يأخذ sein ← [[ist]].', 'بعد أن أنهت الدراسة هاجرت.'],
+    ['Bevor du gehst, ___ bitte die Tür ab!', 'schließ', ['schließt', 'schließen'], 'أمر مع du: [[schließ … ab!]]', 'قبل أن تذهب، أقفل الباب من فضلك!'],
+    ['Er ___ schon gegangen, als ich kam.', 'war', ['hatte', 'ist'], '[[gehen]] يأخذ sein ← [[war … gegangen]].', 'كان قد ذهب عندما جئتُ.'],
+    ['Während ___ Studiums habe ich gejobbt.', 'des', ['dem', 'der'], '[[während]] + Genitiv: [[das Studium → des Studiums]].', 'أثناء الدراسة عملتُ عملاً جانبياً.']] });
+
+MORE.b1.push({ id: 'bewerbung', no: 5, de: 'Bewerbung und Vorstellungsgespräch', ar: 'طلب الوظيفة ومقابلة العمل', icon: '📝',
+  tip: 'الهدف: [[um … zu]] + المصدر (الفاعل نفسه): [[Ich lerne, um die Prüfung zu bestehen.]] · [[damit]] (فاعل آخر): [[Ich helfe dir, damit du bestehst.]]',
+  w: [
+    ['📨', 'die Bewerbung', 'طلب التوظيف', 'دي بِڤِربونگ', 'Ich habe meine Bewerbung abgeschickt.', 'أرسلتُ طلب توظيفي.'],
+    ['✉️', 'das Anschreiben', 'رسالة التحفيز', 'داس آنشرايبِن', 'Im Anschreiben stellen Sie sich kurz vor.', 'في رسالة التحفيز تقدّم نفسك باختصار.'],
+    ['🤝', 'das Vorstellungsgespräch', 'مقابلة العمل', 'داس فورشتِلّونگسگِشپريش', 'Morgen habe ich ein Vorstellungsgespräch.', 'غداً عندي مقابلة عمل.'],
+    ['💪', 'die Stärke', 'نقطة القوّة', 'دي شتِركِه', 'Meine Stärke ist die Teamarbeit.', 'نقطة قوّتي العمل الجماعي.'],
+    ['🌀', 'die Schwäche', 'نقطة الضعف', 'دي شڤِشِه', 'Meine Schwäche ist, dass ich ungeduldig bin.', 'نقطة ضعفي أنّني قليل الصبر.'],
+    ['👥', 'teamfähig', 'قادر على العمل في فريق', 'تيمفِييش', 'Wir suchen teamfähige Mitarbeiter.', 'نبحث عن موظّفين قادرين على العمل في فريق.'],
+    ['✅', 'zuverlässig', 'يُعتمد عليه', 'تسوفِرلِسّيش', 'Ich bin pünktlich und zuverlässig.', 'أنا منضبط ويُعتمد عليّ.'],
+    ['🔄', 'flexibel', 'مرن', 'فلِكسيبِل', 'Ich bin zeitlich flexibel.', 'أنا مرن في الأوقات.'],
+    ['🕒', 'die Probezeit', 'فترة التجربة', 'دي پروبِتسايت', 'Die Probezeit dauert sechs Monate.', 'فترة التجربة ستّة أشهر.'],
+    ['💶', 'das Bruttogehalt', 'الراتب الإجمالي', 'داس بروتوگِهالت', 'Das Bruttogehalt beträgt 2800 Euro.', 'الراتب الإجمالي 2800 يورو.'],
+    ['⏲️', 'die Vollzeit', 'دوام كامل', 'دي فولتسايت', 'Ich möchte in Vollzeit arbeiten.', 'أريد أن أعمل بدوام كامل.'],
+    ['⏱️', 'die Teilzeit', 'دوام جزئي', 'دي تايلتسايت', 'Sie arbeitet in Teilzeit.', 'تعمل بدوام جزئي.'],
+    ['📈', 'die Weiterbildung', 'التكوين المستمرّ', 'دي ڤايتَربيلدونگ', 'Die Firma bezahlt die Weiterbildung.', 'الشركة تدفع تكاليف التكوين المستمرّ.'],
+    ['🎯', 'um … zu', 'من أجل أن', 'أوم … تسو', 'Ich lerne Deutsch, um hier zu arbeiten.', 'أتعلّم الألمانية من أجل أن أعمل هنا.'],
+    ['🎁', 'damit', 'لكي (مع فاعل آخر)', 'داميت', 'Ich erkläre es langsam, damit du es verstehst.', 'أشرحه ببطء لكي تفهمه.']],
+  sent: [['Ich lerne Deutsch, um in einem Krankenhaus zu arbeiten.', 'أتعلّم الألمانية لأعمل في مستشفى.'], ['Ich spreche langsam, damit alle mich verstehen.', 'أتكلّم ببطء لكي يفهمني الجميع.'], ['Er ist gegangen, ohne sich zu verabschieden.', 'ذهب دون أن يودّع.'],
+    ['Statt zu warten, sollten Sie anrufen.', 'بدلاً من الانتظار ينبغي أن تتّصل.'], ['Ich habe nächste Woche ein Vorstellungsgespräch.', 'عندي مقابلة عمل الأسبوع القادم.'], ['Meine größte Stärke ist meine Zuverlässigkeit.', 'أكبر نقطة قوّة عندي أنّه يُعتمد عليّ.']],
+  dlg: [
+    ['Warum möchten Sie bei uns arbeiten?', 'لماذا تريد أن تعمل عندنا؟', 'Um meine Erfahrung in einem guten Team einzusetzen.', 'لأستعمل خبرتي في فريق جيّد.', ['Um meine Erfahrung einsetzen zu in einem Team.', 'Damit ich meine Erfahrung einzusetzen.']],
+    ['Was sind Ihre Stärken?', 'ما نقاط قوّتك؟', 'Ich bin zuverlässig, flexibel und teamfähig.', 'أنا يُعتمد عليّ ومرن وقادر على العمل في فريق.', ['Ich bin Stärke zuverlässig.', 'Meine Stärken bin ich flexibel.']],
+    ['Wann können Sie anfangen?', 'متى يمكنك أن تبدأ؟', 'Ab dem ersten Juni, wenn es Ihnen passt.', 'ابتداءً من الأوّل من يونيو، إذا كان ذلك يناسبكم.', ['Ab dem ersten Juni, wenn passt es Ihnen.', 'Ich kann anfangen zu ab Juni.']],
+    ['Haben Sie noch Fragen?', 'هل لديك أسئلة أخرى؟', 'Ja, wie lange dauert die Probezeit?', 'نعم، كم تستمرّ فترة التجربة؟', ['Ja, wie lange die Probezeit dauert?', 'Ja, die Probezeit wie lange?']]],
+  gr: { t: 'الهدف: um … zu · damit — و ohne … zu · statt … zu', p: [
+    '[[um … zu]] + المصدر: للهدف عندما يكون <b>الفاعل نفسه</b>: [[Ich spare, <b>um</b> ein Auto <b>zu kaufen</b>.]]',
+    '[[damit]] + جملة فرعية (الفعل في الآخر): عندما يكون الفاعل <b>مختلفاً</b>: [[Ich spare, <b>damit</b> meine Kinder studieren <b>können</b>.]]',
+    '[[ohne … zu]] = دون أن: [[Er ging, ohne ein Wort zu sagen.]] · [[statt … zu]] = بدلاً من: [[Statt zu lernen, spielt er.]]',
+    'الأفعال المنفصلة: [[zu]] في الوسط: [[um früh aufzustehen]] · [[ohne anzurufen]].',
+    'السؤال عن الهدف: [[Wozu?]] — الجواب: [[Um … zu …]] أو [[Damit …]].'],
+    tab: [['الأداة', 'المعنى', 'مثال'], ['um … zu', 'من أجل أن (الفاعل نفسه)', 'Ich lerne, um zu bestehen.'], ['damit', 'لكي (فاعل آخر)', 'Ich lerne, damit du stolz bist.'], ['ohne … zu', 'دون أن', 'Er ging, ohne zu zahlen.'], ['statt … zu', 'بدلاً من', 'Statt zu warten, rufe ich an.']],
+    ex: [['Ich besuche einen Kurs, um mich weiterzubilden.', 'أحضر دورة لأطوّر نفسي.'], ['Ich schreibe es auf, damit ich es nicht vergesse.', 'أكتبه حتى لا أنساه.'], ['Sie hat unterschrieben, ohne den Vertrag zu lesen.', 'وقّعت دون أن تقرأ العقد.'], ['Statt den Bus zu nehmen, gehe ich zu Fuß.', 'بدلاً من أخذ الحافلة أمشي.']] },
+  gq: [
+    ['Ich lerne Deutsch, ___ hier zu arbeiten.', 'um', ['damit', 'ohne'], 'الفاعل نفسه + [[zu]] ← [[um … zu]].', 'أتعلّم الألمانية لأعمل هنا.'],
+    ['Ich spreche langsam, ___ du mich verstehst.', 'damit', ['um', 'statt'], 'فاعل مختلف ([[du]]) ← [[damit]].', 'أتكلّم ببطء لكي تفهمني.'],
+    ['Er ist gegangen, ___ sich zu verabschieden.', 'ohne', ['um', 'damit'], 'دون أن ← [[ohne … zu]].', 'ذهب دون أن يودّع.'],
+    ['___ zu warten, rufe ich den Chef an.', 'Statt', ['Um', 'Damit'], 'بدلاً من ← [[statt … zu]].', 'بدلاً من الانتظار أتّصل بالمدير.'],
+    ['Ich stehe früh auf, um pünktlich ___.', 'zu sein', ['bin', 'sein zu'], '[[um … zu]] + المصدر في الآخر: [[zu sein]].', 'أستيقظ مبكّراً لأكون في الموعد.'],
+    ['Ich mache einen Kurs, um mich ___.', 'weiterzubilden', ['zu weiterbilden', 'weiterbilde'], 'فعل منفصل ← [[zu]] في الوسط: [[weiterzubilden]].', 'أحضر دورة لأطوّر نفسي.'],
+    ['Ich schreibe es auf, damit ich es nicht ___.', 'vergesse', ['zu vergessen', 'vergessen'], 'بعد [[damit]] جملة كاملة والفعل المصرَّف في الآخر.', 'أكتبه حتى لا أنساه.'],
+    ['Sie hat unterschrieben, ohne den Vertrag ___.', 'zu lesen', ['lesen', 'liest'], '[[ohne … zu]] + المصدر.', 'وقّعت دون أن تقرأ العقد.'],
+    ['___ lernst du so viel? – Um die B1-Prüfung zu bestehen.', 'Wozu', ['Wo', 'Womit'], 'السؤال عن الهدف: [[Wozu?]]', 'لماذا تدرس كثيراً هكذا؟ – لأنجح في امتحان B1.'],
+    ['Wir sparen, damit unsere Kinder studieren ___.', 'können', ['zu können', 'kann'], 'بعد [[damit]] الفعل المصرَّف في الآخر، ومع [[Kinder]] (جمع): [[können]].', 'ندّخر لكي يستطيع أطفالنا أن يدرسوا.']] });
+
+MORE.b1.push({ id: 'meinung', no: 6, de: 'Meinungen und Diskussionen', ar: 'الآراء والنقاشات', icon: '🗣️',
+  tip: '[[obwohl]] (رغم أنّ) أداة جملة فرعية — الفعل في الآخر: [[Obwohl ich müde bin, …]] أمّا [[trotzdem, deshalb, außerdem]] فبعدها الفعل مباشرة: [[Trotzdem gehe ich.]]',
+  w: [
+    ['🗣️', 'die Diskussion', 'النقاش', 'دي ديسكوسيون', 'Die Diskussion war sehr interessant.', 'كان النقاش مثيراً جداً.'],
+    ['🧩', 'das Argument', 'الحجّة', 'داس آرگومِنت', 'Das ist ein gutes Argument.', 'هذه حجّة جيّدة.'],
+    ['➕', 'der Vorteil', 'الميزة', 'دَر فورتايل', 'Ein Vorteil der Stadt sind die vielen Busse.', 'من مزايا المدينة كثرة الحافلات.'],
+    ['➖', 'der Nachteil', 'العيب', 'دَر ناختايل', 'Der Nachteil ist der Lärm.', 'العيب هو الضجيج.'],
+    ['👍', 'zustimmen', 'يوافق', 'تسوشتيمِّن', 'Da stimme ich Ihnen zu.', 'أوافقك على ذلك.'],
+    ['👎', 'widersprechen', 'يعارض', 'ڤيدَرشپرِشِن', 'Ich muss dir widersprechen.', 'يجب أن أعارضك.'],
+    ['🎯', 'überzeugen', 'يُقنع', 'أوبَرتسويگِن', 'Dein Argument hat mich überzeugt.', 'حجّتك أقنعتني.'],
+    ['🤝', 'der Kompromiss', 'الحلّ الوسط', 'دَر كومپروميس', 'Wir haben einen Kompromiss gefunden.', 'وجدنا حلّاً وسطاً.'],
+    ['⚖️', 'einerseits … andererseits', 'من جهة… ومن جهة أخرى', 'آينَرزايتس … آندَرَرزايتس', 'Einerseits ist es teuer, andererseits ist es praktisch.', 'من جهة هو غالٍ، ومن جهة أخرى عملي.'],
+    ['💬', 'meiner Meinung nach', 'في رأيي', 'ماينَر ماينونگ ناخ', 'Meiner Meinung nach ist das falsch.', 'في رأيي هذا خطأ.'],
+    ['🔄', 'obwohl', 'رغم أنّ', 'أوبڤول', 'Obwohl es regnet, gehen wir spazieren.', 'رغم أنّها تمطر نذهب للتنزّه.'],
+    ['💪', 'trotzdem', 'مع ذلك', 'تروتسديم', 'Es regnet, trotzdem gehen wir spazieren.', 'إنّها تمطر، ومع ذلك نذهب للتنزّه.'],
+    ['📌', 'außerdem', 'بالإضافة إلى ذلك', 'آوسَرديم', 'Die Wohnung ist groß, außerdem ist sie billig.', 'الشقّة كبيرة، وبالإضافة إلى ذلك رخيصة.'],
+    ['✋', 'kritisieren', 'ينتقد', 'كريتيزيرِن', 'Viele Leute kritisieren die hohen Mieten.', 'كثير من الناس ينتقدون الإيجارات المرتفعة.'],
+    ['💡', 'die Lösung', 'الحلّ', 'دي لُوزونگ', 'Wir brauchen eine schnelle Lösung.', 'نحتاج إلى حلّ سريع.']],
+  sent: [['Obwohl ich müde bin, gehe ich zum Kurs.', 'رغم أنّني متعب أذهب إلى الدرس.'], ['Ich bin müde, trotzdem gehe ich zum Kurs.', 'أنا متعب، ومع ذلك أذهب إلى الدرس.'], ['Meiner Meinung nach sollte der Nahverkehr kostenlos sein.', 'في رأيي ينبغي أن يكون النقل المحلّي مجانياً.'],
+    ['Einerseits verdient man gut, andererseits hat man wenig Freizeit.', 'من جهة يكسب المرء جيداً، ومن جهة أخرى وقت فراغه قليل.'], ['Da stimme ich dir völlig zu.', 'أوافقك تماماً على ذلك.'], ['Das sehe ich anders.', 'أرى ذلك بشكل مختلف.']],
+  dlg: [
+    ['Was denken Sie über das Homeoffice?', 'ما رأيك في العمل من البيت؟', 'Einerseits spart man Zeit, andererseits fehlen die Kollegen.', 'من جهة يوفّر المرء الوقت، ومن جهة أخرى يفتقد الزملاء.', ['Einerseits man spart Zeit, andererseits die Kollegen fehlen.', 'Einerseits spart Zeit, andererseits fehlen.']],
+    ['Ich finde, Handys sollten in der Schule verboten sein.', 'أرى أنّ الهواتف يجب أن تُمنع في المدرسة.', 'Das sehe ich anders. Man kann damit auch lernen.', 'أرى ذلك بشكل مختلف. يمكن التعلّم بها أيضاً.', ['Das sehe ich anders. Man damit kann lernen.', 'Ich sehe das anders, weil man kann damit lernen.']],
+    ['Gehst du heute zum Training?', 'هل تذهب إلى التدريب اليوم؟', 'Ja, obwohl ich ziemlich müde bin.', 'نعم، رغم أنّني متعب إلى حدّ ما.', ['Ja, obwohl ich bin ziemlich müde.', 'Ja, trotzdem ich bin müde.']],
+    ['Haben Sie noch ein Argument?', 'هل لديك حجّة أخرى؟', 'Ja, außerdem ist das Fahrrad gut für die Gesundheit.', 'نعم، بالإضافة إلى ذلك الدرّاجة مفيدة للصحّة.', ['Ja, außerdem das Fahrrad ist gut für die Gesundheit.', 'Ja, außerdem ist gut das Fahrrad.']]],
+  gr: { t: 'أدوات الربط: obwohl · trotzdem · deshalb · außerdem', p: [
+    '[[obwohl]] (رغم أنّ) تبدأ جملة فرعية — الفعل في <b>الآخر</b>: [[Ich gehe spazieren, obwohl es <b>regnet</b>.]]',
+    '[[trotzdem]] (مع ذلك) و [[deshalb]] (لذلك) و [[außerdem]] (بالإضافة إلى ذلك) ظروف: بعدها <b>الفعل مباشرة</b>: [[Es regnet, trotzdem <b>gehe</b> ich spazieren.]]',
+    '[[aber, denn, und, oder, sondern]] لا تغيّر الترتيب: [[Ich bleibe zu Hause, denn ich <b>bin</b> krank.]]',
+    'لعرض الرأي: [[Meiner Meinung nach …]] (الفعل بعدها مباشرة) · [[Ich finde, dass …]] · [[Ich bin der Meinung, dass …]]',
+    'للموافقة: [[Da stimme ich zu. · Das finde ich auch.]] · وللمعارضة: [[Das sehe ich anders. · Da bin ich anderer Meinung.]]'],
+    tab: [['النوع', 'الأدوات', 'مثال'], ['جملة فرعية — الفعل في الآخر', 'obwohl, weil, dass, wenn', '…, obwohl es regnet.'], ['ظرف — الفعل بعده مباشرة', 'trotzdem, deshalb, außerdem', 'Trotzdem gehe ich.'], ['ربط — لا يتغيّر الترتيب', 'aber, denn, und, oder', '…, denn ich bin krank.']],
+    ex: [['Obwohl er krank war, hat er gearbeitet.', 'رغم أنّه كان مريضاً عمل.'], ['Er war krank, trotzdem hat er gearbeitet.', 'كان مريضاً، ومع ذلك عمل.'], ['Die Wohnung ist zentral, außerdem ist sie günstig.', 'الشقّة في المركز، وبالإضافة إلى ذلك رخيصة.'], ['Meiner Meinung nach ist das eine gute Lösung.', 'في رأيي هذا حلّ جيّد.']] },
+  gq: [
+    ['___ es regnet, gehen wir spazieren.', 'Obwohl', ['Trotzdem', 'Deshalb'], 'رغم أنّ + جملة فرعية (الفعل [[regnet]] في الآخر) ← [[Obwohl]].', 'رغم أنّها تمطر نذهب للتنزّه.'],
+    ['Es regnet, ___ gehen wir spazieren.', 'trotzdem', ['obwohl', 'weil'], 'بعدها الفعل مباشرة ([[gehen]]) ← الظرف [[trotzdem]].', 'إنّها تمطر، ومع ذلك نذهب للتنزّه.'],
+    ['Ich gehe zur Arbeit, obwohl ich krank ___.', 'bin', ['bin ich', 'sein'], 'بعد [[obwohl]] الفعل في الآخر: [[obwohl ich krank bin]].', 'أذهب إلى العمل رغم أنّني مريض.'],
+    ['Er war müde, trotzdem ___ er weitergearbeitet.', 'hat', ['er hat', 'habe'], 'بعد [[trotzdem]] الفعل المصرَّف مباشرة: [[trotzdem hat er]].', 'كان متعباً، ومع ذلك واصل العمل.'],
+    ['Meiner Meinung nach ___ das eine gute Idee.', 'ist', ['das ist', 'sein'], 'بعد [[Meiner Meinung nach]] الفعل مباشرة: [[ist das]].', 'في رأيي هذه فكرة جيّدة.'],
+    ['Die Wohnung ist groß, ___ ist sie billig.', 'außerdem', ['obwohl', 'trotzdem'], 'إضافة ميزة ← [[außerdem]] والفعل بعدها مباشرة.', 'الشقّة كبيرة، وبالإضافة إلى ذلك رخيصة.'],
+    ['Ich bleibe zu Hause, denn ich ___ krank.', 'bin', ['bin ich', 'sein'], '[[denn]] لا تغيّر الترتيب: [[denn ich bin krank]].', 'أبقى في البيت لأنّي مريض.'],
+    ['___ verdient man gut, andererseits hat man wenig Zeit.', 'Einerseits', ['Obwohl', 'Außerdem'], 'زوج: [[einerseits … andererseits]].', 'من جهة يكسب المرء جيداً، ومن جهة أخرى وقته قليل.'],
+    ['Da stimme ich dir ___.', 'zu', ['an', 'bei'], '[[zustimmen]] فعل منفصل: [[Ich stimme dir zu.]]', 'أوافقك على ذلك.'],
+    ['Er hat die Prüfung bestanden, ___ er wenig gelernt hat.', 'obwohl', ['trotzdem', 'deshalb'], 'الفعل في الآخر ([[gelernt hat]]) ← جملة فرعية مع [[obwohl]].', 'نجح في الامتحان رغم أنّه درس قليلاً.']] });
+
+// B1 lessons 7–9
+MORE.b1.push({ id: 'mieten', no: 7, de: 'Wohnen und Mietvertrag', ar: 'السكن وعقد الإيجار', icon: '🔑',
+  tip: 'الملكيّة والسبب بالـ Genitiv: [[die Wohnung des Vermieters]] · [[wegen des Lärms]] · [[trotz der Miete]]. المذكّر والمحايد: [[des … ‑(e)s]] · المؤنّث والجمع: [[der]].',
+  w: [
+    ['📄', 'der Mietvertrag', 'عقد الإيجار', 'دَر ميتفِرتراك', 'Lesen Sie den Mietvertrag genau!', 'اقرأ عقد الإيجار بدقّة!'],
+    ['💰', 'die Kaution', 'التأمين (الضمان)', 'دي كاوتسيون', 'Die Kaution beträgt drei Monatsmieten.', 'التأمين يساوي إيجار ثلاثة أشهر.'],
+    ['🧾', 'die Nebenkosten (Pl.)', 'التكاليف الإضافية', 'دي نيبِنكوستِن', 'Die Nebenkosten sind im Winter höher.', 'التكاليف الإضافية أعلى في الشتاء.'],
+    ['❄️', 'die Kaltmiete', 'الإيجار الصافي', 'دي كالتميتِه', 'Die Kaltmiete beträgt 600 Euro.', 'الإيجار الصافي 600 يورو.'],
+    ['🔥', 'die Warmmiete', 'الإيجار الشامل', 'دي ڤارمميتِه', 'Die Warmmiete ist 780 Euro.', 'الإيجار الشامل 780 يورو.'],
+    ['👨‍💼', 'der Vermieter', 'المؤجّر', 'دَر فِرميتَر', 'Der Vermieter wohnt im Erdgeschoss.', 'المؤجّر يسكن في الطابق الأرضي.'],
+    ['🧑', 'der Mieter', 'المستأجر', 'دَر ميتَر', 'Die Mieter haben sich beschwert.', 'اشتكى المستأجرون.'],
+    ['📋', 'die Hausordnung', 'نظام العمارة', 'دي هاوسأوردنونگ', 'Laut Hausordnung ist ab 22 Uhr Ruhe.', 'حسب نظام العمارة يجب الهدوء بعد الساعة 22.'],
+    ['📆', 'die Kündigungsfrist', 'مهلة فسخ العقد', 'دي كُونديگونگسفريست', 'Die Kündigungsfrist beträgt drei Monate.', 'مهلة فسخ العقد ثلاثة أشهر.'],
+    ['🖌️', 'renovieren', 'يجدّد / يرمّم', 'رينوفيرِن', 'Beim Auszug müssen wir renovieren.', 'عند الخروج يجب أن نجدّد الشقّة.'],
+    ['🧰', 'der Hausmeister', 'المسؤول الفنّي للعمارة', 'دَر هاوسمايستَر', 'Der Hausmeister repariert die Heizung.', 'المسؤول الفنّي يصلّح التدفئة.'],
+    ['👀', 'die Besichtigung', 'معاينة الشقّة', 'دي بِزيشتيگونگ', 'Die Besichtigung ist am Samstag.', 'المعاينة يوم السبت.'],
+    ['💧', 'der Schaden', 'الضرر', 'دَر شادِن', 'Der Schaden wird von der Versicherung bezahlt.', 'التأمين يدفع الضرر.'],
+    ['⚠️', 'wegen', 'بسبب', 'ڤيگِن', 'Wegen des Lärms kann ich nicht schlafen.', 'بسبب الضجيج لا أستطيع النوم.'],
+    ['💪', 'trotz', 'رغم', 'تروتس', 'Trotz der hohen Miete ist die Wohnung beliebt.', 'رغم الإيجار المرتفع الشقّة مرغوبة.']],
+  sent: [['Die Wohnung meines Bruders ist sehr groß.', 'شقّة أخي كبيرة جداً.'], ['Wegen der Bauarbeiten ist die Straße gesperrt.', 'بسبب أعمال البناء الشارع مغلق.'], ['Trotz des schlechten Wetters sind wir umgezogen.', 'رغم الطقس السيّئ انتقلنا.'],
+    ['Innerhalb einer Woche muss die Kaution bezahlt werden.', 'يجب دفع التأمين خلال أسبوع.'], ['Die Nebenkosten sind in der Warmmiete enthalten.', 'التكاليف الإضافية مشمولة في الإيجار الشامل.'], ['Der Hausmeister kümmert sich um die Reparaturen.', 'المسؤول الفنّي يهتمّ بالإصلاحات.']],
+  dlg: [
+    ['Wie hoch ist die Kaution?', 'كم التأمين؟', 'Die Kaution beträgt zwei Kaltmieten.', 'التأمين يساوي إيجارين صافيين.', ['Die Kaution beträgt zwei Kaltmiete.', 'Die Kaution ist hoch zwei.']],
+    ['Warum möchten Sie umziehen?', 'لماذا تريد الانتقال؟', 'Wegen des Lärms an der Hauptstraße.', 'بسبب الضجيج في الشارع الرئيسي.', ['Wegen der Lärm an der Hauptstraße.', 'Wegen den Lärmen an der Hauptstraße.']],
+    ['Wann ist die Besichtigung?', 'متى المعاينة؟', 'Am Samstag um elf Uhr.', 'يوم السبت في الساعة الحادية عشرة.', ['Am Samstag um elf Uhr ist es gewesen.', 'Die Besichtigung ist Samstag am elf.']],
+    ['Sind die Nebenkosten inklusive?', 'هل التكاليف الإضافية مشمولة؟', 'Nein, die Kaltmiete ist ohne Nebenkosten.', 'لا، الإيجار الصافي بدون التكاليف الإضافية.', ['Nein, die Kaltmiete ist ohne den Nebenkosten.', 'Nein, die Nebenkosten ist inklusive nicht.']]],
+  gr: { t: 'الإضافة (Genitiv) وحروف الجرّ معها', p: [
+    'Genitiv يعبّر عن الملكيّة أو العلاقة (مثل الإضافة في العربية): [[das Auto <b>des Vaters</b>]] = سيارة الأب.',
+    'المذكّر والمحايد: [[des]] + الاسم مع [[‑s]] أو [[‑es]]: [[des Vaters · des Kindes · des Hauses]]. المؤنّث والجمع: [[der]]: [[der Mutter · der Kinder]].',
+    'مع [[ein]] والملكيّة: [[eines Freundes · einer Freundin · meines Bruders · meiner Schwester]].',
+    'حروف جرّ مع Genitiv: [[wegen]] (بسبب) · [[trotz]] (رغم) · [[während]] (أثناء) · [[innerhalb]] (خلال) · [[außerhalb]] (خارج).',
+    'في الكلام اليومي نسمع أحياناً [[von + Dativ]]: [[das Auto von meinem Vater]] — لكن في الكتابة والامتحان استعمل Genitiv.'],
+    tab: [['', 'der', 'die', 'das', 'Plural'], ['Genitiv', 'des Vermieters', 'der Wohnung', 'des Hauses', 'der Mieter'], ['ein / mein', 'eines / meines Freundes', 'einer / meiner Freundin', 'eines / meines Kindes', 'meiner Kinder']],
+    ex: [['Das ist das Zimmer meiner Tochter.', 'هذه غرفة ابنتي.'], ['Wegen des Regens bleiben wir zu Hause.', 'بسبب المطر نبقى في البيت.'], ['Trotz der Kälte gehen wir spazieren.', 'رغم البرد نذهب للتنزّه.'], ['Innerhalb eines Monats müssen Sie kündigen.', 'يجب أن تفسخ العقد خلال شهر.']] },
+  gq: [
+    ['Das ist das Auto ___ Vermieters.', 'des', ['der', 'dem'], 'مذكّر في Genitiv: [[des Vermieters]] (‑s).', 'هذه سيارة المؤجّر.'],
+    ['Das ist das Zimmer ___ Tochter.', 'meiner', ['meines', 'meine'], 'مؤنّث في Genitiv: [[meiner Tochter]].', 'هذه غرفة ابنتي.'],
+    ['Wegen ___ Lärms kann ich nicht schlafen.', 'des', ['dem', 'der'], '[[wegen]] + Genitiv: [[der Lärm → des Lärms]].', 'بسبب الضجيج لا أستطيع النوم.'],
+    ['Trotz ___ Kälte gehen wir spazieren.', 'der', ['die', 'den'], '[[trotz]] + Genitiv، والاسم مؤنّث ← [[der Kälte]].', 'رغم البرد نذهب للتنزّه.'],
+    ['Die Wohnung meines ___ ist groß.', 'Bruders', ['Bruder', 'Brudern'], 'المذكّر في Genitiv يأخذ ‑s: [[meines Bruders]].', 'شقّة أخي كبيرة.'],
+    ['Innerhalb ___ Woche muss die Kaution bezahlt werden.', 'einer', ['eine', 'einem'], '[[innerhalb]] + Genitiv، مؤنّث ← [[einer Woche]].', 'يجب دفع التأمين خلال أسبوع.'],
+    ['Während ___ Besichtigung hat er viele Fragen gestellt.', 'der', ['die', 'dem'], '[[während]] + Genitiv، مؤنّث ← [[der Besichtigung]].', 'أثناء المعاينة طرح أسئلة كثيرة.'],
+    ['Das ist das Haus ___ Eltern.', 'meiner', ['meinen', 'meines'], 'الجمع في Genitiv: [[meiner Eltern]].', 'هذا بيت والديّ.'],
+    ['Wegen ___ Bauarbeiten ist die Straße gesperrt.', 'der', ['den', 'die'], 'جمع في Genitiv: [[der Bauarbeiten]].', 'بسبب أعمال البناء الشارع مغلق.'],
+    ['Die Fenster ___ Hauses sind neu.', 'des', ['dem', 'das'], 'محايد في Genitiv: [[des Hauses]] (‑es).', 'نوافذ البيت جديدة.']] });
+
+MORE.b1.push({ id: 'bildung', no: 8, de: 'Schule und Bildung', ar: 'المدرسة والتعليم', icon: '🎓',
+  tip: 'أدوات من جزأين: [[sowohl … als auch]] (كلاهما) · [[weder … noch]] (لا… ولا) · [[entweder … oder]] (إمّا… أو) · [[nicht nur … sondern auch]] · [[je … desto]] (كلّما… كلّما).',
+  w: [
+    ['🏛️', 'das Gymnasium', 'المدرسة الثانوية (الأكاديمية)', 'داس گُومنازيوم', 'Meine Tochter geht aufs Gymnasium.', 'ابنتي تذهب إلى الثانوية.'],
+    ['🏫', 'die Realschule', 'المدرسة الإعدادية العملية', 'دي رِئالشوله', 'Nach der Realschule hat er eine Ausbildung gemacht.', 'بعد المدرسة الإعدادية قام بتكوين مهني.'],
+    ['🔧', 'die Berufsschule', 'المدرسة المهنية', 'دي بِروفسشوله', 'Zweimal pro Woche gehe ich in die Berufsschule.', 'مرّتين في الأسبوع أذهب إلى المدرسة المهنية.'],
+    ['🎓', 'das Abitur', 'البكالوريا', 'داس آبيتور', 'Mit dem Abitur kann man studieren.', 'بالبكالوريا يمكن الدراسة في الجامعة.'],
+    ['🏢', 'die Universität', 'الجامعة', 'دي أونيفِرزيتيت', 'Sie studiert an der Universität Köln.', 'تدرس في جامعة كولونيا.'],
+    ['📆', 'das Semester', 'الفصل الدراسي', 'داس زيمِستَر', 'Das Semester beginnt im Oktober.', 'يبدأ الفصل الدراسي في أكتوبر.'],
+    ['✅', 'bestehen', 'ينجح (في امتحان)', 'بِشتيئِن', 'Ich habe die Prüfung bestanden!', 'نجحتُ في الامتحان!'],
+    ['❌', 'durchfallen', 'يرسب', 'دورشفالِّن', 'Er ist leider durchgefallen.', 'للأسف رسب.'],
+    ['🔢', 'die Note', 'العلامة', 'دي نوتِه', 'In Deutschland ist die Eins die beste Note.', 'في ألمانيا العلامة 1 هي الأفضل.'],
+    ['📚', 'das Fach', 'المادّة الدراسية', 'داس فاخ', 'Mein Lieblingsfach ist Mathe.', 'مادّتي المفضّلة الرياضيات.'],
+    ['📃', 'die Anerkennung', 'الاعتراف (بالشهادة)', 'دي آنإركِنّونگ', 'Die Anerkennung meines Diploms hat lange gedauert.', 'الاعتراف بشهادتي استغرق وقتاً طويلاً.'],
+    ['🎖️', 'das Stipendium', 'المنحة الدراسية', 'داس شتيپِنديوم', 'Sie hat ein Stipendium bekommen.', 'حصلت على منحة دراسية.'],
+    ['➕', 'sowohl … als auch', 'كلٌّ من… و…', 'زوڤول … آلس آوخ', 'Ich spreche sowohl Arabisch als auch Französisch.', 'أتكلّم العربية والفرنسية كلتيهما.'],
+    ['🚫', 'weder … noch', 'لا… ولا…', 'ڤيدَر … نوخ', 'Er hat weder Zeit noch Geld.', 'ليس عنده وقت ولا مال.'],
+    ['📈', 'je … desto', 'كلّما… كلّما', 'يي … دِستو', 'Je mehr du übst, desto besser sprichst du.', 'كلّما تمرّنتَ أكثر تكلّمتَ أفضل.']],
+  sent: [['Ich lerne sowohl Deutsch als auch Englisch.', 'أتعلّم الألمانية والإنجليزية معاً.'], ['Er hat weder Abitur noch eine Ausbildung.', 'ليس عنده بكالوريا ولا تكوين مهني.'], ['Entweder studiere ich, oder ich mache eine Ausbildung.', 'إمّا أن أدرس أو أقوم بتكوين مهني.'],
+    ['Sie spricht nicht nur Deutsch, sondern auch Spanisch.', 'لا تتكلّم الألمانية فقط بل الإسبانية أيضاً.'], ['Je mehr du übst, desto besser sprichst du.', 'كلّما تمرّنتَ أكثر تكلّمتَ أفضل.'], ['Ich habe die B1-Prüfung mit der Note gut bestanden.', 'نجحتُ في امتحان B1 بدرجة جيّد.']],
+  dlg: [
+    ['Welche Sprachen sprichst du?', 'ما اللغات التي تتكلّمها؟', 'Ich spreche sowohl Arabisch als auch Deutsch.', 'أتكلّم العربية والألمانية كلتيهما.', ['Ich spreche sowohl Arabisch oder Deutsch.', 'Ich spreche weder Arabisch als auch Deutsch.']],
+    ['Was möchtest du nach der Schule machen?', 'ماذا تريد أن تفعل بعد المدرسة؟', 'Entweder studiere ich Medizin, oder ich mache eine Ausbildung.', 'إمّا أن أدرس الطبّ أو أقوم بتكوين مهني.', ['Entweder ich studiere Medizin, noch mache ich eine Ausbildung.', 'Entweder studiere ich Medizin, sondern auch eine Ausbildung.']],
+    ['Hast du die Prüfung bestanden?', 'هل نجحتَ في الامتحان؟', 'Ja, und zwar mit einer Eins!', 'نعم، وبالعلامة 1!', ['Ja, ich habe die Prüfung durchgefallen.', 'Ja, ich bin die Prüfung bestanden.']],
+    ['Wie kann ich schneller Deutsch lernen?', 'كيف أتعلّم الألمانية أسرع؟', 'Je mehr du sprichst, desto schneller lernst du.', 'كلّما تكلّمتَ أكثر تعلّمتَ أسرع.', ['Je mehr du sprichst, desto du lernst schneller.', 'Je mehr sprichst du, desto schneller du lernst.']]],
+  gr: { t: 'أدوات الربط ذات الجزأين و je … desto', p: [
+    '[[sowohl … als auch]] = كلٌّ من… و… (الاثنان): [[Ich trinke sowohl Kaffee als auch Tee.]]',
+    '[[weder … noch]] = لا… ولا… (نفي الاثنين، بدون nicht): [[Ich habe weder Zeit noch Lust.]]',
+    '[[entweder … oder]] = إمّا… أو: [[Entweder komme ich heute, oder ich komme morgen.]]',
+    '[[nicht nur … sondern auch]] = ليس فقط… بل أيضاً: [[Er ist nicht nur nett, sondern auch klug.]]',
+    '[[je + مقارنة …, desto + مقارنة …]] = كلّما… كلّما: بعد [[je]] الفعل في الآخر، وبعد [[desto]] + الصفة يأتي الفعل: [[Je länger ich hier <b>wohne</b>, desto besser <b>gefällt</b> es mir.]]'],
+    tab: [['الأداة', 'المعنى', 'مثال'], ['sowohl … als auch', 'كلاهما', 'sowohl Arabisch als auch Deutsch'], ['weder … noch', 'لا… ولا…', 'weder Zeit noch Geld'], ['entweder … oder', 'إمّا… أو', 'entweder heute oder morgen'], ['nicht nur … sondern auch', 'ليس فقط… بل أيضاً', 'nicht nur schön, sondern auch billig'], ['je … desto', 'كلّما… كلّما', 'je mehr, desto besser']],
+    ex: [['Die Schule bietet sowohl Sport als auch Musik an.', 'تقدّم المدرسة الرياضة والموسيقى معاً.'], ['Ich kann weder schwimmen noch Rad fahren.', 'لا أستطيع السباحة ولا ركوب الدرّاجة.'], ['Je früher du anfängst, desto besser ist es.', 'كلّما بدأتَ أبكر كان أفضل.'], ['Er lernt nicht nur Deutsch, sondern arbeitet auch.', 'لا يتعلّم الألمانية فقط بل يعمل أيضاً.']] },
+  gq: [
+    ['Ich spreche sowohl Arabisch ___ Deutsch.', 'als auch', ['oder', 'noch'], 'الزوج: [[sowohl … als auch]].', 'أتكلّم العربية والألمانية كلتيهما.'],
+    ['Er hat weder Zeit ___ Geld.', 'noch', ['oder', 'als auch'], 'الزوج: [[weder … noch]].', 'ليس عنده وقت ولا مال.'],
+    ['___ komme ich heute, oder ich komme morgen.', 'Entweder', ['Weder', 'Sowohl'], 'إمّا… أو ← [[entweder … oder]].', 'إمّا أن آتي اليوم أو غداً.'],
+    ['Sie ist nicht nur klug, ___ auch fleißig.', 'sondern', ['aber', 'oder'], 'الزوج: [[nicht nur … sondern auch]].', 'هي ليست ذكية فقط بل مجتهدة أيضاً.'],
+    ['Je mehr du übst, ___ besser wirst du.', 'desto', ['je', 'als'], 'الزوج: [[je … desto]].', 'كلّما تمرّنتَ أكثر صرتَ أفضل.'],
+    ['Je länger ich in Berlin ___, desto besser gefällt es mir.', 'wohne', ['wohne ich', 'wohnen'], 'بعد [[je]] الفعل في الآخر: [[je länger ich … wohne]].', 'كلّما طال سكني في برلين أعجبتني أكثر.'],
+    ['Je früher du kommst, desto mehr Zeit ___ wir.', 'haben', ['wir haben', 'hat'], 'بعد [[desto]] + الصفة يأتي الفعل مباشرة: [[desto mehr Zeit haben wir]].', 'كلّما جئتَ أبكر كان عندنا وقت أكثر.'],
+    ['Ich habe die Prüfung ___!', 'bestanden', ['bestehen', 'gebestanden'], 'اسم مفعول [[bestehen]]: [[bestanden]] (بدون ge‑).', 'نجحتُ في الامتحان!'],
+    ['Leider ist er in der Prüfung ___.', 'durchgefallen', ['durchfallen', 'gedurchfallen'], 'اسم مفعول فعل منفصل: [[durch‑ge‑fallen]] مع sein.', 'للأسف رسب في الامتحان.'],
+    ['In Deutschland ist die Eins die beste ___.', 'Note', ['Fach', 'Semester'], '[[die Note]] = العلامة. في ألمانيا: 1 ممتاز و6 ضعيف جداً.', 'في ألمانيا العلامة 1 هي الأفضل.']] });
+
+MORE.b1.push({ id: 'zukunft', no: 9, de: 'Zukunft und Technik', ar: 'المستقبل والتكنولوجيا', icon: '🤖',
+  tip: 'المستقبل (Futur I): [[werden]] + المصدر في الآخر: [[Ich werde nächstes Jahr studieren.]] ويُستعمل أيضاً للتوقّع: [[Er wird wohl krank sein.]] (لعلّه مريض)',
+  w: [
+    ['🔮', 'die Zukunft', 'المستقبل', 'دي تسوكونفت', 'In Zukunft werden wir weniger arbeiten.', 'في المستقبل سنعمل أقلّ.'],
+    ['⚙️', 'die Technik', 'التقنية', 'دي تِشنيك', 'Die Technik entwickelt sich schnell.', 'التقنية تتطوّر بسرعة.'],
+    ['💡', 'die Erfindung', 'الاختراع', 'دي إرفيندونگ', 'Das Smartphone ist eine wichtige Erfindung.', 'الهاتف الذكي اختراع مهمّ.'],
+    ['🛠️', 'erfinden', 'يخترع', 'إرفيندِن', 'Wer hat das Auto erfunden?', 'من اخترع السيارة؟'],
+    ['🤖', 'der Roboter', 'الروبوت', 'دَر روبوتَر', 'Roboter werden viele Arbeiten übernehmen.', 'الروبوتات ستتولّى أعمالاً كثيرة.'],
+    ['🧠', 'die künstliche Intelligenz', 'الذكاء الاصطناعي', 'دي كُونستليشِه إينتِليگِنتس', 'Die künstliche Intelligenz verändert die Arbeitswelt.', 'الذكاء الاصطناعي يغيّر عالم العمل.'],
+    ['💻', 'digital', 'رقمي', 'ديگيتال', 'Viele Formulare gibt es jetzt digital.', 'كثير من الاستمارات متوفّرة الآن رقمياً.'],
+    ['🔋', 'das Elektroauto', 'السيارة الكهربائية', 'داس إيلِكتروآوتو', 'Ich werde mir ein Elektroauto kaufen.', 'سأشتري سيارة كهربائية.'],
+    ['📈', 'entwickeln', 'يطوّر', 'إنتڤيكِّلن', 'Die Firma entwickelt eine neue App.', 'الشركة تطوّر تطبيقاً جديداً.'],
+    ['🚀', 'die Entwicklung', 'التطوّر', 'دي إنتڤيكلونگ', 'Die Entwicklung geht sehr schnell.', 'التطوّر سريع جداً.'],
+    ['🎲', 'wahrscheinlich', 'على الأرجح', 'ڤارشاينليش', 'Morgen wird es wahrscheinlich regnen.', 'غداً ستمطر على الأرجح.'],
+    ['🤔', 'vermutlich', 'على ما يبدو', 'فِرموتليش', 'Er wird vermutlich zu spät kommen.', 'على ما يبدو سيتأخّر.'],
+    ['🧭', 'werden', 'سـ… (للمستقبل) / يصبح', 'ڤيردِن', 'Ich werde nächstes Jahr heiraten.', 'سأتزوّج في السنة القادمة.'],
+    ['🌐', 'vernetzt', 'متّصل بالشبكة', 'فِرنِتست', 'Unser Haus ist komplett vernetzt.', 'بيتنا متّصل بالشبكة كاملاً.'],
+    ['🏭', 'die Arbeitswelt', 'عالم العمل', 'دي آربايتسڤِلت', 'Die Arbeitswelt wird sich stark verändern.', 'سيتغيّر عالم العمل كثيراً.']],
+  sent: [['In zwanzig Jahren werden Autos selbst fahren.', 'بعد عشرين سنة ستقود السيارات نفسها.'], ['Ich werde nächstes Jahr die B1-Prüfung machen.', 'سأقدّم امتحان B1 في السنة القادمة.'], ['Er ist nicht da. Er wird wohl krank sein.', 'إنّه ليس هنا. لعلّه مريض.'],
+    ['Roboter werden viele Arbeiten übernehmen.', 'الروبوتات ستتولّى أعمالاً كثيرة.'], ['Die künstliche Intelligenz wird unser Leben verändern.', 'سيغيّر الذكاء الاصطناعي حياتنا.'], ['Wahrscheinlich werden wir im Sommer umziehen.', 'على الأرجح سننتقل في الصيف.']],
+  dlg: [
+    ['Was wirst du nach dem Kurs machen?', 'ماذا ستفعل بعد الدورة؟', 'Ich werde mir eine Arbeit suchen.', 'سأبحث عن عمل.', ['Ich werde mir eine Arbeit suche.', 'Ich wurde mir eine Arbeit suchen.']],
+    ['Wie wird die Arbeitswelt in Zukunft aussehen?', 'كيف سيبدو عالم العمل في المستقبل؟', 'Ich glaube, dass vieles digital sein wird.', 'أظنّ أنّ أشياء كثيرة ستكون رقمية.', ['Ich glaube, dass vieles wird digital sein.', 'Ich glaube, vieles digital sein wird.']],
+    ['Wo ist Karim? Er ist noch nicht da.', 'أين كريم؟ لم يصل بعد.', 'Er wird wohl im Stau stehen.', 'لعلّه عالق في الازدحام.', ['Er wird wohl im Stau gestanden.', 'Er wird im Stau stehen wohl werden.']],
+    ['Glaubst du, dass Roboter uns ersetzen werden?', 'هل تظنّ أنّ الروبوتات ستحلّ محلّنا؟', 'Nein, aber sie werden uns bei vielen Aufgaben helfen.', 'لا، لكنّها ستساعدنا في مهامّ كثيرة.', ['Nein, aber sie werden uns bei vielen Aufgaben helfen werden.', 'Nein, aber sie helfen werden uns.']]],
+  gr: { t: 'المستقبل (Futur I) والتوقّع', p: [
+    'Futur I: [[werden]] (مصرَّف) + <b>المصدر</b> في آخر الجملة: [[Ich <b>werde</b> morgen <b>anrufen</b>.]]',
+    'في الكلام اليومي نستعمل غالباً المضارع مع كلمة زمن: [[Morgen rufe ich an.]] — و Futur I للخطط المهمّة والوعود والتوقّعات.',
+    'للتوقّع في الحاضر: [[werden + wohl / wahrscheinlich]]: [[Er <b>wird</b> wohl krank <b>sein</b>.]] = لعلّه مريض.',
+    'في الجملة الفرعية يأتي [[werden]] في الآخر تماماً: [[Ich glaube, dass es morgen regnen <b>wird</b>.]]',
+    '⚠️ لا تخلط: [[werden + المصدر]] = مستقبل · [[werden + اسم المفعول]] = Passiv · [[würde]] = Konjunktiv II.'],
+    tab: [['', 'werden', 'مثال'], ['ich', 'werde', 'Ich werde lernen.'], ['du', 'wirst', 'Du wirst sehen.'], ['er / sie / es', 'wird', 'Es wird regnen.'], ['wir', 'werden', 'Wir werden umziehen.'], ['ihr', 'werdet', 'Ihr werdet staunen.'], ['sie / Sie', 'werden', 'Sie werden kommen.']],
+    ex: [['Nächstes Jahr werde ich studieren.', 'في السنة القادمة سأدرس.'], ['Das wird schon klappen!', 'سينجح الأمر بالتأكيد!'], ['Sie wird wohl schon schlafen.', 'لعلّها نائمة الآن.'], ['Ich hoffe, dass du bald gesund sein wirst.', 'آمل أن تتعافى قريباً.']] },
+  gq: [
+    ['Ich ___ nächstes Jahr studieren.', 'werde', ['wurde', 'würde'], 'المستقبل: [[werde]] + المصدر.', 'سأدرس في السنة القادمة.'],
+    ['Es wird morgen ___.', 'regnen', ['geregnet', 'regnet'], 'Futur I: [[wird]] + <b>المصدر</b> في الآخر.', 'ستمطر غداً.'],
+    ['Du ___ sehen, das klappt!', 'wirst', ['wird', 'werdest'], 'مع du: [[wirst]].', 'سترى، سينجح الأمر!'],
+    ['Er ist nicht da. Er wird wohl krank ___.', 'sein', ['ist', 'gewesen'], 'التوقّع: [[wird wohl … sein]].', 'إنّه ليس هنا. لعلّه مريض.'],
+    ['Ich glaube, dass es morgen regnen ___.', 'wird', ['werden', 'wird es'], 'في الجملة الفرعية [[wird]] في الآخر تماماً.', 'أظنّ أنّها ستمطر غداً.'],
+    ['Roboter ___ viele Arbeiten übernehmen.', 'werden', ['wird', 'werdet'], 'جمع ← [[werden]].', 'الروبوتات ستتولّى أعمالاً كثيرة.'],
+    ['Wer hat das Telefon ___?', 'erfunden', ['erfindet', 'geerfunden'], 'اسم مفعول [[erfinden]]: [[erfunden]] (بدون ge‑ لأنّه يبدأ بـ er‑).', 'من اخترع الهاتف؟'],
+    ['Das Haus ___ 2030 fertig sein.', 'wird', ['wurde', 'werden'], 'المستقبل مع المفرد: [[wird … sein]].', 'سيكون البيت جاهزاً في 2030.'],
+    ['Ihr ___ morgen die Ergebnisse bekommen.', 'werdet', ['werden', 'wird'], 'مع ihr: [[werdet]].', 'ستحصلون غداً على النتائج.'],
+    ['___ regnet es morgen. Nimm einen Schirm mit!', 'Wahrscheinlich', ['Wahrscheinlicher', 'Wahr'], '[[wahrscheinlich]] = على الأرجح، والفعل بعده مباشرة.', 'على الأرجح ستمطر غداً. خذ مظلّة!']] });
+
+// B1 lessons 10–12
+MORE.b1.push({ id: 'gesundheit', no: 10, de: 'Gesundheit und Krankenkasse', ar: 'الصحّة والتأمين الصحّي', icon: '🏥',
+  tip: 'السؤال عن شيء: [[wo(r) + حرف الجرّ]]: [[Woran hast du dich gewöhnt?]] · والإشارة: [[da(r) + حرف الجرّ]]: [[Daran habe ich mich gewöhnt.]] — ومع الأشخاص: [[an wen? · an ihn]].',
+  w: [
+    ['🏥', 'die Krankenkasse', 'صندوق التأمين الصحّي', 'دي كرانكِنكاسِّه', 'Die Krankenkasse bezahlt die Behandlung.', 'صندوق التأمين يدفع العلاج.'],
+    ['🩺', 'die Vorsorgeuntersuchung', 'الفحص الوقائي', 'دي فورزورگِه أونتَرزوخونگ', 'Die Vorsorgeuntersuchung ist kostenlos.', 'الفحص الوقائي مجاني.'],
+    ['📄', 'die Überweisung', 'التحويل (إلى طبيب مختصّ)', 'دي أوبَرڤايزونگ', 'Für den Facharzt brauchen Sie eine Überweisung.', 'للطبيب المختصّ تحتاج إلى تحويل.'],
+    ['👨‍⚕️', 'der Facharzt', 'الطبيب المختصّ', 'دَر فاخآرتست', 'Ich habe einen Termin beim Facharzt.', 'عندي موعد عند الطبيب المختصّ.'],
+    ['💊', 'die Behandlung', 'العلاج', 'دي بِهاندلونگ', 'Die Behandlung dauert drei Wochen.', 'يستمرّ العلاج ثلاثة أسابيع.'],
+    ['🥗', 'die Ernährung', 'التغذية', 'دي إرنيرونگ', 'Eine gesunde Ernährung ist wichtig.', 'التغذية الصحّية مهمّة.'],
+    ['🍎', 'sich ernähren', 'يتغذّى', 'زيش إرنيرِن', 'Ich ernähre mich gesund.', 'أتغذّى بشكل صحّي.'],
+    ['🛌', 'sich erholen von', 'يتعافى من', 'زيش إرهولِن فون', 'Ich muss mich von der Grippe erholen.', 'يجب أن أتعافى من الإنفلونزا.'],
+    ['🔄', 'sich gewöhnen an', 'يتعوّد على', 'زيش گِڤُونِن آن', 'Ich habe mich an das Wetter gewöhnt.', 'تعوّدتُ على الطقس.'],
+    ['👀', 'achten auf', 'ينتبه إلى', 'آختِن آوف', 'Achten Sie auf Ihre Gesundheit!', 'اهتمّ بصحّتك!'],
+    ['🗣️', 'sich beschweren über', 'يشتكي من', 'زيش بِشڤيرِن أوبَر', 'Er beschwert sich über die lange Wartezeit.', 'يشتكي من وقت الانتظار الطويل.'],
+    ['⏳', 'die Wartezeit', 'وقت الانتظار', 'دي ڤارتِتسايت', 'Die Wartezeit beim Arzt war sehr lang.', 'كان وقت الانتظار عند الطبيب طويلاً جداً.'],
+    ['🚑', 'die Notaufnahme', 'قسم الطوارئ', 'دي نوتآوفنامِه', 'Nachts geht man in die Notaufnahme.', 'في الليل يذهب المرء إلى قسم الطوارئ.'],
+    ['🤒', 'die Krankmeldung', 'الشهادة المرضية', 'دي كرانكمِلدونگ', 'Ich schicke meinem Chef die Krankmeldung.', 'أرسل الشهادة المرضية إلى مديري.'],
+    ['😫', 'der Stress', 'الضغط (الإجهاد)', 'دَر شترِس', 'Zu viel Stress macht krank.', 'الضغط الكثير يُمرض.']],
+  sent: [['Ich habe mich schnell an das Leben in Deutschland gewöhnt.', 'تعوّدتُ بسرعة على الحياة في ألمانيا.'], ['Woran denkst du gerade? – An meine Prüfung.', 'بماذا تفكّر الآن؟ – في امتحاني.'], ['Achte bitte darauf, dass du genug trinkst!', 'انتبه من فضلك أن تشرب ما يكفي!'],
+    ['Für den Facharzt brauche ich eine Überweisung vom Hausarzt.', 'للطبيب المختصّ أحتاج إلى تحويل من طبيب العائلة.'], ['Viele Patienten beschweren sich über die Wartezeit.', 'كثير من المرضى يشتكون من وقت الانتظار.'], ['Nach der Operation muss er sich gut erholen.', 'بعد العملية يجب أن يرتاح جيداً.']],
+  dlg: [
+    ['Hast du dich an das Wetter gewöhnt?', 'هل تعوّدتَ على الطقس؟', 'Ja, langsam gewöhne ich mich daran.', 'نعم، شيئاً فشيئاً أتعوّد عليه.', ['Ja, langsam gewöhne ich mich darauf.', 'Ja, langsam gewöhne ich daran mich.']],
+    ['Worüber hat er sich beschwert?', 'على ماذا اشتكى؟', 'Über die lange Wartezeit in der Praxis.', 'من وقت الانتظار الطويل في العيادة.', ['Auf die lange Wartezeit in der Praxis.', 'Darüber die lange Wartezeit.']],
+    ['Brauche ich eine Überweisung?', 'هل أحتاج إلى تحويل؟', 'Ja, für den Facharzt brauchen Sie eine Überweisung.', 'نعم، للطبيب المختصّ تحتاج إلى تحويل.', ['Ja, für den Facharzt brauchen Sie einer Überweisung.', 'Ja, Sie brauchen für Facharzt Überweisung eine.']],
+    ['Wie geht es dir nach der Grippe?', 'كيف حالك بعد الإنفلونزا؟', 'Besser, aber ich muss mich noch erholen.', 'أفضل، لكن يجب أن أرتاح بعد.', ['Besser, aber ich muss noch erholen.', 'Besser, aber ich muss mich noch erholt.']]],
+  gr: { t: 'أفعال مع حروف جرّ · da(r)- و wo(r)-', p: [
+    'أفعال B1 مهمّة: [[sich gewöhnen an + Akk · achten auf + Akk · sich erholen von + Dat · sich beschweren über + Akk · sich verlassen auf + Akk · teilnehmen an + Dat]].',
+    'السؤال عن <b>شيء</b>: [[wo(r) + حرف الجرّ]]: [[Worauf achtest du?]] · [[Wovon musst du dich erholen?]]',
+    'السؤال عن <b>شخص</b>: حرف الجرّ + [[wen / wem]]: [[An wen denkst du?]] · [[Mit wem sprichst du?]]',
+    'الإشارة إلى شيء أو إلى جملة: [[da(r) + حرف الجرّ]]: [[Ich habe mich daran gewöhnt.]] · [[Achte darauf, dass …]]',
+    'نضيف [[r]] إذا بدأ حرف الجرّ بحرف علّة: [[an → daran / woran · auf → darauf / worauf · über → darüber / worüber]].'],
+    tab: [['حرف الجرّ', 'شيء (سؤال)', 'شيء (إشارة)', 'شخص'], ['an', 'woran?', 'daran', 'an wen?'], ['auf', 'worauf?', 'darauf', 'auf wen?'], ['über', 'worüber?', 'darüber', 'über wen?'], ['von', 'wovon?', 'davon', 'von wem?'], ['mit', 'womit?', 'damit', 'mit wem?']],
+    ex: [['Ich kann mich auf meine Familie verlassen.', 'يمكنني الاعتماد على عائلتي.'], ['Worauf freust du dich am meisten?', 'إلى ماذا تتشوّق أكثر شيء؟'], ['Er hat sich daran gewöhnt, früh aufzustehen.', 'تعوّد على الاستيقاظ مبكّراً.'], ['Mit wem hast du gesprochen?', 'مع من تحدّثت؟']] },
+  gq: [
+    ['Ich habe mich ___ das Wetter gewöhnt.', 'an', ['auf', 'für'], '[[sich gewöhnen an]] + Akkusativ.', 'تعوّدتُ على الطقس.'],
+    ['Achten Sie bitte ___ Ihre Gesundheit!', 'auf', ['an', 'für'], '[[achten auf]] + Akkusativ.', 'اهتمّ بصحّتك من فضلك!'],
+    ['Er muss sich ___ der Operation erholen.', 'von', ['vor', 'aus'], '[[sich erholen von]] + Dativ.', 'يجب أن يتعافى من العملية.'],
+    ['Sie beschwert sich ___ die Wartezeit.', 'über', ['auf', 'von'], '[[sich beschweren über]] + Akkusativ.', 'تشتكي من وقت الانتظار.'],
+    ['___ hast du dich beschwert? – Über den Lärm.', 'Worüber', ['Darüber', 'Über was'], 'السؤال عن شيء: [[wo + r + über = worüber]].', 'على ماذا اشتكيت؟ – على الضجيج.'],
+    ['Hast du dich an das Essen gewöhnt? – Ja, ich habe mich ___ gewöhnt.', 'daran', ['darauf', 'woran'], 'الإشارة إلى شيء: [[da + r + an = daran]].', 'هل تعوّدتَ على الطعام؟ – نعم، تعوّدتُ عليه.'],
+    ['An ___ denkst du? – An meine Mutter.', 'wen', ['was', 'woran'], 'السؤال عن شخص مع [[an]] + Akkusativ: [[an wen?]]', 'في من تفكّر؟ – في أمّي.'],
+    ['Achte ___, dass du genug schläfst!', 'darauf', ['dafür', 'worauf'], 'الإشارة إلى جملة لاحقة: [[achten darauf, dass …]].', 'انتبه أن تنام ما يكفي!'],
+    ['Ich kann mich ___ meinen Freund verlassen.', 'auf', ['an', 'zu'], '[[sich verlassen auf]] + Akkusativ = يعتمد على.', 'يمكنني الاعتماد على صديقي.'],
+    ['___ wem hast du gesprochen?', 'Mit', ['Womit', 'Damit'], 'السؤال عن شخص: حرف الجرّ + [[wem]]: [[Mit wem?]]', 'مع من تحدّثت؟']] });
+
+MORE.b1.push({ id: 'nachrichten', no: 11, de: 'Nachrichten und Medien', ar: 'الأخبار ووسائل الإعلام', icon: '📰',
+  tip: 'جمل الزمن: [[als]] (مرّة في الماضي) · [[wenn]] (كلّما / في المستقبل) · [[während]] (بينما) · [[seitdem]] (منذ أن) · [[bis]] (حتى) · [[sobald]] (حالما) — والفعل في الآخر.',
+  w: [
+    ['📰', 'die Nachrichten (Pl.)', 'الأخبار', 'دي ناخريشتِن', 'Ich sehe jeden Abend die Nachrichten.', 'أشاهد الأخبار كل مساء.'],
+    ['🗞️', 'die Zeitung', 'الجريدة', 'دي تسايتونگ', 'Mein Vater liest jeden Morgen die Zeitung.', 'أبي يقرأ الجريدة كل صباح.'],
+    ['📑', 'der Artikel', 'المقال', 'دَر آرتيكِل', 'Hast du den Artikel über Berlin gelesen?', 'هل قرأتَ المقال عن برلين؟'],
+    ['🔠', 'die Schlagzeile', 'العنوان الرئيسي (في الصحافة)', 'دي شلاكتسايلِه', 'Die Schlagzeile war auf allen Zeitungen.', 'كان العنوان على كل الجرائد.'],
+    ['🎙️', 'berichten', 'ينقل خبراً', 'بِريشتِن', 'Die Medien berichten über die Wahl.', 'وسائل الإعلام تنقل أخبار الانتخابات.'],
+    ['📺', 'die Sendung', 'البرنامج (التلفزيوني)', 'دي زِندونگ', 'Die Sendung beginnt um acht.', 'يبدأ البرنامج في الثامنة.'],
+    ['📢', 'die Werbung', 'الإعلان', 'دي ڤِربونگ', 'Im Fernsehen gibt es zu viel Werbung.', 'في التلفاز إعلانات كثيرة جداً.'],
+    ['📱', 'die sozialen Medien (Pl.)', 'وسائل التواصل الاجتماعي', 'دي زوتسيالِن ميديِن', 'Viele Jugendliche nutzen die sozialen Medien.', 'كثير من الشباب يستعملون وسائل التواصل.'],
+    ['⚠️', 'die Falschmeldung', 'الخبر الكاذب', 'دي فالشمِلدونگ', 'Prüfe die Quelle, es könnte eine Falschmeldung sein!', 'تحقّق من المصدر، قد يكون خبراً كاذباً!'],
+    ['🔍', 'die Quelle', 'المصدر', 'دي كڤِلِّه', 'Was ist die Quelle dieser Information?', 'ما مصدر هذه المعلومة؟'],
+    ['📤', 'veröffentlichen', 'ينشر', 'فِرأُوفِنتليشِن', 'Das Buch wurde 2020 veröffentlicht.', 'نُشر الكتاب في 2020.'],
+    ['ℹ️', 'sich informieren', 'يطّلع / يستعلم', 'زيش إينفورميرِن', 'Ich informiere mich im Internet.', 'أطّلع على المعلومات عبر الإنترنت.'],
+    ['⏱️', 'seitdem', 'منذ أن', 'زايتديم', 'Seitdem ich in Berlin wohne, lese ich deutsche Zeitungen.', 'منذ أن أسكن في برلين أقرأ جرائد ألمانية.'],
+    ['⚡', 'sobald', 'حالما', 'زوبالت', 'Sobald ich Zeit habe, rufe ich dich an.', 'حالما يكون عندي وقت أتّصل بك.'],
+    ['🏁', 'bis', 'حتى (أن)', 'بيس', 'Warte hier, bis ich zurückkomme!', 'انتظر هنا حتى أعود!']],
+  sent: [['Als ich die Nachricht hörte, war ich schockiert.', 'عندما سمعتُ الخبر صُدمت.'], ['Wenn ich frühstücke, lese ich die Zeitung.', 'عندما أتناول الفطور أقرأ الجريدة.'], ['Seitdem ich die App benutze, bin ich besser informiert.', 'منذ أن أستعمل التطبيق صرتُ مطّلعاً أكثر.'],
+    ['Sobald die Sendung beginnt, sei bitte leise!', 'حالما يبدأ البرنامج كن هادئاً من فضلك!'], ['Bevor du etwas teilst, prüfe die Quelle!', 'قبل أن تشارك شيئاً تحقّق من المصدر!'], ['Die Zeitung berichtet über die neuen Gesetze.', 'الجريدة تنقل أخبار القوانين الجديدة.']],
+  dlg: [
+    ['Wie informierst du dich?', 'كيف تطّلع على الأخبار؟', 'Ich lese die Nachrichten auf einer App, sobald ich aufstehe.', 'أقرأ الأخبار في تطبيق حالما أستيقظ.', ['Ich lese die Nachrichten, sobald ich stehe auf.', 'Ich informiere mich, sobald ich aufstehe mich.']],
+    ['Glaubst du alles, was im Internet steht?', 'هل تصدّق كل ما على الإنترنت؟', 'Nein, ich prüfe immer zuerst die Quelle.', 'لا، أتحقّق دائماً من المصدر أوّلاً.', ['Nein, ich prüfe immer die Quelle zuerst prüfen.', 'Nein, ich glaube alles nicht.']],
+    ['Seit wann liest du deutsche Zeitungen?', 'منذ متى تقرأ جرائد ألمانية؟', 'Seitdem ich das B1-Niveau habe.', 'منذ أن وصلتُ إلى مستوى B1.', ['Seitdem ich habe das B1-Niveau.', 'Seit ich B1-Niveau habe gehabt.']],
+    ['Wann hast du davon gehört?', 'متى سمعتَ بذلك؟', 'Als ich gestern die Nachrichten gesehen habe.', 'عندما شاهدتُ الأخبار أمس.', ['Wenn ich gestern die Nachrichten gesehen habe.', 'Als ich habe gestern die Nachrichten gesehen.']]],
+  gr: { t: 'جمل الزمن (Temporalsätze)', p: [
+    '[[als]] = عندما — لحدث <b>واحد</b> في الماضي: [[Als ich ankam, regnete es.]]',
+    '[[wenn]] = عندما / كلّما — لحدث متكرّر، أو في الحاضر والمستقبل: [[Wenn ich nach Hause komme, koche ich.]]',
+    '[[während]] = بينما · [[seitdem]] = منذ أن (وما زال مستمرّاً) · [[bis]] = حتى · [[sobald]] = حالما · [[bevor]] = قبل أن · [[nachdem]] = بعد أن.',
+    'كلّها أدوات جمل فرعية: الفعل المصرَّف في <b>الآخر</b>، وإذا بدأت بها يأتي فعل الجملة الأساسية بعد الفاصلة مباشرة: [[Sobald ich Zeit habe, <b>rufe</b> ich an.]]',
+    '⚠️ [[wann]] للسؤال فقط: [[Wann kommst du?]] · [[Ich weiß nicht, wann er kommt.]]'],
+    tab: [['الأداة', 'المعنى', 'مثال'], ['als', 'عندما (مرّة في الماضي)', 'Als ich klein war, …'], ['wenn', 'عندما / كلّما', 'Wenn es regnet, …'], ['während', 'بينما', 'Während ich koche, …'], ['seitdem', 'منذ أن', 'Seitdem ich hier wohne, …'], ['bis', 'حتى', '…, bis du kommst.'], ['sobald', 'حالما', 'Sobald ich ankomme, …']],
+    ex: [['Als der Film zu Ende war, sind wir gegangen.', 'عندما انتهى الفيلم ذهبنا.'], ['Immer wenn ich Zeitung lese, lerne ich neue Wörter.', 'كلّما قرأتُ الجريدة تعلّمتُ كلمات جديدة.'], ['Seitdem er hier arbeitet, ist er glücklicher.', 'منذ أن يعمل هنا صار أسعد.'], ['Ich warte, bis die Nachrichten vorbei sind.', 'أنتظر حتى تنتهي الأخبار.']] },
+  gq: [
+    ['___ ich die Nachricht hörte, war ich schockiert.', 'Als', ['Wenn', 'Wann'], 'حدث واحد في الماضي ← [[als]].', 'عندما سمعتُ الخبر صُدمت.'],
+    ['Immer ___ ich frühstücke, lese ich die Zeitung.', 'wenn', ['als', 'wann'], 'متكرّر ([[immer]]) ← [[wenn]].', 'كلّما تناولتُ الفطور قرأتُ الجريدة.'],
+    ['___ ich in Berlin wohne, lese ich deutsche Zeitungen.', 'Seitdem', ['Bis', 'Als'], 'منذ أن (وما زال مستمرّاً) ← [[seitdem]].', 'منذ أن أسكن في برلين أقرأ جرائد ألمانية.'],
+    ['Warte bitte, ___ ich zurückkomme!', 'bis', ['seitdem', 'als'], 'حتى ← [[bis]].', 'انتظر من فضلك حتى أعود!'],
+    ['___ ich Zeit habe, rufe ich dich an.', 'Sobald', ['Seitdem', 'Während'], 'حالما ← [[sobald]].', 'حالما يكون عندي وقت أتّصل بك.'],
+    ['Sobald die Sendung beginnt, ___ ich leise.', 'bin', ['ich bin', 'sein'], 'بعد الجملة الفرعية يأتي الفعل أوّلاً: [[…, bin ich leise]].', 'حالما يبدأ البرنامج أكون هادئاً.'],
+    ['Ich weiß nicht, ___ die Sendung beginnt.', 'wann', ['als', 'wenn'], 'سؤال غير مباشر عن الوقت ← [[wann]].', 'لا أعرف متى يبدأ البرنامج.'],
+    ['Während ich die Zeitung ___, trinke ich Kaffee.', 'lese', ['lese ich', 'lesen'], 'بعد [[während]] الفعل في الآخر: [[während ich … lese]].', 'بينما أقرأ الجريدة أشرب القهوة.'],
+    ['Das Buch wurde 2020 ___.', 'veröffentlicht', ['veröffentlichen', 'geveröffentlicht'], 'Passiv: [[wurde]] + اسم المفعول [[veröffentlicht]] (بدون ge‑).', 'نُشر الكتاب في 2020.'],
+    ['Die Medien berichten ___ die Wahl.', 'über', ['von den', 'auf'], '[[berichten über]] + Akkusativ.', 'وسائل الإعلام تنقل أخبار الانتخابات.']] });
+
+MORE.b1.push({ id: 'pruefung', no: 12, de: 'Formelle Briefe und B1-Prüfung', ar: 'الرسائل الرسمية وامتحان B1', icon: '✉️',
+  tip: 'في الرسالة الرسمية: [[Sehr geehrte Damen und Herren,]] ثم السطر التالي بحرف صغير · [[Sie / Ihnen / Ihr]] بحرف كبير · الطلب بـ Konjunktiv II: [[Könnten Sie …?]] · النهاية: [[Mit freundlichen Grüßen]]',
+  w: [
+    ['✉️', 'Sehr geehrte Damen und Herren', 'السيّدات والسادة المحترمون', 'زير گِئيرتِه دامِن أونت هِرِّن', 'Sehr geehrte Damen und Herren, ich schreibe Ihnen wegen meiner Rechnung.', 'السيّدات والسادة المحترمون، أكتب إليكم بخصوص فاتورتي.'],
+    ['🙇', 'Mit freundlichen Grüßen', 'مع أطيب التحيّات', 'ميت فرويندليشِن گرُوسِّن', 'Mit freundlichen Grüßen, Amina Ben Salah', 'مع أطيب التحيّات، أمينة بن صالح'],
+    ['😠', 'die Beschwerde', 'الشكوى', 'دي بِشڤيردِه', 'Ich möchte eine Beschwerde einreichen.', 'أريد أن أقدّم شكوى.'],
+    ['❓', 'die Anfrage', 'الاستفسار', 'دي آنفراگِه', 'Vielen Dank für Ihre Anfrage.', 'شكراً جزيلاً على استفسارك.'],
+    ['🔁', 'die Rückmeldung', 'الردّ', 'دي رُوكمِلدونگ', 'Ich freue mich auf Ihre Rückmeldung.', 'أتطلّع إلى ردّكم.'],
+    ['👍', 'die Zusage', 'الموافقة (القبول)', 'دي تسوزاگِه', 'Ich habe eine Zusage für die Stelle bekommen.', 'حصلتُ على موافقة على الوظيفة.'],
+    ['👎', 'die Absage', 'الرفض / الاعتذار', 'دي آبزاگِه', 'Leider muss ich Ihnen eine Absage geben.', 'للأسف يجب أن أبلغك بالرفض.'],
+    ['🇩🇪', 'die Einbürgerung', 'التجنيس', 'دي آينبُورگَرونگ', 'Für die Einbürgerung braucht man das B1-Zertifikat.', 'للتجنيس تحتاج إلى شهادة B1.'],
+    ['🛂', 'die Staatsangehörigkeit', 'الجنسية', 'دي شتاتسآنگِهُوريشكايت', 'Welche Staatsangehörigkeit haben Sie?', 'ما جنسيتك؟'],
+    ['🪪', 'die Aufenthaltserlaubnis', 'تصريح الإقامة', 'دي آوفِنتهالتسإرلاوبنيس', 'Meine Aufenthaltserlaubnis muss verlängert werden.', 'يجب أن يُجدّد تصريح إقامتي.'],
+    ['🏠', 'die Niederlassungserlaubnis', 'الإقامة الدائمة', 'دي نيدَرلاسّونگسإرلاوبنيس', 'Nach einigen Jahren kann man eine Niederlassungserlaubnis beantragen.', 'بعد بضع سنوات يمكن طلب الإقامة الدائمة.'],
+    ['📋', 'die Voraussetzung', 'الشرط', 'دي فوراوسزِتسونگ', 'Deutschkenntnisse sind eine wichtige Voraussetzung.', 'معرفة الألمانية شرط مهمّ.'],
+    ['📝', 'der Einbürgerungstest', 'اختبار التجنيس', 'دَر آينبُورگَرونگستِست', 'Der Einbürgerungstest hat 33 Fragen.', 'لاختبار التجنيس 33 سؤالاً.'],
+    ['🙏', 'Ich würde mich freuen, wenn …', 'يسعدني لو…', 'إيش ڤُوردِه ميش فرويِن ڤِن', 'Ich würde mich freuen, wenn Sie mir antworten.', 'يسعدني لو أجبتموني.'],
+    ['📎', 'beilegen', 'يُرفق', 'بايليگِن', 'Ich lege Ihnen meinen Lebenslauf bei.', 'أرفق لكم سيرتي الذاتية.']],
+  sent: [['Sehr geehrte Damen und Herren, ich schreibe Ihnen, weil ich eine Frage habe.', 'السيّدات والسادة المحترمون، أكتب إليكم لأنّ لديّ سؤالاً.'], ['Könnten Sie mir bitte weitere Informationen schicken?', 'هل يمكنكم أن ترسلوا لي معلومات إضافية من فضلكم؟'], ['Ich möchte mich über den schlechten Service beschweren.', 'أريد أن أشتكي من الخدمة السيّئة.'],
+    ['Ich würde mich über eine schnelle Antwort freuen.', 'يسعدني ردّ سريع.'], ['Im Anhang finden Sie meinen Lebenslauf.', 'تجدون في المرفق سيرتي الذاتية.'], ['Vielen Dank im Voraus.', 'شكراً مقدّماً.']],
+  dlg: [
+    ['Wie beginnt man einen formellen Brief?', 'كيف تبدأ رسالة رسمية؟', 'Mit „Sehr geehrte Damen und Herren“.', 'بعبارة «السيّدات والسادة المحترمون».', ['Mit „Hallo Leute“.', 'Mit „Liebe Damen und Herren“.']],
+    ['Was brauche ich für die Einbürgerung?', 'ماذا أحتاج للتجنيس؟', 'Unter anderem das B1-Zertifikat und den Einbürgerungstest.', 'من بين أمور أخرى شهادة B1 واختبار التجنيس.', ['Unter anderem das B1-Zertifikat und dem Einbürgerungstest.', 'Ich brauche einbürgern B1.']],
+    ['Wie bittet man höflich um Informationen?', 'كيف تطلب معلومات بأدب؟', 'Könnten Sie mir bitte mitteilen, wann der Kurs beginnt?', 'هل يمكنكم أن تخبروني متى تبدأ الدورة؟', ['Könnten Sie mir bitte mitteilen, wann beginnt der Kurs?', 'Sie mitteilen mir, wann der Kurs?']],
+    ['Wie beendet man eine formelle E-Mail?', 'كيف تنهي بريداً رسمياً؟', 'Mit freundlichen Grüßen und dem eigenen Namen.', 'بعبارة «مع أطيب التحيّات» واسمك.', ['Mit freundlichem Grüßen.', 'Tschüss und bis bald!']]],
+  gr: { t: 'الرسالة الرسمية (B1 – Schreiben)', p: [
+    'البداية: [[Sehr geehrte Frau Weber, · Sehr geehrter Herr Fischer, · Sehr geehrte Damen und Herren,]] — بعد الفاصلة يبدأ السطر التالي بحرف <b>صغير</b>.',
+    'السبب: [[Ich schreibe Ihnen, weil … · Ich möchte mich über … beschweren. · Ich interessiere mich für …]]',
+    'الطلب بأدب (Konjunktiv II): [[Könnten Sie mir bitte …? · Ich wäre Ihnen dankbar, wenn … · Ich würde mich freuen, wenn …]]',
+    'النهاية: [[Ich freue mich auf Ihre Antwort. · Vielen Dank im Voraus.]] ثم [[Mit freundlichen Grüßen]] (بدون فاصلة) والاسم.',
+    '⚠️ [[Sie, Ihnen, Ihr]] دائماً بحرف كبير. وفي امتحان B1 اكتب عن <b>كل</b> النقاط المطلوبة (عادةً 3–4) واربطها بـ [[weil, deshalb, außerdem]].'],
+    tab: [['الجزء', 'رسمي', 'غير رسمي'], ['البداية', 'Sehr geehrte Damen und Herren,', 'Liebe Sara, / Lieber Karim,'], ['السبب', 'Ich schreibe Ihnen, weil …', 'Ich schreibe dir, weil …'], ['الطلب', 'Könnten Sie mir bitte …?', 'Kannst du mir …?'], ['النهاية', 'Mit freundlichen Grüßen', 'Viele Grüße / Liebe Grüße']],
+    ex: [['Sehr geehrter Herr Schmidt, vielen Dank für Ihre schnelle Antwort.', 'السيّد شميت المحترم، شكراً جزيلاً على ردّك السريع.'], ['Ich wäre Ihnen dankbar, wenn Sie mich zurückrufen könnten.', 'سأكون ممتنّاً لو اتّصلتم بي.'], ['Leider kann ich den Termin am Montag nicht wahrnehmen.', 'للأسف لا أستطيع الحضور في موعد الإثنين.'], ['Vielen Dank im Voraus und mit freundlichen Grüßen', 'شكراً مقدّماً ومع أطيب التحيّات']] },
+  gq: [
+    ['Sehr ___ Damen und Herren,', 'geehrte', ['geehrter', 'geehrten'], 'التعبير الثابت: [[Sehr geehrte Damen und Herren]].', 'السيّدات والسادة المحترمون،'],
+    ['Sehr ___ Herr Fischer,', 'geehrter', ['geehrte', 'geehrten'], 'مع رجل: [[Sehr geehrter Herr …]] (‑er).', 'السيّد فيشر المحترم،'],
+    ['Mit freundlichen ___', 'Grüßen', ['Grüße', 'Gruß'], 'التعبير الثابت: [[Mit freundlichen Grüßen]] (Dativ جمع).', 'مع أطيب التحيّات'],
+    ['___ Sie mir bitte weitere Informationen schicken?', 'Könnten', ['Konnten', 'Wollen'], 'طلب مهذّب بـ Konjunktiv II: [[Könnten Sie …?]]', 'هل يمكنكم أن ترسلوا لي معلومات إضافية؟'],
+    ['Ich würde mich freuen, wenn Sie mir bald ___.', 'antworten', ['antwortet', 'zu antworten'], 'بعد [[wenn]] الفعل في الآخر، ومع [[Sie]]: [[antworten]].', 'يسعدني لو أجبتموني قريباً.'],
+    ['Ich möchte mich ___ den schlechten Service beschweren.', 'über', ['auf', 'für'], '[[sich beschweren über]] + Akkusativ.', 'أريد أن أشتكي من الخدمة السيّئة.'],
+    ['Vielen Dank für ___ Anfrage.', 'Ihre', ['ihre', 'Ihr'], 'في الرسالة الرسمية [[Ihre]] بحرف كبير، و[[die Anfrage]] مؤنّث.', 'شكراً جزيلاً على استفسارك.'],
+    ['Ich schreibe Ihnen, ___ ich eine Frage zum Kurs habe.', 'weil', ['deshalb', 'denn'], 'الفعل في الآخر ([[habe]]) ← [[weil]].', 'أكتب إليكم لأنّ لديّ سؤالاً عن الدورة.'],
+    ['Ich ___ Ihnen dankbar, wenn Sie mich anrufen könnten.', 'wäre', ['bin', 'würde'], 'تعبير مهذّب: [[Ich wäre Ihnen dankbar, wenn …]].', 'سأكون ممتنّاً لو اتّصلتم بي.'],
+    ['Im Anhang ___ Sie meinen Lebenslauf.', 'finden', ['findet', 'gefunden'], 'تعبير شائع: [[Im Anhang finden Sie …]] (الفعل في المكان الثاني).', 'تجدون في المرفق سيرتي الذاتية.']] });
+
+// Merge the A2 / B1 lessons into the shared tables used by every exercise.
+for (const [lv, list] of Object.entries(MORE)) {
+  const name = lv === 'a2' ? 'A2' : 'B1';
+  DATA[lv] = { name, ar: `المستوى ${name}`, color: `var(--line-${lv})`, topics: list.map((t) => {
+    t.w.forEach(([, de, , , exd, exa]) => { if (!EX[de]) EX[de] = [exd, exa]; });
+    GR[t.id] = t.gr; GQ[t.id] = t.gq;
+    return { id: t.id, no: t.no, de: t.de, ar: t.ar, icon: t.icon, tip: t.tip, words: t.w.map((x) => x.slice(0, 4).join('|')), sent: t.sent, dlg: t.dlg, special: t.special, conj: t.conj };
+  }) };
+}
+
 </script>
 <script>
 (() => {
@@ -1676,7 +2785,8 @@ const CITY = [
     const seen = new Set();
     L.mix = { id: 'mix', no: '★', icon: '🏁', de: 'Endstation', ar: 'المراجعة الشاملة للمستوى', tip: 'كل كلمات وجمل المستوى مخلوطة — أفضل تدريب قبل الامتحان!',
       W: L.T.flatMap((t) => t.W).filter((w) => !seen.has(w.de) && seen.add(w.de)), sent: L.T.flatMap((t) => t.sent || []), dlg: L.T.flatMap((t) => t.dlg || []),
-      conj: [...new Set(L.T.flatMap((t) => t.conj || []))], perf: 'all', special: L === DATA.a11 ? ['zahlen', 'uhr', 'konj'] : ['perfekt', 'praep', 'konj', 'komp'] };
+      conj: [...new Set(L.T.flatMap((t) => t.conj || []))], perf: 'all', special: L === DATA.a11 ? ['zahlen', 'uhr', 'konj'] : L === DATA.a12 ? ['perfekt', 'praep', 'konj', 'komp'] : ['konj', 'praep', 'komp'],
+      gq: L.T.flatMap((t) => (typeof GQ !== 'undefined' && GQ[t.id]) || []) };
   }
   const ALLW = [...ALLMAP.values()];
   const topicById = (id, lv = S.level) => { const L = DATA[lv]; return id === 'mix' ? L.mix : (L.T.find((t) => t.id === id) || L.T[0]); };
@@ -1685,11 +2795,14 @@ const CITY = [
   const nounsOf = (t) => t.W.filter((w) => w.art && w.art !== 'pl');
 
   const has = (k) => (t) => (t.special || []).includes(k);
+  const gqOf = (t) => t.gq || (typeof GQ !== 'undefined' && GQ[t.id]) || [];
   const GM = {
     karten: { tab: 'ueben', rec: 1, ic: '🃏', ar: 'بطاقات الحفظ', de: 'Karteikarten', skill: 'حفظ الكلمات', n: '12 بطاقة', min: 4, need: (t) => t.W.length >= 4, d: 'ترى الكلمة، تتذكّر معناها، ثم تقلب البطاقة.',
       how: ['ترى الكلمة الألمانية وصورتها، واسمعها 🔊.', 'حاول أن تتذكّر المعنى بالعربية، ثم اضغط على البطاقة لتقلبها.', 'كن صادقاً: اضغط «عرفتها» أو «لم أعرفها». الكلمات التي لم تعرفها تعود مرة ثانية في آخر الجولة.', 'في ظهر البطاقة تجد النطق وجملة مثال.'], keys: 'لوحة المفاتيح: Space = قلب البطاقة · 1 = لم أعرفها · 2 = عرفتها' },
     quiz: { tab: 'ueben', rec: 1, ic: '⚡', ar: 'اختر المعنى', de: 'Blitz-Quiz', skill: 'فهم المعنى', n: '10 أسئلة', min: 3, need: (t) => t.W.length >= 4, d: 'كلمة ألمانية أو عربية، و4 أجوبة: اختر الصحيح.',
       how: ['ترى كلمة ألمانية (أو عربية) و4 أجوبة.', 'اختر الترجمة الصحيحة. عندك 12 ثانية لكل سؤال.', 'بعد كل جواب: النطق، وجملة مثال، وقاعدة تساعدك على التذكّر.'], keys: 'لوحة المفاتيح: 1 · 2 · 3 · 4 للاختيار · Enter للتالي' },
+    gram: { tab: 'ueben', rec: 1, ic: '🧠', ar: 'تمرين القاعدة', de: 'Grammatik', skill: 'القواعد', n: '10 جمل', min: 4, need: (t) => gqOf(t).length >= 4, d: 'جمل ينقصها جزء: اختر الشكل الصحيح حسب قاعدة الدرس.',
+      how: ['ترى جملة ألمانية ينقصها جزء، مع ترجمتها العربية.', 'اختر الشكل الصحيح حسب قاعدة الدرس (اقرأها في «ملخّص الدرس» إذا احتجت).', 'بعد كل جواب تشرح لك لينا القاعدة بجملة قصيرة.'], keys: '1 · 2 · 3 للاختيار · Enter للتالي' },
     sprechen: { tab: 'ueben', rec: 1, ic: '🎤', ar: 'تكلّم مثل الألمان', de: 'Sprechen', skill: 'النطق والكلام', n: '8 كلمات وجمل', min: 5, need: (t) => t.W.length >= 4 || t.id === 'zahlen' || (t.sent || []).length >= 3, d: 'تسمع لينا، ثم تقولها في الميكروفون فتقيّم نطقك.',
       how: ['لينا تقول كلمة أو جملة بالألمانية 🔊 (وزر 🐢 يعيدها ببطء).', 'اضغط على 🎤 وقلها بصوت عالٍ. أوّل مرة: اسمح للمتصفّح باستعمال الميكروفون.', 'لينا تُظهر لك ما فهمته: الكلمات الصحيحة بالأخضر والخاطئة بالأحمر، مع نصائح نطق خاصة بالعرب.', 'عندك 3 محاولات لكل كلمة. بدون ميكروفون؟ قلها بصوت عالٍ وقيّم نطقك بنفسك.'], keys: 'Space = 🎤 تكلّم · Enter = التالي' },
     hoeren: { tab: 'ueben', ic: '🎧', ar: 'استمع واختر', de: 'Hör-Quiz', skill: 'الاستماع', n: '10 أسئلة', min: 3, need: (t) => t.W.length >= 4, d: 'تسمع كلمة ألمانية فتختار صورتها.',
@@ -1749,7 +2862,7 @@ const CITY = [
     const av = gamesFor(t); const out = [{ k: 'lesen', ar: 'الحصة مع لينا', sub: 'Unterricht' }];
     const first = (list) => list.find((x) => av.includes(x) && !out.some((o) => o.k === x));
     const add = (list, ar, sub) => { const k = first(list); if (k) out.push({ k, ar: ar || GM[k].ar, sub: sub || GM[k].de }); };
-    add(['zahlen', 'uhr', 'konj', 'perfekt', 'praep', 'komp', 'quiz', 'hoeren'], null);
+    add(['gram', 'zahlen', 'uhr', 'konj', 'perfekt', 'praep', 'komp', 'quiz', 'hoeren'], null);
     add(['sprechen'], null);
     add(['schreiben', 'lueckentext', 'satzbau'], null);
     add(['test', 'dialog', 'blitz'], null);
@@ -1920,8 +3033,13 @@ const CITY = [
   const dots = (w) => `<span class="dots" title="مستوى الحفظ">${[1, 2, 3, 4, 5].map((k) => `<i class="${boxOf(w) >= k ? 'on' : ''}"></i>`).join('')}</span>`;
 
   // ---------- home ----------
+  const LEVELS = ['a11', 'a12', 'a2', 'b1'];
+  const LEVEL_AR = { a11: 'المستوى الأوّل: البداية', a12: 'المستوى الثاني: نحو امتحان A1', a2: 'A2: الحياة اليومية بثقة', b1: 'B1: الاستقلالية — العمل والإقامة والتجنيس' };
+  const WEEK0 = { a11: 0, a12: 3, a2: 6, b1: 9 };
+  const totalLessons = () => LEVELS.reduce((a, lv) => a + DATA[lv].T.length, 0);
   function updateTop() {
     $('#xp').textContent = S.xp.toLocaleString('de-DE'); $('#streakTop').textContent = streakView();
+    $('.mark b').textContent = DATA[S.level].name.replace(/\.\d$/, '');
     $('#soundBtn').setAttribute('aria-pressed', S.sound); $('#voiceBtn').setAttribute('aria-pressed', S.voice);
   }
   function renderHome() {
@@ -1931,7 +3049,7 @@ const CITY = [
         <b>${nu.all ? '🎉 أكملت المستوى! أعد الاختبار الشامل' : `▶ تابع: ${m.ar}`}</b><span>اضغط هنا وتابع من حيث توقّفت — كل شيء بالترتيب</span></button>
       <div class="tiles">
         <button class="tile2 hot" data-nav="city"><span class="ic em">🏙️</span><b>المدينة الألمانية</b><span>عِش يوماً في ألمانيا: السوبرماركت، المخبز، الطبيب، البلدية…</span><small>${cityDone()} / ${CITY.length} مهامّ</small></button>
-        <button class="tile2" data-nav="lessons"><span class="ic em">📚</span><b>كل الدروس</b><span>23 درساً مرتّبة في 6 أسابيع</span><small>المستوى ${L.name}</small></button>
+        <button class="tile2" data-nav="lessons"><span class="ic em">📚</span><b>كل الدروس</b><span>${totalLessons()} درساً من A1 إلى B1 · 12 أسبوعاً</span><small>المستوى ${L.name}</small></button>
         <button class="tile2" data-act="review" ${due ? '' : 'disabled'}><span class="ic em">🔁</span><b>المراجعة</b><span>${due ? 'كلمات حان وقت مراجعتها اليوم' : 'لا شيء للمراجعة الآن 👍'}</span><small>${due} كلمة</small></button>
         <button class="tile2" data-act="laute"><span class="ic em">🗣️</span><b>دليل النطق</b><span>الأصوات الصعبة على العرب، مع الميكروفون</span><small>${LAUTE.length} صوتاً</small></button>
       </div>
@@ -1940,17 +3058,17 @@ const CITY = [
     updateTop();
   }
   function renderLevels() {
-    $('#lvl').innerHTML = ['a11', 'a12'].map((lv) => {
+    $('#lvl').innerHTML = LEVELS.map((lv) => {
       const L = DATA[lv]; const done = L.T.filter((t) => pathFor(t).every((s) => stepDone(t, s.k, lv))).length;
       return `<button class="lvl-b" data-level="${lv}" aria-pressed="${S.level === lv}" style="--lc:var(--line-${lv})"><span class="bd">${L.name}</span>
-        <b>${lv === 'a11' ? 'المستوى الأوّل: البداية' : 'المستوى الثاني: نحو امتحان A1'}</b><span class="sub">${L.T.length} دروس · أكملت ${done} · ${learnedCount(L.mix.W)} / ${L.mix.W.length} كلمة محفوظة</span>
+        <b>${LEVEL_AR[lv]}</b><span class="sub">${L.T.length} دروس · أكملت ${done} · ${learnedCount(L.mix.W)} / ${L.mix.W.length} كلمة محفوظة</span>
         <span class="lbar"><i style="width:${(done / L.T.length) * 100}%"></i></span></button>`;
     }).join('');
-    const L = DATA[S.level]; $('#lvlInfo').textContent = `المستوى ${L.name} = الأسابيع ${S.level === 'a11' ? '1 – 3' : '4 – 6'} · درس كل يوم أو يومين (≈ 20 دقيقة)`;
+    const L = DATA[S.level]; const w0 = WEEK0[S.level]; $('#lvlInfo').textContent = `المستوى ${L.name} = الأسابيع ${w0 + 1} – ${w0 + 3} · درس كل يوم أو يومين (≈ 20 دقيقة)`;
   }
   function lessonStatus(t) { const p = pathFor(t); const d = p.filter((s) => stepDone(t, s.k)).length; return { d, n: p.length, st: d === 0 ? 'new' : d === p.length ? 'done' : 'go' }; }
   function renderLessons() {
-    const L = DATA[S.level]; const nu = nextUp(); const wk0 = S.level === 'a11' ? 0 : 3;
+    const L = DATA[S.level]; const nu = nextUp(); const wk0 = WEEK0[S.level];
     $('#lessons').innerHTML = [...L.T, L.mix].map((t, k) => {
       const s = lessonStatus(t); let head = '';
       if (k % 4 === 0 && t.id !== 'mix') { const grp = L.T.slice(k, k + 4); const d = grp.filter((x) => lessonStatus(x).st === 'done').length; head = `<div class="wk"><b>الأسبوع ${wk0 + k / 4 + 1}</b><span>الدروس ${grp[0].no} – ${grp[grp.length - 1].no} · أكملت ${d} من ${grp.length}</span></div>`; }
@@ -2252,6 +3370,13 @@ const CITY = [
         options: shuffle([ans, ...ds]).map((x) => ({ html: `<span class="de">${esc(x)}</span>`, ok: x === ans })), reveal: `<span class="de" style="font-weight:800">${esc(de)}</span>`, sayReveal: de };
     });
   }
+  function gramR(t, n = 10) {
+    return pick(gqOf(t), n).map(([s, ok, wr, why, ar]) => {
+      const full = s.replace('___', ok);
+      return { task: 'أكمل الجملة حسب القاعدة', prompt: `<div class="big-ar">${esc(ar)}</div><div class="blank-s">${esc(s).replace('___', '<u>?</u>')}</div>`,
+        options: shuffle([ok, ...wr]).map((x) => ({ html: `<span class="de">${esc(x)}</span>`, ok: x === ok })), reveal: `<span class="de" style="font-weight:800">${esc(full)}</span>`, sayReveal: full, why: `<div>💡 ${tipHTML(why)}</div>` };
+    });
+  }
   const artChoiceR = (nouns, n) => pick(nouns, n).map((w) => ({ word: w, why: wordWhy(w), task: 'اختر الأداة', prompt: `<div class="pic">${picHTML(w.pic)}</div><div class="big-de">___ ${esc(w.noun)}</div><div class="hint">${esc(w.ar)}</div>`,
     options: ['der', 'die', 'das'].map((a) => ({ html: `<span class="de a-${a}" style="font-size:24px;font-weight:800">${a}</span>`, ok: a === w.art })), reveal: ansWord(w), sayReveal: w.plain }));
 
@@ -2324,7 +3449,7 @@ const CITY = [
     if (VOWEL.includes(v)) return [1, 2].includes(p) ? 'في هذا الفعل يتغيّر حرف العلّة مع <span class="de">du</span> و <span class="de">er / sie / es</span> فقط (a → ä · e → i / ie).' : 'مع هذا الضمير التصريف عادي: لا يتغيّر حرف العلّة.';
     if (MODAL.includes(v)) return [0, 2].includes(p) ? 'فعل كيفية: مع <span class="de">ich</span> و <span class="de">er / sie / es</span> نفس الشكل، <b>بدون</b> نهاية.' : p === 1 ? 'فعل كيفية: مع <span class="de">du</span> نضيف ‑st إلى شكل المفرد.' : p === 4 ? 'فعل كيفية: مع <span class="de">ihr</span> النهاية ‑t.' : 'فعل كيفية: مع <span class="de">wir</span> و <span class="de">sie / Sie</span> نفس المصدر.';
     if (v === 'sein' || v === 'haben') return 'فعل شاذّ ومهمّ جداً: احفظ تصريفه كاملاً (انظر الجدول).';
-    if (v === 'war' || v === 'hatte') return 'الماضي البسيط: <span class="de">ich</span> و <span class="de">er / sie / es</span> نفس الشكل.';
+    if (v === 'war' || v === 'hatte' || /te$/.test(v)) return 'الماضي البسيط (Präteritum): <span class="de">ich</span> و <span class="de">er / sie / es</span> نفس الشكل بدون نهاية · <span class="de">du ‑st · wir / sie ‑n · ihr ‑t</span>.';
     return '';
   }
   function konjR(verbs, n = 10) {
@@ -2769,6 +3894,7 @@ const CITY = [
     R.push(...(ttsOK() ? hoerR(W, 2) : quizR(W, 2)));
     if (nounsOf(t).length >= 3) R.push(...artChoiceR(nounsOf(t), 2));
     R.push(...schreibR(W, 3)); if ((t.sent || []).length >= 3) R.push(...clozeR(t.sent, 2));
+    if (gqOf(t).length) R.push(...gramR(t, 3));
     return R;
   }
 
@@ -2787,6 +3913,7 @@ const CITY = [
     komp: () => runRounds(kompR()),
     test: (t) => runRounds(testRounds(t), { finishExtra: () => ({ note: true }) }),
     sprechen: (t) => runSprechen(t),
+    gram: (t) => runRounds(gramR(t)),
     memory: runMemory, artikel: runArtikel, wortbau: runWortbau, satzbau: runSatzbau, verbinden: runVerbinden, wortsuche: runWortsuche, zugraetsel: runZug, ballons: runBallons, blitz: runBlitz, dialog: runDialog,
   };
 
@@ -2987,7 +4114,7 @@ const CITY = [
         <p class="de">den Online-Deutschkurs <b>Niveau ${L.name}</b> erfolgreich abgeschlossen hat.</p><p>أتمّ / أتمّت بنجاح دورة اللغة الألمانية عبر الإنترنت — المستوى ${L.name}.</p>
         <div class="c-row de"><span>${c.done} / ${L.T.length} Lektionen</span><span>${learnedCount(L.mix.W)} Wörter gelernt</span>${c.note ? `<span>Abschlusstest: Note ${c.note}</span>` : ''}<span>${S.xp.toLocaleString('de-DE')} XP</span></div>
         <div class="c-sign"><span>Datum<br><b>${esc(date)}</b></span><span style="text-align:right"><i>Lena</i>Kursleiterin (virtuell)</span></div>
-        <small>شهادة تحفيزية من موقع Sprachbahn، وليست شهادة رسمية. الامتحان الرسمي: <span class="de">Goethe‑Zertifikat A1</span> أو <span class="de">telc Deutsch A1</span>.</small></div></div>`;
+        <small>شهادة تحفيزية من موقع Sprachbahn، وليست شهادة رسمية. الامتحان الرسمي: <span class="de">Goethe‑Zertifikat ${L.name.replace(/\.\d$/, '')}</span> أو <span class="de">telc Deutsch ${L.name.replace(/\.\d$/, '')}</span>.</small></div></div>`;
     $('#certName').oninput = (e) => { S.name = e.target.value; save(); $('#cName').textContent = nm(); };
     $('#certPrint').onclick = () => { try { window.print(); } catch (e) { toast('الطباعة غير متاحة هنا'); } };
     beep('win'); confetti();
@@ -2999,6 +4126,7 @@ const CITY = [
     keys: 'السهم ← = التالي · السهم → = السابق · Space = استمع مرة أخرى' };
   const grTable = (gr) => (gr.tab ? `<div class="gt-wrap"><table class="gt"><thead><tr>${gr.tab[0].map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${gr.tab.slice(1).map((r) => `<tr>${r.map((c) => `<td>${/[A-Za-zÄÖÜäöüß]/.test(c) && !/[؀-ۿ]/.test(c) ? `<span class="de">${esc(c)}</span>` : esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : '');
   function gramQs(t) {
+    if (gqOf(t).length) return gramR(t, 2);
     const sp = t.special || [];
     if (sp.includes('uhr')) return uhrR().slice(0, 2);
     if (sp.includes('perfekt')) return perfR(t.perf || 'all', 2);

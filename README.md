@@ -2,11 +2,13 @@
 
 دورة ألمانية مكثّفة للناطقين بالعربية — المستويان **A1.1** و **A1.2** — مع المعلّمة الافتراضية **لينا**.
 
-Cours intensif d'allemand (A1.1 + A1.2) pour arabophones, avec une professeure virtuelle « Lena » : elle parle allemand, explique en arabe et corrige ta prononciation au micro.
+Cours intensif d’allemand (A1.1 + A1.2) pour arabophones : une professeure virtuelle « Lena » qui parle allemand, explique en arabe et corrige ta prononciation au micro — et une ville allemande en 3D (supermarché, boulangerie, gare, médecin, mairie…) où tu parles avec les habitants comme dans la vraie vie.
 
 **▶️ ابدأ الآن / Commencer :** https://contactnasriimen-ctrl.github.io/sprachbahn-a1/
 
 ## المحتوى · Contenu
+- **🏙️ المدينة الألمانية ثلاثية الأبعاد (Deutschstadt):** تمشي في مدينة حيّة (سيارات، مارّة، قطار) وتدخل 12 مكاناً من الحياة اليومية — السوبرماركت، المخبز، المقهى، محطّة القطار، الشارع، عيادة الطبيب، الصيدلية، مدرسة اللغة، مكتب البلدية (Anmeldung)، محلّ الملابس، البريد، والجيران. في كل مكان شخص يكلّمك بالألمانية بصوته، وتجيب بالاختيار أو بالميكروفون؛ إذا أخطأت يقول «Wie bitte?» ويشرح لك السبب. فيها أيضاً: التسوّق من الرفّ، فهم الأسعار بالسماع، ملء استمارة رسمية، ونصائح عن الحياة في ألمانيا. كل مهمّة تعطيك ختماً في «جواز الاندماج».
+- **تصميم أبسط:** 3 أزرار فقط (الرئيسية · الدروس · المدينة)، وزرّ كبير «تابع»، وكل درس قائمة خطوات بالترتيب.
 - **الحصة مع لينا (Unterricht):** لينا تقدّم كل كلمة بصوت ألماني، مع المعنى والنطق بالحروف العربية ومثال وقاعدة الأداة، ثم أسئلة قصيرة، ثم القاعدة بشرح عربي، وجمل، ولعب أدوار
 - **تكلّم (Sprechen):** تقول الكلمة أو الجملة في الميكروفون فتُظهر لك لينا ما فهمته، والكلمات الصحيحة/الخاطئة، ونسبة النطق، ونصائح خاصة بالعرب (Chrome / Edge)
 - **دليل النطق للعرب:** 22 صوتاً ألمانياً (ü · ö · ch · z · w · p …) مع أمثلة وتمرين ميكروفون

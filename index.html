@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Sprachbahn Akademie – دورة ألمانية مكثّفة A1 للناطقين بالعربية مع المعلّمة الافتراضية لينا: حصص صوتية، تمرين نطق بالميكروفون، شرح بالعربية، وشهادة إتمام.">
+<meta name="description" content="Sprachbahn Akademie – دورة ألمانية مكثّفة A1 للناطقين بالعربية: المعلّمة لينا، ومدينة ألمانية ثلاثية الأبعاد تتكلّم فيها مع الناس كما في الحياة الحقيقية.">
 <meta property="og:title" content="Sprachbahn Akademie A1">
 <meta property="og:description" content="دورة ألمانية مكثّفة A1 (6 أسابيع) مع المعلّمة لينا: تتكلّم، تشرح بالعربية، وتصحّح نطقك.">
 <meta name="theme-color" content="#13202b">
@@ -546,6 +546,130 @@ body.talking .lena .mouth { animation: talk .16s ease-in-out infinite alternate;
 @media print { body * { visibility: hidden !important; } #cert, #cert * { visibility: visible !important; } #cert { position: fixed; inset: 0; margin: 0; box-shadow: none; max-width: none; } }
 .lc.final .bar { background: rgba(255, 255, 255, .18); }
 
+/* ---------- simpler navigation, home and lesson steps ---------- */
+.nav { display: flex; gap: 4px; margin-inline-start: 14px; }
+.nav button { border: 0; background: none; border-radius: 10px; padding: 7px 12px; font-weight: 700; font-size: 14.5px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+.nav button:hover { background: var(--surface-2); color: var(--ink); }
+.nav button[aria-current="page"] { background: var(--ink); color: var(--bg); }
+.home2 { padding-block: 22px 40px; max-width: 900px; display: grid; gap: 16px; }
+.home2 .lena-hero { margin: 0; }
+#homeMain { display: grid; gap: 14px; }
+.home2 .cont { padding: 20px; } .home2 .cont b { font-size: 22px; } .home2 .cont .ic { width: 66px; height: 66px; font-size: 34px; }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.tile2 { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 14px; align-items: center; text-align: start; padding: 16px; border-radius: 18px; border: 1.5px solid var(--rule); background: var(--surface); transition: transform .2s, border-color .2s, box-shadow .2s; }
+.tile2:hover:not(:disabled) { transform: translateY(-2px); border-color: var(--ink); box-shadow: var(--shadow); }
+.tile2:disabled { opacity: .55; cursor: default; }
+.tile2 .ic { grid-row: span 3; width: 56px; height: 56px; border-radius: 16px; background: var(--surface-2); display: grid; place-items: center; font-size: 30px; }
+.tile2 b { font-size: 17px; } .tile2 span:not(.ic) { font-size: 13.5px; color: var(--muted); } .tile2 small { font-size: 12.5px; font-weight: 700; color: var(--ink); }
+.tile2.hot { grid-column: 1 / -1; background: linear-gradient(120deg, color-mix(in srgb, var(--blau) 18%, var(--surface)), color-mix(in srgb, var(--gruen) 14%, var(--surface))); border-color: color-mix(in srgb, var(--blau) 45%, var(--rule)); }
+.tile2.hot .ic { background: var(--surface); width: 66px; height: 66px; font-size: 38px; }
+.tile2.hot b { font-size: 20px; }
+.mini { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; font-size: 13.5px; color: var(--muted); background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 10px 14px; }
+.mini b { color: var(--ink); font-family: var(--f-display); font-size: 17px; }
+.mini .goal { flex: 1; min-width: 200px; display: grid; gap: 4px; }
+.h1s { font-size: clamp(24px, 3.6vw, 32px); }
+.h2s { display: flex; align-items: baseline; gap: 10px; margin: 20px 0 10px; flex-wrap: wrap; } .h2s h2 { font-size: 20px; } .h2s span { color: var(--muted); font-size: 14px; }
+.srows { display: grid; gap: 10px; }
+.srow { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; gap: 14px; align-items: center; text-align: start; padding: 14px 16px; border-radius: 16px; border: 1.5px solid var(--rule); background: var(--surface); transition: transform .15s, border-color .15s, box-shadow .15s; }
+.srow:hover { transform: translateX(-3px); border-color: var(--ink); }
+.srow .n { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-display); font-weight: 800; font-size: 18px; background: var(--surface-2); border: 2.5px solid var(--rule); }
+.srow .ic { font-size: 30px; }
+.srow .tx b { display: block; font-size: 16.5px; } .srow .tx small { color: var(--muted); font-size: 13.5px; line-height: 1.45; display: block; }
+.srow .go { background: var(--gelb); color: var(--gelb-ink); font-weight: 800; padding: 7px 14px; border-radius: 99px; white-space: nowrap; }
+.srow .later { color: var(--muted); font-size: 12.5px; } .srow .okk { color: var(--ok); font-weight: 700; }
+.srow.done { background: color-mix(in srgb, var(--ok-bg) 55%, var(--surface)); } .srow.done .n { background: var(--ok); border-color: var(--ok); color: #fff; }
+.srow.next { border: 2.5px solid var(--gelb); box-shadow: 0 0 0 5px color-mix(in srgb, var(--gelb) 22%, transparent); } .srow.next .n { border-color: var(--gelb); }
+.cityl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; padding: 12px 14px; border-radius: 14px; background: color-mix(in srgb, var(--blau) 12%, var(--surface)); border: 1px solid color-mix(in srgb, var(--blau) 35%, var(--rule)); }
+details.more { margin-top: 12px; background: var(--surface); border: 1.5px solid var(--rule); border-radius: 16px; }
+details.more summary { cursor: pointer; padding: 14px 16px; font-weight: 700; font-size: 16px; list-style: none; display: flex; align-items: center; gap: 8px; }
+details.more summary::-webkit-details-marker { display: none; }
+details.more summary::after { content: "▾"; margin-inline-start: auto; color: var(--muted); transition: transform .2s; }
+details.more[open] summary::after { transform: rotate(180deg); }
+.more-in { padding: 0 14px 14px; }
+.more-in .box { background: var(--surface-2); }
+/* ---------- city ---------- */
+.city-v { padding-block: 18px 40px; }
+.city-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: center; margin-bottom: 14px; }
+.city-head p { margin: 4px 0 0; color: var(--muted); }
+.city-head .de { font-size: .6em; color: var(--muted); }
+.pass { background: var(--surface); border: 1.5px solid var(--rule); border-radius: 16px; padding: 10px 14px; min-width: 260px; }
+.pass-h { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; margin-bottom: 6px; } .pass-h span { color: var(--muted); }
+.stamps { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; justify-items: center; }
+.stamp { width: 34px; height: 34px; border-radius: 50%; border: 2px dashed var(--rule); display: grid; place-items: center; font-size: 17px; filter: grayscale(1); opacity: .4; }
+.stamp.on { filter: none; opacity: 1; border: 2px solid var(--rot); background: color-mix(in srgb, var(--rot) 10%, var(--surface)); transform: rotate(-8deg); }
+.city-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; align-items: start; }
+.city-3d { position: relative; height: min(70vh, 640px); min-height: 360px; border-radius: 20px; overflow: hidden; background: #bfe1f3; border: 1.5px solid var(--rule); box-shadow: var(--shadow); }
+.city-3d canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.city-3d canvas:active { cursor: grabbing; }
+.city-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.ptag { position: absolute; left: 0; top: 0; pointer-events: auto; display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px 3px 7px; border-radius: 99px; border: 0; background: rgba(19, 32, 43, .86); color: #fff; font-size: 12.5px; font-weight: 700; white-space: nowrap; box-shadow: 0 4px 10px rgba(0, 0, 0, .25); will-change: transform; }
+.ptag .em { font-size: 15px; } .ptag i { display: none; font-style: normal; color: #43c482; }
+.ptag.done i { display: inline; } .ptag:hover { background: #f0ab00; color: #2a1e00; }
+.ptag.you { background: #f0ab00; color: #2a1e00; pointer-events: none; padding: 2px 10px; }
+.city-load { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; font-weight: 700; color: #13202b; background: rgba(191, 225, 243, .85); }
+.city-status { position: absolute; top: 12px; inset-inline-start: 12px; background: rgba(255, 255, 255, .92); color: #13202b; border-radius: 12px; padding: 6px 12px; font-size: 13.5px; font-weight: 700; box-shadow: var(--shadow); max-width: calc(100% - 24px); }
+.city-status small { font-weight: 500; color: #556776; }
+.city-hint { position: absolute; bottom: 10px; inset-inline-start: 12px; background: rgba(19, 32, 43, .7); color: #fff; font-size: 12.5px; padding: 4px 10px; border-radius: 99px; pointer-events: none; }
+.city-ctl { position: absolute; bottom: 10px; inset-inline-end: 10px; display: grid; gap: 6px; }
+.city-ctl button { width: 38px; height: 38px; border-radius: 12px; border: 0; background: rgba(255, 255, 255, .92); color: #13202b; font-size: 19px; font-weight: 800; box-shadow: var(--shadow); }
+.places { display: grid; gap: 8px; max-height: min(70vh, 640px); overflow-y: auto; padding-inline-end: 2px; }
+.places-h { font-weight: 800; font-size: 15px; } .places-h small { display: block; color: var(--muted); font-weight: 500; font-size: 12.5px; }
+.pc { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; text-align: start; padding: 8px 10px; border-radius: 14px; border: 1.5px solid var(--rule); background: var(--surface); transition: border-color .15s, transform .15s; }
+.pc:hover { border-color: var(--ink); transform: translateX(-2px); }
+.pc .ic { position: relative; width: 46px; height: 46px; } .pc .ic .lena { width: 46px; } .pc .ic .em { position: absolute; bottom: -4px; inset-inline-end: -6px; font-size: 18px; }
+.pc .tx b { display: block; font-size: 15px; } .pc .tx .de { display: block; font-size: 12.5px; color: var(--muted); text-align: right; }
+.pc.done { background: color-mix(in srgb, var(--ok-bg) 50%, var(--surface)); }
+.pl-intro { max-width: 680px; margin: 0 auto; display: grid; gap: 12px; }
+.mission { background: color-mix(in srgb, var(--blau) 10%, var(--surface)); border: 1.5px solid color-mix(in srgb, var(--blau) 35%, var(--rule)); border-radius: 14px; padding: 10px 14px; }
+.mission p { margin: 4px 0 0; font-size: 15.5px; }
+.vocab-b b { display: block; margin-bottom: 6px; }
+.vocab { display: flex; flex-wrap: wrap; gap: 6px; }
+.vchip { border: 1.5px solid var(--rule); background: var(--surface-2); border-radius: 12px; padding: 4px 10px; display: grid; text-align: center; }
+.vchip .de { font-weight: 700; font-size: 14.5px; } .vchip small { color: var(--muted); font-size: 12px; }
+.vchip:hover { border-color: var(--ink); }
+.pl { max-width: 720px; margin: 0 auto; display: grid; gap: 10px; }
+.pl-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pl-who { display: flex; gap: 10px; align-items: center; } .pl-who .lena { width: 48px; } .pl-who b { display: block; } .pl-who small { color: var(--muted); }
+.pl-chat { min-height: 220px; max-height: 44vh; background: var(--surface-2); border-radius: 16px; padding: 10px; }
+.pl-chat .av .lena { width: 38px; }
+.msg .bub .bub-tools { display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; }
+.bub.hear .de, .bub.hear .trx { filter: blur(7px); user-select: none; }
+.msg.note { max-width: 100%; align-self: stretch; }
+.cfb { display: block; font-size: 13.5px; padding: 6px 10px; border-radius: 10px; }
+.cfb.ok { background: var(--ok-bg); color: var(--ink); border: 1px solid color-mix(in srgb, var(--ok) 40%, transparent); }
+.pl-act .q { font-weight: 700; margin-bottom: 8px; } .pl-act .q small { color: var(--muted); font-weight: 500; }
+.pl-act .trx { display: none; } .pl-act.tr .trx { display: block; }
+.pl-act .reply { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.reply .kn { flex: none; width: 22px; height: 22px; border-radius: 6px; border: 1px solid var(--rule); display: grid; place-items: center; font-size: 12px; color: var(--muted); font-family: var(--f-display); }
+.reply small.trx { font-family: var(--f-body); font-weight: 500; color: var(--muted); font-size: 13px; direction: rtl; flex-basis: 100%; text-align: right; }
+.reply:disabled { cursor: default; } .reply.bad { opacity: .75; text-decoration: line-through; }
+.replies.ar .reply { direction: rtl; text-align: right; font-family: var(--f-body); }
+.shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 8px; }
+.prod { border: 2px solid var(--rule); background: var(--surface); border-radius: 14px; padding: 8px; display: grid; justify-items: center; gap: 2px; transition: transform .15s, border-color .15s; }
+.prod .em { font-size: 34px; } .prod .de { font-weight: 700; font-size: 14px; } .prod small { color: var(--muted); font-size: 12px; } .prod .price { font-size: 12.5px; color: var(--muted); }
+.prod[aria-pressed="true"] { border-color: var(--ok); background: var(--ok-bg); transform: translateY(-2px); }
+.pform { display: grid; gap: 10px; background: #fffdf5; color: #1d2a35; border: 1.5px solid #d9c38a; border-radius: 14px; padding: 14px; }
+.pf-h { font-weight: 800; }
+.pform label { display: grid; gap: 4px; font-size: 14px; } .pform label small { color: #6a737d; }
+.pform input { border: 1.5px solid #c9c4b8; border-radius: 10px; padding: 9px 12px; font: inherit; font-family: var(--f-de); direction: ltr; background: #fff; color: #1d2a35; }
+.pform input.bad { border-color: var(--bad); animation: shake .35s; }
+.fe { color: var(--bad); font-weight: 700; font-size: 13.5px; min-height: 1em; }
+.stamp-big { display: inline-grid; justify-items: center; gap: 2px; padding: 16px 26px; border: 4px double var(--rot); border-radius: 18px; color: var(--rot); transform: rotate(-4deg); animation: pop .5s ease; background: color-mix(in srgb, var(--rot) 6%, var(--surface)); }
+.stamp-big .em { font-size: 44px; } .stamp-big b { font-family: var(--f-display); font-size: 30px; } .stamp-big small { color: var(--ink); font-weight: 700; }
+@media (max-width: 920px) { .city-grid { grid-template-columns: 1fr; } .places { max-height: none; } .city-head { grid-template-columns: 1fr; } }
+@media (max-width: 700px) {
+  body { padding-bottom: calc(66px + env(safe-area-inset-bottom, 0px)); }
+  .top { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--bg); }
+  .nav { position: fixed; inset-inline: 0; bottom: 0; z-index: 30; margin: 0; justify-content: space-around; background: var(--surface); border-top: 1px solid var(--rule); padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 -8px 20px -14px rgba(0, 0, 0, .4); }
+  .nav button { flex-direction: column; gap: 0; font-size: 12px; padding: 4px 14px; } .nav button .em { font-size: 21px; }
+  .brand-s { display: none; } .chipstat { padding: 4px 8px; }
+  .tiles { grid-template-columns: 1fr; }
+  .srow { grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; padding: 12px; } .srow .ic { display: none; }
+  .city-3d { height: 58vh; min-height: 320px; }
+  .pass { min-width: 0; }
+  .toast { bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+}
+
 @media (max-width: 600px) {
   .lena-hero { grid-template-columns: 76px minmax(0, 1fr); } .lena-av { width: 76px; }
   .lena-cta { grid-template-columns: 60px minmax(0, 1fr); } .lena-cta .btn { grid-column: 1 / -1; }
@@ -574,41 +698,42 @@ body.talking .lena .mouth { animation: talk .16s ease-in-out infinite alternate;
 
 
 <div class="top"><div class="wrap">
-  <button class="brand" data-act="home" aria-label="الصفحة الرئيسية"><span class="mark"><b>A1</b></span><span><span class="brand-t">Sprachbahn</span><span class="brand-s">أكاديمية الألمانية A1 · مع المعلّمة لينا</span></span></button>
+  <button class="brand" data-act="home" aria-label="الصفحة الرئيسية"><span class="mark"><b>A1</b></span><span><span class="brand-t">Sprachbahn</span><span class="brand-s">أكاديمية الألمانية · مع لينا</span></span></button>
+  <nav class="nav" aria-label="التنقّل"><button data-nav="home"><span class="em">🏠</span><span>الرئيسية</span></button><button data-nav="lessons"><span class="em">📚</span><span>الدروس</span></button><button data-nav="city"><span class="em">🏙️</span><span>المدينة</span></button></nav>
   <div class="spacer"></div>
-  <div class="chipstat" title="الأيام المتتالية"><span class="em">🔥</span><b id="streakTop">0</b><span>يوم</span></div>
-  <div class="chipstat xp-chip" title="نقاطك"><span class="em">⭐</span><b id="xp">0</b><span>XP</span></div>
+  <div class="chipstat" title="الأيام المتتالية"><span class="em">🔥</span><b id="streakTop">0</b></div>
+  <div class="chipstat xp-chip" title="نقاطك"><span class="em">⭐</span><b id="xp">0</b></div>
   <button class="icon-btn" id="soundBtn" aria-pressed="true" title="المؤثرات الصوتية"><span class="em">🔔</span></button>
   <button class="icon-btn" id="voiceBtn" aria-pressed="true" title="النطق الألماني التلقائي"><span class="em">🗣️</span></button>
 </div></div>
 
-<div id="homeV">
-  <section class="hero"><div class="wrap hero-in">
-    <div class="hello">
-      <span class="kick">🎓 أكاديمية Sprachbahn · دورة ألمانية مكثّفة A1</span>
-      <h1>تكلّم الألمانية مع معلّمتك <span>لينا</span></h1>
-      <div class="lena-hero" id="lenaHero"></div>
-      <div class="facts"><span><b>23</b>درساً</span><span><b>6</b>أسابيع</span><span><b>20</b>دقيقة يومياً</span><span><b>300+</b>كلمة وجملة</span></div>
-      <div class="how">
-        <div class="how-s"><span class="n">1</span><b>احضر الحصة مع لينا</b><span>تقدّم لك كل كلمة بصوت ألماني، مع المعنى والنطق والقاعدة بالعربية.</span></div>
-        <div class="how-s"><span class="n">2</span><b>تكلّم وتمرّن</b><span>تقول الكلمات في الميكروفون فتقيّم نطقك 🎤، ثم تمارين تشرح لك كل خطأ.</span></div>
-        <div class="how-s"><span class="n">3</span><b>اختبر نفسك واحصل على شهادتك</b><span>علامة ألمانية من 1 إلى 6، وشهادة إتمام لكل مستوى.</span></div>
-      </div>
-    </div>
-    <div class="today" id="today"></div>
-  </div>
-  <div class="scene" aria-hidden="true" id="scene"></div></section>
-  <div class="wrap home-main">
-    <div class="lvl" id="lvl"></div>
-    <div class="acad" id="acad"></div>
-    <div class="sec-h"><h2>خطة الدورة المكثّفة</h2><span id="lvlInfo"></span></div>
-    <div class="lessons" id="lessons"></div>
-  </div>
-</div>
+<div id="homeV"><div class="wrap home2">
+  <div class="lena-hero" id="lenaHero"></div>
+  <div id="homeMain"></div>
+</div></div>
+
+<div id="lessonsV" hidden><div class="wrap home-main">
+  <div class="sec-h"><h1 class="h1s">📚 الدروس</h1><span>اختر المستوى ثم ادرس بالترتيب — درس كل يوم أو يومين.</span></div>
+  <div class="lvl" id="lvl"></div>
+  <div class="acad" id="acad"></div>
+  <div class="sec-h"><h2>خطة 6 أسابيع</h2><span id="lvlInfo"></span></div>
+  <div class="lessons" id="lessons"></div>
+</div></div>
 
 <div id="lessonV" hidden><div class="wrap lesson-v" id="lessonIn"></div></div>
 
-<footer><div class="wrap">Sprachbahn Akademie A1 · مبني على كتابي «Deutsch A1.1» و«Deutsch A1.2». لينا معلّمة افتراضية: صوتها هو الصوت الألماني الموجود في جهازك، والتعرّف على نطقك يعمل في Chrome و Edge (يُرسل المتصفّح الصوت إلى خدمة التعرّف الخاصة به). تقدّمك يُحفظ في هذا المتصفّح فقط. الشهادة تحفيزية وليست شهادة رسمية.</div></footer>
+<div id="cityV" hidden><div class="wrap city-v">
+  <div class="city-head"><div><h1 class="h1s">🏙️ مدينتي الألمانية <span class="de">Deutschstadt</span></h1><p>عِش يوماً في ألمانيا! اضغط على أيّ مكان: تمشي إليه، ويكلّمك شخص بالألمانية كما في الحياة الحقيقية.</p></div><div class="pass" id="cityPass"></div></div>
+  <div class="city-grid">
+    <div class="city-3d" id="city3d"><canvas id="cityCv" aria-label="مدينة ألمانية ثلاثية الأبعاد: اسحب للتدوير واضغط على مبنى"></canvas><div class="city-labels" id="cityLabels"></div>
+      <div class="city-load" id="cityLoad">🏗️ جارٍ بناء المدينة…</div><div class="city-status" id="cityStatus" hidden></div>
+      <div class="city-ctl"><button id="cityZoomIn" aria-label="تكبير">＋</button><button id="cityZoomOut" aria-label="تصغير">－</button><button id="cityHome" aria-label="عرض المدينة كاملة">⌂</button></div>
+      <div class="city-hint">👆 اسحب لتدوير المدينة · اضغط على مبنى لتدخل</div></div>
+    <div class="places" id="places"></div>
+  </div>
+</div></div>
+
+<footer><div class="wrap">Sprachbahn Akademie A1 · مبني على كتابي «Deutsch A1.1» و«Deutsch A1.2». لينا وسكّان المدينة شخصيات افتراضية: أصواتهم هي الأصوات الألمانية الموجودة في جهازك، والتعرّف على نطقك يعمل في Chrome و Edge (يُرسل المتصفّح الصوت إلى خدمة التعرّف الخاصة به). المدينة ثلاثية الأبعاد مبنية بمكتبة three.js. تقدّمك يُحفظ في هذا المتصفّح فقط. الشهادة تحفيزية وليست شهادة رسمية.</div></footer>
 
 <div class="overlay" id="overlay" hidden role="dialog" aria-modal="true" aria-labelledby="gTitle">
   <div class="win">
@@ -1073,6 +1198,404 @@ const GR = {
     ex: [['Liebe Sara, leider kann ich am Freitag nicht kommen.', 'عزيزتي سارة، للأسف لا أستطيع المجيء يوم الجمعة.'], ['Sehr geehrter Herr Klein, ich muss meinen Termin verschieben.', 'حضرة السيد كلاين المحترم، يجب أن أؤجّل موعدي.']] },
 };
 
+// Real-life city: places, people and dialogues. Step kinds:
+//   { n:[de, ar], o:[[de, ar, ok, why], …] }              → reply choice
+//   { n:[de, ar], hear:1, q:'…', o:[[text, '', ok, why]] } → listening question
+//   { n:[de, ar], shop:{ need:[de…], items:[[emoji, de, ar, price]] } }
+//   { n:[de, ar], form:[[label de, label ar, placeholder, check]] }
+//   { n:[de, ar], end:1 }
+// {name} is replaced by the learner's name.
+const CITY = [
+  { id: 'wohnung', ic: '🏠', de: 'Meine Wohnung', ar: 'شقّتي والجيران', type: 'home', lv: 'A1.1', topics: ['hallo', 'wohnung', 'familie'],
+    npc: { name: 'Frau Schmidt', role: 'Nachbarin · الجارة', g: 'f', look: { style: 'bun', hair: '#b9b4ad', shirt: '#8a5a9e', glasses: 1, skin: '#f3cfb3' } },
+    mission: 'انتقلت اليوم إلى شقّتك الجديدة. تعرّف على جارتك: قدّم نفسك، وقل من أين أنت وما عملك، واسألها متى تأتي شاحنة القمامة.',
+    tip: 'فرز القمامة مهمّ جداً (Mülltrennung): الحاوية الصفراء للبلاستيك والعلب، الزرقاء للورق، البنّية لبقايا الطعام. ووقت الهدوء (Ruhezeit) عادةً من 22:00 إلى 6:00 وطوال يوم الأحد.',
+    vocab: [['die Nachbarin', 'الجارة'], ['die Wohnung', 'الشقّة'], ['einziehen', 'ينتقل للسكن'], ['der Müll', 'القمامة'], ['die Tonne', 'الحاوية'], ['Freut mich!', 'تشرّفت!'], ['Herzlich willkommen!', 'أهلاً وسهلاً!']],
+    steps: [
+      { n: ['Guten Tag! Sind Sie neu hier?', 'نهارك سعيد! هل أنت جديد هنا؟'], o: [
+        ['Ja, ich bin gestern eingezogen.', 'نعم، انتقلت إلى هنا أمس.', 1, 'eingezogen = انتقلت للسكن. الماضي (Perfekt) مع sein: ich bin eingezogen.'],
+        ['Nein, ich bin neu hier.', 'لا، أنا جديد هنا.', 0, 'تناقض: تقول «لا» ثم «أنا جديد»! ابدأ بـ Ja.'],
+        ['Ja, ich habe neu.', '—', 0, 'جملة خاطئة: لا نقول ich habe neu. قل: Ich bin neu hier.']] },
+      { n: ['Herzlich willkommen! Ich heiße Monika Schmidt. Und wie heißen Sie?', 'أهلاً وسهلاً! اسمي مونيكا شميت. وما اسمك؟'], o: [
+        ['Ich heiße {name}. Freut mich!', 'اسمي {name}. تشرّفت!', 1, 'Freut mich = تشرّفت بمعرفتك — جملة مهمّة جداً عند التعارف.'],
+        ['Ich heißt {name}.', '—', 0, 'تصريف خاطئ: مع ich نقول heiße (‑e)، وليس heißt.'],
+        ['Wie heißen Sie?', 'ما اسمك؟', 0, 'هي سألتك! أجب أوّلاً عن اسمك.']] },
+      { n: ['Woher kommen Sie?', 'من أين أنت؟'], o: [
+        ['Ich komme aus Tunesien.', 'أنا من تونس.', 1, 'kommen aus + البلد: Ich komme aus Tunesien / Syrien / Marokko.'],
+        ['Ich komme in Tunesien.', '—', 0, 'حرف الجرّ خطأ: للبلد الأصلي نقول aus (من)، وليس in (في).'],
+        ['Ich wohne aus Tunesien.', '—', 0, 'wohnen = يسكن. للأصل نستعمل kommen aus.']] },
+      { n: ['Oh, schön! Und was machen Sie beruflich?', 'جميل! وما عملك؟'], o: [
+        ['Ich bin Krankenpfleger. Und Sie?', 'أنا ممرّض. وأنتِ؟', 1, 'المهنة بدون أداة: Ich bin Krankenpfleger. و «Und Sie?» لتسأل بأدب.'],
+        ['Ich bin eine Arbeit.', '«أنا عمل»', 0, 'die Arbeit = العمل (اسم)، وليست مهنة. ومع المهنة لا نضع ein / eine.'],
+        ['Mir geht es gut, danke.', 'أنا بخير، شكراً.', 0, 'هذا جواب على «Wie geht es Ihnen?». هنا السؤال عن المهنة.']] },
+      { n: ['Ich bin Rentnerin. Haben Sie noch Fragen?', 'أنا متقاعدة. هل عندك أسئلة؟'], o: [
+        ['Ja: Wann kommt die Müllabfuhr?', 'نعم: متى تأتي شاحنة القمامة؟', 1, 'Wann = متى. الفعل يأتي بعد كلمة السؤال مباشرة: Wann kommt …?'],
+        ['Ja: Wann die Müllabfuhr kommt?', '—', 0, 'ترتيب خاطئ: في السؤال الفعل في المكان الثاني: Wann kommt die Müllabfuhr?'],
+        ['Ja: Wo ist Müll?', 'أين قمامة؟', 0, 'ناقصة: الأداة (der Müll) غائبة، والسؤال المطلوب عن الموعد (Wann).']] },
+      { n: ['Die gelbe Tonne kommt am Dienstag, der Restmüll am Freitag.', 'الحاوية الصفراء يوم الثلاثاء، والنفايات العامة يوم الجمعة.'], hear: 1, q: 'متى تأتي الحاوية الصفراء؟', o: [
+        ['يوم الثلاثاء', '', 1, 'Dienstag = الثلاثاء. gelb = أصفر (البلاستيك والعلب).'],
+        ['يوم الخميس', '', 0, 'الخميس = Donnerstag. استمع مرة أخرى: Dienstag.'],
+        ['يوم الجمعة', '', 0, 'الجمعة (Freitag) للنفايات العامة (Restmüll).']] },
+      { n: ['Schön, dass Sie da sind. Einen schönen Tag noch!', 'سعيدة بوجودك هنا. يوماً سعيداً!'], o: [
+        ['Danke, Ihnen auch! Auf Wiedersehen.', 'شكراً، ولكِ أيضاً! إلى اللقاء.', 1, 'Ihnen auch = ولكِ أيضاً (بأدب مع Sie).'],
+        ['Danke, dir auch!', 'شكراً، ولكِ أيضاً (للأصدقاء)', 0, 'dir للأصدقاء فقط (du). مع جارة جديدة استعمل Sie ← Ihnen auch.'],
+        ['Gute Nacht!', 'تصبحين على خير!', 0, 'Gute Nacht تُقال قبل النوم فقط. في النهار: Auf Wiedersehen.']] },
+      { n: ['Auf Wiedersehen!', 'إلى اللقاء!'], end: 1 }] },
+
+  { id: 'supermarkt', ic: '🛒', de: 'Supermarkt', ar: 'السوبرماركت', type: 'market', lv: 'A1.1', topics: ['essen', 'zahlen'],
+    npc: { name: 'Herr Becker', role: 'Kassierer · أمين الصندوق', g: 'm', look: { style: 'short', hair: '#3b2a1e', shirt: '#cf343a', cap: '#cf343a', skin: '#f1c7a1' } },
+    mission: 'اشترِ ما في قائمتك: 🍎 تفاح، 🥛 حليب، 🍞 خبز. ثم ادفع عند الصندوق وافهم السعر.',
+    tip: 'أحضر كيسك معك، فالأكياس ليست مجانية. القناني عليها «Pfand» (تأمين): أرجعها إلى الآلة في المحلّ واسترجع مالك. وعند الصندوق ضع أغراضك في الكيس بسرعة! المحلّات مغلقة يوم الأحد.',
+    vocab: [['der Einkaufswagen', 'عربة التسوّق'], ['die Kasse', 'الصندوق'], ['die Tüte', 'الكيس'], ['bar', 'نقداً'], ['mit Karte', 'بالبطاقة'], ['der Kassenbon', 'الإيصال'], ['das Angebot', 'العرض / التخفيض']],
+    steps: [
+      { n: ['Willkommen! Die Äpfel sind heute im Angebot.', 'أهلاً! التفاح اليوم عليه تخفيض.'], shop: { needAr: ['تفاح 🍎', 'حليب 🥛', 'خبز 🍞'], need: ['die Äpfel', 'die Milch', 'das Brot'], items: [
+        ['🍎', 'die Äpfel', 'التفاح', '1,99 €'], ['🍌', 'die Bananen', 'الموز', '1,49 €'], ['🥛', 'die Milch', 'الحليب', '1,09 €'], ['🧃', 'der Saft', 'العصير', '1,79 €'], ['🍞', 'das Brot', 'الخبز', '2,29 €'],
+        ['🥐', 'das Croissant', 'الكرواسون', '0,89 €'], ['🧀', 'der Käse', 'الجبن', '2,49 €'], ['🥚', 'die Eier', 'البيض', '2,19 €'], ['🍅', 'die Tomaten', 'الطماطم', '1,69 €']] } },
+      { n: ['Hallo! Haben Sie eine Kundenkarte?', 'مرحباً! هل عندك بطاقة زبون؟'], o: [
+        ['Nein, leider nicht.', 'لا، للأسف.', 1, 'leider = للأسف — طريقة مهذّبة لقول «لا».'],
+        ['Nein, ich habe keine Karte nicht.', '—', 0, 'نفي مزدوج! keine تكفي: Ich habe keine Karte.'],
+        ['Ja, ich bin eine Karte.', '«نعم، أنا بطاقة»', 0, 'sein = يكون: «أنا بطاقة»! إذا كانت معك قل: Ja, hier, bitte.']] },
+      { n: ['Brauchen Sie eine Tüte?', 'هل تحتاج كيساً؟'], o: [
+        ['Nein danke, ich habe eine Tasche.', 'لا شكراً، معي حقيبة.', 1, 'die Tasche = الحقيبة. أغلب الألمان يحضرون حقيبتهم معهم.'],
+        ['Nein danke, ich habe ein Tasche.', '—', 0, 'die Tasche مؤنّثة ← eine Tasche (وليس ein).'],
+        ['Ja, ich brauche Tüte.', '—', 0, 'تنقص الأداة: Ja, eine Tüte, bitte.']] },
+      { n: ['Das macht zusammen fünf Euro siebenunddreißig.', 'المجموع خمسة يورو وسبعة وثلاثون سنتاً.'], hear: 1, q: 'كم يجب أن تدفع؟', o: [
+        ['5,37 €', '', 1, 'fünf Euro siebenunddreißig: 37 = sieben + und + dreißig — الآحاد أوّلاً مثل العربية.'],
+        ['5,73 €', '', 0, '73 = dreiundsiebzig. تذكّر: الآحاد تُقال أوّلاً!'],
+        ['15,37 €', '', 0, '15 = fünfzehn. هو قال fünf = 5.']] },
+      { n: ['Zahlen Sie bar oder mit Karte?', 'هل تدفع نقداً أم بالبطاقة؟'], o: [
+        ['Mit Karte, bitte.', 'بالبطاقة من فضلك.', 1, 'mit Karte = بالبطاقة · bar = نقداً. في ألمانيا ما زال كثيرون يدفعون نقداً.'],
+        ['Mit der Bar, bitte.', '«بالحانة»', 0, 'die Bar = حانة! «نقداً» = bar بدون أداة.'],
+        ['Ich zahle mit Kasse.', '«أدفع بالصندوق»', 0, 'die Kasse = الصندوق. قل: Mit Karte أو Bar.']] },
+      { n: ['Möchten Sie den Kassenbon?', 'هل تريد الإيصال؟'], o: [
+        ['Ja, gerne.', 'نعم، بكل سرور.', 1, 'gerne = بكل سرور — جواب قصير ومهذّب.'],
+        ['Ja, ich möchte gerne Bon haben.', '—', 0, 'تنقص الأداة: den Bon. والأبسط: Ja, gerne.'],
+        ['Nein, ich möchte gern.', '«لا، أريد بسرور»', 0, 'تناقض: «لا» ثم «أريد».']] },
+      { n: ['Danke schön und einen schönen Tag noch!', 'شكراً جزيلاً ويوماً سعيداً!'], end: 1 }] },
+
+  { id: 'baeckerei', ic: '🥨', de: 'Bäckerei', ar: 'المخبز', type: 'bakery', lv: 'A1.1', topics: ['essen'],
+    npc: { name: 'Frau Wagner', role: 'Verkäuferin · البائعة', g: 'f', look: { style: 'short', hair: '#c8893b', shirt: '#e8dcc8', chef: 1, skin: '#f6d2b4' } },
+    mission: 'اشترِ 4 كعكات خبز (Brötchen) وقطعة كعك بالتفاح، واطلبها «للأخذ»، وافهم السعر.',
+    tip: 'Brötchen = خبز صغير للفطور، يشتريه الألمان طازجاً كل صباح، حتى يوم الأحد (بعض المخابز تفتح صباح الأحد). «Zum Mitnehmen» = للأخذ · «Zum Hieressen» = للأكل هنا.',
+    vocab: [['das Brötchen', 'كعكة الخبز الصغيرة'], ['der Kuchen', 'الكعكة'], ['die Brezel', 'البريتسل'], ['ein Stück', 'قطعة'], ['Ich hätte gern …', 'أودّ أن آخذ…'], ['zum Mitnehmen', 'للأخذ']],
+    steps: [
+      { n: ['Guten Morgen! Was darf es sein?', 'صباح الخير! ماذا تريد؟'], o: [
+        ['Ich hätte gern vier Brötchen, bitte.', 'أودّ أربع كعكات من فضلك.', 1, 'Ich hätte gern … = أودّ… — أكثر جملة مهذّبة للطلب في المحلّ.'],
+        ['Ich will vier Brötchen!', 'أريد أربع كعكات!', 0, 'صحيحة نحوياً لكنّها غير مهذّبة. قل: Ich hätte gern … أو Ich möchte …'],
+        ['Ich bin vier Brötchen.', '«أنا أربع كعكات»', 0, 'sein = يكون: «أنا أربع كعكات»! للطلب: Ich hätte gern …']] },
+      { n: ['Normale Brötchen oder Körnerbrötchen?', 'كعكات عادية أم بالحبوب؟'], o: [
+        ['Normale, bitte.', 'عادية من فضلك.', 1, 'تكفي الصفة وحدها: Normale (Brötchen), bitte.'],
+        ['Ja, bitte.', 'نعم من فضلك.', 0, 'سؤال «هذا أم ذاك؟» لا يُجاب بـ «نعم»! اختر واحداً.'],
+        ['Ein Körner, bitte.', '—', 0, 'Körner = حبوب (جمع). قل: Körnerbrötchen, bitte.']] },
+      { n: ['Gerne. Noch etwas?', 'بكل سرور. شيء آخر؟'], o: [
+        ['Ja, ein Stück Apfelkuchen, bitte.', 'نعم، قطعة كعك بالتفاح من فضلك.', 1, 'ein Stück = قطعة. Apfelkuchen كلمة مركّبة: der Apfel + der Kuchen.'],
+        ['Ja, eine Apfelkuchen.', '—', 0, 'der Kuchen مذكّر ← einen Apfelkuchen. والأفضل: ein Stück Apfelkuchen.'],
+        ['Nein, noch etwas.', '«لا، شيئاً آخر»', 0, 'تناقض: «لا» ثم «شيئاً آخر».']] },
+      { n: ['Zum Mitnehmen oder zum Hieressen?', 'للأخذ أم للأكل هنا؟'], o: [
+        ['Zum Mitnehmen, bitte.', 'للأخذ من فضلك.', 1, 'zum Mitnehmen = للأخذ معك. (تعبير ثابت)'],
+        ['Zum Hieressen, bitte.', 'للأكل هنا من فضلك.', 0, 'صحيحة، لكن مهمّتك: للأخذ!'],
+        ['Ich nehme mit hier.', '—', 0, 'غير مفهومة. استعمل التعبير الثابت: Zum Mitnehmen.']] },
+      { n: ['Das macht vier Euro zwanzig.', 'السعر أربعة يورو وعشرون سنتاً.'], hear: 1, q: 'كم السعر؟', o: [
+        ['4,20 €', '', 1, 'vier Euro zwanzig = 4,20 €.'],
+        ['4,02 €', '', 0, 'zwanzig = 20 سنتاً، وليس 2.'],
+        ['14,20 €', '', 0, 'vierzehn = 14. هي قالت vier = 4.']] },
+      { n: ['Hier, bitte. Und 80 Cent zurück.', 'تفضّل. والباقي 80 سنتاً.'], o: [
+        ['Danke schön! Schönen Tag noch.', 'شكراً جزيلاً! يوماً سعيداً.', 1, 'Schönen Tag noch = يوماً سعيداً — تُقال عند المغادرة.'],
+        ['Bitte schön!', 'تفضّل!', 0, 'Bitte schön يقولها من يعطي شيئاً. أنت تأخذ ← Danke schön!'],
+        ['Gute Nacht!', 'تصبحين على خير', 0, 'Gute Nacht قبل النوم فقط.']] },
+      { n: ['Danke, gleichfalls! Tschüss!', 'شكراً، ولك أيضاً! مع السلامة!'], end: 1 }] },
+
+  { id: 'cafe', ic: '☕', de: 'Café', ar: 'المقهى', type: 'cafe', lv: 'A1.1', topics: ['essen', 'freizeit'],
+    npc: { name: 'Jonas', role: 'Kellner · النادل', g: 'm', look: { style: 'short', hair: '#1d1712', shirt: '#13202b', skin: '#e6b48f', beard: '#2a1d14' } },
+    mission: 'اطلب قهوة وقطعة كعك، ثم ادفع الحساب وأعطِ بقشيشاً صغيراً.',
+    tip: 'في المقهى يأتي النادل إلى طاولتك. البقشيش حوالي 5–10%: إذا كان الحساب 7,40 € تعطي 8 € وتقول «Stimmt so» = احتفظ بالباقي.',
+    vocab: [['die Speisekarte', 'قائمة الطعام'], ['der Kaffee', 'القهوة'], ['der Tee', 'الشاي'], ['der Kuchen', 'الكعكة'], ['die Sahne', 'الكريمة'], ['lecker', 'لذيذ'], ['zahlen', 'يدفع'], ['Stimmt so.', 'احتفظ بالباقي.']],
+    steps: [
+      { n: ['Guten Tag! Möchten Sie die Speisekarte?', 'نهارك سعيد! هل تريد قائمة الطعام؟'], o: [
+        ['Ja, gerne. Danke!', 'نعم، بكل سرور. شكراً!', 1, 'Ja, gerne = نعم، بكل سرور.'],
+        ['Ja, ich möchte die Speisekarte trinken.', '«أريد أن أشرب القائمة»', 0, 'trinken = يشرب! «أريد أن أشرب القائمة» 😄'],
+        ['Nein, ich habe Hunger.', 'لا، أنا جائع.', 0, 'إذا كنت جائعاً فأنت تحتاج القائمة! الجواب غير منطقي.']] },
+      { n: ['Was möchten Sie trinken?', 'ماذا تريد أن تشرب؟'], o: [
+        ['Einen Kaffee mit Milch, bitte.', 'قهوة بالحليب من فضلك.', 1, 'der Kaffee مذكّر ← einen Kaffee (مفعول به = Akkusativ).'],
+        ['Ein Kaffee mit Milch, bitte.', '—', 0, 'der Kaffee مذكّر: كمفعول به يصبح einen Kaffee.'],
+        ['Ich trinke gern Fußball.', '«أحبّ أن أشرب كرة القدم»', 0, '«أحبّ أن أشرب كرة القدم» 😄 — اطلب مشروباً.']] },
+      { n: ['Und was möchten Sie essen?', 'وماذا تريد أن تأكل؟'], o: [
+        ['Ich nehme ein Stück Schokoladenkuchen.', 'سآخذ قطعة كعك بالشوكولاتة.', 1, 'Ich nehme … = سآخذ… (للطلب). ein Stück = قطعة.'],
+        ['Ich esse nehme Kuchen.', '—', 0, 'فعلان معاً! استعمل واحداً: Ich nehme … أو Ich esse …'],
+        ['Ich bin Kuchen.', '«أنا كعكة»', 0, '«أنا كعكة»! sein = يكون.']] },
+      { n: ['Oh, der Schokoladenkuchen ist leider aus. Wir haben nur noch Apfelkuchen.', 'آه، للأسف نفدت كعكة الشوكولاتة. بقيت فقط كعكة التفاح.'], hear: 1, q: 'ماذا قال النادل؟', o: [
+        ['كعكة الشوكولاتة نفدت، يوجد كعك بالتفاح فقط', '', 1, 'ist aus = نفد · nur noch = لم يبقَ إلّا.'],
+        ['كعكة الشوكولاتة موجودة في الخارج', '', 0, 'aus هنا = نفد (وليس «في الخارج»).'],
+        ['كعكة التفاح غالية جداً', '', 0, 'لم يقل شيئاً عن السعر.']] },
+      { n: ['Möchten Sie den Apfelkuchen?', 'هل تريد كعكة التفاح؟'], o: [
+        ['Ja, gerne. Mit Sahne, bitte.', 'نعم، بكل سرور. مع الكريمة من فضلك.', 1, 'mit Sahne = مع الكريمة — الألمان يحبّون الكعك مع الكريمة!'],
+        ['Ja, gerne. Mit Sahnen, bitte.', '—', 0, 'die Sahne هنا بدون جمع: mit Sahne.'],
+        ['Ja, ich mag nicht.', '«نعم، لا أحبّ»', 0, 'تناقض: «نعم» ثم «لا أحبّ».']] },
+      { n: ['Hat es Ihnen geschmeckt?', 'هل أعجبك الطعام؟'], o: [
+        ['Ja, sehr lecker! Ich möchte bitte zahlen.', 'نعم، لذيذ جداً! أريد أن أدفع من فضلك.', 1, 'lecker = لذيذ · Ich möchte zahlen = أريد أن أدفع.'],
+        ['Ja, sehr lecker! Ich möchte zahlen die Rechnung.', '—', 0, 'مع möchte يذهب الفعل الثاني إلى الآخر: Ich möchte die Rechnung zahlen.'],
+        ['Ja, er schmeckt mich.', '—', 0, 'schmecken مع Dativ: Es schmeckt mir. والأبسط: Sehr lecker!']] },
+      { n: ['Das macht sieben Euro vierzig.', 'الحساب سبعة يورو وأربعون سنتاً.'], o: [
+        ['Acht Euro, stimmt so.', 'ثمانية يورو، احتفظ بالباقي.', 1, 'الحساب 7,40 € ← تعطي 8 € وتقول «stimmt so»: بقشيش 60 سنتاً.'],
+        ['Sieben Euro, stimmt so.', 'سبعة يورو، احتفظ بالباقي.', 0, '7 € أقلّ من الحساب (7,40 €)!'],
+        ['Siebzig Euro, bitte.', 'سبعون يورو.', 0, 'siebzig = 70! الحساب sieben Euro vierzig = 7,40 €.']] },
+      { n: ['Vielen Dank! Schönen Tag noch!', 'شكراً جزيلاً! يوماً سعيداً!'], end: 1 }] },
+
+  { id: 'bahnhof', ic: '🚉', de: 'Bahnhof', ar: 'محطّة القطار', type: 'station', lv: 'A1.2', topics: ['bahnhof', 'zeit', 'urlaub'],
+    npc: { name: 'Frau Klein', role: 'Fahrkartenschalter · شبّاك التذاكر', g: 'f', look: { style: 'long', hair: '#2a1d14', shirt: '#2459c4', cap: '#13202b', skin: '#f3c9a5' } },
+    mission: 'اشترِ تذكرة قطار ذهاباً وإياباً إلى برلين، واعرف الرصيف وأين تغيّر القطار.',
+    tip: 'تشتري التذكرة من الشبّاك أو من الآلة أو من التطبيق. «Deutschlandticket» اشتراك شهري للقطارات المحلّية والحافلات في كل ألمانيا. القطار يتأخّر أحياناً: انتبه للشاشة وللإعلانات!',
+    vocab: [['die Fahrkarte', 'التذكرة'], ['der Zug', 'القطار'], ['das Gleis', 'الرصيف'], ['einfach', 'ذهاب فقط'], ['hin und zurück', 'ذهاب وإياب'], ['umsteigen', 'يغيّر القطار'], ['die Abfahrt', 'المغادرة'], ['die Verspätung', 'التأخير']],
+    steps: [
+      { n: ['Guten Tag! Wohin möchten Sie fahren?', 'نهارك سعيد! إلى أين تريد أن تسافر؟'], o: [
+        ['Nach Berlin, bitte.', 'إلى برلين من فضلك.', 1, 'nach + مدينة أو بلد = إلى: nach Berlin.'],
+        ['In Berlin, bitte.', 'في برلين', 0, 'in = في. للاتّجاه إلى مدينة: nach Berlin.'],
+        ['Zu Berlin, bitte.', '—', 0, 'مع المدن والبلدان نستعمل nach، وليس zu.']] },
+      { n: ['Einfach oder hin und zurück?', 'ذهاب فقط أم ذهاب وإياب؟'], o: [
+        ['Hin und zurück, bitte.', 'ذهاب وإياب من فضلك.', 1, 'hin und zurück = ذهاب وإياب.'],
+        ['Ja, bitte.', 'نعم من فضلك.', 0, 'سؤال «هذا أم ذاك؟» لا يُجاب بـ «نعم».'],
+        ['Einfach zurück, bitte.', '—', 0, 'تعبير غير موجود. اختر: einfach (ذهاب فقط) أو hin und zurück.']] },
+      { n: ['Wann möchten Sie fahren?', 'متى تريد أن تسافر؟'], o: [
+        ['Morgen früh, um acht Uhr.', 'غداً صباحاً، في الساعة الثامنة.', 1, 'um + الساعة: um acht Uhr = في الساعة الثامنة.'],
+        ['Morgen früh, in acht Uhr.', '—', 0, 'مع الساعة نستعمل um، وليس in.'],
+        ['Gestern um acht Uhr.', 'أمس في الثامنة', 0, 'gestern = أمس! لا يمكن السفر إلى الماضي 😄']] },
+      { n: ['Der Zug fährt um 8:12 Uhr von Gleis 7 ab.', 'القطار يغادر في الساعة 8:12 من الرصيف 7.'], hear: 1, q: 'من أيّ رصيف يغادر القطار؟', o: [
+        ['من الرصيف 7', '', 1, 'Gleis 7 = الرصيف رقم 7. abfahren = يغادر (فعل منفصل: fährt … ab).'],
+        ['من الرصيف 12', '', 0, '12 هي الدقائق: 8:12.'],
+        ['من الرصيف 8', '', 0, '8 هي الساعة: 8:12.']] },
+      { n: ['Sie müssen in Hannover umsteigen.', 'يجب أن تغيّر القطار في هانوفر.'], hear: 1, q: 'أين تغيّر القطار؟', o: [
+        ['في هانوفر', '', 1, 'umsteigen in Hannover = تغيّر القطار في هانوفر.'],
+        ['في برلين', '', 0, 'برلين هي وجهتك الأخيرة.'],
+        ['لا يوجد تغيير', '', 0, 'قالت: Sie müssen umsteigen = يجب أن تغيّر.']] },
+      { n: ['Das kostet neunundsiebzig Euro.', 'السعر تسعة وسبعون يورو.'], o: [
+        ['Okay. Kann ich mit Karte zahlen?', 'حسناً. هل يمكنني الدفع بالبطاقة؟', 1, 'Kann ich …? = هل يمكنني…؟ والفعل الثاني (zahlen) في آخر الجملة.'],
+        ['Okay. Ich kann mit Karte zahlen?', '—', 0, 'في سؤال نعم/لا يأتي الفعل أوّلاً: Kann ich …?'],
+        ['Okay. Kann ich zahlen mit Karte?', '—', 0, 'مع können يذهب الفعل الثاني إلى الآخر: Kann ich mit Karte zahlen?']] },
+      { n: ['Natürlich. Hier ist Ihre Fahrkarte. Gute Reise!', 'طبعاً. هذه تذكرتك. رحلة سعيدة!'], end: 1 }] },
+
+  { id: 'strasse', ic: '🚏', de: 'Haltestelle', ar: 'في الشارع', type: 'busstop', lv: 'A1.2', topics: ['stadt', 'praep'],
+    npc: { name: 'Herr Öztürk', role: 'Passant · أحد المارّة', g: 'm', look: { style: 'short', hair: '#151515', shirt: '#2f7d4f', skin: '#d9a77f', beard: '#151515' } },
+    mission: 'أنت تبحث عن مكتب البريد. اسأل رجلاً في الشارع عن الطريق وافهم وصفه.',
+    tip: 'لا تعبر الشارع والإشارة حمراء (die Ampel ist rot) حتى لو لم توجد سيارات — الأطفال يتعلّمون منك! وانتبه لمسار الدرّاجات (der Radweg) على الرصيف.',
+    vocab: [['die Straße', 'الشارع'], ['die Ampel', 'الإشارة الضوئية'], ['geradeaus', 'إلى الأمام'], ['links', 'يسار'], ['rechts', 'يمين'], ['weit', 'بعيد'], ['zu Fuß', 'مشياً'], ['die Haltestelle', 'موقف الحافلة']],
+    steps: [
+      { n: ['Hallo! Kann ich Ihnen helfen? Suchen Sie etwas?', 'مرحباً! هل أستطيع مساعدتك؟ هل تبحث عن شيء؟'], o: [
+        ['Ja, bitte. Entschuldigung, wo ist die Post?', 'نعم من فضلك. عفواً، أين البريد؟', 1, 'Entschuldigung = عفواً (لبدء الكلام بأدب). Wo ist …? = أين…؟'],
+        ['Ja. Wo ist Post?', '—', 0, 'تنقص الأداة: die Post. وأضِف Entschuldigung للأدب.'],
+        ['Ja, ich bin die Post.', '«نعم، أنا البريد»', 0, '«أنا البريد»! للسؤال عن مكان: Wo ist …?']] },
+      { n: ['Die Post? Gehen Sie hier geradeaus und dann an der Ampel links.', 'البريد؟ امشِ إلى الأمام، ثم يساراً عند الإشارة.'], hear: 1, q: 'كيف تصل إلى البريد؟', o: [
+        ['إلى الأمام، ثم يساراً عند الإشارة', '', 1, 'geradeaus = إلى الأمام · links = يسار · an der Ampel = عند الإشارة.'],
+        ['يميناً، ثم إلى الأمام', '', 0, 'rechts = يمين. هو قال links = يسار.'],
+        ['إلى الخلف حتى الإشارة', '', 0, 'zurück = إلى الخلف. هو قال geradeaus = إلى الأمام.']] },
+      { n: ['Haben Sie das verstanden?', 'هل فهمت؟'], o: [
+        ['Ja, danke. Ist das weit?', 'نعم، شكراً. هل هو بعيد؟', 1, 'weit = بعيد · nah = قريب.'],
+        ['Ja, danke. Ist das breit?', '«هل هو عريض؟»', 0, 'breit = عريض! بعيد = weit.'],
+        ['Nein, ich habe verstanden.', '«لا، فهمت»', 0, 'تناقض: «لا» ثم «فهمت».']] },
+      { n: ['Nein, nur fünf Minuten zu Fuß.', 'لا، خمس دقائق فقط مشياً.'], hear: 1, q: 'كم يستغرق الطريق؟', o: [
+        ['5 دقائق مشياً', '', 1, 'fünf Minuten = 5 دقائق · zu Fuß = مشياً على الأقدام.'],
+        ['15 دقيقة بالحافلة', '', 0, 'fünf = 5 · fünfzehn = 15. وقال zu Fuß = مشياً.'],
+        ['5 دقائق بالسيارة', '', 0, 'zu Fuß = مشياً، وليس بالسيارة.']] },
+      { n: ['Oder Sie nehmen den Bus Nummer drei. Der kommt gleich.', 'أو تأخذ الحافلة رقم 3. ستأتي حالاً.'], o: [
+        ['Ich gehe lieber zu Fuß. Vielen Dank!', 'أفضّل المشي. شكراً جزيلاً!', 1, 'lieber = أفضّل (gern ← lieber).'],
+        ['Ich fahre zu Fuß.', '—', 0, 'مع المشي نستعمل gehen: zu Fuß gehen. fahren = بالمركبة.'],
+        ['Ich gehe lieber zu Bus.', '—', 0, 'بالحافلة = mit dem Bus (fahren).']] },
+      { n: ['Gern geschehen! Schönen Tag noch!', 'العفو! يوماً سعيداً!'], end: 1 }] },
+
+  { id: 'arzt', ic: '🩺', de: 'Arztpraxis', ar: 'عيادة الطبيب', type: 'doctor', lv: 'A1.2', topics: ['koerper', 'zeit'],
+    npc: { name: 'Frau Lang', role: 'Empfang · الاستقبال', g: 'f', look: { style: 'long', hair: '#d9a441', shirt: '#2459c4', coat: 1, skin: '#f6d2b4' } },
+    mission: 'عندك صداع وحرارة. اطلب موعداً عند الطبيب، واشرح ممّ تشكو، وافهم وقت الموعد.',
+    tip: 'اذهب أوّلاً إلى طبيب العائلة (der Hausarzt). أحضر معك بطاقة التأمين الصحي (die Versichertenkarte). إذا كنت مريضاً ولا تستطيع العمل تحتاج شهادة مرضية (die Krankmeldung). في الحالات الطارئة اتّصل بـ 112.',
+    vocab: [['der Termin', 'الموعد'], ['die Versichertenkarte', 'بطاقة التأمين'], ['die Kopfschmerzen', 'الصداع'], ['das Fieber', 'الحرارة'], ['krank', 'مريض'], ['seit', 'منذ'], ['Gute Besserung!', 'شفاك الله!']],
+    steps: [
+      { n: ['Praxis Doktor Hoffmann, guten Tag. Was kann ich für Sie tun?', 'عيادة الدكتور هوفمان، نهارك سعيد. كيف أساعدك؟'], o: [
+        ['Guten Tag. Ich möchte einen Termin, bitte.', 'نهارك سعيد. أريد موعداً من فضلك.', 1, 'der Termin مذكّر ← einen Termin (Akkusativ).'],
+        ['Guten Tag. Ich möchte ein Termin.', '—', 0, 'der Termin مذكّر ← einen Termin.'],
+        ['Guten Tag. Ich bin Termin.', '«أنا موعد»', 0, '«أنا موعد»! قل: Ich möchte einen Termin.']] },
+      { n: ['Was fehlt Ihnen denn?', 'ممّ تشكو؟'], o: [
+        ['Ich habe Kopfschmerzen und Fieber.', 'عندي صداع وحرارة.', 1, 'مع الألم نستعمل haben: Ich habe Kopfschmerzen / Bauchschmerzen / Fieber.'],
+        ['Ich bin Kopfschmerzen und Fieber.', '—', 0, 'مع الألم نستعمل haben وليس sein.'],
+        ['Mir fehlt nichts.', 'لا أشكو من شيء.', 0, '«لا أشكو من شيء» — لكنّك مريض!']] },
+      { n: ['Seit wann haben Sie das?', 'منذ متى عندك هذا؟'], o: [
+        ['Seit zwei Tagen.', 'منذ يومين.', 1, 'seit + Dativ: seit zwei Tagen = منذ يومين (وما زال مستمرّاً).'],
+        ['Vor zwei Tagen.', 'قبل يومين.', 0, 'vor = قبل (حدث مرّة وانتهى). لشيء مستمرّ: seit.'],
+        ['Bis zwei Tage.', '—', 0, 'bis = حتى. «منذ» = seit.']] },
+      { n: ['Haben Sie Ihre Versichertenkarte dabei?', 'هل معك بطاقة التأمين؟'], o: [
+        ['Ja, hier ist sie.', 'نعم، ها هي.', 1, 'die Karte مؤنّثة ← الضمير sie.'],
+        ['Ja, hier ist er.', '—', 0, 'die Versichertenkarte مؤنّثة ← sie، وليس er.'],
+        ['Ja, ich bin versichert dabei.', '—', 0, 'غير مفهومة. الأبسط: Ja, hier, bitte.']] },
+      { n: ['Sie können heute um halb elf kommen.', 'يمكنك أن تأتي اليوم في العاشرة والنصف.'], hear: 1, q: 'متى موعدك؟', o: [
+        ['10:30', '', 1, '⚠️ halb elf = نصف الطريق إلى 11 ← 10:30!'],
+        ['11:30', '', 0, 'halb elf = 10:30 وليس 11:30. «halb» + الساعة التالية.'],
+        ['11:00', '', 0, 'elf Uhr = 11:00. قالت halb elf = 10:30.']] },
+      { n: ['Passt Ihnen das?', 'هل يناسبك ذلك؟'], o: [
+        ['Ja, das passt gut. Vielen Dank!', 'نعم، يناسبني. شكراً جزيلاً!', 1, 'Das passt (mir) = هذا يناسبني.'],
+        ['Ja, das passt mich.', '—', 0, 'passen مع Dativ: Das passt mir. والأبسط: Das passt gut.'],
+        ['Ja, ich passe.', '—', 0, 'غير صحيحة هنا. قل: Das passt.']] },
+      { n: ['Gerne. Bis später und gute Besserung!', 'بكل سرور. إلى اللقاء وشفاك الله!'], end: 1 }] },
+
+  { id: 'apotheke', ic: '💊', de: 'Apotheke', ar: 'الصيدلية', type: 'pharmacy', lv: 'A1.2', topics: ['koerper'],
+    npc: { name: 'Frau Yılmaz', role: 'Apothekerin · الصيدلانية', g: 'f', look: { style: 'hijab', scarf: '#1b8a4e', shirt: '#1b8a4e', coat: 1, skin: '#e9be98', glasses: 1 } },
+    mission: 'عندك سعال. اطلب دواءً من الصيدلية، واسأل كيف تأخذه وكم سعره.',
+    tip: 'الأدوية تُباع فقط في الصيدلية (die Apotheke)، حتى مسكّنات الألم البسيطة. بعض الأدوية تحتاج وصفة من الطبيب (das Rezept). في الليل وأيام الأحد توجد دائماً صيدلية مناوبة (der Notdienst).',
+    vocab: [['das Medikament', 'الدواء'], ['der Husten', 'السعال'], ['die Tablette', 'الحبّة'], ['der Saft', 'الشراب'], ['dreimal täglich', '3 مرّات يومياً'], ['nach dem Essen', 'بعد الأكل'], ['das Rezept', 'الوصفة الطبية']],
+    steps: [
+      { n: ['Guten Tag! Was kann ich für Sie tun?', 'نهارك سعيد! كيف أساعدك؟'], o: [
+        ['Ich brauche etwas gegen Husten.', 'أحتاج شيئاً ضدّ السعال.', 1, 'etwas gegen + المرض = دواء لـ…'],
+        ['Ich brauche etwas für Husten haben.', '—', 0, 'فعلان! قل: Ich brauche etwas gegen Husten.'],
+        ['Ich habe Hunger.', 'أنا جائع.', 0, 'Hunger = جوع! السعال = Husten.']] },
+      { n: ['Haben Sie auch Fieber?', 'هل عندك حرارة أيضاً؟'], o: [
+        ['Nein, nur Husten.', 'لا، سعال فقط.', 1, 'nur = فقط.'],
+        ['Nein, ich habe kein Fieber nicht.', '—', 0, 'نفي مزدوج: kein Fieber تكفي.'],
+        ['Ja, nein.', 'نعم، لا.', 0, 'غير واضح! اختر: نعم أو لا.']] },
+      { n: ['Möchten Sie Tabletten oder einen Saft?', 'هل تريد حبوباً أم شراباً؟'], o: [
+        ['Lieber einen Saft, bitte.', 'أفضّل شراباً من فضلك.', 1, 'lieber = أفضّل. der Saft مذكّر ← einen Saft.'],
+        ['Lieber ein Saft, bitte.', '—', 0, 'der Saft مذكّر ← einen Saft (مفعول به).'],
+        ['Ich möchte Tabletten Saft.', '—', 0, 'اختر واحداً: Tabletten أو einen Saft.']] },
+      { n: ['Nehmen Sie den Saft dreimal täglich nach dem Essen.', 'خذ الشراب 3 مرّات يومياً بعد الأكل.'], hear: 1, q: 'كيف تأخذ الدواء؟', o: [
+        ['3 مرّات يومياً بعد الأكل', '', 1, 'dreimal täglich = 3 مرّات يومياً · nach dem Essen = بعد الأكل.'],
+        ['3 مرّات يومياً قبل الأكل', '', 0, 'vor = قبل · nach = بعد.'],
+        ['مرّة واحدة في الصباح', '', 0, 'dreimal = ثلاث مرّات.']] },
+      { n: ['Brauchen Sie sonst noch etwas?', 'هل تحتاج شيئاً آخر؟'], o: [
+        ['Nein, danke. Was kostet das?', 'لا، شكراً. كم سعره؟', 1, 'Was kostet das? = كم سعر هذا؟'],
+        ['Nein, danke. Was kostet es das?', '—', 0, 'كلمتان لنفس الشيء (es + das). قل: Was kostet das?'],
+        ['Nein, danke. Wie viel Uhr kostet das?', '—', 0, 'Wie viel Uhr = كم الساعة! للسعر: Was kostet das?']] },
+      { n: ['Der Hustensaft kostet acht Euro fünfzig.', 'شراب السعال سعره ثمانية يورو وخمسون سنتاً.'], hear: 1, q: 'كم السعر؟', o: [
+        ['8,50 €', '', 1, 'acht Euro fünfzig = 8,50 €.'],
+        ['18,50 €', '', 0, 'achtzehn = 18. هي قالت acht = 8.'],
+        ['8,15 €', '', 0, 'fünfzig = 50 · fünfzehn = 15.']] },
+      { n: ['Hier, bitte. Gute Besserung!', 'تفضّل. شفاك الله!'], end: 1 }] },
+
+  { id: 'schule', ic: '🏫', de: 'Sprachschule', ar: 'مدرسة اللغة', type: 'school', lv: 'A1.1', topics: ['hallo', 'verben', 'dinge'],
+    npc: { name: 'Herr Neumann', role: 'Lehrer · المعلّم', g: 'm', look: { style: 'short', hair: '#7a5230', shirt: '#7a4bd8', glasses: 1, beard: '#7a5230', skin: '#f3cfb3' } },
+    mission: 'أوّل يوم لك في مدرسة اللغة: قدّم نفسك، واطلب من المعلّم أن يعيد كلامه، واسأل عن معنى كلمة.',
+    tip: 'نخاطب المعلّم بـ Sie واسم العائلة: Herr Neumann / Frau Weber. دورة الاندماج (der Integrationskurs) فيها دروس لغة حتى المستوى B1، ودورة «الحياة في ألمانيا» (Orientierungskurs).',
+    vocab: [['der Kurs', 'الدورة'], ['der Lehrer', 'المعلّم'], ['das Heft', 'الدفتر'], ['die Hausaufgabe', 'الواجب المنزلي'], ['wiederholen', 'يعيد'], ['buchstabieren', 'يتهجّى'], ['Wie bitte?', 'عفواً؟ (لم أفهم)']],
+    steps: [
+      { n: ['Guten Morgen! Sind Sie neu im Kurs?', 'صباح الخير! هل أنت جديد في الدورة؟'], o: [
+        ['Ja, guten Morgen! Ich bin {name}.', 'نعم، صباح الخير! أنا {name}.', 1, 'تقديم بسيط: Ich bin + الاسم (أو Ich heiße …).'],
+        ['Ja, guten Morgen! Ich habe {name}.', '—', 0, 'haben = يملك. للاسم: Ich bin … أو Ich heiße …'],
+        ['Ja, gute Nacht!', 'نعم، تصبح على خير!', 0, 'Gute Nacht قبل النوم! في الصباح: Guten Morgen.']] },
+      { n: ['Willkommen! Wir sind in Raum zwölf. Der Kurs beginnt um neun Uhr.', 'أهلاً! نحن في الغرفة 12. الدرس يبدأ في الساعة التاسعة.'], hear: 1, q: 'في أيّ غرفة الدرس؟', o: [
+        ['الغرفة 12', '', 1, 'zwölf = 12 · der Raum = الغرفة.'],
+        ['الغرفة 2', '', 0, 'zwei = 2. هو قال zwölf = 12.'],
+        ['الغرفة 9', '', 0, '9 هي الساعة: um neun Uhr.']] },
+      { n: ['Können Sie bitte Ihren Nachnamen buchstabieren?', 'هل يمكنك أن تتهجّى اسم عائلتك؟'], o: [
+        ['Wie bitte? Können Sie das langsam wiederholen?', 'عفواً؟ هل يمكنك أن تعيد ذلك ببطء؟', 1, 'Wie bitte? = عفواً؟ (لم أفهم) — أهمّ جملة للمبتدئ! langsam = ببطء.'],
+        ['Was? Nochmal!', 'ماذا؟ مرّة أخرى!', 0, 'مفهومة لكنّها غير مهذّبة مع المعلّم. قل: Wie bitte?'],
+        ['Ich kann nicht Deutsch.', 'لا أعرف الألمانية.', 0, 'بل تعرف 😉 اطلب منه أن يعيد: Wie bitte?']] },
+      { n: ['Natürlich! Buchstabieren heißt: Sagen Sie die Buchstaben, zum Beispiel H, A, D, D, A, D.', 'طبعاً! التهجئة يعني: قل الحروف، مثلاً H، A، D، D، A، D.'], o: [
+        ['Ah, jetzt verstehe ich! Was bedeutet „Hausaufgabe“?', 'آه، الآن فهمت! ماذا تعني «Hausaufgabe»؟', 1, 'Was bedeutet …? = ماذا تعني…؟'],
+        ['Ah, jetzt verstehe ich! Was heißt bedeutet „Hausaufgabe“?', '—', 0, 'فعلان: اختر Was bedeutet … أو Was heißt …'],
+        ['Ah, ich verstehe nicht! Danke.', 'آه، لا أفهم! شكراً.', 0, 'تناقض: «آه» ثم «لا أفهم! شكراً».']] },
+      { n: ['Hausaufgabe, das ist Arbeit für zu Hause. Haben Sie ein Buch und ein Heft?', 'الواجب المنزلي هو عمل للبيت. هل عندك كتاب ودفتر؟'], o: [
+        ['Ich habe ein Heft, aber kein Buch.', 'عندي دفتر، لكن ليس عندي كتاب.', 1, 'لنفي الاسم نستعمل kein: kein Buch.'],
+        ['Ich habe ein Heft, aber nicht Buch.', '—', 0, 'لنفي الاسم نستعمل kein (وليس nicht): kein Buch.'],
+        ['Ich bin ein Heft.', '«أنا دفتر»', 0, '«أنا دفتر»! haben = يملك.']] },
+      { n: ['Kein Problem. Sie bekommen das Buch im Büro.', 'لا مشكلة. ستحصل على الكتاب في المكتب.'], hear: 1, q: 'أين تحصل على الكتاب؟', o: [
+        ['في المكتب', '', 1, 'im Büro = في المكتب. bekommen = يحصل على (وليس «يصبح»!).'],
+        ['في البيت', '', 0, 'في البيت = zu Hause.'],
+        ['في الغرفة 12', '', 0, 'قال: im Büro = في المكتب.']] },
+      { n: ['Prima! Dann bis gleich im Unterricht!', 'ممتاز! إذن إلى اللقاء بعد قليل في الدرس!'], end: 1 }] },
+
+  { id: 'amt', ic: '🏛️', de: 'Bürgeramt', ar: 'مكتب البلدية', type: 'townhall', lv: 'A1.2', topics: ['amt', 'zahlen'],
+    npc: { name: 'Herr Fischer', role: 'Sachbearbeiter · الموظّف', g: 'm', look: { style: 'bald', hair: '#8a8580', shirt: '#4a5563', tie: 1, glasses: 1, skin: '#f3cfb3' } },
+    mission: 'سجّل عنوانك الجديد (die Anmeldung): أعطِ رقم الانتظار، واملأ الاستمارة، وقدّم الأوراق، ثم وقّع.',
+    tip: 'يجب تسجيل السكن (die Anmeldung) خلال 14 يوماً من الانتقال. احجز موعداً عبر الإنترنت، وأحضر جواز السفر وورقة من المؤجّر (die Wohnungsgeberbestätigung). التاريخ في ألمانيا يُكتب: اليوم.الشهر.السنة.',
+    vocab: [['die Anmeldung', 'تسجيل السكن'], ['das Formular', 'الاستمارة'], ['der Reisepass', 'جواز السفر'], ['das Geburtsdatum', 'تاريخ الميلاد'], ['die Adresse', 'العنوان'], ['unterschreiben', 'يوقّع'], ['die Wartenummer', 'رقم الانتظار']],
+    steps: [
+      { n: ['Guten Tag. Welche Wartenummer haben Sie?', 'نهارك سعيد. ما رقم انتظارك؟'], o: [
+        ['Guten Tag. Ich habe die Nummer siebenundvierzig.', 'نهارك سعيد. عندي الرقم 47.', 1, 'die Nummer = الرقم. 47 = sieben + und + vierzig.'],
+        ['Guten Tag. Ich habe siebenundvierzig Jahre.', '«عندي 47 سنة»', 0, 'هذا عن العمر (وبطريقة خاطئة: Ich bin 47 Jahre alt). المطلوب رقم الانتظار.'],
+        ['Guten Tag. Nummer, bitte.', 'الرقم من فضلك.', 0, 'هو يسألك عن رقمك! أعطه رقمك.']] },
+      { n: ['Was möchten Sie heute machen?', 'ماذا تريد أن تفعل اليوم؟'], o: [
+        ['Ich möchte mich anmelden. Ich bin neu in der Stadt.', 'أريد أن أسجّل سكني. أنا جديد في المدينة.', 1, 'sich anmelden = يسجّل نفسه (Anmeldung).'],
+        ['Ich möchte mich anmelden in der Stadt neu.', '—', 0, 'ترتيب خاطئ. قل جملتين: Ich möchte mich anmelden. Ich bin neu in der Stadt.'],
+        ['Ich möchte ein Brötchen.', 'أريد كعكة خبز.', 0, 'هذه في المخبز! 😄']] },
+      { n: ['Gut. Bitte füllen Sie das Formular aus.', 'جيّد. املأ الاستمارة من فضلك.'], form: [
+        ['Vorname', 'الاسم الأوّل', 'Sam', 'text'], ['Nachname', 'اسم العائلة', 'Haddad', 'text'], ['Geburtsdatum', 'تاريخ الميلاد', '05.03.1995', 'date'], ['Straße und Hausnummer', 'الشارع ورقم البيت', 'Gartenstraße 12', 'text']] },
+      { n: ['Danke. Haben Sie Ihren Reisepass dabei?', 'شكراً. هل معك جواز سفرك؟'], o: [
+        ['Ja, hier ist mein Reisepass.', 'نعم، هذا جواز سفري.', 1, 'der Reisepass مذكّر ← mein Reisepass.'],
+        ['Ja, hier ist meine Reisepass.', '—', 0, 'der Reisepass مذكّر ← mein (وليس meine).'],
+        ['Ja, ich bin Reisepass.', '«أنا جواز سفر»', 0, '«أنا جواز سفر»! قل: Hier ist mein Reisepass.']] },
+      { n: ['Und die Wohnungsgeberbestätigung vom Vermieter?', 'وورقة التأكيد من المؤجّر؟'], o: [
+        ['Ja, die habe ich auch. Hier, bitte.', 'نعم، عندي هي أيضاً. تفضّل.', 1, 'Wohnungsgeberbestätigung = ورقة من المؤجّر تؤكّد أنّك تسكن عنده. كلمة طويلة لكنّها مهمّة جداً!'],
+        ['Ja, der Vermieter ist hier.', 'نعم، المؤجّر هنا.', 0, 'لم يسألك عن المؤجّر نفسه، بل عن الورقة منه.'],
+        ['Nein, ich habe keinen Vermieter nicht.', '—', 0, 'نفي مزدوج، وأنت تحتاج هذه الورقة للتسجيل!']] },
+      { n: ['Bitte unterschreiben Sie hier.', 'وقّع هنا من فضلك.'], o: [
+        ['Wo genau? Hier unten?', 'أين بالضبط؟ هنا في الأسفل؟', 1, 'genau = بالضبط · unten = في الأسفل.'],
+        ['Ich schreibe unter.', '—', 0, 'unterschreiben = يوقّع، لكن الجملة غير مفهومة. اسأل: Wo genau?'],
+        ['Nein, danke.', 'لا، شكراً.', 0, 'يجب أن توقّع لتكمل التسجيل!']] },
+      { n: ['Genau. Fertig! Hier ist Ihre Meldebescheinigung. Auf Wiedersehen!', 'بالضبط. انتهينا! هذه شهادة تسجيلك. إلى اللقاء!'], end: 1 }] },
+
+  { id: 'kleidung', ic: '👕', de: 'Modegeschäft', ar: 'محلّ الملابس', type: 'clothes', lv: 'A1.2', topics: ['kleidung', 'farben'],
+    npc: { name: 'Sara', role: 'Verkäuferin · البائعة', g: 'f', look: { style: 'long', hair: '#2a1712', shirt: '#7a4bd8', skin: '#d9a77f' } },
+    mission: 'اشترِ كنزة (der Pullover) زرقاء بمقاسك، وجرّبها قبل أن تشتريها.',
+    tip: 'المقاسات S · M · L · XL، وغرفة القياس اسمها «die Umkleidekabine». في كثير من المحلّات يمكنك إرجاع الملابس خلال 14 يوماً مع الإيصال (der Kassenbon).',
+    vocab: [['der Pullover', 'الكنزة'], ['die Hose', 'البنطلون'], ['die Größe', 'المقاس'], ['anprobieren', 'يجرّب (ملابس)'], ['die Umkleidekabine', 'غرفة القياس'], ['passen', 'يناسب (المقاس)'], ['zu klein', 'صغير جداً']],
+    steps: [
+      { n: ['Hallo! Kann ich Ihnen helfen?', 'مرحباً! هل أستطيع مساعدتك؟'], o: [
+        ['Ja, ich suche einen Pullover.', 'نعم، أبحث عن كنزة.', 1, 'der Pullover مذكّر ← einen Pullover (Akkusativ).'],
+        ['Ja, ich suche ein Pullover.', '—', 0, 'der Pullover مذكّر ← einen.'],
+        ['Nein, ich suche einen Pullover.', 'لا، أبحث عن كنزة.', 0, 'إذا كنت تبحث فأنت تحتاج المساعدة: Ja!']] },
+      { n: ['Welche Farbe möchten Sie?', 'أيّ لون تريد؟'], o: [
+        ['Blau, bitte.', 'أزرق من فضلك.', 1, 'blau = أزرق.'],
+        ['Groß, bitte.', 'كبير من فضلك.', 0, 'groß = كبير. السؤال عن اللون: blau.'],
+        ['Die Farbe ist schön.', 'اللون جميل.', 0, 'لم تجب عن السؤال: أيّ لون؟']] },
+      { n: ['Und welche Größe haben Sie?', 'وما مقاسك؟'], o: [
+        ['Ich habe Größe M.', 'مقاسي M.', 1, 'die Größe = المقاس: Größe M.'],
+        ['Ich habe Größe blau.', '«مقاسي أزرق»', 0, 'blau لون وليس مقاساً.'],
+        ['Ich bin 1,80 Meter.', 'طولي 1,80 متر.', 0, 'هذا طولك! المقاس: S, M, L…']] },
+      { n: ['Hier, bitte. Möchten Sie den Pullover anprobieren?', 'تفضّل. هل تريد أن تجرّب الكنزة؟'], o: [
+        ['Ja, gerne. Wo ist die Umkleidekabine?', 'نعم، بكل سرور. أين غرفة القياس؟', 1, 'anprobieren = يجرّب الملابس. die Umkleidekabine = غرفة القياس.'],
+        ['Ja, gerne. Wo ist die Küche?', 'نعم. أين المطبخ؟', 0, 'die Küche = المطبخ! 😄'],
+        ['Ja, ich probiere an ihn.', '—', 0, 'anprobieren فعل منفصل: Ich probiere ihn an. والأبسط: Ja, gerne.']] },
+      { n: ['Dort hinten links. … Und? Passt er?', 'هناك في الخلف على اليسار. … وماذا؟ هل تناسبك؟'], o: [
+        ['Nein, er ist zu klein. Haben Sie ihn in L?', 'لا، إنّها صغيرة جداً. هل عندكم مقاس L؟', 1, 'zu klein = صغير جداً · ihn = ضمير der Pullover في Akkusativ.'],
+        ['Nein, sie ist zu klein.', '—', 0, 'der Pullover مذكّر ← er، وليس sie.'],
+        ['Nein, er ist zu kleiner.', '—', 0, 'بعد zu لا نستعمل صيغة المقارنة: zu klein.']] },
+      { n: ['Ja, hier in L. Der Pullover kostet heute nur neunzehn Euro neunzig.', 'نعم، هذه بمقاس L. الكنزة اليوم بـ 19,90 يورو فقط.'], hear: 1, q: 'كم السعر؟', o: [
+        ['19,90 €', '', 1, 'neunzehn Euro neunzig = 19,90 €.'],
+        ['9,90 €', '', 0, 'neunzehn = 19 · neun = 9.'],
+        ['90,19 €', '', 0, 'اليورو أوّلاً ثم السنتات: neunzehn Euro neunzig.']] },
+      { n: ['Möchten Sie ihn nehmen?', 'هل تريد أن تأخذها؟'], o: [
+        ['Ja, ich nehme ihn. Er passt perfekt!', 'نعم، سآخذها. إنّها مناسبة تماماً!', 1, 'Ich nehme ihn = سآخذه (Akkusativ: der → ihn).'],
+        ['Ja, ich nehme er.', '—', 0, 'بعد nehmen نستعمل Akkusativ ← ihn (وليس er).'],
+        ['Ja, ich nehme sie.', '—', 0, 'der Pullover ← ihn، وليس sie.']] },
+      { n: ['Super! Dann kommen Sie bitte mit zur Kasse.', 'رائع! تعال معي إلى الصندوق.'], end: 1 }] },
+
+  { id: 'post', ic: '📮', de: 'Post', ar: 'مكتب البريد', type: 'post', lv: 'A1.2', topics: ['zahlen', 'laender'],
+    npc: { name: 'Herr Weber', role: 'Postangestellter · موظّف البريد', g: 'm', look: { style: 'short', hair: '#c9b38a', shirt: '#f0ab00', skin: '#f6d2b4' } },
+    mission: 'أرسل طرداً إلى عائلتك في تونس، واشترِ طابعاً لرسالة، واطلب الإيصال.',
+    tip: 'يمكنك إرسال الطرود من مكتب البريد أو من محطّات الطرود الآلية. إذا لم تكن في البيت، يترك ساعي البريد ورقة إشعار (die Benachrichtigung) وتستلم طردك من الفرع.',
+    vocab: [['das Paket', 'الطرد'], ['der Brief', 'الرسالة'], ['die Briefmarke', 'الطابع'], ['schicken', 'يرسل'], ['wiegen', 'يزن'], ['die Quittung', 'الإيصال'], ['bekommen', 'يحصل على']],
+    steps: [
+      { n: ['Guten Tag! Was kann ich für Sie tun?', 'نهارك سعيد! كيف أساعدك؟'], o: [
+        ['Ich möchte dieses Paket nach Tunesien schicken.', 'أريد أن أرسل هذا الطرد إلى تونس.', 1, 'schicken = يرسل · nach Tunesien = إلى تونس. الفعل الثاني في الآخر.'],
+        ['Ich möchte dieses Paket in Tunesien schicken.', '—', 0, 'الاتّجاه إلى بلد: nach (وليس in).'],
+        ['Ich möchte schicken dieses Paket.', '—', 0, 'مع möchte يذهب الفعل الثاني إلى آخر الجملة.']] },
+      { n: ['Gerne. Ich wiege es mal. Es wiegt drei Kilo.', 'بكل سرور. سأزنه. وزنه ثلاثة كيلوغرامات.'], hear: 1, q: 'كم وزن الطرد؟', o: [
+        ['3 كغ', '', 1, 'drei Kilo = 3 كيلوغرامات. wiegen = يزن.'],
+        ['13 كغ', '', 0, 'dreizehn = 13. هو قال drei = 3.'],
+        ['30 كغ', '', 0, 'dreißig = 30. هو قال drei = 3.']] },
+      { n: ['Was ist im Paket?', 'ماذا يوجد في الطرد؟'], o: [
+        ['Kleidung und Bücher für meine Familie.', 'ملابس وكتب لعائلتي.', 1, 'für + Akkusativ: für meine Familie = لعائلتي.'],
+        ['Kleidung und Bücher von meine Familie.', '—', 0, 'von = من (وبعدها Dativ: von meiner Familie). لعائلتي = für meine Familie.'],
+        ['Ein Paket.', 'طرد.', 0, 'سألك عمّا في داخل الطرد!']] },
+      { n: ['Das kostet nach Tunesien sechsunddreißig Euro neunundneunzig.', 'الإرسال إلى تونس يكلّف 36,99 يورو.'], hear: 1, q: 'كم يكلّف الإرسال؟', o: [
+        ['36,99 €', '', 1, 'sechsunddreißig = 36 · neunundneunzig = 99.'],
+        ['63,99 €', '', 0, '63 = dreiundsechzig. تذكّر: الآحاد أوّلاً!'],
+        ['36,19 €', '', 0, 'neunundneunzig = 99 · neunzehn = 19.']] },
+      { n: ['Noch etwas?', 'شيء آخر؟'], o: [
+        ['Ja, eine Briefmarke für einen Brief nach Berlin, bitte.', 'نعم، طابع لرسالة إلى برلين من فضلك.', 1, 'die Briefmarke ← eine Briefmarke · der Brief ← für einen Brief.'],
+        ['Ja, ein Briefmarke für ein Brief.', '—', 0, 'die Briefmarke مؤنّثة ← eine. der Brief مذكّر ← für einen Brief.'],
+        ['Ja, ich möchte einen Brief essen.', '«أريد أن آكل رسالة»', 0, '«أريد أن آكل رسالة»! 😄']] },
+      { n: ['Zusammen macht das siebenunddreißig Euro vierundneunzig.', 'المجموع 37,94 يورو.'], o: [
+        ['Hier, bitte. Kann ich eine Quittung bekommen?', 'تفضّل. هل يمكنني الحصول على إيصال؟', 1, 'bekommen = يحصل على (⚠️ وليس «يصبح»). die Quittung = الإيصال.'],
+        ['Hier, bitte. Kann ich eine Quittung werden?', '—', 0, 'werden = يصبح! «أصبح إيصالاً» 😄 الحصول على = bekommen.'],
+        ['Hier, bitte. Ich bekomme ein Quittung?', '—', 0, 'die Quittung ← eine. وفي السؤال: Kann ich … bekommen?']] },
+      { n: ['Natürlich. Hier ist Ihre Quittung. Schönen Tag noch!', 'طبعاً. هذا إيصالك. يوماً سعيداً!'], end: 1 }] },
+];
+
 </script>
 <script>
 (() => {
@@ -1091,13 +1614,13 @@ const GR = {
   const sayBtn = (txt, label = '') => `<button class="say" data-say="${esc(txt)}" aria-label="استمع"><span class="em">🔊</span>${label}</button>`;
 
   // ---------- state ----------
-  const S = { level: 'a11', topic: null, topicBy: {}, xp: 0, prog: {}, sound: true, voice: true, srs: {}, goal: 60, dayN: 0, dayXP: 0, streak: 0, lastDay: 0, goalHit: 0, read: {}, view: 'home', tab: 'lernen', name: '', notes: {} };
+  const S = { level: 'a11', topic: null, topicBy: {}, xp: 0, prog: {}, sound: true, voice: true, srs: {}, goal: 60, dayN: 0, dayXP: 0, streak: 0, lastDay: 0, goalHit: 0, read: {}, view: 'home', name: '', notes: {}, city: {}, cityTr: false };
   const load = () => {
     try {
       const old = JSON.parse(localStorage.getItem('sprachbahn.v1') || 'null');
       const cur = JSON.parse(localStorage.getItem(KEY) || 'null');
       Object.assign(S, cur || (old ? { xp: old.xp || 0, prog: old.prog || {}, sound: old.sound !== false, voice: old.voice !== false, level: old.level || 'a11' } : {}));
-      S.read = S.read || {}; S.notes = S.notes || {};
+      S.read = S.read || {}; S.notes = S.notes || {}; S.city = S.city || {};
     } catch (e) { /* storage blocked */ }
   };
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* storage blocked */ } };
@@ -1298,17 +1821,24 @@ const GR = {
   }
   let deVoice = null;
   const voiceScore = (v) => (/^de[-_]DE/i.test(v.lang) ? 4 : 0) + (/natural|online|neural|premium|enhanced/i.test(v.name) ? 3 : 0) + (/katja|amala|seraphina|hedda|anna|petra|marlene|vicki|helena|female|google/i.test(v.name) ? 2 : 0);
-  const pickVoice = () => { try { const vs = speechSynthesis.getVoices().filter((v) => /^de/i.test(v.lang)); deVoice = vs.sort((a, b) => voiceScore(b) - voiceScore(a))[0] || null; } catch (e) { deVoice = null; } };
+  let deVoiceM = null;
+  const pickVoice = () => {
+    try {
+      const vs = speechSynthesis.getVoices().filter((v) => /^de/i.test(v.lang)); deVoice = vs.sort((a, b) => voiceScore(b) - voiceScore(a))[0] || null;
+      deVoiceM = vs.filter((v) => /stefan|conrad|killian|florian|markus|jonas|ralf|yannick|male|mann/i.test(v.name)).sort((a, b) => voiceScore(b) - voiceScore(a))[0] || null;
+    } catch (e) { deVoice = null; }
+  };
   if ('speechSynthesis' in window) { pickVoice(); try { speechSynthesis.addEventListener('voiceschanged', pickVoice); } catch (e) { /* old API */ } }
   const ttsOK = () => !!deVoice;
   const talking = (on) => document.body.classList.toggle('talking', on);
-  const utter = (text, slow) => {
-    const u = new SpeechSynthesisUtterance(String(text).replace(/\s*\(Pl\.\)/, '').replace('…', '')); u.lang = 'de-DE'; if (deVoice) u.voice = deVoice; u.rate = slow ? 0.6 : 0.92;
+  const utter = (text, slow, vo) => {
+    const u = new SpeechSynthesisUtterance(String(text).replace(/\s*\(Pl\.\)/, '').replace('…', '')); u.lang = 'de-DE'; u.rate = slow ? 0.6 : 0.92;
+    const v = vo && vo.g === 'm' && deVoiceM ? deVoiceM : deVoice; if (v) u.voice = v; if (vo && vo.pitch && !(vo.g === 'm' && deVoiceM)) u.pitch = vo.pitch;
     u.addEventListener('start', () => talking(true)); u.addEventListener('end', () => talking(false)); u.addEventListener('error', () => talking(false));
     return u;
   };
   let listRun = 0;
-  function speak(text, slow) { if (!('speechSynthesis' in window)) return; listRun += 1; try { speechSynthesis.cancel(); speechSynthesis.speak(utter(text, slow)); } catch (e) { /* speech unavailable */ } }
+  function speak(text, slow, vo) { if (!('speechSynthesis' in window)) return; listRun += 1; try { speechSynthesis.cancel(); speechSynthesis.speak(utter(text, slow, vo)); } catch (e) { /* speech unavailable */ } }
   function speakList(items) {
     if (!('speechSynthesis' in window)) return; let k = 0; const list = items.filter(Boolean); const my = ++listRun;
     try { speechSynthesis.cancel(); } catch (e) { return; }
@@ -1347,14 +1877,20 @@ const GR = {
     $('#xp').textContent = S.xp.toLocaleString('de-DE'); $('#streakTop').textContent = streakView();
     $('#soundBtn').setAttribute('aria-pressed', S.sound); $('#voiceBtn').setAttribute('aria-pressed', S.voice);
   }
-  function renderToday() {
-    const nu = nextUp(); const L = DATA[S.level]; const dx = dayXPView(); const due = dueList().length; const mist = mistakeList().length;
-    $('#today').innerHTML = `<h2>تابع من حيث توقّفت</h2>
-      <button class="cont" data-act="continue"><span class="ic em">${nu.t.icon || '🚉'}</span><small>${nu.t.id === 'mix' ? 'المراجعة الشاملة' : `الدرس ${nu.t.no}`} · ${L.name} · الخطوة ${nu.i + 1} من ${nu.n}</small>
-        <b>${nu.all ? '🎉 أكملت المستوى! أعد الاختبار الشامل' : `▶ ${nu.s.ar}`}</b><span>${esc(nu.t.ar)} — <span class="de">${esc(nu.t.de)}</span></span></button>
-      <div><div class="goal-l"><span>🎯 هدف اليوم: <b>${dx}</b> / ${S.goal} XP</span><span>${[30, 60, 120].map((g) => `<button data-goal="${g}" aria-pressed="${S.goal === g}">${g}</button>`).join(' ')}</span></div><div class="goalbar"><i style="width:${Math.min(100, (dx / S.goal) * 100)}%"></i></div></div>
-      <div class="t-row"><div><b>${streakView()}</b><small>🔥 يوم متتالي</small></div><div><b>${learnedCount(ALLW)}</b><small>🧠 كلمة محفوظة</small></div><div><b>${due}</b><small>🔁 للمراجعة اليوم</small></div></div>
-      <div class="t-btns"><button class="btn gelb" data-act="express">⚡ تعلّم سريع<small>8 كلمات · 10 دقائق</small></button><button class="btn" data-act="review" ${due ? '' : 'disabled'}>🔁 مراجعة<small>${due} كلمة</small></button><button class="btn ghost" data-act="mistakes" ${mist ? '' : 'disabled'}>❌ أخطائي<small>${mist} كلمة</small></button></div>`;
+  function renderHome() {
+    renderLenaHero();
+    const nu = nextUp(); const L = DATA[S.level]; const dx = dayXPView(); const due = dueList().length; const mist = mistakeList().length; const m = nu.s.k === 'lesen' ? UNT : GM[nu.s.k];
+    $('#homeMain').innerHTML = `<button class="cont" data-act="continue"><span class="ic em">${m.ic}</span><small>${nu.t.id === 'mix' ? 'المراجعة الشاملة' : `الدرس ${nu.t.no}`}: ${esc(nu.t.ar)} · الخطوة ${nu.i + 1} من ${nu.n}</small>
+        <b>${nu.all ? '🎉 أكملت المستوى! أعد الاختبار الشامل' : `▶ تابع: ${m.ar}`}</b><span>اضغط هنا وتابع من حيث توقّفت — كل شيء بالترتيب</span></button>
+      <div class="tiles">
+        <button class="tile2 hot" data-nav="city"><span class="ic em">🏙️</span><b>المدينة الألمانية</b><span>عِش يوماً في ألمانيا: السوبرماركت، المخبز، الطبيب، البلدية…</span><small>${cityDone()} / ${CITY.length} مهامّ</small></button>
+        <button class="tile2" data-nav="lessons"><span class="ic em">📚</span><b>كل الدروس</b><span>23 درساً مرتّبة في 6 أسابيع</span><small>المستوى ${L.name}</small></button>
+        <button class="tile2" data-act="review" ${due ? '' : 'disabled'}><span class="ic em">🔁</span><b>المراجعة</b><span>${due ? 'كلمات حان وقت مراجعتها اليوم' : 'لا شيء للمراجعة الآن 👍'}</span><small>${due} كلمة</small></button>
+        <button class="tile2" data-act="laute"><span class="ic em">🗣️</span><b>دليل النطق</b><span>الأصوات الصعبة على العرب، مع الميكروفون</span><small>${LAUTE.length} صوتاً</small></button>
+      </div>
+      <div class="mini"><span>🔥 <b>${streakView()}</b> يوم متتالي</span><span>🧠 <b>${learnedCount(ALLW)}</b> كلمة محفوظة</span>${mist ? `<button class="say" data-act="mistakes">❌ تدرّب على أخطائي (${mist})</button>` : ''}
+        <span class="goal"><span>🎯 هدف اليوم: ${dx} / ${S.goal} XP</span><span class="goalbar"><i style="width:${Math.min(100, (dx / S.goal) * 100)}%"></i></span></span></div>`;
+    updateTop();
   }
   function renderLevels() {
     $('#lvl').innerHTML = ['a11', 'a12'].map((lv) => {
@@ -1363,7 +1899,7 @@ const GR = {
         <b>${lv === 'a11' ? 'المستوى الأوّل: البداية' : 'المستوى الثاني: نحو امتحان A1'}</b><span class="sub">${L.T.length} دروس · أكملت ${done} · ${learnedCount(L.mix.W)} / ${L.mix.W.length} كلمة محفوظة</span>
         <span class="lbar"><i style="width:${(done / L.T.length) * 100}%"></i></span></button>`;
     }).join('');
-    const L = DATA[S.level]; $('#lvlInfo').textContent = `المستوى ${L.name} = الأسابيع ${S.level === 'a11' ? '1 – 3' : '4 – 6'} · درس كل يوم أو يومين (≈ 20 دقيقة) · ابدأ بالترتيب`;
+    const L = DATA[S.level]; $('#lvlInfo').textContent = `المستوى ${L.name} = الأسابيع ${S.level === 'a11' ? '1 – 3' : '4 – 6'} · درس كل يوم أو يومين (≈ 20 دقيقة)`;
   }
   function lessonStatus(t) { const p = pathFor(t); const d = p.filter((s) => stepDone(t, s.k)).length; return { d, n: p.length, st: d === 0 ? 'new' : d === p.length ? 'done' : 'go' }; }
   function renderLessons() {
@@ -1372,102 +1908,72 @@ const GR = {
       const s = lessonStatus(t); let head = '';
       if (k % 4 === 0 && t.id !== 'mix') { const grp = L.T.slice(k, k + 4); const d = grp.filter((x) => lessonStatus(x).st === 'done').length; head = `<div class="wk"><b>الأسبوع ${wk0 + k / 4 + 1}</b><span>الدروس ${grp[0].no} – ${grp[grp.length - 1].no} · أكملت ${d} من ${grp.length}</span></div>`; }
       return `${head}<button class="lc ${t.id === 'mix' ? 'final' : ''} ${nu.t === t ? 'cur' : ''}" data-open="${t.id}"><span class="ic em">${t.icon || '🚉'}<span class="num">${t.no}</span></span>
-        <b>${esc(t.ar)}</b><span class="de">${esc(t.de)}</span><span><span class="status ${s.st}">${s.st === 'done' ? '✓ مكتمل' : s.st === 'go' ? 'قيد التعلّم' : 'لم يبدأ'}</span></span>
+        <b>${esc(t.ar)}</b><span class="de">${esc(t.de)}</span><span><span class="status ${s.st}">${s.st === 'done' ? '✓ مكتمل' : s.st === 'go' ? 'قيد التعلّم' : nu.t === t ? '▶ ابدأ هنا' : 'لم يبدأ'}</span></span>
         <span class="foot"><span class="bar"><i style="width:${(s.d / s.n) * 100}%"></i></span>${s.d}/${s.n} خطوات</span></button>`;
     }).join('');
   }
-  function renderHome() { renderLenaHero(); renderToday(); renderLevels(); renderAcad(); renderLessons(); updateTop(); }
+  function renderLessonsView() { renderLevels(); renderAcad(); renderLessons(); updateTop(); }
 
   // ---------- lesson page ----------
   const numRows = () => [...Array(21).keys(), 30, 40, 50, 60, 70, 80, 90, 100];
-  function lenaCTA(t) {
-    const mix = t.id === 'mix';
-    return `<div class="lena-cta">${lenaSVG()}<div><b>👩‍🏫 ${mix ? 'المراجعة مع لينا' : 'الحصة مع لينا'} <small>(≈ ${mix ? 8 : 12} دقيقة)</small></b><span>${mix ? 'لينا تراجع معك كلمات المستوى، وتسألك، وتستمع إلى نطقك 🎤.' : 'لينا تقدّم لك كل كلمة بصوت ألماني، وتشرح القاعدة بالعربية، وتستمع إلى نطقك 🎤. أفضل طريقة للبدء!'}</span></div><button class="btn big gelb" data-game="lesen">▶ ابدأ الحصة</button></div>
-      <p class="notice" style="margin:0 0 14px">📖 أو اقرأ الدرس بنفسك بالأسفل — وارجع إليه متى شئت كمرجع.</p>`;
-  }
-  function lernenHTML(t) { return lenaCTA(t) + lernenBody(t); }
   function lernenBody(t) {
     const gr = GR[t.id];
     if (t.id === 'mix') {
       const L = DATA[S.level];
-      return `<div class="box"><div class="box-h"><span class="n">📚</span><h3>خلاصة قواعد المستوى ${L.name}</h3></div><div class="exl">${L.T.map((x) => `<div><span class="em" style="font-size:22px">${x.icon}</span><b>${esc(x.ar)}</b><small>— ${tipHTML(GR[x.id] ? GR[x.id].t : '')}</small><span style="flex-basis:100%">${tipHTML(x.tip || '')}</span></div>`).join('')}</div></div>
-        <div class="cta-row"><button class="btn big gelb" data-act="readdone">✅ راجعت القواعد — إلى التمارين ←</button></div>`;
+      return `<div class="box"><div class="box-h"><span class="n">📚</span><h3>خلاصة قواعد المستوى ${L.name}</h3></div><div class="exl">${L.T.map((x) => `<div><span class="em" style="font-size:22px">${x.icon}</span><b>${esc(x.ar)}</b><small>— ${tipHTML(GR[x.id] ? GR[x.id].t : '')}</small><span style="flex-basis:100%">${tipHTML(x.tip || '')}</span></div>`).join('')}</div></div>`;
     }
     const words = t.id === 'zahlen'
       ? `<div class="lws">${numRows().map((n) => { const w = numDe(n); return `<div class="lw"><span class="pic" style="font-family:var(--f-display);font-weight:800;font-size:30px">${n}</span><span class="w">${w}</span>${sayBtn(w)}<span class="m">${n <= 12 ? 'رقم أساسي' : n < 20 ? `${n - 10} + 10` : n % 10 ? '' : 'عشرات'}</span></div>`; }).join('')}</div>`
       : `<div class="lws">${t.W.map((w) => { const ex = EX[w.de]; return `<div class="lw"><span class="pic">${picHTML(w.pic)}</span><span class="w">${deHTML(w)}</span>${sayBtn(w.plain)}<span class="m">${esc(w.ar)} · <span class="pr">${esc(w.pr)}</span></span>${dots(w)}
           ${ex ? `<span class="x"><span class="de">${esc(ex[0])}</span>${sayBtn(ex[0])}<span>${esc(ex[1])}</span></span>` : ''}</div>`; }).join('')}</div>`;
     const allWords = t.id === 'zahlen' ? numRows().map(numDe) : t.W.map((w) => w.plain);
-    return `<div class="box"><div class="box-h"><span class="n">🎯</span><h3>في هذا الدرس ستتعلّم</h3></div><div class="goals">
-        ${t.W.length ? `<span>📚 ${t.W.length} كلمة جديدة</span>` : '<span>🔢 الأرقام من 0 إلى 100</span>'}${gr ? `<span>🧠 ${esc(gr.t)}</span>` : ''}<span>💬 ${(t.sent || []).length} جمل مفيدة</span><span>🗨️ ${(t.dlg || []).length} حوارات قصيرة</span></div></div>
-      <div class="box"><div class="box-h"><span class="n">1</span><h3>الكلمات</h3><span class="sp"></span><button class="btn ghost" data-speakall="1">▶ استمع إلى الكل</button>${t.W.length ? '<button class="btn gelb" data-game="karten">🃏 احفظها بالبطاقات</button>' : ''}</div>
+    return `<div class="box"><div class="box-h"><span class="n">1</span><h3>الكلمات</h3><span class="sp"></span><button class="btn ghost" data-speakall="1">▶ استمع إلى الكل</button></div>
         <p class="notice" style="margin-top:0">اضغط 🔊 لتسمع كل كلمة. الألوان: <b class="a-der">der</b> مذكّر · <b class="a-die">die</b> مؤنّث · <b class="a-das">das</b> محايد · النقاط الخضراء = مستوى حفظك.</p>${words}</div>
       ${gr ? `<div class="box gbox"><div class="box-h"><span class="n">2</span><h3>القاعدة: ${esc(gr.t)}</h3></div><ul>${gr.p.map((p) => `<li>${tipHTML(p)}</li>`).join('')}</ul>
         ${gr.tab ? `<div class="gt-wrap"><table class="gt"><thead><tr>${gr.tab[0].map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${gr.tab.slice(1).map((r) => `<tr>${r.map((c) => `<td>${/[A-Za-zÄÖÜäöüß]/.test(c) && !/[؀-ۿ]/.test(c) ? `<span class="de">${esc(c)}</span>` : esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : ''}
         <div class="exl"><b>أمثلة:</b>${gr.ex.map(([d, a]) => `<div>${sayBtn(d)}<span class="de">${esc(d)}</span><small>${esc(a)}</small></div>`).join('')}</div></div>` : ''}
       ${(t.sent || []).length ? `<div class="box"><div class="box-h"><span class="n">3</span><h3>جمل مفيدة</h3></div><div class="sl">${t.sent.map(([d, a]) => `<div>${sayBtn(d)}<span class="de">${esc(d)}</span><small>${esc(a)}</small></div>`).join('')}</div></div>` : ''}
       ${(t.dlg || []).length ? `<div class="box"><div class="box-h"><span class="n">4</span><h3>حوار قصير</h3></div><div class="dl">${t.dlg.map(([q, qa, a, aa]) => `<div class="dl-it"><div class="bub-q"><span class="em">🧑</span>${sayBtn(q)}<span class="de">${esc(q)}</span><small>${esc(qa)}</small></div><div class="bub-a"><span class="em">🙂</span>${sayBtn(a)}<span class="de">${esc(a)}</span><small>${esc(aa)}</small></div></div>`).join('')}</div></div>` : ''}
-      <div class="cta-row" data-all="${esc(JSON.stringify(allWords))}"><button class="btn big gelb" data-act="readdone">✅ قرأتُ الدرس — إلى التمارين ←</button></div>`;
+      <div class="cta-row" data-all="${esc(JSON.stringify(allWords))}"><button class="btn big gelb" data-act="readdone">✅ قرأتُ الملخّص</button></div>`;
   }
   function xcHTML(t, k) {
     const g = GM[k]; const s = getStars(t, k);
     return `<button class="xc ${g.rec ? 'rec' : ''}" data-game="${k}"><span class="ic em">${g.ic}</span><b>${g.ar}</b><span class="r">${starsHTML(s)}<span class="go">${s ? '↻ أعد' : 'ابدأ'}</span></span>
-      <span class="d">${g.d} <span class="de">${g.de}</span></span><span class="tags"><span class="chip-s">🎯 ${g.skill}</span><span class="chip-s">${g.n}</span><span class="chip-s">≈ ${g.min} د</span>${g.rec ? '<span class="chip-s" style="border-color:var(--gelb)">⭐ موصى به</span>' : ''}</span></button>`;
+      <span class="d">${g.d} <span class="de">${g.de}</span></span><span class="tags"><span class="chip-s">🎯 ${g.skill}</span><span class="chip-s">${g.n}</span><span class="chip-s">≈ ${g.min} د</span></span></button>`;
   }
-  function tabHTML(t, tab) {
-    if (tab === 'lernen') return lernenHTML(t);
-    const ks = gamesFor(t).filter((k) => GM[k].tab === tab);
-    if (tab === 'ueben') {
-      const rec = ks.filter((k) => GM[k].rec); const more = ks.filter((k) => !GM[k].rec);
-      return `<p class="notice" style="margin-top:0">✍️ ابدأ بالتمارين «الموصى بها» بالترتيب. بعد كل جواب ستجد شرحاً ومثالاً — اقرأه بتمعّن!</p>
-        <div class="grp-t">⭐ التمارين الأساسية (بالترتيب)</div><div class="xcs">${rec.map((k) => xcHTML(t, k)).join('')}</div>
-        ${more.length ? `<div class="grp-t" style="margin-top:16px">➕ تمارين إضافية</div><div class="xcs">${more.map((k) => xcHTML(t, k)).join('')}</div>` : ''}`;
-    }
-    if (tab === 'spielen') return `<p class="notice" style="margin-top:0">🎮 ألعاب ممتعة لتثبيت الكلمات. العبها بعد التمارين الأساسية.</p><div class="xcs">${ks.map((k) => xcHTML(t, k)).join('')}</div>`;
-    return `<p class="notice" style="margin-top:0">📝 جاهز؟ الاختبار يقيس كل ما تعلّمته في هذا الدرس ويعطيك علامة ألمانية (1 = ممتاز … 6 = غير كافٍ).</p><div class="xcs">${ks.map((k) => xcHTML(t, k)).join('')}</div>`;
-  }
+  const moreOpen = {};
   function renderLesson() {
-    const t = topicObj(); const L = DATA[S.level]; const p = pathFor(t); const nIdx = p.findIndex((s) => !stepDone(t, s.k)); const next = p[nIdx];
+    const t = topicObj(); const L = DATA[S.level]; const p = pathFor(t); const nIdx = p.findIndex((s) => !stepDone(t, s.k));
     const list = [...L.T, L.mix]; const pos = list.indexOf(t); const prev = list[pos - 1]; const nxt = list[pos + 1];
-    const counts = { lernen: '', ueben: gamesFor(t).filter((k) => GM[k].tab === 'ueben').length, spielen: gamesFor(t).filter((k) => GM[k].tab === 'spielen').length, test: gamesFor(t).filter((k) => GM[k].tab === 'test').length };
-    $('#lessonIn').innerHTML = `<button class="back" data-act="home">→ رجوع إلى كل الدروس</button>
-      <div class="lh"><span class="ic em">${t.icon || '🚉'}</span><span class="k">${t.id === 'mix' ? 'المراجعة الشاملة' : `الدرس ${t.no}`} · المستوى ${L.name}</span><h1>${esc(t.ar)}</h1><span class="de">${esc(t.de)}</span>
-        <span class="go">${next ? `<button class="btn big gelb" data-step="${next.k}">▶ الخطوة التالية: ${next.ar}</button>` : '<span class="status done" style="font-size:15px;padding:6px 14px">✓ أكملت هذا الدرس</span>'}</span></div>
-      <div class="path"><div class="path-h"><span>مسار الدرس: ${p.length} خطوات</span><small>اضغط على أيّ خطوة · الأخضر = تمّ</small></div>
-        <div class="steps" style="--n:${p.length}">${p.map((s, k) => `<button class="step ${stepDone(t, s.k) ? 'done' : ''} ${k === nIdx ? 'next' : ''}" data-step="${s.k}"><span class="n">${stepDone(t, s.k) ? '✓' : k + 1}</span><b>${s.ar}</b><small>${s.sub}</small></button>`).join('')}</div></div>
-      <div class="tabs" role="tablist">${[['lernen', '📖 الدرس', 'اقرأ واستمع'], ['ueben', '✍️ التمارين', counts.ueben], ['spielen', '🎮 الألعاب', counts.spielen], ['test', '📝 الاختبار', counts.test]].map(([k, l, c]) => `<button class="tab" role="tab" data-tab="${k}" aria-selected="${S.tab === k}">${l} <small>${c}</small></button>`).join('')}</div>
-      <div class="panel" id="panel">${tabHTML(t, S.tab)}</div>
+    const extra = gamesFor(t).filter((k) => !p.some((s) => s.k === k)); const pl = placesFor(t); const nDone = p.filter((s) => stepDone(t, s.k)).length;
+    $('#lessonIn').innerHTML = `<button class="back" data-nav="lessons">→ كل الدروس</button>
+      <div class="lh"><span class="ic em">${t.icon || '🚉'}</span><span class="k">${t.id === 'mix' ? 'المراجعة الشاملة' : `الدرس ${t.no}`} · المستوى ${L.name}</span><h1>${esc(t.ar)}</h1><span class="de">${esc(t.de)}</span></div>
+      <div class="h2s"><h2>اتبع الخطوات بالترتيب</h2><span>${nDone} / ${p.length} مكتملة</span></div>
+      <div class="srows">${p.map((s, k) => {
+        const m = s.k === 'lesen' ? UNT : GM[s.k]; const done = stepDone(t, s.k); const st = s.k === 'lesen' ? 0 : getStars(t, s.k);
+        return `<button class="srow ${done ? 'done' : ''} ${k === nIdx ? 'next' : ''}" data-step="${s.k}"><span class="n">${done ? '✓' : k + 1}</span><span class="ic em">${m.ic}</span>
+          <span class="tx"><b>${m.ar}</b><small>${m.d}</small></span><span class="r">${k === nIdx ? '<span class="go">ابدأ ▶</span>' : done ? (st ? starsHTML(st) : '<span class="okk">تمّ ✓</span>') : '<span class="later">بعدها</span>'}</span></button>`;
+      }).join('')}</div>
+      ${pl.length ? `<div class="cityl"><b>🏙️ طبّق هذا الدرس في الحياة الحقيقية:</b>${pl.map((c) => `<button class="say" data-place="${c.id}">${c.ic} ${esc(c.ar)}</button>`).join('')}</div>` : ''}
+      <details class="more" data-more="sum" ${moreOpen.sum ? 'open' : ''}><summary>📖 ملخّص الدرس: الكلمات، القاعدة، الجمل</summary><div class="more-in">${lernenBody(t)}</div></details>
+      ${extra.length ? `<details class="more" data-more="ex" ${moreOpen.ex ? 'open' : ''}><summary>🎮 تمارين وألعاب إضافية (${extra.length})</summary><div class="more-in"><div class="xcs">${extra.map((k) => xcHTML(t, k)).join('')}</div></div></details>` : ''}
       <div class="cta-row" style="margin-top:20px">${prev ? `<button class="btn ghost" data-open="${prev.id}">→ ${esc(prev.ar)}</button>` : ''}${nxt ? `<button class="btn ghost" data-open="${nxt.id}">${esc(nxt.ar)} ←</button>` : ''}</div>`;
+    $$('details.more', $('#lessonIn')).forEach((d) => { d.ontoggle = () => { moreOpen[d.dataset.more] = d.open; }; });
   }
+  const VIEWS = ['home', 'lessons', 'lesson', 'city'];
   function show(view) {
+    if (!VIEWS.includes(view)) view = 'home';
     S.view = view; save();
-    $('#homeV').hidden = view !== 'home'; $('#lessonV').hidden = view !== 'lesson';
-    if (view === 'home') renderHome(); else { renderLesson(); updateTop(); }
+    VIEWS.forEach((v) => { $(`#${v}V`).hidden = v !== view; });
+    const nav = view === 'lesson' ? 'lessons' : view; $$('.nav [data-nav]').forEach((b) => b.setAttribute('aria-current', b.dataset.nav === nav ? 'page' : 'false'));
+    if (view === 'home') renderHome(); else if (view === 'lessons') renderLessonsView(); else if (view === 'lesson') { renderLesson(); updateTop(); } else { renderCity(); updateTop(); }
+    cityActive(view === 'city');
     window.scrollTo({ top: 0, behavior: 'auto' });
   }
-  function openLesson(id, tab) { S.topic = id; S.tab = tab || 'lernen'; show('lesson'); }
-  const tabOf = (k) => (k === 'lesen' ? 'lernen' : GM[k].tab);
-  function doStep(k) { S.tab = tabOf(k); renderLesson(); openGame(k); }
-  function refreshView() { if (S.view === 'lesson') { renderLesson(); updateTop(); } else renderHome(); }
-
-  // ---------- animated scene ----------
-  function sceneSVG() {
-    const wave = (y, amp, m, seed) => { let d = `M0 ${y}`; for (let x = 0; x <= 2400; x += 25) d += ` L${x} ${(y - amp * (0.5 + 0.5 * Math.sin((2 * Math.PI * m * x) / 1200 + seed))).toFixed(1)}`; return `${d} V220 H0 Z`; };
-    let stars = ''; for (let i = 0; i < 40; i++) stars += `<circle class="f-white" cx="${rnd(1200)}" cy="${rnd(90)}" r="${(Math.random() * 1.3 + 0.4).toFixed(1)}"/>`;
-    let trees = ''; for (let x = 30; x < 2400; x += 120) { const tx = x + ((x * 7) % 40); trees += `<rect class="f-h3" x="${tx - 2}" y="150" width="4" height="14"/><circle class="f-h3" cx="${tx}" cy="146" r="${9 + ((x / 120) % 3) * 2}"/>`; }
-    let clouds = ''; for (const [x, y, s] of [[120, 40, 1], [520, 28, 0.8], [880, 50, 1.2]]) for (const off of [0, 1200]) clouds += `<g transform="translate(${x + off} ${y}) scale(${s})" opacity=".85"><ellipse class="f-white" cx="0" cy="0" rx="34" ry="12"/><ellipse class="f-white" cx="-14" cy="-8" rx="16" ry="11"/><ellipse class="f-white" cx="12" cy="-10" rx="18" ry="13"/></g>`;
-    let poles = ''; for (let x = 60; x < 2400; x += 200) poles += `<rect class="f-ink" x="${x}" y="96" width="4" height="96" opacity=".75"/><rect class="f-ink" x="${x - 10}" y="100" width="24" height="3" opacity=".75"/>`;
-    let sleepers = ''; for (let x = -40; x <= 1240; x += 40) sleepers += `<rect class="f-ink" x="${x}" y="197" width="22" height="5" rx="1" opacity=".55"/>`;
-    const wheels = (x) => [x + 18, x + 82].map((cx) => `<g class="wheel"><circle class="f-ink" cx="${cx}" cy="191" r="7"/><rect class="f-white" x="${cx - 1}" y="185" width="2" height="12" opacity=".6"/></g>`).join('');
-    const wagons = ['der', 'die', 'das'].map((a, i) => { const x = 506 + i * 106; return `<rect class="f-${a}" x="${x}" y="144" width="100" height="44" rx="8"/>${[0, 1, 2, 3].map((k) => `<rect class="f-win" x="${x + 10 + k * 22}" y="152" width="16" height="12" rx="2"/>`).join('')}<text x="${x + 50}" y="183" text-anchor="middle" class="f-white" font-family="Barlow Condensed, sans-serif" font-weight="800" font-size="15">${a}</text><rect class="f-ink" x="${x - 6}" y="176" width="6" height="4"/>${wheels(x)}`; }).join('');
-    return `<svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice"><defs><linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sky1"/><stop offset="1" class="sky2"/></linearGradient></defs>
-      <rect width="1200" height="220" fill="url(#skyG)"/><g class="stars-g">${stars}</g><circle class="f-sun" cx="1050" cy="52" r="26"/>
-      <g class="mv-far">${clouds}<path class="f-h1" d="${wave(150, 46, 2, 0.6)}"/></g><g class="mv-mid"><path class="f-h2" d="${wave(172, 26, 3, 2.1)}"/>${trees}</g>
-      <rect class="f-ground" x="0" y="186" width="1200" height="34"/><g class="mv-near">${poles}</g><line class="s-wire" x1="0" y1="104" x2="1200" y2="104" stroke-width="1.5"/>
-      <g class="mv-rails">${sleepers}</g><rect class="f-ink" x="0" y="194" width="1200" height="3" opacity=".7"/>
-      <g class="train-g"><path class="f-ink" d="M380 188 L380 162 Q382 142 404 140 L500 140 L500 188 Z"/><path class="f-win" d="M388 162 Q390 149 404 148 L420 148 L420 163 Z"/>
-      <rect class="f-gelb" x="380" y="170" width="120" height="5"/><rect class="f-win" x="432" y="150" width="22" height="13" rx="2"/><rect class="f-win" x="462" y="150" width="22" height="13" rx="2"/>
-      <polyline points="446,140 458,122 440,112 470,104" fill="none" class="s-ink" stroke-width="2.5"/><circle class="f-gelb" cx="384" cy="181" r="3"/>${wheels(392)}${wagons}</g></svg>`;
+  function openLesson(id) { S.topic = id; show('lesson'); }
+  function doStep(k) { openGame(k); }
+  function refreshView() {
+    if (S.view === 'lesson') { renderLesson(); updateTop(); } else if (S.view === 'lessons') renderLessonsView(); else if (S.view === 'city') { renderCity(); updateTop(); } else renderHome();
   }
 
   // ---------- game shell ----------
@@ -2317,9 +2823,8 @@ const GR = {
       <div class="bubble"><span class="de">${g[0]} Ich bin Lena, deine Deutschlehrerin.</span><small>${g[1]} أنا لينا، معلّمتك للألمانية. أتكلّم معك بالألمانية وأشرح لك بالعربية. اضغط على صورتي لتسمعني 🔊</small></div>`;
   }
   function renderAcad() {
-    const c = certInfo(S.level); const nu = nextUp(); const L = DATA[S.level];
-    const wk = (S.level === 'a11' ? 0 : 3) + Math.min(2, Math.floor(Math.max(0, L.T.indexOf(nu.t) === -1 ? L.T.length - 1 : L.T.indexOf(nu.t)) / 4)) + 1;
-    $('#acad').innerHTML = `<button class="ac" data-act="plan"><span class="ic em">📅</span><b>أنت في الأسبوع ${wk} من 6</b><span>الدورة المكثّفة: 23 درساً في 6 أسابيع · 20 دقيقة يومياً</span></button>
+    const c = certInfo(S.level); const L = DATA[S.level];
+    $('#acad').innerHTML = `<button class="ac" data-nav="city"><span class="ic em">🏙️</span><b>المدينة الألمانية</b><span>طبّق ما تعلّمته في ${CITY.length} موقفاً من الحياة اليومية</span></button>
       <button class="ac" data-act="laute"><span class="ic em">🗣️</span><b>دليل النطق للعرب</b><span>${LAUTE.length} صوتاً ألمانياً مع أمثلة وتمرين ميكروفون</span></button>
       <button class="ac ${c.ok ? 'gold' : ''}" data-act="cert"><span class="ic em">🎓</span><b>شهادة ${L.name}</b><span>${c.ok ? 'جاهزة! اكتب اسمك واطبعها' : `أكمل الدروس (${c.done}/${L.T.length}) أو انجح في الاختبار الشامل`}</span></button>`;
   }
@@ -2442,7 +2947,7 @@ const GR = {
   }
 
   // ---------- class with Lena (Unterricht) ----------
-  const UNT = { ic: '👩‍🏫', ar: 'الحصة مع لينا', de: 'Unterricht', skill: 'الكلمات · القاعدة · النطق', n: 'حصة كاملة', min: 12,
+  const UNT = { ic: '👩‍🏫', ar: 'الحصة مع لينا', de: 'Unterricht', skill: 'الكلمات · القاعدة · النطق', n: 'حصة كاملة', min: 12, d: 'لينا تقدّم لك كل كلمة بصوتها، وتشرح القاعدة بالعربية، وتستمع إلى نطقك 🎤',
     how: ['لينا تقدّم لك الكلمات واحدة واحدة: تسمعها بصوت ألماني، وترى معناها ونطقها بالحروف العربية ومثالاً.', 'بعد كل كلمة: اضغط 🎤 وكرّرها، ولينا تقيّم نطقك وتعطيك نصائح.', 'كل 4 كلمات: سؤالان سريعان للتأكّد أنّك فهمت.', 'ثم القاعدة بشرح عربي، وجمل تقولها، ولعب أدوار مع لينا.'],
     keys: 'السهم ← = التالي · السهم → = السابق · Space = استمع مرة أخرى' };
   const grTable = (gr) => (gr.tab ? `<div class="gt-wrap"><table class="gt"><thead><tr>${gr.tab[0].map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${gr.tab.slice(1).map((r) => `<tr>${r.map((c) => `<td>${/[A-Za-zÄÖÜäöüß]/.test(c) && !/[؀-ۿ]/.test(c) ? `<span class="de">${esc(c)}</span>` : esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : '');
@@ -2635,37 +3140,514 @@ const GR = {
     show();
   }
 
+  // ---------- people (SVG avatars) ----------
+  function personSVG(o = {}) {
+    const skin = o.skin || '#f3c9a5'; const hair = o.hair || '#4a3020'; const shirt = o.shirt || '#2459c4'; const sc = o.scarf || '#2459c4'; const hj = o.style === 'hijab';
+    let s = '<svg class="lena person" viewBox="0 0 120 120" aria-hidden="true"><circle class="bgc" cx="60" cy="60" r="60"/>';
+    if (o.style === 'long') s += `<path fill="${hair}" d="M30 64 C28 34 44 20 61 20 C80 20 94 34 91 64 C90 82 92 96 98 106 L22 106 C28 96 31 82 30 64 Z"/>`;
+    if (hj) s += `<path fill="${sc}" d="M26 62 C24 30 42 16 60 16 C78 16 96 30 94 62 C94 82 98 98 106 112 L14 112 C22 98 26 82 26 62 Z"/>`;
+    s += `<path fill="${o.coat ? '#f4f6f8' : shirt}" d="M12 122 C14 100 34 89 60 89 C86 89 106 100 108 122 Z"/>`;
+    s += o.coat ? `<path fill="${shirt}" d="M51 90 L60 106 L69 90 Z"/><path d="M60 106 L60 122" stroke="#c9d2da" stroke-width="1.5"/>` : '<path fill="rgba(255,255,255,.85)" d="M50 90 L60 103 L70 90 Z"/>';
+    if (o.tie) s += '<path fill="#cf343a" d="M58 97 L62 97 L64 114 L60 119 L56 114 Z"/>';
+    if (!hj) s += `<path fill="${skin}" style="filter:brightness(.92)" d="M52 74 L52 90 Q60 97 68 90 L68 74 Z"/><ellipse fill="${skin}" cx="38.5" cy="58" rx="3.5" ry="6"/><ellipse fill="${skin}" cx="81.5" cy="58" rx="3.5" ry="6"/>`;
+    s += `<ellipse fill="${skin}" cx="60" cy="56" rx="22" ry="25"/>`;
+    if (o.beard) s += `<path fill="${o.beard}" d="M38 60 C40 84 50 90 60 90 C70 90 80 84 82 60 C78 72 72 77 60 77 C48 77 42 72 38 60 Z"/><path fill="${o.beard}" d="M50 69 Q60 64 70 69 Q60 70 50 69 Z"/>`;
+    const tops = {
+      short: `<path fill="${hair}" d="M37 51 C35 31 48 25 61 25 C76 25 86 33 84 51 C80 41 72 36 60 36 C50 36 41 42 37 51 Z"/>`,
+      long: `<path fill="${hair}" d="M37 53 C36 34 48 27 61 27 C75 27 85 35 84 53 C78 44 70 38 60 39 C52 40 44 46 37 53 Z"/>`,
+      bun: `<circle fill="${hair}" cx="60" cy="25" r="9"/><path fill="${hair}" d="M37 51 C35 32 48 27 61 27 C76 27 86 34 84 51 C80 42 72 38 60 38 C50 38 41 43 37 51 Z"/>`,
+      bald: `<path fill="${hair}" d="M37 56 C36 48 37 43 40 40 L41 56 Z M83 56 C84 48 83 43 80 40 L79 56 Z"/>`,
+      hijab: `<path fill="${sc}" d="M35 54 C34 33 47 27 60 27 C73 27 86 33 85 54 C80 44 71 39 60 39 C49 39 40 44 35 54 Z"/><path fill="${sc}" d="M35 52 C33 72 40 86 60 88 C80 86 87 72 85 52 L83 60 C81 74 73 81 60 81 C47 81 39 74 37 60 Z"/>`,
+    };
+    s += tops[o.style] || tops.short;
+    if (o.chef) s += '<path fill="#fff" stroke="#d6dee4" stroke-width="1" d="M40 36 L40 24 C33 22 33 9 45 11 C48 2 72 2 75 11 C87 9 87 22 80 24 L80 36 Z"/>';
+    if (o.cap) s += `<path fill="${o.cap}" d="M36 41 C37 24 83 24 84 41 Z"/><path fill="${o.cap}" style="filter:brightness(.75)" d="M34 41 L86 41 L90 45 L30 45 Z"/>`;
+    s += '<path d="M45 47 Q50 44 55 47 M65 47 Q70 44 75 47" stroke="#3a2a1e" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/>';
+    s += '<g class="eyes"><ellipse cx="50.5" cy="55" rx="2.6" ry="3.3" fill="#1d2a35"/><ellipse cx="69.5" cy="55" rx="2.6" ry="3.3" fill="#1d2a35"/><circle cx="51.4" cy="54" r=".9" fill="#fff"/><circle cx="70.4" cy="54" r=".9" fill="#fff"/></g>';
+    if (o.glasses) s += '<g fill="none" stroke="#1d2a35" stroke-width="1.5" opacity=".8"><circle cx="50.5" cy="55" r="7.5"/><circle cx="69.5" cy="55" r="7.5"/><path d="M58 55 Q60 53.5 62 55"/></g>';
+    s += '<path d="M60 58 Q58 64 61 65" stroke="rgba(120,60,30,.35)" stroke-width="1.6" fill="none" stroke-linecap="round"/><circle cx="45" cy="66" r="4" fill="#f29a9a" opacity=".35"/><circle cx="75" cy="66" r="4" fill="#f29a9a" opacity=".35"/>';
+    return `${s}<path class="mouth" fill="#b23a48" d="M53.5 71 Q60 77 66.5 71 Q60 73.5 53.5 71 Z"/></svg>`;
+  }
+  // wraps Latin (German) runs inside Arabic text so the mixed line reads correctly
+  function autoDe(s) {
+    const re = /[A-Za-zÄÖÜäöüß][A-Za-zÄÖÜäöüß‑-]*(?: [A-Za-zÄÖÜäöüß][A-Za-zÄÖÜäöüß‑-]*)*/g; let out = ''; let last = 0; let m;
+    while ((m = re.exec(s))) { out += esc(s.slice(last, m.index)) + `<span class="de">${esc(m[0])}</span>`; last = m.index + m[0].length; }
+    return out + esc(s.slice(last));
+  }
+  const WIEBITTE = [['Wie bitte?', 'عفواً؟'], ['Entschuldigung, wie bitte?', 'عذراً، ماذا قلت؟'], ['Hm? Das verstehe ich leider nicht.', 'هممم؟ للأسف لا أفهم هذا.']];
+  const cityStars = (id) => (S.city || {})[id] || 0;
+  const cityDone = () => CITY.filter((p) => cityStars(p.id) > 0).length;
+  const placesFor = (t) => CITY.filter((c) => c.topics.includes(t.id));
+  const sayBtnV = (txt, vo) => `<button class="say" data-say="${esc(txt)}" data-g="${vo.g}" data-p="${vo.pitch}" aria-label="استمع"><span class="em">🔊</span></button>`;
+
+  // ---------- city page ----------
+  function renderCity() {
+    const n = cityDone();
+    $('#cityPass').innerHTML = `<div class="pass-h"><b>🛂 جواز الاندماج</b><span>${n} / ${CITY.length} أختام</span></div><div class="stamps">${CITY.map((p) => `<span class="stamp ${cityStars(p.id) ? 'on' : ''}" title="${esc(p.ar)}"><span class="em">${p.ic}</span></span>`).join('')}</div>`;
+    $('#places').innerHTML = `<div class="places-h">اختر مكاناً <small>كل مكان = موقف حقيقي من الحياة اليومية</small></div>${CITY.map((p) => {
+      const st = cityStars(p.id);
+      return `<button class="pc ${st ? 'done' : ''}" data-place="${p.id}"><span class="ic">${personSVG(p.npc.look)}<span class="em">${p.ic}</span></span><span class="tx"><b>${esc(p.ar)}</b><span class="de">${esc(p.de)} · ${esc(p.npc.name)}</span></span><span class="r">${st ? starsHTML(st) : `<span class="chip-s">${p.lv}</span>`}</span></button>`;
+    }).join('')}`;
+    if (C3) refreshLabels();
+  }
+  function goPlace(id) {
+    if (!CITY.some((c) => c.id === id)) return;
+    if (S.view !== 'city') show('city');
+    const host = $('#city3d'); const r = host.getBoundingClientRect();
+    if (r.top < 0 || r.top > innerHeight * 0.5) host.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'start' });
+    cityReady().then(() => {
+      const p = C3 && C3.player; if (!p) { openPlace(id); return; }
+      if (p.goal === id) { const d = doorOf(id); p.path = []; p.goal = null; p.g.position.set(d.x, 0.18, d.z); arrive(id); } else walkTo(id);
+    }).catch(() => openPlace(id));
+  }
+
+  // ---------- 3D city ----------
+  const THREE_URL = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  const RD = [-36, -12, 12, 36]; const BCX = [-24, 0, 24];
+  const LOTS = { schule: [0, 0, 'n'], post: [0, 0, 's'], amt: [1, 0, 'n'], cafe: [1, 0, 's'], arzt: [2, 0, 'n'], apotheke: [2, 0, 's'], baeckerei: [0, 1, 'n'], kleidung: [0, 1, 's'], supermarkt: [2, 1, 'n'], wohnung: [0, 2, 'n'] };
+  const FILLER = [[2, 1, 's'], [0, 2, 's'], [1, 2, 'n'], [1, 2, 's'], [2, 2, 'n'], [2, 2, 's']];
+  const lotPos = ([bx, bz, h]) => ({ x: BCX[bx], z: BCX[bz] + (h === 'n' ? -4.5 : 4.5), rot: h === 'n' ? Math.PI : 0 });
+  const placePos = (id) => (id === 'bahnhof' ? { x: 0, z: -51, rot: 0 } : id === 'strasse' ? { x: 6, z: 7.4, rot: 0 } : lotPos(LOTS[id]));
+  const doorOf = (id) => { if (id === 'bahnhof') return { x: 0, z: -36 }; if (id === 'strasse') return { x: 6, z: 12 }; const [bx, bz, h] = LOTS[id]; return { x: BCX[bx], z: BCX[bz] + (h === 'n' ? -12 : 12) }; };
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  let C3 = null; let threeP = null; let cityP = null;
+  function loadThree() {
+    if (window.THREE) return Promise.resolve();
+    if (!threeP) {
+      threeP = new Promise((res, rej) => {
+        const s = document.createElement('script'); s.src = THREE_URL; s.async = true;
+        s.onload = () => (window.THREE ? res() : rej(new Error('three missing'))); s.onerror = () => rej(new Error('three load failed'));
+        document.head.appendChild(s); setTimeout(() => rej(new Error('three timeout')), 20000);
+      }).catch((e) => { threeP = null; throw e; });
+    }
+    return threeP;
+  }
+  function cityReady() {
+    if (!cityP) {
+      cityP = (async () => { await loadThree(); try { await document.fonts.ready; } catch (e) { /* fonts optional */ } buildCity(); })()
+        .catch((e) => { cityP = null; const l = $('#cityLoad'); if (l) { l.hidden = false; l.innerHTML = '⚠️ تعذّر عرض المدينة ثلاثية الأبعاد على هذا الجهاز.<br>لا مشكلة: اختر مكاناً من القائمة وادخل مباشرة.'; } throw e; });
+    }
+    return cityP;
+  }
+  function cityActive(on) {
+    if (C3) C3.visible = on;
+    if (on) cityReady().then(() => { C3.visible = S.view === 'city'; resizeCity(); }).catch(() => {});
+  }
+  function resizeCity() {
+    if (!C3) return; const r = C3.host.getBoundingClientRect(); if (!r.width || !r.height) return;
+    C3.w = r.width; C3.h = r.height; C3.renderer.setSize(r.width, r.height, false); C3.camera.aspect = r.width / r.height; C3.camera.updateProjectionMatrix();
+  }
+  function refreshLabels() { C3.labels.forEach((L) => { if (L.id) L.el.classList.toggle('done', cityStars(L.id) > 0); }); }
+  function routeTo(from, to) {
+    const on = (v) => RD.some((r) => Math.abs(r - v) < 0.05);
+    const best = (v, tv) => RD.reduce((a, b) => (Math.abs(b - v) + Math.abs(b - tv) < Math.abs(a - v) + Math.abs(a - tv) ? b : a));
+    let { x, z } = from; const pts = [];
+    if (on(z) && Math.abs(z - to.z) < 0.05) return [to];
+    if (!on(x)) { x = best(x, to.x); pts.push({ x, z }); } else if (!on(z)) { z = best(z, to.z); pts.push({ x, z }); }
+    if (Math.abs(z - to.z) > 0.05) pts.push({ x, z: to.z });
+    pts.push({ x: to.x, z: to.z });
+    return pts;
+  }
+  function walkTo(id) {
+    const p = C3.player; const d = doorOf(id);
+    if (reduced()) { p.g.position.set(d.x, 0.18, d.z); arrive(id); return; }
+    p.path = routeTo({ x: p.g.position.x, z: p.g.position.z }, d); p.goal = id; C3.follow = true; C3.idle = 0;
+    C3.camT.r = Math.min(C3.camT.r, 64); C3.camT.ph = Math.min(C3.camT.ph, 0.9);
+    const P = CITY.find((c) => c.id === id); $('#cityStatus').innerHTML = `🚶 في الطريق إلى ${P.ic} ${esc(P.ar)}… <small>(اضغط مرة أخرى للوصول فوراً)</small>`; $('#cityStatus').hidden = false;
+  }
+  function arrive(id) {
+    const p = C3.player; const lp = placePos(id); p.g.rotation.y = Math.atan2(lp.x - p.g.position.x, lp.z - p.g.position.z);
+    C3.camT.x = p.g.position.x; C3.camT.z = p.g.position.z; C3.camT.r = 34; $('#cityStatus').hidden = true;
+    setTimeout(() => { if (S.view === 'city' && ov.hidden) openPlace(id); }, reduced() ? 0 : 500);
+  }
+  function buildCity() {
+    const T = window.THREE; const host = $('#city3d'); const cv = $('#cityCv');
+    const renderer = new T.WebGLRenderer({ canvas: cv, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2)); renderer.shadowMap.enabled = true; renderer.shadowMap.type = T.PCFSoftShadowMap;
+    const scene = new T.Scene(); scene.background = new T.Color('#bfe1f3'); scene.fog = new T.Fog('#bfe1f3', 150, 320);
+    const camera = new T.PerspectiveCamera(42, 1, 1, 700);
+    scene.add(new T.HemisphereLight('#ffffff', '#7d9b6a', 0.75));
+    const sun = new T.DirectionalLight('#fff4e0', 0.8); sun.position.set(-50, 90, 40); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+    Object.assign(sun.shadow.camera, { left: -80, right: 80, top: 80, bottom: -80, near: 10, far: 260 }); sun.shadow.bias = -0.0006; scene.add(sun);
+    C3 = { T, renderer, scene, camera, host, labels: [], pick: [], cars: [], peds: [], visible: S.view === 'city', idle: 0, last: 0, follow: false, cam: { th: 0.5, ph: 0.92, r: 125, x: 0, z: -4 }, camT: { th: 0.5, ph: 0.92, r: 125, x: 0, z: -4 } };
+    const mats = {}; const mat = (c) => (mats[c] = mats[c] || new T.MeshLambertMaterial({ color: c }));
+    const box = (w, h, d, c, x = 0, y = 0, z = 0, par = scene, sh = true) => { const m = new T.Mesh(new T.BoxGeometry(w, h, d), typeof c === 'string' ? mat(c) : c); m.position.set(x, y + h / 2, z); m.castShadow = sh; m.receiveShadow = true; par.add(m); return m; };
+    const plane = (w, d, c, x, y, z, par = scene) => { const m = new T.Mesh(new T.PlaneGeometry(w, d), typeof c === 'string' ? mat(c) : c); m.rotation.x = -Math.PI / 2; m.position.set(x, y, z); m.receiveShadow = true; par.add(m); return m; };
+    const cyl = (rt, rb, h, c, x, y, z, par = scene, seg = 10) => { const m = new T.Mesh(new T.CylinderGeometry(rt, rb, h, seg), mat(c)); m.position.set(x, y + h / 2, z); m.castShadow = true; par.add(m); return m; };
+    const canvasTex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new T.CanvasTexture(c); t.anisotropy = 4; return t; };
+    const rr = (g, x, y, w, h, r) => { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); };
+    const facade = (wall, cols, rows, o = {}) => canvasTex(256, 256, (g) => {
+      g.fillStyle = wall; g.fillRect(0, 0, 256, 256); const cw = 256 / cols; const rh = 256 / rows;
+      if (o.timber) { g.strokeStyle = '#5a3a22'; g.lineWidth = 6; for (let j = 0; j <= rows; j++) { g.beginPath(); g.moveTo(0, j * rh); g.lineTo(256, j * rh); g.stroke(); } for (let i = 0; i <= cols; i++) { g.beginPath(); g.moveTo(i * cw, 0); g.lineTo(i * cw, 256); g.stroke(); } for (let i = 0; i < cols; i++) for (let j = 0; j < rows - (o.shop ? 1 : 0); j++) { g.beginPath(); g.moveTo(i * cw, j * rh); g.lineTo(i * cw + cw * 0.2, j * rh + rh * 0.45); g.moveTo(i * cw + cw, j * rh); g.lineTo(i * cw + cw * 0.8, j * rh + rh * 0.45); g.stroke(); } }
+      const door = o.door !== false && !o.shop ? Math.floor(cols / 2) : -1;
+      for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
+        if (o.shop && j === rows - 1) { if (i === 0) { g.fillStyle = '#2d3a44'; g.fillRect(6, j * rh + rh * 0.1, 244, rh * 0.86); g.fillStyle = '#a9d6ef'; g.fillRect(12, j * rh + rh * 0.15, 232, rh * 0.78); g.fillStyle = 'rgba(255,255,255,.35)'; g.fillRect(12, j * rh + rh * 0.15, 60, rh * 0.78); g.fillStyle = '#2d3a44'; g.fillRect(118, j * rh + rh * 0.15, 20, rh * 0.78); } continue; }
+        if (j === rows - 1 && i === door) { g.fillStyle = '#6b4226'; g.fillRect(i * cw + cw * 0.25, j * rh + rh * 0.18, cw * 0.5, rh * 0.82); g.fillStyle = '#e8c35a'; g.fillRect(i * cw + cw * 0.62, j * rh + rh * 0.6, 5, 5); continue; }
+        const x = i * cw + cw * 0.22; const y = j * rh + rh * (o.arch ? 0.14 : 0.22); const w = cw * 0.56; const h = rh * (o.arch ? 0.68 : 0.5);
+        g.fillStyle = 'rgba(0,0,0,.28)'; g.fillRect(x - 3, y - 3, w + 6, h + 6);
+        g.fillStyle = (i * 7 + j * 3) % 5 === 0 ? '#ffe9a8' : '#bfe0f2';
+        if (o.arch) { g.beginPath(); g.moveTo(x, y + h); g.lineTo(x, y + w / 2); g.arc(x + w / 2, y + w / 2, w / 2, Math.PI, 0); g.lineTo(x + w, y + h); g.closePath(); g.fill(); } else g.fillRect(x, y, w, h);
+        g.fillStyle = 'rgba(255,255,255,.42)'; g.fillRect(x, y + (o.arch ? w / 2 : 0), w * 0.28, h - (o.arch ? w / 2 : 0));
+        g.fillStyle = 'rgba(0,0,0,.2)'; g.fillRect(x - 4, y + h + 2, w + 8, 4);
+      }
+    });
+    const bldg = (w, h, d, wall, o = {}) => {
+      const rows = o.rows || Math.max(1, Math.round(h / 3)); const mf = new T.MeshLambertMaterial({ map: facade(wall, o.cols || Math.max(2, Math.round(w / 3)), rows, o) });
+      const ms = new T.MeshLambertMaterial({ map: facade(wall, Math.max(2, Math.round(d / 3)), rows, { timber: o.timber, arch: o.arch, door: false }) }); const mt = mat(o.top || '#8b949c');
+      const m = new T.Mesh(new T.BoxGeometry(w, h, d), [ms, ms, mt, mt, mf, ms]); m.position.y = h / 2; m.castShadow = true; m.receiveShadow = true; return m;
+    };
+    const roof = (w, d, rh, color, over = 0.6) => {
+      const s = new T.Shape(); s.moveTo(-d / 2 - over, 0); s.lineTo(d / 2 + over, 0); s.lineTo(0, rh); s.closePath();
+      const geo = new T.ExtrudeGeometry(s, { depth: w + over * 2, bevelEnabled: false }); geo.translate(0, 0, -(w + over * 2) / 2);
+      const m = new T.Mesh(geo, mat(color)); m.rotation.y = Math.PI / 2; m.castShadow = true; m.receiveShadow = true; return m;
+    };
+    const pyramid = (r, h, color) => { const m = new T.Mesh(new T.ConeGeometry(r, h, 4), mat(color)); m.rotation.y = Math.PI / 4; m.castShadow = true; return m; };
+    const sign = (txt, bg, fg, w, round) => {
+      const H = round ? 256 : 112; const W = round ? 256 : 512;
+      const tex = canvasTex(W, H, (g) => {
+        if (round) { g.fillStyle = bg; g.beginPath(); g.arc(128, 128, 120, 0, Math.PI * 2); g.fill(); g.fillStyle = fg; g.font = '800 170px "Barlow Condensed", Arial, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(txt, 128, 140); return; }
+        g.fillStyle = bg; rr(g, 4, 4, W - 8, H - 8, 22); g.fill(); g.fillStyle = fg; let fs = 62; g.font = `800 ${fs}px "Barlow Condensed", Arial, sans-serif`;
+        while (g.measureText(txt).width > W - 50 && fs > 20) { fs -= 2; g.font = `800 ${fs}px "Barlow Condensed", Arial, sans-serif`; }
+        g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(txt, W / 2, H / 2 + 4);
+      });
+      return new T.Mesh(new T.PlaneGeometry(w, round ? w : (w * H) / W), new T.MeshBasicMaterial({ map: tex, transparent: true, side: T.DoubleSide }));
+    };
+    const crossTex = (bg, fg) => canvasTex(128, 128, (g) => { g.fillStyle = bg; rr(g, 4, 4, 120, 120, 16); g.fill(); g.fillStyle = fg; g.fillRect(48, 18, 32, 92); g.fillRect(18, 48, 92, 32); });
+    const clockMesh = (r) => new T.Mesh(new T.CircleGeometry(r, 28), new T.MeshBasicMaterial({ map: canvasTex(128, 128, (g) => { g.fillStyle = '#f4f1e6'; g.beginPath(); g.arc(64, 64, 62, 0, Math.PI * 2); g.fill(); g.strokeStyle = '#13202b'; g.lineWidth = 5; g.stroke(); for (let k = 0; k < 12; k++) { const a = (k * Math.PI) / 6; g.fillStyle = '#13202b'; g.fillRect(64 + Math.sin(a) * 50 - 2, 64 - Math.cos(a) * 50 - 2, 5, 5); } g.lineCap = 'round'; g.lineWidth = 7; g.beginPath(); g.moveTo(64, 64); g.lineTo(64 + 26, 64 - 18); g.stroke(); g.lineWidth = 4; g.beginPath(); g.moveTo(64, 64); g.lineTo(64 - 10, 64 - 44); g.stroke(); }) }));
+    const glass = new T.MeshLambertMaterial({ color: '#bfe3f2', transparent: true, opacity: 0.45 });
+    const awning = (par, w, y, z, c1, c2) => { const tex = canvasTex(128, 32, (g) => { for (let k = 0; k < 8; k++) { g.fillStyle = k % 2 ? c2 : c1; g.fillRect(k * 16, 0, 16, 32); } }); const m = box(w, 0.12, 1.7, new T.MeshLambertMaterial({ map: tex }), 0, y, z + 0.8, par); m.rotation.x = 0.32; return m; };
+    const tree = (x, z, s = 1, par = scene) => { cyl(0.2 * s, 0.28 * s, 1.6 * s, '#7a5230', x, 0.18, z, par, 6); const f = new T.Mesh(new T.IcosahedronGeometry(1.5 * s, 0), mat(['#4f9a4a', '#5aa650', '#3f8a44'][Math.abs(Math.round(x * 3 + z)) % 3])); f.position.set(x, 0.18 + 2.5 * s, z); f.castShadow = true; par.add(f); };
+    const person3D = (shirt, pants = '#34495e', skin = '#f1c7a1', hair = '#3b2a1e', s = 1) => {
+      const g = new T.Group(); const legs = []; const arms = [];
+      for (const x of [-0.2, 0.2]) { const lg = new T.Group(); lg.position.set(x * s, 1.05 * s, 0); box(0.3 * s, 1.05 * s, 0.32 * s, pants, 0, -1.05 * s, 0, lg); g.add(lg); legs.push(lg); }
+      box(0.9 * s, 1.15 * s, 0.5 * s, shirt, 0, 1.0 * s, 0, g);
+      for (const x of [-0.58, 0.58]) { const ar = new T.Group(); ar.position.set(x * s, 2.1 * s, 0); box(0.22 * s, 1 * s, 0.26 * s, shirt, 0, -1 * s, 0, ar); g.add(ar); arms.push(ar); }
+      const head = new T.Mesh(new T.SphereGeometry(0.36 * s, 14, 10), mat(skin)); head.position.y = 2.6 * s; head.castShadow = true; g.add(head);
+      const hr = new T.Mesh(new T.SphereGeometry(0.39 * s, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), mat(hair)); hr.position.y = 2.64 * s; g.add(hr);
+      g.userData.legs = legs; g.userData.arms = arms; return g;
+    };
+    const swing = (g, ph, amp) => { const [l1, l2] = g.userData.legs; const [a1, a2] = g.userData.arms; l1.rotation.x = Math.sin(ph) * amp; l2.rotation.x = -Math.sin(ph) * amp; a1.rotation.x = -Math.sin(ph) * amp * 0.8; a2.rotation.x = Math.sin(ph) * amp * 0.8; };
+    C3.swing = swing;
+
+    // ground, roads, pavements
+    plane(240, 220, '#9cc77e', 0, 0, -8);
+    const roadTex = (vert) => { const t = canvasTex(64, 64, (g) => { g.fillStyle = '#56606a'; g.fillRect(0, 0, 64, 64); g.fillStyle = '#f4f1e6'; if (vert) g.fillRect(30, 6, 4, 28); else g.fillRect(6, 30, 28, 4); }); t.wrapS = T.RepeatWrapping; t.wrapT = T.RepeatWrapping; return t; };
+    for (const r of RD) {
+      const th = roadTex(false); th.repeat.set(140 / 6, 1); plane(140, 6, new T.MeshLambertMaterial({ map: th }), 0, 0.02, r);
+      const tv = roadTex(true); tv.repeat.set(1, 99 / 6); plane(6, 99, new T.MeshLambertMaterial({ map: tv }), r, 0.025, 10.5);
+    }
+    for (const bx of BCX) for (const bz of BCX) box(18.4, 0.18, 18.4, '#d5d2cb', bx, 0, bz, scene, false);
+    box(46, 0.18, 7.4, '#d5d2cb', 0, 0, -42.6, scene, false);
+    for (const [x, z] of [[0, -9.6], [0, 9.6], [-9.6, 0], [9.6, 0]]) for (let k = -2; k <= 2; k++) { const zb = Math.abs(x) > 1; plane(zb ? 0.6 : 3.6, zb ? 3.6 : 0.6, '#f4f1e6', zb ? x + Math.sign(x) * 2.4 + k * 0.9 * 0 : k * 1.1, 0.04, zb ? k * 1.1 : z + Math.sign(z) * 2.4); }
+    // park with fountain
+    box(16, 0.24, 16, '#8fc46e', 0, 0, 0, scene, false); plane(16, 2.2, '#e6d6b3', 0, 0.25, 0); plane(2.2, 16, '#e6d6b3', 0, 0.255, 0);
+    cyl(2.4, 2.6, 0.7, '#c9c4b8', 0, 0.24, 0); cyl(2.1, 2.1, 0.08, '#7cc3e8', 0, 0.9, 0); cyl(0.35, 0.45, 1.9, '#c9c4b8', 0, 0.24, 0); cyl(0.95, 0.5, 0.3, '#c9c4b8', 0, 2.1, 0);
+    for (const [x, z] of [[-5, -5], [5, -5], [-5, 4], [-6.5, -1.5], [6.5, -2]]) tree(x, z, 1.1);
+    for (const [x, z, r] of [[-3.6, -2.6, 0], [3.6, -2.6, 0]]) { const b = box(2.2, 0.45, 0.6, '#8a5a32', x, 0.24, z); b.rotation.y = r; }
+    for (const bx of [-24, 24]) for (const bz of [-24, 0, 24]) for (const [dx, dz] of [[-8.3, -8.3], [8.3, -8.3], [-8.3, 8.3], [8.3, 8.3]]) tree(bx + dx, bz + dz, 0.75);
+    for (const [dx, dz] of [[-8.3, -8.3], [8.3, -8.3], [-8.3, 8.3], [8.3, 8.3]]) { tree(dx, -24 + dz, 0.75); tree(dx, 24 + dz, 0.75); }
+    for (const rx of RD) for (const rz of RD) { cyl(0.08, 0.1, 4.2, '#3a4650', rx + 3.6, 0.18, rz + 3.6, scene, 6); const l = new T.Mesh(new T.SphereGeometry(0.28, 8, 6), new T.MeshLambertMaterial({ color: '#fff3c0', emissive: '#a08a40' })); l.position.set(rx + 3.6, 4.5, rz + 3.6); scene.add(l); }
+
+    // places
+    const placeMesh = (P) => {
+      const g = new T.Group(); let h = 6; let fz = 4;
+      const put = (m, x, y, z) => { m.position.set(x, y, z); g.add(m); return m; };
+      const signAt = (txt, bg, fg, w, y, z, x = 0) => put(sign(txt, bg, fg, w), x, y, z + 0.04);
+      switch (P.type) {
+        case 'home': { const W = 12; const H = 10; const D = 8; g.add(bldg(W, H, D, '#a9cbe0', { rows: 3, cols: 4 })); put(roof(W, D, 4, '#a8452f'), 0, H, 0);
+          for (const y of [3.35, 6.7]) for (const x of [-4.5, -1.5, 1.5, 4.5]) { box(2.2, 0.2, 1, '#f4f1e6', x, y, D / 2 + 0.5, g); box(2.2, 0.7, 0.08, '#4a5563', x, y + 0.2, D / 2 + 1, g); }
+          h = H + 4; fz = D / 2; break; }
+        case 'market': { const W = 15; const H = 5.2; const D = 8.5; g.add(bldg(W, H, D, '#f4f1ea', { rows: 1, cols: 5, shop: true })); box(W + 0.3, 1.1, D + 0.3, '#cf343a', 0, H - 0.6, 0, g); signAt('SUPERMARKT', '#cf343a', '#ffffff', 5.6, H - 0.05, D / 2 + 0.15);
+          box(2.6, 0.9, 1.1, '#9aa3ab', W / 2 - 1.8, 0, D / 2 + 1.4, g); h = H + 0.5; fz = D / 2; break; }
+        case 'bakery': { const W = 9; const H = 6; const D = 7; g.add(bldg(W, H, D, '#f3e2c0', { rows: 2, cols: 3, shop: true, timber: true })); put(roof(W, D, 3.2, '#9c3b26'), 0, H, 0);
+          awning(g, W - 1.4, 2.65, D / 2, '#c8893b', '#f4f1e6'); signAt('Bäckerei', '#7a4518', '#ffe9a8', 4.2, 3.35, D / 2); h = H + 3.2; fz = D / 2; break; }
+        case 'cafe': { const W = 9; const H = 4.6; const D = 7; g.add(bldg(W, H, D, '#f6c9c9', { rows: 1, cols: 3, shop: true })); awning(g, W - 1, 3.4, D / 2, '#cf343a', '#ffffff'); signAt('Café', '#13202b', '#ffd25a', 3, H + 0.75, D / 2 - 0.3);
+          for (const x of [-2.6, 2.6]) { cyl(0.06, 0.06, 0.95, '#4a5563', x, 0, D / 2 + 2.6, g, 6); cyl(0.65, 0.65, 0.07, '#f4f1e6', x, 0.95, D / 2 + 2.6, g, 14); cyl(0.04, 0.04, 2.4, '#4a5563', x, 0.95, D / 2 + 2.6, g, 6); const u = new T.Mesh(new T.ConeGeometry(1.5, 0.6, 8), mat('#1b8a4e')); u.position.set(x, 3.5, D / 2 + 2.6); u.castShadow = true; g.add(u); box(0.5, 0.5, 0.5, '#7a5230', x - 0.9, 0, D / 2 + 2.6, g); box(0.5, 0.5, 0.5, '#7a5230', x + 0.9, 0, D / 2 + 2.6, g); }
+          h = H + 1.5; fz = D / 2; break; }
+        case 'school': { const W = 15; const H = 10; const D = 8; g.add(bldg(W, H, D, '#e8c35a', { rows: 3, cols: 5 })); box(W + 0.4, 0.5, D + 0.4, '#c9a447', 0, H, 0, g); signAt('Sprachschule', '#13202b', '#ffffff', 6, H + 1.3, D / 2 - 0.3);
+          cyl(0.07, 0.07, 5, '#d6dee4', W / 2 - 1, H + 0.5, 0, g, 6); [['#111111', 0], ['#dd0000', 1], ['#ffce00', 2]].forEach(([c, k]) => box(1.8, 0.36, 0.05, c, W / 2 - 1 - 0.95, H + 4.9 - k * 0.36, 0, g)); h = H + 3; fz = D / 2; break; }
+        case 'townhall': { const W = 14; const H = 8; const D = 8; g.add(bldg(W, H, D, '#e6d3b0', { rows: 2, cols: 5, arch: true, door: false })); put(roof(W, D, 3.5, '#5a6772'), 0, H, 0);
+          box(4, 15, 4, '#dcc59c', 0, 0, D / 2 - 1.5, g); put(pyramid(3.1, 4.5, '#5a6772'), 0, 17.25, D / 2 - 1.5); put(clockMesh(1.3), 0, 12.6, D / 2 + 0.53); box(1.6, 2.6, 0.1, '#6b4226', 0, 0, D / 2 + 0.5, g);
+          signAt('Bürgeramt', '#2459c4', '#ffffff', 3.6, 3.4, D / 2 + 0.5); h = H + 12; fz = D / 2 + 0.5; break; }
+        case 'doctor': { const W = 10; const H = 8; const D = 8; g.add(bldg(W, H, D, '#f7f9fa', { rows: 2, cols: 4 })); box(W + 0.2, 0.3, D + 0.2, '#9aa3ab', 0, H, 0, g); signAt('Arztpraxis', '#ffffff', '#cf343a', 4.6, H + 1, D / 2 - 0.3);
+          put(new T.Mesh(new T.PlaneGeometry(1.6, 1.6), new T.MeshBasicMaterial({ map: crossTex('#ffffff', '#cf343a') })), -W / 2 + 1.2, 4.1, D / 2 + 0.05); h = H + 2; fz = D / 2; break; }
+        case 'pharmacy': { const W = 9; const H = 6; const D = 7; g.add(bldg(W, H, D, '#e3efe7', { rows: 2, cols: 3, shop: true })); put(roof(W, D, 2.8, '#3d5a4a'), 0, H, 0); signAt('Apotheke', '#1b8a4e', '#ffffff', 4.2, 3.35, D / 2);
+          const cr = put(new T.Mesh(new T.PlaneGeometry(1.5, 1.5), new T.MeshBasicMaterial({ map: crossTex('#1b8a4e', '#ffffff'), side: T.DoubleSide })), W / 2 - 0.4, 4.6, D / 2 + 0.85); cr.rotation.y = Math.PI / 2; h = H + 2.8; fz = D / 2; break; }
+        case 'post': { const W = 9; const H = 5.4; const D = 7; g.add(bldg(W, H, D, '#f6d34a', { rows: 2, cols: 3, shop: true })); box(W + 0.2, 0.3, D + 0.2, '#9aa3ab', 0, H, 0, g); signAt('Post', '#13202b', '#f6d34a', 2.6, 3.15, D / 2);
+          cyl(0.07, 0.07, 1, '#4a5563', W / 2 + 0.9, 0, D / 2 + 0.6, g, 6); box(0.8, 0.9, 0.55, '#f0ab00', W / 2 + 0.9, 1, D / 2 + 0.6, g); h = H + 0.8; fz = D / 2; break; }
+        case 'clothes': { const W = 10; const H = 6; const D = 7; g.add(bldg(W, H, D, '#d4c3ee', { rows: 2, cols: 3, shop: true })); box(W + 0.2, 0.3, D + 0.2, '#9aa3ab', 0, H, 0, g); signAt('Mode & Kleidung', '#7a4bd8', '#ffffff', 4.8, 3.3, D / 2);
+          for (const x of [-2.5, 2.5]) { cyl(0.3, 0.25, 1.2, x < 0 ? '#2459c4' : '#cf343a', x, 0.5, D / 2 - 0.6, g, 8); } h = H + 0.8; fz = D / 2; break; }
+        case 'busstop': { box(4.2, 2.4, 0.08, glass, 0, 0, -0.6, g); box(0.08, 2.4, 1.3, glass, -2.1, 0, 0, g); box(4.6, 0.15, 1.8, '#4a5563', 0, 2.4, -0.1, g); box(3, 0.12, 0.5, '#8a5a32', 0, 0.55, -0.3, g);
+          cyl(0.07, 0.07, 3.3, '#9aa3ab', 2.9, 0, 0.5, g, 6); const hs = put(sign('H', '#f6d34a', '#1b8a4e', 1.1, true), 2.9, 3.4, 0.5); hs.rotation.y = Math.PI / 2; h = 4.2; fz = 0.4; break; }
+        case 'station': { const W = 28; const H = 8; const D = 10; g.add(bldg(W, H, D, '#b5523b', { rows: 1, cols: 7, arch: true, door: false })); put(roof(W, D, 3, '#4a5563'), 0, H, 0);
+          box(4.4, 15, 4.4, '#a8472f', 0, 0, D / 2 - 1.2, g); put(pyramid(3.4, 4.5, '#4a5563'), 0, 17.25, D / 2 - 1.2); put(clockMesh(1.4), 0, 13, D / 2 + 1.03);
+          box(11, 0.3, 3, '#3a4650', 0, 4.2, D / 2 + 1.5, g); signAt('Hauptbahnhof', '#13202b', '#ffffff', 7, 5, D / 2 + 3.02); h = H + 12; fz = D / 2 + 1; break; }
+        default: break;
+      }
+      return { g, h, fz };
+    };
+    const labelsEl = $('#cityLabels'); labelsEl.innerHTML = '';
+    for (const P of CITY) {
+      const pos = placePos(P.id); const { g, h, fz } = placeMesh(P);
+      const L = P.npc.look; const npc = person3D(L.coat ? '#f4f6f8' : (L.shirt || '#2459c4'), '#34495e', L.skin || '#f1c7a1', L.style === 'hijab' ? (L.scarf || '#2459c4') : (L.hair || '#3b2a1e'));
+      npc.position.set(P.type === 'busstop' ? -1 : -2.6, 0, fz + (P.type === 'busstop' ? 0.6 : 0.8)); g.add(npc);
+      g.position.set(pos.x, 0.18, pos.z); g.rotation.y = pos.rot; scene.add(g);
+      g.traverse((o) => { o.userData.place = P.id; }); C3.pick.push(g);
+      const el = document.createElement('button'); el.className = 'ptag'; el.dataset.place = P.id; el.innerHTML = `<span class="em">${P.ic}</span><span class="de">${esc(P.de)}</span><i>✓</i>`; labelsEl.appendChild(el);
+      C3.labels.push({ id: P.id, el, pos: new T.Vector3(pos.x, h + 2, pos.z) });
+    }
+    // filler houses (deterministic)
+    let seed = 11; const rand = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+    const FILL_C = ['#ecd9b4', '#cfe0d2', '#f2c6a8', '#d7d0e8', '#f4ead2', '#c8dbe8', '#e8c9c0']; const ROOF_C = ['#a8452f', '#8d3b2a', '#5a6772', '#7a4a32'];
+    for (const lot of FILLER) {
+      const p = lotPos(lot);
+      for (const dx of [-4.6, 4.6]) {
+        const fl = 2 + Math.floor(rand() * 2); const hh = fl * 2.6; const g = new T.Group();
+        g.add(bldg(8.2, hh, 7.4, FILL_C[Math.floor(rand() * FILL_C.length)], { rows: fl, cols: 3, timber: rand() < 0.45 }));
+        const rf = roof(8.2, 7.4, 2.6, ROOF_C[Math.floor(rand() * ROOF_C.length)]); rf.position.y = hh; g.add(rf);
+        g.position.set(p.x + dx, 0.18, p.z); g.rotation.y = p.rot; scene.add(g);
+      }
+    }
+    // railway behind the station
+    box(80, 0.9, 3.4, '#c9c4b8', 0, 0, -58.4); for (const z of [-61.2, -62.8]) box(240, 0.16, 0.16, '#7d858c', 0, 0.15, z, scene, false);
+    for (let x = -118; x <= 118; x += 2.2) box(0.5, 0.12, 2.6, '#6b4f3a', x, 0.02, -62, scene, false);
+    const train = new T.Group(); box(7, 3, 2.6, '#f4f1e6', 0, 0.3, 0, train); box(7.05, 0.5, 2.65, '#cf343a', 0, 1.2, 0, train);
+    ['#2459c4', '#cf343a', '#1b8a4e'].forEach((c, k) => { box(8, 2.8, 2.6, c, -(k + 1) * 8.4, 0.3, 0, train); box(8.05, 0.6, 2.65, '#dff1fb', -(k + 1) * 8.4, 1.8, 0, train); });
+    train.position.set(-140, 0, -62); scene.add(train); C3.train = { g: train, x: -140, wait: 0 };
+    // traffic
+    const CAR_C = ['#cf343a', '#2459c4', '#f4f1e6', '#13202b', '#f0ab00', '#1b8a4e', '#9aa3ab', '#7a4bd8'];
+    const car = (c) => { const g = new T.Group(); box(3.4, 0.9, 1.7, c, 0, 0.35, 0, g); box(1.9, 0.75, 1.5, '#cfe6f3', -0.2, 1.25, 0, g); for (const [x, z] of [[1.1, 0.86], [-1.1, 0.86], [1.1, -0.86], [-1.1, -0.86]]) { const w = new T.Mesh(new T.CylinderGeometry(0.38, 0.38, 0.3, 10), mat('#1d2329')); w.rotation.x = Math.PI / 2; w.position.set(x, 0.38, z); g.add(w); } scene.add(g); return g; };
+    [['x', -12, 1], ['x', -12, -1], ['x', 12, 1], ['x', 36, -1], ['z', -12, 1], ['z', 12, -1], ['z', 36, 1], ['x', -36, -1]].forEach(([ax, r, dir], k) => C3.cars.push({ g: car(CAR_C[k]), ax, r, dir, s: ((k * 37) % 110) - 55, v: 6 + (k % 3) * 2 }));
+    const PEDC = [['#cf343a', '#34495e'], ['#2459c4', '#5a3a22'], ['#1b8a4e', '#13202b'], ['#f0ab00', '#34495e'], ['#7a4bd8', '#2d3a44'], ['#e0681a', '#34495e']];
+    const SKIN = ['#f1c7a1', '#d9a77f', '#a8714a', '#f6d2b4', '#7a4a2a'];
+    for (let k = 0; k < 12; k++) { const [sh, pa] = PEDC[k % PEDC.length]; const g = person3D(sh, pa, SKIN[k % SKIN.length], ['#3b2a1e', '#151515', '#c8893b', '#7a5230'][k % 4], 0.9); scene.add(g); C3.peds.push({ g, cx: BCX[k % 3], cz: BCX[Math.floor(k / 3) % 3], t: rand() * 4, v: 0.04 + rand() * 0.03, dir: k % 2 ? 1 : -1, ph: rand() * 6 }); }
+    // the learner
+    const me = person3D('#f0ab00', '#2b3a4a', '#e6b48f', '#151515', 1.15); const ring = new T.Mesh(new T.RingGeometry(0.9, 1.25, 28), new T.MeshBasicMaterial({ color: '#f0ab00' })); ring.rotation.x = -Math.PI / 2; ring.position.y = 0.06; me.add(ring);
+    const d0 = doorOf('wohnung'); me.position.set(d0.x, 0.18, d0.z); me.rotation.y = Math.PI; scene.add(me); C3.player = { g: me, path: [], goal: null, ph: 0 };
+    const youEl = document.createElement('div'); youEl.className = 'ptag you'; youEl.textContent = 'أنت'; labelsEl.appendChild(youEl); C3.labels.push({ id: null, el: youEl, pos: new T.Vector3(), follow: me });
+
+    // camera controls
+    const ptrs = new Map(); let down = null; let pinch0 = 0;
+    cv.addEventListener('pointerdown', (e) => { try { cv.setPointerCapture(e.pointerId); } catch (err) { /* capture unsupported */ } ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY }); down = { x: e.clientX, y: e.clientY }; C3.idle = 0; if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; pinch0 = Math.hypot(a.x - b.x, a.y - b.y); } });
+    cv.addEventListener('pointermove', (e) => {
+      const p = ptrs.get(e.pointerId); if (!p) return; const dx = e.clientX - p.x; const dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY; C3.idle = 0;
+      if (ptrs.size === 1) { C3.camT.th -= dx * 0.006; C3.camT.ph = clamp(C3.camT.ph - dy * 0.004, 0.35, 1.25); } else if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); if (pinch0) C3.camT.r = clamp((C3.camT.r * pinch0) / d, 26, 170); pinch0 = d; }
+    });
+    const ray = new T.Raycaster(); const v2 = new T.Vector2();
+    cv.addEventListener('pointerup', (e) => {
+      ptrs.delete(e.pointerId); if (ptrs.size) return;
+      if (down && Math.hypot(e.clientX - down.x, e.clientY - down.y) < 7) { const r = cv.getBoundingClientRect(); v2.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1); ray.setFromCamera(v2, camera); const hit = ray.intersectObjects(C3.pick, true)[0]; if (hit && hit.object.userData.place) goPlace(hit.object.userData.place); }
+      down = null;
+    });
+    cv.addEventListener('pointercancel', (e) => { ptrs.delete(e.pointerId); down = null; });
+    cv.addEventListener('wheel', (e) => { e.preventDefault(); C3.camT.r = clamp(C3.camT.r * (1 + e.deltaY * 0.0012), 26, 170); C3.idle = 0; }, { passive: false });
+    $('#cityZoomIn').onclick = () => { C3.camT.r = clamp(C3.camT.r * 0.8, 26, 170); C3.idle = 0; };
+    $('#cityZoomOut').onclick = () => { C3.camT.r = clamp(C3.camT.r * 1.25, 26, 170); C3.idle = 0; };
+    $('#cityHome').onclick = () => { C3.follow = false; Object.assign(C3.camT, { th: 0.5, ph: 0.92, r: 125, x: 0, z: -4 }); C3.idle = 0; };
+    if ('ResizeObserver' in window) new ResizeObserver(resizeCity).observe(host); else window.addEventListener('resize', resizeCity);
+    $('#cityLoad').hidden = true; resizeCity(); refreshLabels();
+    requestAnimationFrame(cityLoop);
+  }
+  function cityLoop(now) {
+    requestAnimationFrame(cityLoop);
+    const c3 = C3; if (!c3) return;
+    if (!c3.visible || !ov.hidden || document.hidden) { c3.last = now; return; }
+    const dt = Math.min(0.05, (now - (c3.last || now)) / 1000); c3.last = now; const calm = reduced();
+    if (!calm) {
+      for (const k of c3.cars) {
+        k.s += k.v * dt * k.dir; const lo = k.ax === 'x' ? -66 : -39; const hi = k.ax === 'x' ? 66 : 60; if (k.s > hi) k.s = lo; if (k.s < lo) k.s = hi;
+        if (k.ax === 'x') { k.g.position.set(k.s, 0, k.r + 1.5 * k.dir); k.g.rotation.y = k.dir > 0 ? 0 : Math.PI; } else { k.g.position.set(k.r - 1.5 * k.dir, 0, k.s); k.g.rotation.y = k.dir > 0 ? -Math.PI / 2 : Math.PI / 2; }
+      }
+      const hlf = 8.7; const cn = [[-hlf, -hlf], [hlf, -hlf], [hlf, hlf], [-hlf, hlf]];
+      for (const p of c3.peds) {
+        p.t = (p.t + p.v * dt * 4 * p.dir + 4) % 4; const sd = Math.floor(p.t); const f = p.t - sd; const a = cn[sd]; const b = cn[(sd + 1) % 4];
+        const x = p.cx + a[0] + (b[0] - a[0]) * f; const z = p.cz + a[1] + (b[1] - a[1]) * f; p.g.position.set(x, 0.18, z);
+        p.g.rotation.y = Math.atan2((b[0] - a[0]) * p.dir, (b[1] - a[1]) * p.dir); p.ph += dt * 8; c3.swing(p.g, p.ph, 0.5);
+      }
+      const tr = c3.train;
+      if (tr.wait > 0) tr.wait -= dt; else { const before = tr.x; tr.x += dt * (Math.abs(tr.x - 14) < 30 ? 7 : 16); if (before < 14 && tr.x >= 14) tr.wait = 5; if (tr.x > 170) tr.x = -150; }
+      tr.g.position.x = tr.x;
+    }
+    const p = c3.player;
+    if (p.path.length) {
+      const tg = p.path[0]; const dx = tg.x - p.g.position.x; const dz = tg.z - p.g.position.z; const dist = Math.hypot(dx, dz); const step = 22 * dt;
+      if (dist <= step) { p.g.position.x = tg.x; p.g.position.z = tg.z; p.path.shift(); if (!p.path.length && p.goal) { const id = p.goal; p.goal = null; arrive(id); } }
+      else { p.g.position.x += (dx / dist) * step; p.g.position.z += (dz / dist) * step; p.g.rotation.y = Math.atan2(dx, dz); }
+      p.ph += dt * 13; c3.swing(p.g, p.ph, 0.65);
+    } else c3.swing(p.g, 0, 0);
+    if (c3.follow) { c3.camT.x = p.g.position.x; c3.camT.z = p.g.position.z; }
+    c3.idle += dt; if (!calm && c3.idle > 7 && !p.path.length) c3.camT.th += dt * 0.05;
+    const c = c3.cam; const t = c3.camT; const k = 1 - Math.pow(0.002, dt);
+    c.r += (t.r - c.r) * k; c.ph += (t.ph - c.ph) * k; c.th += (t.th - c.th) * k; c.x += (t.x - c.x) * k; c.z += (t.z - c.z) * k;
+    c3.camera.position.set(c.x + c.r * Math.sin(c.ph) * Math.sin(c.th), c.r * Math.cos(c.ph), c.z + c.r * Math.sin(c.ph) * Math.cos(c.th)); c3.camera.lookAt(c.x, 0, c.z);
+    c3.renderer.render(c3.scene, c3.camera);
+    const v = new c3.T.Vector3();
+    for (const L of c3.labels) {
+      if (L.follow) L.pos.set(L.follow.position.x, 3.9, L.follow.position.z);
+      v.copy(L.pos).project(c3.camera); const vis = v.z < 1 && Math.abs(v.x) < 1.05 && Math.abs(v.y) < 1.05;
+      L.el.style.display = vis ? '' : 'none'; if (vis) L.el.style.transform = `translate(${(((v.x + 1) / 2) * c3.w).toFixed(1)}px, ${(((1 - v.y) / 2) * c3.h).toFixed(1)}px) translate(-50%, -100%)`;
+    }
+  }
+
+  // ---------- conversation at a place ----------
+  function openPlace(id) {
+    const P = CITY.find((c) => c.id === id); if (!P) return;
+    if (G) closeGame();
+    openShell('city', { id: `city-${id}`, ar: P.ar, de: P.de, session: true, W: [] }, `${P.ic} ${P.ar}`, `${P.de} · ${P.npc.name}`);
+    stage.innerHTML = `<div class="pl-intro"><div class="un-l">${personSVG(P.npc.look)}<div class="bubble"><span class="de">${esc(P.npc.name)}</span><small>${esc(P.npc.role)} · المستوى ${P.lv}</small></div></div>
+      <div class="mission"><b>🎯 مهمّتك</b><p>${autoDe(P.mission)}</p></div>
+      <div class="why"><b class="t">🇩🇪 الحياة في ألمانيا</b><div>${autoDe(P.tip)}</div></div>
+      <div class="vocab-b"><b>📚 كلمات ستحتاجها — اضغط لتسمع</b><div class="vocab">${P.vocab.map(([d, a]) => `<button class="vchip" data-say="${esc(d)}"><span class="de">${esc(d)}</span><small>${esc(a)}</small></button>`).join('')}</div></div>
+      <div class="notice">💬 ${esc(P.npc.name)} سيكلّمك بالألمانية. اختر الردّ المناسب${srOK() ? ' أو اضغط 🎤 وقله بصوتك' : ''}. إذا أخطأت سيقول لك «Wie bitte?» وتجد الشرح، فتحاول مرة أخرى.</div>
+      <div style="text-align:center;margin-top:14px"><button class="btn big gelb" id="goBtn">ادخل وابدأ الحديث ▶</button></div></div>`;
+    G.onKey = (e) => { if (e.key === 'Enter') $('#goBtn').click(); };
+    $('#goBtn').onclick = () => { $('#hud').hidden = false; runPlace(P); };
+  }
+  function runPlace(P) {
+    const steps = P.steps.filter((s) => !s.end); const endS = P.steps.find((s) => s.end);
+    G.countLabel = 'الخطوة'; setupTrack(steps.length); let i = 0; let first = true; let tr = !!S.cityTr;
+    const nm = (S.name || '').trim() || 'Sam Haddad'; const fill = (s) => String(s).replace(/\{name\}/g, nm);
+    const vo = { g: P.npc.g, pitch: P.npc.g === 'm' ? 0.9 : 1.08 };
+    stage.innerHTML = `<div class="pl"><div class="pl-top"><span class="pl-who">${personSVG(P.npc.look)}<span><b>${esc(P.npc.name)}</b><small>${esc(P.npc.role)}</small></span></span><button class="say" id="trBtn" aria-pressed="${tr}">🌐 الترجمة: ${tr ? 'ظاهرة' : 'مخفيّة'}</button></div>
+      <div class="chat pl-chat ${tr ? 'tr' : ''}" id="chat"></div><div class="pl-act ${tr ? 'tr' : ''}" id="act"></div></div>`;
+    const chat = $('#chat'); const act = $('#act');
+    $('#trBtn').onclick = () => { tr = !tr; S.cityTr = tr; save(); chat.classList.toggle('tr', tr); act.classList.toggle('tr', tr); $('#trBtn').setAttribute('aria-pressed', tr); $('#trBtn').textContent = `🌐 الترجمة: ${tr ? 'ظاهرة' : 'مخفيّة'}`; };
+    const add = (html, cls = '') => { chat.insertAdjacentHTML('beforeend', `<div class="msg ${cls}">${html}</div>`); chat.scrollTop = chat.scrollHeight; return chat.lastElementChild; };
+    const av = () => `<span class="av">${personSVG(P.npc.look)}</span>`;
+    const npcLine = (n, hear) => new Promise((res) => {
+      const typing = add(`${av()}<span class="bub typing"><span></span><span></span><span></span></span>`);
+      G.timers.push(setTimeout(() => {
+        if (!G) return; typing.remove(); const de = fill(n[0]);
+        const m = add(`${av()}<span class="bub ${hear ? 'hear' : ''}"><span class="de">${esc(de)}</span><small class="trx">${esc(fill(n[1]))}</small><span class="bub-tools">${sayBtnV(de, vo)}<button class="say" data-say="${esc(de)}" data-g="${vo.g}" data-p="${vo.pitch}" data-slow="1"><span class="em">🐢</span></button>${hear ? '<button class="say showtx">👁️ أظهر النص</button>' : ''}</span></span>`);
+        if (hear) $('.showtx', m).onclick = (e) => { e.stopPropagation(); $('.bub', m).classList.remove('hear'); e.target.remove(); };
+        speak(de, false, vo); res();
+      }, reduced() ? 60 : 700));
+    });
+    const reveal = () => { const last = [...chat.querySelectorAll('.bub.hear')].pop(); if (last) { last.classList.remove('hear'); const b = $('.showtx', last); if (b) b.remove(); } };
+    const note = (ok, html) => add(`<span class="cfb ${ok ? 'ok' : 'bad'}">${html}</span>`, 'note');
+    const done = () => { markStop(i, first); i += 1; first = true; act.innerHTML = ''; G.timers.push(setTimeout(next, 1100)); };
+    const miss = () => { if (!first) return; first = false; award(false); };
+    const win = (el) => { if (first) award(true, 0, el); else { G.score += 3; hud(); beep('ok'); } };
+    async function next() {
+      if (!G) return;
+      if (i >= steps.length) { if (endS) await npcLine(endS.n); G.timers.push(setTimeout(() => finishPlace(P), 1500)); return; }
+      const st = steps[i]; await npcLine(st.n, st.hear); if (!G) return;
+      if (st.shop) shopUI(st); else if (st.form) formUI(st); else optsUI(st);
+    }
+    function optsUI(st) {
+      const order = shuffle(st.o.map((_, k) => k));
+      act.innerHTML = `<div class="q">${st.hear ? `❓ ${esc(st.q)} <small>(استمع جيداً — النص مخفي)</small>` : '💬 ماذا تقول؟'}</div>
+        <div class="replies ${st.hear ? 'ar' : ''}">${order.map((k, j) => `<button class="reply" data-k="${k}"><span class="kn">${j + 1}</span>${st.hear ? `<span>${esc(st.o[k][0])}</span>` : `<span class="de">${esc(fill(st.o[k][0]))}</span><small class="trx">${esc(fill(st.o[k][1]))}</small>`}</button>`).join('')}</div>
+        ${!st.hear && srOK() ? '<div class="mic-box"><button class="mic" id="plMic"><span class="em">🎤</span> أجب بصوتك</button><div class="mic-res" id="plMicRes"></div></div>' : ''}<div id="fbSlot"></div>`;
+      let over = false;
+      const choose = (k) => {
+        if (over || !G) return; const btn = $(`.reply[data-k="${k}"]`, act); if (!btn || btn.disabled) return;
+        const [de, ar, ok, why] = st.o[k];
+        if (!st.hear) add(`<span class="av em">🙂</span><span class="bub"><span class="de">${esc(fill(de))}</span><small class="trx">${esc(fill(ar))}</small></span>`, `me ${ok ? '' : 'bad'}`);
+        if (ok) {
+          over = true; win(btn); $$('.reply', act).forEach((b) => { b.disabled = true; }); btn.classList.add('ok'); $('#fbSlot').innerHTML = '';
+          if (st.hear) reveal(); note(true, `✅ ${autoDe(why)}`); done(); return;
+        }
+        if (first) { const good = st.o.find((o) => o[2]); G.missed.push(st.hear ? `${autoDe(st.q)} ← ${esc(good[0])}` : `<span class="de">${esc(fill(good[0]))}</span> = ${esc(fill(good[1]))}`); }
+        miss(); btn.disabled = true; btn.classList.add('bad');
+        $('#fbSlot').innerHTML = `<div class="fb bad"><div class="fb-top"><span class="t">❌ ${st.hear ? 'ليس هذا — استمع مرة أخرى 🔊 (أو ببطء 🐢)' : 'هذا الردّ غير مناسب — حاول مرة أخرى'}</span></div><div class="why"><b class="t">👩‍🏫 لماذا؟</b><div>${autoDe(why)}</div></div></div>`;
+        if (!st.hear) { const wb = WIEBITTE[rnd(WIEBITTE.length)]; G.timers.push(setTimeout(() => { if (!G) return; add(`${av()}<span class="bub"><span class="de">${esc(wb[0])}</span><small class="trx">${esc(wb[1])}</small></span>`); speak(wb[0], false, vo); }, 450)); } else speak(fill(st.n[0]), true, vo);
+      };
+      $$('.reply', act).forEach((b) => { b.onclick = () => choose(+b.dataset.k); });
+      const mb = $('#plMic');
+      if (mb) mb.onclick = async () => {
+        if (over || mb.classList.contains('rec')) return; const res = $('#plMicRes');
+        mb.classList.add('rec'); mb.innerHTML = '<span class="em">🔴</span> أستمع إليك… تكلّم الآن';
+        const r = await listenDe(); if (!G) return; mb.classList.remove('rec'); mb.innerHTML = '<span class="em">🎤</span> أجب بصوتك';
+        if (r.err) { res.innerHTML = `<div class="notice" style="margin:0">${MICERR[r.err] || MICERR['no-speech']}</div>`; return; }
+        const cands = st.o.map((o, k) => ({ k, s: scoreSpeech(r.alts, fill(o[0])) })).filter(({ k }) => !$(`.reply[data-k="${k}"]`, act).disabled).sort((a, b) => b.s.s - a.s.s);
+        const bestC = cands[0];
+        if (!bestC || bestC.s.s < 0.55) { res.innerHTML = `<div class="notice" style="margin:0">🤔 فهمتُ: «<span class="de">${esc(r.alts[0] || '')}</span>» — هذا لا يشبه أيّ ردّ. حاول مرة أخرى أو اختر بالضغط.</div>`; beep('bad'); return; }
+        res.innerHTML = `<div class="notice" style="margin:0">🎤 فهمتُ: «<span class="de">${esc(bestC.s.heard)}</span>» (${bestC.s.pct}%)</div>`; choose(bestC.k);
+      };
+      G.onKey = (e) => { if (/^[1-3]$/.test(e.key)) { const b = $$('.reply', act)[+e.key - 1]; if (b) choose(+b.dataset.k); } };
+    }
+    function shopUI(st) {
+      const sel = new Set(); const it = st.shop.items;
+      act.innerHTML = `<div class="q">🧾 قائمة مشترياتك: <b>${st.shop.needAr.map(esc).join(' · ')}</b><br><small>ابحث عن الأسماء الألمانية على الرفّ وضعها في السلّة، ثم اذهب إلى الصندوق.</small></div>
+        <div class="shelf">${it.map(([e, de, ar, pr], k) => `<button class="prod" data-k="${k}" aria-pressed="false"><span class="em">${e}</span><span class="de">${esc(de)}</span><small class="trx">${esc(ar)}</small><span class="price de">${esc(pr)}</span></button>`).join('')}</div>
+        <div class="tools"><span class="chip-s" id="cartN">🛒 السلّة: 0</span><button class="btn gelb" id="payBtn">إلى الصندوق ✓</button></div><div id="fbSlot"></div>`;
+      $$('.prod', act).forEach((b) => { b.onclick = () => { const k = +b.dataset.k; if (sel.has(k)) sel.delete(k); else { sel.add(k); speak(it[k][1]); } b.setAttribute('aria-pressed', sel.has(k)); $('#cartN').textContent = `🛒 السلّة: ${sel.size}`; beep('flip'); }; });
+      $('#payBtn').onclick = () => {
+        const chosen = [...sel].map((k) => it[k][1]); const lack = st.shop.need.filter((d) => !chosen.includes(d)); const extra = chosen.filter((d) => !st.shop.need.includes(d));
+        if (!lack.length && !extra.length) {
+          win($('#payBtn')); add(`<span class="av em">🙂</span><span class="bub"><span class="de">🛒 ${chosen.map(esc).join(', ')}</span></span>`, 'me');
+          note(true, `✅ ممتاز! ${st.shop.need.map((d) => `<span class="de">${esc(d)}</span> = ${esc(it.find((x) => x[1] === d)[2])}`).join(' · ')}`); act.innerHTML = ''; done(); return;
+        }
+        if (first) G.missed.push(`🛒 ${st.shop.need.map((d) => `<span class="de">${esc(d)}</span>`).join(' · ')}`);
+        miss(); beep('bad');
+        $('#fbSlot').innerHTML = `<div class="fb bad"><div class="fb-top"><span class="t">❌ سلّتك غير صحيحة بعد</span></div><div class="why">${lack.length ? `<div>🔎 ينقصك ${lack.length} ${lack.length === 1 ? 'شيء' : 'أشياء'} من القائمة.</div>` : ''}${extra.map((d) => `<div>✗ ليس في القائمة: <span class="de">${esc(d)}</span> = ${esc(it.find((x) => x[1] === d)[2])}</div>`).join('')}</div></div>`;
+      };
+    }
+    function formUI(st) {
+      act.innerHTML = `<form class="pform" id="pform" autocomplete="off"><div class="pf-h">📝 <span class="de">Anmeldung – Formular</span> · استمارة التسجيل</div>
+        ${st.form.map(([l, la, ph, ty], k) => `<label><span><span class="de">${esc(l)}</span> <small>${esc(la)}</small></span><input name="f${k}" lang="de" placeholder="${esc(ph)}" data-ty="${ty}" value="${k < 2 && (S.name || '').trim() ? esc((S.name.trim().split(' ')[k] || '')) : ''}"></label>`).join('')}
+        <div class="fe" id="fe"></div><button class="btn gelb">أعطِ الاستمارة للموظّف ✓</button></form><div class="notice">💡 التاريخ في ألمانيا: اليوم.الشهر.السنة — مثال: <span class="de">05.03.1995</span></div>`;
+      const ins = $$('#pform input', act); setTimeout(() => { const e = ins.find((x) => !x.value); if (e) e.focus({ preventScroll: true }); }, 100);
+      $('#pform').onsubmit = (e) => {
+        e.preventDefault(); const vals = ins.map((x) => x.value.trim()); ins.forEach((x) => x.classList.remove('bad'));
+        const bad = ins.findIndex((x, k) => !vals[k] || (x.dataset.ty === 'date' && !/^\d{1,2}\.\d{1,2}\.\d{4}$/.test(vals[k])));
+        if (bad >= 0) { ins[bad].classList.add('bad'); ins[bad].focus(); $('#fe').textContent = ins[bad].dataset.ty === 'date' && vals[bad] ? '⚠️ اكتب التاريخ بالشكل الألماني: 05.03.1995' : '⚠️ املأ كل الخانات من فضلك'; miss(); beep('bad'); return; }
+        if (!(S.name || '').trim()) { S.name = `${vals[0]} ${vals[1]}`.trim(); save(); }
+        win($('#pform button')); add(`<span class="av em">🙂</span><span class="bub">${st.form.map(([l], k) => `<span class="de">${esc(l)}: ${esc(vals[k])}</span>`).join('')}</span>`, 'me');
+        note(true, '✅ ممتاز! ستملأ في ألمانيا استمارات كثيرة: Vorname = الاسم الأوّل · Nachname = اسم العائلة · Geburtsdatum = تاريخ الميلاد.'); act.innerHTML = ''; done();
+      };
+      G.onKey = null;
+    }
+    next();
+  }
+  function finishPlace(P) {
+    if (!G || G.finished) return; G.finished = true; clearTimers(); G.onKey = null; moveTrain(G.n + 1); $('#gCount').textContent = '🏁 أنجزت المهمّة';
+    const acc = G.total ? G.correct / G.total : 1; const stars = acc >= 0.9 ? 3 : acc >= 0.65 ? 2 : 1;
+    if (stars > cityStars(P.id)) S.city[P.id] = stars;
+    G.score += 15; addXP(G.score); updateTop(); if (toastLater) { toast(toastLater); toastLater = null; }
+    const n = cityDone();
+    stage.innerHTML = `<div class="result"><div class="stamp-big"><span class="em">${P.ic}</span><b class="de">Mission erfüllt!</b><small>${esc(P.ar)} ✓</small></div>
+      <div class="r-stars">${[0, 1, 2].map((s) => (s < stars ? '<span>★</span>' : '<span><i>★</i></span>')).join('')}</div>
+      <div class="r-ticket" style="margin-top:10px"><div class="r-grid" style="margin-top:0;border-top:0"><div><b>${G.correct}/${G.total}</b><small>من أوّل محاولة</small></div><div><b>+${G.score}</b><small>XP</small></div><div><b>${n}/${CITY.length}</b><small>🛂 أختام الجواز</small></div></div></div>
+      <div class="r-msg">${stars === 3 ? 'ممتاز! تصرّفت مثل شخص يعيش في ألمانيا منذ سنوات 🇩🇪' : stars === 2 ? 'جيّد جداً! أعد المهمّة لتحصل على 3 نجوم' : 'بداية جيّدة — أعد المهمّة واقرأ الشرح بعد كل خطأ'}</div>
+      ${G.missed.length ? `<ul class="review"><b>📌 الجواب الصحيح في المواقف التي أخطأت فيها:</b>${G.missed.slice(0, 8).map((m) => `<li>${m}</li>`).join('')}</ul>` : ''}
+      <div class="vocab" style="justify-content:center;margin-top:12px">${P.vocab.map(([d, a]) => `<button class="vchip" data-say="${esc(d)}"><span class="de">${esc(d)}</span><small>${esc(a)}</small></button>`).join('')}</div>
+      <div class="r-btns"><button class="btn gelb" id="backCity">🏙️ العودة إلى المدينة</button><button class="btn" id="againBtn">↻ أعد المهمّة</button></div></div>`;
+    $('#backCity').onclick = closeGame; $('#againBtn').onclick = () => { const id = P.id; closeGame(); openPlace(id); };
+    beep('win'); if (stars >= 2) confetti();
+  }
+
+
   // ---------- events ----------
   function init() {
     if (!DATA[S.level]) S.level = 'a11';
     if (!S.topic || (S.topic !== 'mix' && !DATA[S.level].T.some((t) => t.id === S.topic))) S.topic = DATA[S.level].T[0].id;
-    $('#scene').innerHTML = sceneSVG();
     document.documentElement.style.setProperty('--line', `var(--line-${S.level})`);
-    show(S.view === 'lesson' ? 'lesson' : 'home');
+    show(S.view);
     document.addEventListener('click', (e) => {
       if (!ov.hidden && !ov.contains(e.target)) return;
+      const nv = e.target.closest('[data-nav]'); if (nv && ov.hidden) { show(nv.dataset.nav); return; }
       const act = e.target.closest('[data-act]');
       if (act && !act.disabled) {
         const a = act.dataset.act;
         if (a === 'home') { if (!ov.hidden) closeGame(); show('home'); return; }
-        if (a === 'continue') { const nu = nextUp(); S.topic = nu.t.id; S.tab = tabOf(nu.s.k); show('lesson'); openGame(nu.s.k); return; }
+        if (a === 'continue') { const nu = nextUp(); S.topic = nu.t.id; show('lesson'); openGame(nu.s.k); return; }
         if (a === 'laute') { openLaute(); return; }
         if (a === 'cert') { openCert(); return; }
         if (a === 'lenahi') { lenaHello(); return; }
-        if (a === 'plan') { $('#lessons').scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth' }); return; }
-        if (a === 'readdone') { const t = topicObj(); S.read[readKey(t)] = true; addXP(5); S.tab = 'ueben'; save(); renderLesson(); updateTop(); toast('✅ أحسنت! الآن تمرّن على ما قرأت'); $('.tabs').scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth' }); return; }
+        if (a === 'readdone') { const t = topicObj(); S.read[readKey(t)] = true; addXP(5); save(); renderLesson(); updateTop(); toast('✅ أحسنت! تابع الخطوات بالترتيب'); window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' }); return; }
         if (['express', 'review', 'mistakes'].includes(a)) { startSession(a === 'mistakes' ? 'fehler' : a); return; }
       }
+      const pl = e.target.closest('[data-place]'); if (pl && ov.hidden) { goPlace(pl.dataset.place); return; }
       const sa = e.target.closest('[data-speakall]'); if (sa) { const row = $('.cta-row[data-all]'); if (row) speakList(JSON.parse(row.dataset.all)); return; }
-      const gp = e.target.closest('[data-goal]'); if (gp) { S.goal = +gp.dataset.goal; save(); renderToday(); return; }
       const lb = e.target.closest('[data-level]');
-      if (lb && lb.classList.contains('lvl-b')) { S.topicBy[S.level] = S.topic; S.level = lb.dataset.level; S.topic = S.topicBy[S.level] || DATA[S.level].T[0].id; document.documentElement.style.setProperty('--line', `var(--line-${S.level})`); save(); renderHome(); return; }
-      const op = e.target.closest('[data-open]'); if (op) { openLesson(op.dataset.open, 'lernen'); return; }
-      const tb = e.target.closest('[data-tab]'); if (tb) { S.tab = tb.dataset.tab; save(); renderLesson(); return; }
+      if (lb && lb.classList.contains('lvl-b')) { S.topicBy[S.level] = S.topic; S.level = lb.dataset.level; S.topic = S.topicBy[S.level] || DATA[S.level].T[0].id; document.documentElement.style.setProperty('--line', `var(--line-${S.level})`); save(); refreshView(); return; }
+      const op = e.target.closest('[data-open]'); if (op) { openLesson(op.dataset.open); return; }
       const st = e.target.closest('[data-step]'); if (st && ov.hidden) { doStep(st.dataset.step); return; }
       const g = e.target.closest('[data-game]'); if (g && ov.hidden) { openGame(g.dataset.game); return; }
       const mic = e.target.closest('[data-mic]'); if (mic) { micTry(mic); return; }
-      const say = e.target.closest('[data-say]'); if (say) { speak(say.dataset.say, !!say.dataset.slow); }
+      const say = e.target.closest('[data-say]'); if (say) { speak(say.dataset.say, !!say.dataset.slow, say.dataset.g ? { g: say.dataset.g, pitch: +say.dataset.p || 1 } : null); }
     });
     $('#gClose').onclick = closeGame;
     ov.addEventListener('click', (e) => { if (e.target === ov) closeGame(); });
@@ -2680,8 +3662,8 @@ const GR = {
     if ('speechSynthesis' in window) setTimeout(pickVoice, 1300);
   }
 
-  try { window.claude?.hot?.snapshot?.(() => ({ level: S.level, topic: S.topic, view: S.view, tab: S.tab })); } catch (e) { /* no hot reload */ }
-  const start = (data) => { load(); if (data && data.level && DATA[data.level]) { S.level = data.level; S.topic = data.topic; if (data.view) S.view = data.view; if (data.tab) S.tab = data.tab; } init(); };
+  try { window.claude?.hot?.snapshot?.(() => ({ level: S.level, topic: S.topic, view: S.view })); } catch (e) { /* no hot reload */ }
+  const start = (data) => { load(); if (data && data.level && DATA[data.level]) { S.level = data.level; S.topic = data.topic; if (data.view) S.view = data.view; } init(); };
   if (window.claude?.hot?.ready) window.claude.hot.ready(start); else start(window.claude?.hot?.data ?? {});
 })();
 

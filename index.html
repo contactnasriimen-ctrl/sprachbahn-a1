@@ -669,6 +669,45 @@ details.more[open] summary::after { transform: rotate(180deg); }
   .pass { min-width: 0; }
   .toast { bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
 }
+/* ---------- city v2: story, beacon, talking inside the city ---------- */
+.ptag .no { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(255, 255, 255, .22); font-family: var(--f-display); font-size: 11.5px; }
+.ptag.done .no { display: none; }
+.ptag.nx { background: #f0ab00; color: #2a1e00; z-index: 2; animation: tagpulse 1.6s ease-in-out infinite; }
+.ptag.nx .no { background: rgba(0, 0, 0, .15); }
+@keyframes tagpulse { 50% { box-shadow: 0 0 0 7px rgba(240, 171, 0, .3), 0 4px 10px rgba(0, 0, 0, .25); } }
+.city-labels.compact .ptag:not(.nx):not(:hover) .de { display: none; }
+.next-m { display: grid; gap: 2px; text-align: start; width: 100%; border: 0; border-radius: 16px; padding: 14px 16px; background: var(--gelb); color: var(--gelb-ink); box-shadow: 0 5px 0 color-mix(in srgb, var(--gelb) 55%, #000); transition: transform .15s; }
+.next-m:hover { transform: translateY(-2px); }
+.next-m small { font-weight: 700; opacity: .85; } .next-m b { font-size: 18px; line-height: 1.3; } .next-m span { font-size: 13.5px; }
+.next-m.all { background: var(--ok-bg); color: var(--ink); box-shadow: none; border: 1.5px solid var(--ok); }
+.day-h { font-weight: 800; font-size: 14.5px; margin-top: 6px; display: flex; justify-content: space-between; align-items: baseline; }
+.day-h small { color: var(--muted); font-weight: 600; }
+.pc { grid-template-columns: auto auto minmax(0, 1fr) auto; }
+.pc .no { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); border: 1.5px solid var(--rule); font-family: var(--f-display); font-weight: 800; font-size: 13px; }
+.pc.done .no { background: var(--ok); border-color: var(--ok); color: #fff; }
+.pc.nx { border: 2px solid var(--gelb); box-shadow: 0 0 0 4px color-mix(in srgb, var(--gelb) 22%, transparent); }
+.pc .go { background: var(--gelb); color: var(--gelb-ink); font-weight: 800; font-size: 12.5px; padding: 3px 10px; border-radius: 99px; white-space: nowrap; }
+.phr { display: grid; gap: 6px; background: var(--surface-2); border: 1.5px solid var(--rule); border-radius: 14px; padding: 12px; }
+.phr > div { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; } .phr .de { font-weight: 700; } .phr small { color: var(--muted); flex-basis: 100%; padding-inline-start: 44px; margin-top: -4px; }
+.phr > .say { justify-self: start; }
+.pl-act .q { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.reply.gone { opacity: .25; text-decoration: line-through; }
+/* talking: the city fills the screen, the conversation is a side panel (bottom sheet on phones) */
+#city3d.immersive { position: fixed; inset: 0; z-index: 45; height: auto; min-height: 0; border-radius: 0; border: 0; box-shadow: none; }
+#city3d.immersive .city-hint, #city3d.immersive .city-ctl, #city3d.immersive .city-status, #city3d.immersive .city-labels { display: none; }
+.overlay.side { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; pointer-events: none; display: flex; justify-content: flex-end; align-items: stretch; padding: 0; }
+.overlay.side .win { pointer-events: auto; width: min(460px, 50vw); height: 100%; max-height: 100%; border-radius: 0; border: 0; box-shadow: 0 0 40px rgba(0, 0, 0, .35); animation: slidein .35s ease; }
+.overlay.side .stage { padding: 16px; min-height: 0; }
+.overlay.side .pl-chat { max-height: 40vh; }
+.overlay.side .un-l { grid-template-columns: 60px minmax(0, 1fr); } .overlay.side .un-l > .lena { width: 60px; }
+@keyframes slidein { from { transform: translateX(-60px); opacity: 0; } }
+@media (max-width: 760px) {
+  .overlay.side { align-items: flex-end; }
+  .overlay.side .win { width: 100%; height: 60vh; border-radius: 20px 20px 0 0; animation-name: slideup; }
+  .overlay.side .pl-chat { max-height: 26vh; min-height: 140px; }
+}
+@keyframes slideup { from { transform: translateY(60px); opacity: 0; } }
+.stage:focus { outline: none; }
 
 @media (max-width: 600px) {
   .lena-hero { grid-template-columns: 76px minmax(0, 1fr); } .lena-av { width: 76px; }
@@ -1710,14 +1749,22 @@ const CITY = [
     const av = gamesFor(t); const out = [{ k: 'lesen', ar: 'الحصة مع لينا', sub: 'Unterricht' }];
     const first = (list) => list.find((x) => av.includes(x) && !out.some((o) => o.k === x));
     const add = (list, ar, sub) => { const k = first(list); if (k) out.push({ k, ar: ar || GM[k].ar, sub: sub || GM[k].de }); };
-    add(['karten', 'zahlen', 'uhr'], null);
-    add(['quiz', 'konj', 'perfekt', 'praep', 'zahlen', 'hoeren'], null);
+    add(['zahlen', 'uhr', 'konj', 'perfekt', 'praep', 'komp', 'quiz', 'hoeren'], null);
     add(['sprechen'], null);
     add(['schreiben', 'lueckentext', 'satzbau'], null);
     add(['test', 'dialog', 'blitz'], null);
+    const pl = TOPIC_PLACE[t.id]; const P = pl && CITY.find((c) => c.id === pl);
+    if (P) out.push({ k: `city:${pl}`, ar: `طبّق في المدينة: ${P.ar}`, sub: P.de });
     return out;
   }
-  const stepDone = (t, k, lv = S.level) => (k === 'lesen' ? !!S.read[readKey(t, lv)] : getStars(t, k, lv) > 0);
+  const isCity = (k) => k.startsWith('city:');
+  const stepDone = (t, k, lv = S.level) => (k === 'lesen' ? !!S.read[readKey(t, lv)] : isCity(k) ? cityStars(k.slice(5)) > 0 : getStars(t, k, lv) > 0);
+  const stepMeta = (s) => {
+    if (s.k === 'lesen') return UNT;
+    if (!isCity(s.k)) return GM[s.k];
+    const P = CITY.find((c) => c.id === s.k.slice(5));
+    return { ic: '🏙️', ar: s.ar, d: `امشِ في المدينة ثلاثية الأبعاد إلى ${P.ic} ${P.ar}، وتكلّم مع ${P.npc.name} بالألمانية — كما في الحياة الحقيقية.` };
+  };
   function nextUp(lv = S.level) {
     const L = DATA[lv];
     for (const t of [...L.T, L.mix]) { const p = pathFor(t); const i = p.findIndex((s) => !stepDone(t, s.k, lv)); if (i >= 0) return { t, s: p[i], i, n: p.length }; }
@@ -1879,7 +1926,7 @@ const CITY = [
   }
   function renderHome() {
     renderLenaHero();
-    const nu = nextUp(); const L = DATA[S.level]; const dx = dayXPView(); const due = dueList().length; const mist = mistakeList().length; const m = nu.s.k === 'lesen' ? UNT : GM[nu.s.k];
+    const nu = nextUp(); const L = DATA[S.level]; const dx = dayXPView(); const due = dueList().length; const mist = mistakeList().length; const m = stepMeta(nu.s);
     $('#homeMain').innerHTML = `<button class="cont" data-act="continue"><span class="ic em">${m.ic}</span><small>${nu.t.id === 'mix' ? 'المراجعة الشاملة' : `الدرس ${nu.t.no}`}: ${esc(nu.t.ar)} · الخطوة ${nu.i + 1} من ${nu.n}</small>
         <b>${nu.all ? '🎉 أكملت المستوى! أعد الاختبار الشامل' : `▶ تابع: ${m.ar}`}</b><span>اضغط هنا وتابع من حيث توقّفت — كل شيء بالترتيب</span></button>
       <div class="tiles">
@@ -1945,12 +1992,12 @@ const CITY = [
   function renderLesson() {
     const t = topicObj(); const L = DATA[S.level]; const p = pathFor(t); const nIdx = p.findIndex((s) => !stepDone(t, s.k));
     const list = [...L.T, L.mix]; const pos = list.indexOf(t); const prev = list[pos - 1]; const nxt = list[pos + 1];
-    const extra = gamesFor(t).filter((k) => !p.some((s) => s.k === k)); const pl = placesFor(t); const nDone = p.filter((s) => stepDone(t, s.k)).length;
+    const extra = gamesFor(t).filter((k) => !p.some((s) => s.k === k)); const pl = placesFor(t).filter((c) => c.id !== TOPIC_PLACE[t.id]); const nDone = p.filter((s) => stepDone(t, s.k)).length;
     $('#lessonIn').innerHTML = `<button class="back" data-nav="lessons">→ كل الدروس</button>
       <div class="lh"><span class="ic em">${t.icon || '🚉'}</span><span class="k">${t.id === 'mix' ? 'المراجعة الشاملة' : `الدرس ${t.no}`} · المستوى ${L.name}</span><h1>${esc(t.ar)}</h1><span class="de">${esc(t.de)}</span></div>
       <div class="h2s"><h2>اتبع الخطوات بالترتيب</h2><span>${nDone} / ${p.length} مكتملة</span></div>
       <div class="srows">${p.map((s, k) => {
-        const m = s.k === 'lesen' ? UNT : GM[s.k]; const done = stepDone(t, s.k); const st = s.k === 'lesen' ? 0 : getStars(t, s.k);
+        const m = stepMeta(s); const done = stepDone(t, s.k); const st = s.k === 'lesen' ? 0 : isCity(s.k) ? cityStars(s.k.slice(5)) : getStars(t, s.k);
         return `<button class="srow ${done ? 'done' : ''} ${k === nIdx ? 'next' : ''}" data-step="${s.k}"><span class="n">${done ? '✓' : k + 1}</span><span class="ic em">${m.ic}</span>
           <span class="tx"><b>${m.ar}</b><small>${m.d}</small></span><span class="r">${k === nIdx ? '<span class="go">ابدأ ▶</span>' : done ? (st ? starsHTML(st) : '<span class="okk">تمّ ✓</span>') : '<span class="later">بعدها</span>'}</span></button>`;
       }).join('')}</div>
@@ -1971,7 +2018,7 @@ const CITY = [
     window.scrollTo({ top: 0, behavior: 'auto' });
   }
   function openLesson(id) { S.topic = id; show('lesson'); }
-  function doStep(k) { openGame(k); }
+  function doStep(k) { if (isCity(k)) goPlace(k.slice(5)); else openGame(k); }
   function refreshView() {
     if (S.view === 'lesson') { renderLesson(); updateTop(); } else if (S.view === 'lessons') renderLessonsView(); else if (S.view === 'city') { renderCity(); updateTop(); } else renderHome();
   }
@@ -2001,7 +2048,7 @@ const CITY = [
   function closeGame() {
     if (!G) return;
     clearTimers(); try { speechSynthesis.cancel(); } catch (e) { /* none */ }
-    ov.hidden = true; document.body.style.overflow = ''; G = null; refreshView();
+    ov.hidden = true; document.body.style.overflow = ''; G = null; if (ov.classList.contains('side')) exitTalk(); refreshView();
     if (toastLater) { toast(toastLater); toastLater = null; }
   }
   function setCount() { $('#gCount').innerHTML = `${G.countLabel || 'السؤال'} <b>${Math.min(G.done + 1, G.n)}</b> / ${G.n}`; }
@@ -3179,16 +3226,30 @@ const CITY = [
   const cityDone = () => CITY.filter((p) => cityStars(p.id) > 0).length;
   const placesFor = (t) => CITY.filter((c) => c.topics.includes(t.id));
   const sayBtnV = (txt, vo) => `<button class="say" data-say="${esc(txt)}" data-g="${vo.g}" data-p="${vo.pitch}" aria-label="استمع"><span class="em">🔊</span></button>`;
+  // the city as a story: two days in Germany, easiest situations first
+  const STORY = [
+    ['wohnung', 1, '08:00', 'صباح الخير! تعرّف على جارتك'], ['baeckerei', 1, '08:30', 'اشترِ خبز الفطور'], ['schule', 1, '09:00', 'أوّل يوم في مدرسة اللغة'], ['supermarkt', 1, '13:00', 'تسوّق للبيت'], ['cafe', 1, '16:00', 'استراحة في المقهى'],
+    ['strasse', 2, '08:30', 'اسأل عن الطريق إلى البريد'], ['post', 2, '09:00', 'أرسل طرداً لعائلتك'], ['arzt', 2, '09:30', 'موعد عند الطبيب'], ['apotheke', 2, '11:00', 'اشترِ دواءً للسعال'], ['amt', 2, '12:00', 'سجّل عنوانك الجديد'], ['kleidung', 2, '15:00', 'اشترِ كنزة جديدة'], ['bahnhof', 2, '17:00', 'احجز رحلة إلى برلين'],
+  ];
+  // the city mission that closes each lesson
+  const TOPIC_PLACE = { hallo: 'wohnung', verben: 'schule', laender: 'post', essen: 'supermarkt', freizeit: 'cafe', koerper: 'arzt', stadt: 'strasse', kleidung: 'kleidung', bahnhof: 'bahnhof', amt: 'amt' };
+  const storyOf = (id) => STORY.find((s) => s[0] === id);
+  const placeOf = (id) => CITY.find((c) => c.id === id);
+  const nextPlace = () => (STORY.find((s) => !cityStars(s[0])) || [null])[0];
 
   // ---------- city page ----------
   function renderCity() {
-    const n = cityDone();
-    $('#cityPass').innerHTML = `<div class="pass-h"><b>🛂 جواز الاندماج</b><span>${n} / ${CITY.length} أختام</span></div><div class="stamps">${CITY.map((p) => `<span class="stamp ${cityStars(p.id) ? 'on' : ''}" title="${esc(p.ar)}"><span class="em">${p.ic}</span></span>`).join('')}</div>`;
-    $('#places').innerHTML = `<div class="places-h">اختر مكاناً <small>كل مكان = موقف حقيقي من الحياة اليومية</small></div>${CITY.map((p) => {
-      const st = cityStars(p.id);
-      return `<button class="pc ${st ? 'done' : ''}" data-place="${p.id}"><span class="ic">${personSVG(p.npc.look)}<span class="em">${p.ic}</span></span><span class="tx"><b>${esc(p.ar)}</b><span class="de">${esc(p.de)} · ${esc(p.npc.name)}</span></span><span class="r">${st ? starsHTML(st) : `<span class="chip-s">${p.lv}</span>`}</span></button>`;
-    }).join('')}`;
-    if (C3) refreshLabels();
+    const n = cityDone(); const nx = nextPlace();
+    $('#cityPass').innerHTML = `<div class="pass-h"><b>🛂 جواز الاندماج</b><span>${n} / ${CITY.length} أختام</span></div><div class="stamps">${STORY.map(([id]) => { const p = placeOf(id); return `<span class="stamp ${cityStars(id) ? 'on' : ''}" title="${esc(p.ar)}"><span class="em">${p.ic}</span></span>`; }).join('')}</div>`;
+    const card = ([id, , time, title], k) => {
+      const p = placeOf(id); const st = cityStars(id);
+      return `<button class="pc ${st ? 'done' : ''} ${id === nx ? 'nx' : ''}" data-place="${id}"><span class="no">${st ? '✓' : k + 1}</span><span class="ic">${personSVG(p.npc.look)}<span class="em">${p.ic}</span></span><span class="tx"><b>${esc(title)}</b><span class="de">${time} · ${esc(p.de)} · ${esc(p.npc.name)}</span></span><span class="r">${st ? starsHTML(st) : id === nx ? '<span class="go">ابدأ ▶</span>' : ''}</span></button>`;
+    };
+    const day = (d) => STORY.filter((s) => s[1] === d).map((s) => card(s, STORY.indexOf(s))).join('');
+    const nxS = nx && storyOf(nx); const nxP = nx && placeOf(nx);
+    $('#places').innerHTML = `${nx ? `<button class="next-m" data-place="${nx}"><small>▶ مهمّتك التالية · اليوم ${nxS[1]} · الساعة ${nxS[2]}</small><b>${nxP.ic} ${esc(nxS[3])}</b><span>${esc(nxP.ar)} — ${esc(nxP.npc.name)} ينتظرك</span></button>` : '<div class="next-m all"><b>🎉 أكملت كل المهامّ!</b><span>أنت جاهز للحياة في ألمانيا 🇩🇪 — أعد أيّ مهمّة لتحصل على 3 نجوم.</span></div>'}
+      <div class="day-h">☀️ اليوم الأوّل في ألمانيا <small>A1.1</small></div>${day(1)}<div class="day-h">🌤️ اليوم الثاني <small>A1.2</small></div>${day(2)}`;
+    if (C3) { refreshLabels(); setBeacon(nx); }
   }
   function goPlace(id) {
     if (!CITY.some((c) => c.id === id)) return;
@@ -3235,9 +3296,31 @@ const CITY = [
   }
   function resizeCity() {
     if (!C3) return; const r = C3.host.getBoundingClientRect(); if (!r.width || !r.height) return;
-    C3.w = r.width; C3.h = r.height; C3.renderer.setSize(r.width, r.height, false); C3.camera.aspect = r.width / r.height; C3.camera.updateProjectionMatrix();
+    C3.w = r.width; C3.h = r.height; C3.renderer.setSize(r.width, r.height, false); C3.camera.aspect = r.width / r.height;
+    // while talking, the side panel covers part of the city: shift the picture so the person stays in the free part
+    if (C3.talkId) { if (r.width > 760) C3.camera.setViewOffset(r.width, r.height, -Math.min(460, r.width * 0.5) / 2, 0, r.width, r.height); else C3.camera.setViewOffset(r.width, r.height, 0, (r.height * 0.6) / 2, r.width, r.height); } else C3.camera.clearViewOffset();
+    C3.camera.updateProjectionMatrix();
   }
-  function refreshLabels() { C3.labels.forEach((L) => { if (L.id) L.el.classList.toggle('done', cityStars(L.id) > 0); }); }
+  function refreshLabels() { const nx = nextPlace(); C3.labels.forEach((L) => { if (L.id) { L.el.classList.toggle('done', cityStars(L.id) > 0); L.el.classList.toggle('nx', L.id === nx); } }); }
+  function setBeacon(id) {
+    if (!C3 || !C3.beacon) return; const b = C3.beacon; b.g.visible = !!id; b.ring.visible = !!id; if (!id) return;
+    const pp = placePos(id); const d = doorOf(id); b.base = (C3.heights[id] || 8) + 5.5; b.g.position.set(pp.x, b.base, pp.z); b.ring.position.set(d.x, 0.08, d.z);
+  }
+  function enterTalk(id) {
+    if (!C3 || !C3.npcs[id]) return;
+    C3.talkId = id; C3.host.classList.add('immersive'); ov.classList.add('side'); resizeCity();
+    const T = C3.T; const n = C3.npcs[id]; const v = new T.Vector3(); n.getWorldPosition(v); const pp = C3.player.g.position; const rot = placePos(id).rot;
+    n.rotation.y = Math.atan2(pp.x - v.x, pp.z - v.z) - rot; C3.player.g.rotation.y = Math.atan2(v.x - pp.x, v.z - pp.z);
+    // look down from above the street in front of the building (high enough to clear the roofs opposite)
+    let th = rot + 0.7; const c = C3.cam.th; th = c + ((((th - c + Math.PI) % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)) - Math.PI;
+    C3.beacon.g.visible = false; C3.beacon.ring.visible = false;
+    C3.follow = false; Object.assign(C3.camT, { x: v.x * 0.55 + pp.x * 0.45, z: v.z * 0.55 + pp.z * 0.45, r: 16, ph: 0.72, th });
+  }
+  function exitTalk() {
+    if (!C3) return; const id = C3.talkId; C3.talkId = null; C3.host.classList.remove('immersive'); ov.classList.remove('side');
+    if (id && C3.npcs[id]) { const n = C3.npcs[id]; n.rotation.y = 0; n.userData.arms.forEach((a) => { a.rotation.set(0, 0, 0); }); }
+    resizeCity(); C3.follow = true; Object.assign(C3.camT, { r: 58, ph: 0.9 });
+  }
   function routeTo(from, to) {
     const on = (v) => RD.some((r) => Math.abs(r - v) < 0.05);
     const best = (v, tv) => RD.reduce((a, b) => (Math.abs(b - v) + Math.abs(b - tv) < Math.abs(a - v) + Math.abs(a - tv) ? b : a));
@@ -3256,9 +3339,9 @@ const CITY = [
     const P = CITY.find((c) => c.id === id); $('#cityStatus').innerHTML = `🚶 في الطريق إلى ${P.ic} ${esc(P.ar)}… <small>(اضغط مرة أخرى للوصول فوراً)</small>`; $('#cityStatus').hidden = false;
   }
   function arrive(id) {
-    const p = C3.player; const lp = placePos(id); p.g.rotation.y = Math.atan2(lp.x - p.g.position.x, lp.z - p.g.position.z);
-    C3.camT.x = p.g.position.x; C3.camT.z = p.g.position.z; C3.camT.r = 34; $('#cityStatus').hidden = true;
-    setTimeout(() => { if (S.view === 'city' && ov.hidden) openPlace(id); }, reduced() ? 0 : 500);
+    const p = C3.player; const v = new C3.T.Vector3(); C3.npcs[id].getWorldPosition(v); p.g.rotation.y = Math.atan2(v.x - p.g.position.x, v.z - p.g.position.z);
+    C3.camT.x = p.g.position.x; C3.camT.z = p.g.position.z; C3.camT.r = 26; $('#cityStatus').hidden = true; C3.wave = { id, t: 1.2 };
+    setTimeout(() => { if (S.view === 'city' && ov.hidden) openPlace(id); }, reduced() ? 0 : 850);
   }
   function buildCity() {
     const T = window.THREE; const host = $('#city3d'); const cv = $('#cityCv');
@@ -3269,7 +3352,7 @@ const CITY = [
     scene.add(new T.HemisphereLight('#ffffff', '#7d9b6a', 0.75));
     const sun = new T.DirectionalLight('#fff4e0', 0.8); sun.position.set(-50, 90, 40); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
     Object.assign(sun.shadow.camera, { left: -80, right: 80, top: 80, bottom: -80, near: 10, far: 260 }); sun.shadow.bias = -0.0006; scene.add(sun);
-    C3 = { T, renderer, scene, camera, host, labels: [], pick: [], cars: [], peds: [], visible: S.view === 'city', idle: 0, last: 0, follow: false, cam: { th: 0.5, ph: 0.92, r: 125, x: 0, z: -4 }, camT: { th: 0.5, ph: 0.92, r: 125, x: 0, z: -4 } };
+    C3 = { T, renderer, scene, camera, host, labels: [], pick: [], cars: [], peds: [], clouds: [], npcs: {}, heights: {}, talkId: null, wave: null, visible: S.view === 'city', idle: 0, last: 0, follow: false, cam: { th: 0.5, ph: 0.92, r: 112, x: 0, z: -4 }, camT: { th: 0.5, ph: 0.9, r: 100, x: 0, z: -2 } };
     const mats = {}; const mat = (c) => (mats[c] = mats[c] || new T.MeshLambertMaterial({ color: c }));
     const box = (w, h, d, c, x = 0, y = 0, z = 0, par = scene, sh = true) => { const m = new T.Mesh(new T.BoxGeometry(w, h, d), typeof c === 'string' ? mat(c) : c); m.position.set(x, y + h / 2, z); m.castShadow = sh; m.receiveShadow = true; par.add(m); return m; };
     const plane = (w, d, c, x, y, z, par = scene) => { const m = new T.Mesh(new T.PlaneGeometry(w, d), typeof c === 'string' ? mat(c) : c); m.rotation.x = -Math.PI / 2; m.position.set(x, y, z); m.receiveShadow = true; par.add(m); return m; };
@@ -3322,12 +3405,16 @@ const CITY = [
       for (const x of [-0.2, 0.2]) { const lg = new T.Group(); lg.position.set(x * s, 1.05 * s, 0); box(0.3 * s, 1.05 * s, 0.32 * s, pants, 0, -1.05 * s, 0, lg); g.add(lg); legs.push(lg); }
       box(0.9 * s, 1.15 * s, 0.5 * s, shirt, 0, 1.0 * s, 0, g);
       for (const x of [-0.58, 0.58]) { const ar = new T.Group(); ar.position.set(x * s, 2.1 * s, 0); box(0.22 * s, 1 * s, 0.26 * s, shirt, 0, -1 * s, 0, ar); g.add(ar); arms.push(ar); }
-      const head = new T.Mesh(new T.SphereGeometry(0.36 * s, 14, 10), mat(skin)); head.position.y = 2.6 * s; head.castShadow = true; g.add(head);
-      const hr = new T.Mesh(new T.SphereGeometry(0.39 * s, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), mat(hair)); hr.position.y = 2.64 * s; g.add(hr);
-      g.userData.legs = legs; g.userData.arms = arms; return g;
+      const hd = new T.Group(); hd.position.y = 2.6 * s; g.add(hd);
+      const head = new T.Mesh(new T.SphereGeometry(0.36 * s, 14, 10), mat(skin)); head.castShadow = true; hd.add(head);
+      const hr = new T.Mesh(new T.SphereGeometry(0.39 * s, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), mat(hair)); hr.position.y = 0.04 * s; hd.add(hr);
+      g.userData.legs = legs; g.userData.arms = arms; g.userData.head = hd; g.userData.headY = hd.position.y; return g;
     };
     const swing = (g, ph, amp) => { const [l1, l2] = g.userData.legs; const [a1, a2] = g.userData.arms; l1.rotation.x = Math.sin(ph) * amp; l2.rotation.x = -Math.sin(ph) * amp; a1.rotation.x = -Math.sin(ph) * amp * 0.8; a2.rotation.x = Math.sin(ph) * amp * 0.8; };
     C3.swing = swing;
+    scene.background = canvasTex(4, 256, (g) => { const gr = g.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, '#5aa7df'); gr.addColorStop(0.55, '#a9d6f0'); gr.addColorStop(1, '#e4f2f4'); g.fillStyle = gr; g.fillRect(0, 0, 4, 256); });
+    scene.fog = new T.Fog('#d6ebf3', 150, 330);
+    let seed = 11; const rand = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
 
     // ground, roads, pavements
     plane(240, 220, '#9cc77e', 0, 0, -8);
@@ -3338,7 +3425,7 @@ const CITY = [
     }
     for (const bx of BCX) for (const bz of BCX) box(18.4, 0.18, 18.4, '#d5d2cb', bx, 0, bz, scene, false);
     box(46, 0.18, 7.4, '#d5d2cb', 0, 0, -42.6, scene, false);
-    for (const [x, z] of [[0, -9.6], [0, 9.6], [-9.6, 0], [9.6, 0]]) for (let k = -2; k <= 2; k++) { const zb = Math.abs(x) > 1; plane(zb ? 0.6 : 3.6, zb ? 3.6 : 0.6, '#f4f1e6', zb ? x + Math.sign(x) * 2.4 + k * 0.9 * 0 : k * 1.1, 0.04, zb ? k * 1.1 : z + Math.sign(z) * 2.4); }
+    for (const r of [-12, 12]) for (let k = -2; k <= 2; k++) { plane(0.6, 4.6, '#f4f1e6', k * 1.1 - 4, 0.04, r); plane(4.6, 0.6, '#f4f1e6', r, 0.045, k * 1.1 - 4); }
     // park with fountain
     box(16, 0.24, 16, '#8fc46e', 0, 0, 0, scene, false); plane(16, 2.2, '#e6d6b3', 0, 0.25, 0); plane(2.2, 16, '#e6d6b3', 0, 0.255, 0);
     cyl(2.4, 2.6, 0.7, '#c9c4b8', 0, 0.24, 0); cyl(2.1, 2.1, 0.08, '#7cc3e8', 0, 0.9, 0); cyl(0.35, 0.45, 1.9, '#c9c4b8', 0, 0.24, 0); cyl(0.95, 0.5, 0.3, '#c9c4b8', 0, 2.1, 0);
@@ -3390,14 +3477,13 @@ const CITY = [
     for (const P of CITY) {
       const pos = placePos(P.id); const { g, h, fz } = placeMesh(P);
       const L = P.npc.look; const npc = person3D(L.coat ? '#f4f6f8' : (L.shirt || '#2459c4'), '#34495e', L.skin || '#f1c7a1', L.style === 'hijab' ? (L.scarf || '#2459c4') : (L.hair || '#3b2a1e'));
-      npc.position.set(P.type === 'busstop' ? -1 : -2.6, 0, fz + (P.type === 'busstop' ? 0.6 : 0.8)); g.add(npc);
+      npc.position.set(P.type === 'busstop' ? -1 : -2.6, 0, fz + (P.type === 'busstop' ? 0.6 : 0.8)); g.add(npc); C3.npcs[P.id] = npc; C3.heights[P.id] = h;
       g.position.set(pos.x, 0.18, pos.z); g.rotation.y = pos.rot; scene.add(g);
       g.traverse((o) => { o.userData.place = P.id; }); C3.pick.push(g);
-      const el = document.createElement('button'); el.className = 'ptag'; el.dataset.place = P.id; el.innerHTML = `<span class="em">${P.ic}</span><span class="de">${esc(P.de)}</span><i>✓</i>`; labelsEl.appendChild(el);
+      const el = document.createElement('button'); el.className = 'ptag'; el.dataset.place = P.id; el.innerHTML = `<span class="no">${STORY.findIndex((s) => s[0] === P.id) + 1}</span><span class="em">${P.ic}</span><span class="de">${esc(P.de)}</span><i>✓</i>`; labelsEl.appendChild(el);
       C3.labels.push({ id: P.id, el, pos: new T.Vector3(pos.x, h + 2, pos.z) });
     }
     // filler houses (deterministic)
-    let seed = 11; const rand = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
     const FILL_C = ['#ecd9b4', '#cfe0d2', '#f2c6a8', '#d7d0e8', '#f4ead2', '#c8dbe8', '#e8c9c0']; const ROOF_C = ['#a8452f', '#8d3b2a', '#5a6772', '#7a4a32'];
     for (const lot of FILLER) {
       const p = lotPos(lot);
@@ -3408,6 +3494,17 @@ const CITY = [
         g.position.set(p.x + dx, 0.18, p.z); g.rotation.y = p.rot; scene.add(g);
       }
     }
+    // hedges and flower beds in the park, clouds in the sky
+    for (const [x, z, w, d] of [[-4.6, -7.7, 6.6, 0.6], [4.6, -7.7, 6.6, 0.6], [-4.6, 7.7, 6.6, 0.6], [-7.7, -4.6, 0.6, 6.6], [7.7, -4.6, 0.6, 6.6], [-7.7, 4.6, 0.6, 6.6], [7.7, 4.6, 0.6, 6.6]]) box(w, 0.8, d, '#4c8c45', x, 0.24, z);
+    const FLOW = ['#f06292', '#ffd54f', '#e53935', '#ba68c8', '#ffffff'];
+    for (const [cx, cz] of [[-5.6, -2.6], [5.6, 2.6], [-2.6, 5.6], [2.6, -5.6]]) for (let k = 0; k < 7; k++) box(0.35, 0.35, 0.35, FLOW[k % FLOW.length], cx + (rand() - 0.5) * 2.2, 0.24, cz + (rand() - 0.5) * 2.2, scene, false);
+    const cloudMat = new T.MeshLambertMaterial({ color: '#ffffff', emissive: '#c9d6de', flatShading: true });
+    for (let k = 0; k < 10; k++) {
+      const g = new T.Group(); const n = 3 + (k % 3);
+      for (let j = 0; j < n; j++) { const s = new T.Mesh(new T.IcosahedronGeometry(2.6 + rand() * 2.4, 1), cloudMat); s.position.set(j * 3.4 - n * 1.7, rand() * 1.4, (rand() - 0.5) * 3); s.scale.y = 0.62; g.add(s); }
+      g.position.set(-140 + k * 29, 44 + rand() * 16, -90 + rand() * 150); scene.add(g); C3.clouds.push({ g, v: 1 + rand() * 1.5 });
+    }
+
     // railway behind the station
     box(80, 0.9, 3.4, '#c9c4b8', 0, 0, -58.4); for (const z of [-61.2, -62.8]) box(240, 0.16, 0.16, '#7d858c', 0, 0.15, z, scene, false);
     for (let x = -118; x <= 118; x += 2.2) box(0.5, 0.12, 2.6, '#6b4f3a', x, 0.02, -62, scene, false);
@@ -3425,6 +3522,11 @@ const CITY = [
     const me = person3D('#f0ab00', '#2b3a4a', '#e6b48f', '#151515', 1.15); const ring = new T.Mesh(new T.RingGeometry(0.9, 1.25, 28), new T.MeshBasicMaterial({ color: '#f0ab00' })); ring.rotation.x = -Math.PI / 2; ring.position.y = 0.06; me.add(ring);
     const d0 = doorOf('wohnung'); me.position.set(d0.x, 0.18, d0.z); me.rotation.y = Math.PI; scene.add(me); C3.player = { g: me, path: [], goal: null, ph: 0 };
     const youEl = document.createElement('div'); youEl.className = 'ptag you'; youEl.textContent = 'أنت'; labelsEl.appendChild(youEl); C3.labels.push({ id: null, el: youEl, pos: new T.Vector3(), follow: me });
+    // golden beacon above the next mission
+    const gold = new T.MeshBasicMaterial({ color: '#f0ab00' });
+    const bg = new T.Group(); const cone = new T.Mesh(new T.ConeGeometry(1.1, 2.4, 4), gold); cone.rotation.x = Math.PI; bg.add(cone); const ball = new T.Mesh(new T.SphereGeometry(0.75, 12, 8), gold); ball.position.y = 1.9; bg.add(ball); scene.add(bg);
+    const bring = new T.Mesh(new T.RingGeometry(1.6, 2.2, 32), new T.MeshBasicMaterial({ color: '#f0ab00', transparent: true, opacity: 0.85 })); bring.rotation.x = -Math.PI / 2; scene.add(bring);
+    C3.beacon = { g: bg, ring: bring, base: 10 }; setBeacon(nextPlace());
 
     // camera controls
     const ptrs = new Map(); let down = null; let pinch0 = 0;
@@ -3436,6 +3538,7 @@ const CITY = [
     const ray = new T.Raycaster(); const v2 = new T.Vector2();
     cv.addEventListener('pointerup', (e) => {
       ptrs.delete(e.pointerId); if (ptrs.size) return;
+      if (!ov.hidden) { down = null; return; }
       if (down && Math.hypot(e.clientX - down.x, e.clientY - down.y) < 7) { const r = cv.getBoundingClientRect(); v2.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1); ray.setFromCamera(v2, camera); const hit = ray.intersectObjects(C3.pick, true)[0]; if (hit && hit.object.userData.place) goPlace(hit.object.userData.place); }
       down = null;
     });
@@ -3451,9 +3554,17 @@ const CITY = [
   function cityLoop(now) {
     requestAnimationFrame(cityLoop);
     const c3 = C3; if (!c3) return;
-    if (!c3.visible || !ov.hidden || document.hidden) { c3.last = now; return; }
-    const dt = Math.min(0.05, (now - (c3.last || now)) / 1000); c3.last = now; const calm = reduced();
+    if (!c3.visible || (!ov.hidden && !c3.talkId) || document.hidden) { c3.last = now; return; }
+    const dt = Math.min(0.05, (now - (c3.last || now)) / 1000); c3.last = now; const calm = reduced(); const ts = now / 1000;
+    if (c3.beacon.g.visible) { c3.beacon.g.position.y = c3.beacon.base + (calm ? 0 : Math.sin(ts * 3) * 0.7); c3.beacon.g.rotation.y += dt * 1.6; const sc = calm ? 1 : 1 + ((ts * 0.8) % 1) * 0.5; c3.beacon.ring.scale.set(sc, sc, sc); c3.beacon.ring.material.opacity = calm ? 0.85 : 0.95 - ((ts * 0.8) % 1) * 0.7; }
+    if (c3.talkId) {
+      const n = c3.npcs[c3.talkId]; const on = document.body.classList.contains('talking'); const [a1, a2] = n.userData.arms;
+      a2.rotation.x = on ? -0.9 + Math.sin(ts * 6) * 0.35 : -0.15; a1.rotation.x = on ? -0.25 + Math.sin(ts * 5 + 1) * 0.2 : 0;
+      n.userData.head.position.y = n.userData.headY + (on && !calm ? Math.abs(Math.sin(ts * 9)) * 0.05 : 0); n.userData.head.rotation.z = on && !calm ? Math.sin(ts * 2.3) * 0.08 : 0;
+    }
+    if (c3.wave) { c3.wave.t -= dt; const a = c3.npcs[c3.wave.id].userData.arms[1]; a.rotation.z = c3.wave.t > 0 ? 2.5 + Math.sin(c3.wave.t * 14) * 0.35 : 0; if (c3.wave.t <= 0) c3.wave = null; }
     if (!calm) {
+      for (const cl of c3.clouds) { cl.g.position.x += cl.v * dt; if (cl.g.position.x > 150) cl.g.position.x = -150; }
       for (const k of c3.cars) {
         k.s += k.v * dt * k.dir; const lo = k.ax === 'x' ? -66 : -39; const hi = k.ax === 'x' ? 66 : 60; if (k.s > hi) k.s = lo; if (k.s < lo) k.s = hi;
         if (k.ax === 'x') { k.g.position.set(k.s, 0, k.r + 1.5 * k.dir); k.g.rotation.y = k.dir > 0 ? 0 : Math.PI; } else { k.g.position.set(k.r - 1.5 * k.dir, 0, k.s); k.g.rotation.y = k.dir > 0 ? -Math.PI / 2 : Math.PI / 2; }
@@ -3476,12 +3587,13 @@ const CITY = [
       p.ph += dt * 13; c3.swing(p.g, p.ph, 0.65);
     } else c3.swing(p.g, 0, 0);
     if (c3.follow) { c3.camT.x = p.g.position.x; c3.camT.z = p.g.position.z; }
-    c3.idle += dt; if (!calm && c3.idle > 7 && !p.path.length) c3.camT.th += dt * 0.05;
+    c3.idle += dt; if (!calm && c3.idle > 7 && !p.path.length && !c3.talkId) c3.camT.th += dt * 0.05;
     const c = c3.cam; const t = c3.camT; const k = 1 - Math.pow(0.002, dt);
     c.r += (t.r - c.r) * k; c.ph += (t.ph - c.ph) * k; c.th += (t.th - c.th) * k; c.x += (t.x - c.x) * k; c.z += (t.z - c.z) * k;
     c3.camera.position.set(c.x + c.r * Math.sin(c.ph) * Math.sin(c.th), c.r * Math.cos(c.ph), c.z + c.r * Math.sin(c.ph) * Math.cos(c.th)); c3.camera.lookAt(c.x, 0, c.z);
     c3.renderer.render(c3.scene, c3.camera);
-    const v = new c3.T.Vector3();
+    if (c3.talkId) return;
+    const v = new c3.T.Vector3(); $('#cityLabels').classList.toggle('compact', c.r > 86);
     for (const L of c3.labels) {
       if (L.follow) L.pos.set(L.follow.position.x, 3.9, L.follow.position.z);
       v.copy(L.pos).project(c3.camera); const vis = v.z < 1 && Math.abs(v.x) < 1.05 && Math.abs(v.y) < 1.05;
@@ -3493,25 +3605,30 @@ const CITY = [
   function openPlace(id) {
     const P = CITY.find((c) => c.id === id); if (!P) return;
     if (G) closeGame();
+    const s = storyOf(id); const nm = (S.name || '').trim() || 'Sam Haddad';
     openShell('city', { id: `city-${id}`, ar: P.ar, de: P.de, session: true, W: [] }, `${P.ic} ${P.ar}`, `${P.de} · ${P.npc.name}`);
-    stage.innerHTML = `<div class="pl-intro"><div class="un-l">${personSVG(P.npc.look)}<div class="bubble"><span class="de">${esc(P.npc.name)}</span><small>${esc(P.npc.role)} · المستوى ${P.lv}</small></div></div>
+    if (S.view === 'city' && C3 && C3.npcs[id]) enterTalk(id);
+    const phr = P.steps.filter((x) => x.o && !x.hear).map((x) => x.o.find((o) => o[2])).slice(0, 5);
+    stage.innerHTML = `<div class="pl-intro"><div class="un-l">${personSVG(P.npc.look)}<div class="bubble"><span class="de">${esc(P.npc.name)}</span><small>${esc(P.npc.role)}${s ? ` · اليوم ${s[1]} · الساعة ${s[2]}` : ''}</small></div></div>
       <div class="mission"><b>🎯 مهمّتك</b><p>${autoDe(P.mission)}</p></div>
-      <div class="why"><b class="t">🇩🇪 الحياة في ألمانيا</b><div>${autoDe(P.tip)}</div></div>
-      <div class="vocab-b"><b>📚 كلمات ستحتاجها — اضغط لتسمع</b><div class="vocab">${P.vocab.map(([d, a]) => `<button class="vchip" data-say="${esc(d)}"><span class="de">${esc(d)}</span><small>${esc(a)}</small></button>`).join('')}</div></div>
-      <div class="notice">💬 ${esc(P.npc.name)} سيكلّمك بالألمانية. اختر الردّ المناسب${srOK() ? ' أو اضغط 🎤 وقله بصوتك' : ''}. إذا أخطأت سيقول لك «Wie bitte?» وتجد الشرح، فتحاول مرة أخرى.</div>
-      <div style="text-align:center;margin-top:14px"><button class="btn big gelb" id="goBtn">ادخل وابدأ الحديث ▶</button></div></div>`;
+      <div class="phr"><b>🗣️ الخطوة 1: استمع إلى هذه الجمل وكرّرها — ستحتاجها الآن</b>${phr.map(([d, a]) => { const de = d.replace(/\{name\}/g, nm); return `<div>${sayBtn(de)}<span class="de">${esc(de)}</span><small>${esc(a.replace(/\{name\}/g, nm))}</small></div>`; }).join('')}
+        <button class="say" data-speakphr="1">▶ استمع إلى الكل</button></div>
+      <details class="more"><summary>💡 الحياة في ألمانيا + كلمات مفيدة</summary><div class="more-in"><div class="why" style="margin-bottom:10px">${autoDe(P.tip)}</div><div class="vocab">${P.vocab.map(([d, a]) => `<button class="vchip" data-say="${esc(d)}"><span class="de">${esc(d)}</span><small>${esc(a)}</small></button>`).join('')}</div></div></details>
+      <div class="notice">💬 الخطوة 2: ${esc(P.npc.name)} سيكلّمك بالألمانية. اختر الردّ المناسب${srOK() ? ' أو قله بصوتك 🎤' : ''}. لا تقلق: الترجمة ظاهرة، وزرّ «💡 ساعدني» يحذف جواباً خاطئاً.</div>
+      <div style="text-align:center;margin-top:6px"><button class="btn big gelb" id="goBtn">ابدأ الحديث ▶</button></div></div>`;
+    const pb = $('[data-speakphr]', stage); if (pb) pb.onclick = (e) => { e.stopPropagation(); speakList(phr.map(([d]) => d.replace(/\{name\}/g, nm))); };
     G.onKey = (e) => { if (e.key === 'Enter') $('#goBtn').click(); };
     $('#goBtn').onclick = () => { $('#hud').hidden = false; runPlace(P); };
   }
   function runPlace(P) {
     const steps = P.steps.filter((s) => !s.end); const endS = P.steps.find((s) => s.end);
-    G.countLabel = 'الخطوة'; setupTrack(steps.length); let i = 0; let first = true; let tr = !!S.cityTr;
+    G.countLabel = 'الخطوة'; setupTrack(steps.length); let i = 0; let first = true; let helped = false; let tr = S.cityTr2 !== false;
     const nm = (S.name || '').trim() || 'Sam Haddad'; const fill = (s) => String(s).replace(/\{name\}/g, nm);
     const vo = { g: P.npc.g, pitch: P.npc.g === 'm' ? 0.9 : 1.08 };
     stage.innerHTML = `<div class="pl"><div class="pl-top"><span class="pl-who">${personSVG(P.npc.look)}<span><b>${esc(P.npc.name)}</b><small>${esc(P.npc.role)}</small></span></span><button class="say" id="trBtn" aria-pressed="${tr}">🌐 الترجمة: ${tr ? 'ظاهرة' : 'مخفيّة'}</button></div>
       <div class="chat pl-chat ${tr ? 'tr' : ''}" id="chat"></div><div class="pl-act ${tr ? 'tr' : ''}" id="act"></div></div>`;
     const chat = $('#chat'); const act = $('#act');
-    $('#trBtn').onclick = () => { tr = !tr; S.cityTr = tr; save(); chat.classList.toggle('tr', tr); act.classList.toggle('tr', tr); $('#trBtn').setAttribute('aria-pressed', tr); $('#trBtn').textContent = `🌐 الترجمة: ${tr ? 'ظاهرة' : 'مخفيّة'}`; };
+    $('#trBtn').onclick = () => { tr = !tr; S.cityTr2 = tr; save(); chat.classList.toggle('tr', tr); act.classList.toggle('tr', tr); $('#trBtn').setAttribute('aria-pressed', tr); $('#trBtn').textContent = `🌐 الترجمة: ${tr ? 'ظاهرة' : 'مخفيّة'}`; };
     const add = (html, cls = '') => { chat.insertAdjacentHTML('beforeend', `<div class="msg ${cls}">${html}</div>`); chat.scrollTop = chat.scrollHeight; return chat.lastElementChild; };
     const av = () => `<span class="av">${personSVG(P.npc.look)}</span>`;
     const npcLine = (n, hear) => new Promise((res) => {
@@ -3525,9 +3642,9 @@ const CITY = [
     });
     const reveal = () => { const last = [...chat.querySelectorAll('.bub.hear')].pop(); if (last) { last.classList.remove('hear'); const b = $('.showtx', last); if (b) b.remove(); } };
     const note = (ok, html) => add(`<span class="cfb ${ok ? 'ok' : 'bad'}">${html}</span>`, 'note');
-    const done = () => { markStop(i, first); i += 1; first = true; act.innerHTML = ''; G.timers.push(setTimeout(next, 1100)); };
+    const done = () => { markStop(i, first); i += 1; first = true; helped = false; act.innerHTML = ''; G.timers.push(setTimeout(next, 1100)); };
     const miss = () => { if (!first) return; first = false; award(false); };
-    const win = (el) => { if (first) award(true, 0, el); else { G.score += 3; hud(); beep('ok'); } };
+    const win = (el) => { if (first) award(true, helped ? -5 : 0, el); else { G.score += 3; hud(); beep('ok'); } };
     async function next() {
       if (!G) return;
       if (i >= steps.length) { if (endS) await npcLine(endS.n); G.timers.push(setTimeout(() => finishPlace(P), 1500)); return; }
@@ -3536,7 +3653,7 @@ const CITY = [
     }
     function optsUI(st) {
       const order = shuffle(st.o.map((_, k) => k));
-      act.innerHTML = `<div class="q">${st.hear ? `❓ ${esc(st.q)} <small>(استمع جيداً — النص مخفي)</small>` : '💬 ماذا تقول؟'}</div>
+      act.innerHTML = `<div class="q"><span>${st.hear ? `❓ ${esc(st.q)} <small>(استمع جيداً — النص مخفي)</small>` : '💬 ماذا تقول؟ اختر الردّ المناسب'}</span><button class="say" id="hintBtn">💡 ساعدني</button></div>
         <div class="replies ${st.hear ? 'ar' : ''}">${order.map((k, j) => `<button class="reply" data-k="${k}"><span class="kn">${j + 1}</span>${st.hear ? `<span>${esc(st.o[k][0])}</span>` : `<span class="de">${esc(fill(st.o[k][0]))}</span><small class="trx">${esc(fill(st.o[k][1]))}</small>`}</button>`).join('')}</div>
         ${!st.hear && srOK() ? '<div class="mic-box"><button class="mic" id="plMic"><span class="em">🎤</span> أجب بصوتك</button><div class="mic-res" id="plMicRes"></div></div>' : ''}<div id="fbSlot"></div>`;
       let over = false;
@@ -3554,6 +3671,13 @@ const CITY = [
         if (!st.hear) { const wb = WIEBITTE[rnd(WIEBITTE.length)]; G.timers.push(setTimeout(() => { if (!G) return; add(`${av()}<span class="bub"><span class="de">${esc(wb[0])}</span><small class="trx">${esc(wb[1])}</small></span>`); speak(wb[0], false, vo); }, 450)); } else speak(fill(st.n[0]), true, vo);
       };
       $$('.reply', act).forEach((b) => { b.onclick = () => choose(+b.dataset.k); });
+      $('#hintBtn').onclick = () => {
+        if (over) return; const wrong = $$('.reply:not(:disabled)', act).filter((b) => !st.o[+b.dataset.k][2]);
+        if (wrong.length <= 1 && helped) { reveal(); speak(fill(st.n[0]), true, vo); return; }
+        const w = wrong[rnd(wrong.length)]; if (w) { w.disabled = true; w.classList.add('gone'); } helped = true;
+        if (st.hear) { reveal(); speak(fill(st.n[0]), true, vo); }
+        $('#hintBtn').textContent = st.hear ? '💡 كشفتُ لك النص وحذفت جواباً' : '💡 حذفتُ جواباً خاطئاً';
+      };
       const mb = $('#plMic');
       if (mb) mb.onclick = async () => {
         if (over || mb.classList.contains('rec')) return; const res = $('#plMicRes');
@@ -3613,8 +3737,9 @@ const CITY = [
       <div class="r-msg">${stars === 3 ? 'ممتاز! تصرّفت مثل شخص يعيش في ألمانيا منذ سنوات 🇩🇪' : stars === 2 ? 'جيّد جداً! أعد المهمّة لتحصل على 3 نجوم' : 'بداية جيّدة — أعد المهمّة واقرأ الشرح بعد كل خطأ'}</div>
       ${G.missed.length ? `<ul class="review"><b>📌 الجواب الصحيح في المواقف التي أخطأت فيها:</b>${G.missed.slice(0, 8).map((m) => `<li>${m}</li>`).join('')}</ul>` : ''}
       <div class="vocab" style="justify-content:center;margin-top:12px">${P.vocab.map(([d, a]) => `<button class="vchip" data-say="${esc(d)}"><span class="de">${esc(d)}</span><small>${esc(a)}</small></button>`).join('')}</div>
-      <div class="r-btns"><button class="btn gelb" id="backCity">🏙️ العودة إلى المدينة</button><button class="btn" id="againBtn">↻ أعد المهمّة</button></div></div>`;
+      <div class="r-btns">${nextPlace() ? `<button class="btn gelb" id="nextPl">▶ المهمّة التالية: ${placeOf(nextPlace()).ic} ${esc(storyOf(nextPlace())[3])}</button>` : ''}<button class="btn ${nextPlace() ? 'ghost' : 'gelb'}" id="backCity">🏙️ العودة إلى المدينة</button><button class="btn ghost" id="againBtn">↻ أعد المهمّة</button></div></div>`;
     $('#backCity').onclick = closeGame; $('#againBtn').onclick = () => { const id = P.id; closeGame(); openPlace(id); };
+    const np = $('#nextPl'); if (np) np.onclick = () => { const id = nextPlace(); closeGame(); goPlace(id); };
     beep('win'); if (stars >= 2) confetti();
   }
 
@@ -3632,7 +3757,7 @@ const CITY = [
       if (act && !act.disabled) {
         const a = act.dataset.act;
         if (a === 'home') { if (!ov.hidden) closeGame(); show('home'); return; }
-        if (a === 'continue') { const nu = nextUp(); S.topic = nu.t.id; show('lesson'); openGame(nu.s.k); return; }
+        if (a === 'continue') { const nu = nextUp(); S.topic = nu.t.id; if (isCity(nu.s.k)) goPlace(nu.s.k.slice(5)); else { show('lesson'); openGame(nu.s.k); } return; }
         if (a === 'laute') { openLaute(); return; }
         if (a === 'cert') { openCert(); return; }
         if (a === 'lenahi') { lenaHello(); return; }

@@ -7,7 +7,8 @@ Cours intensif d’allemand (A1.1 + A1.2) pour arabophones : une professeure vir
 **▶️ ابدأ الآن / Commencer :** https://contactnasriimen-ctrl.github.io/sprachbahn-a1/
 
 ## المحتوى · Contenu
-- **4 مستويات: A1.1 · A1.2 · A2 · B1** — 47 درساً في خطة من 12 أسبوعاً.
+- **6 مستويات: A1.1 · A1.2 · A2.1 · A2.2 · B1.1 · B1.2** — 55 درساً في خطة من 14 أسبوعاً (8 دروس لكل مستوى من A2 وB1).
+- **المدينة: 20 مهمّة في 4 أيّام** (A1.1 → B1)، منها 8 محادثات جديدة: الجار والضجيج، البنك، القطار المتأخّر، المطعم، طبيب العائلة، مقابلة العمل، معاينة شقّة، تجديد الإقامة.
   - **A2:** الطفولة (Präteritum) · weil / dass / wenn · Wo? / Wohin? · الأفعال الانعكاسية · نهايات الصفات · المقارنة · Konjunktiv II · أفعال مع حروف جرّ · الأسئلة غير المباشرة · zu + Infinitiv · الأمر والنصيحة · أفعال Dativ
   - **B1:** الجمل الموصولة · Passiv · Konjunktiv II في الماضي · Plusquamperfekt و nachdem · um … zu / damit · obwohl / trotzdem · Genitiv · sowohl … als auch / je … desto · Futur I · da- / wo- · جمل الزمن · الرسالة الرسمية وامتحان B1
   - في كل درس من A2 و B1: 15 كلمة مع مثال ونطق بالحروف العربية، قاعدة بشرح عربي وجدول، جمل وحوارات، و10 تمارين قواعد مع شرح «لماذا؟»

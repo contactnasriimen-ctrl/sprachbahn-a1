@@ -21,7 +21,7 @@
   --gelb: #f0ab00; --gelb-ink: #392900; --blau: #2459c4; --rot: #cf343a; --gruen: #1b8a4e; --lila: #7a4bd8; --orange: #e0681a;
   --board: #10161c; --board-2: #1b232b; --flap: #f2b705; --board-ink: #f4f1e6;
   --ok: #1b8a4e; --ok-bg: #e1f4e9; --bad: #cf343a; --bad-bg: #fbe4e5; --why-bg: #fff7e0; --why-line: #f0c75a;
-  --line-a11: #f0ab00; --line-a12: #2459c4; --line-a2: #1b8a4e; --line-b1: #7a4bd8; --line: var(--line-a11);
+  --line-a11: #f0ab00; --line-a12: #2459c4; --line-a21: #1b8a4e; --line-a22: #0e8fa3; --line-b11: #7a4bd8; --line-b12: #cf343a; --line: var(--line-a11);
   --sky1: #9fd3f0; --sky2: #e9f5fb; --sun: #ffd25a; --hill1: #b9dcc2; --hill2: #8cc49d; --hill3: #5f9f74; --ground: #c9b48a; --rail: #6b7783; --star: 0;
   --shadow: 0 1px 0 rgba(19, 32, 43, .05), 0 12px 30px -18px rgba(19, 32, 43, .4);
   --f-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
@@ -35,7 +35,7 @@
   --gelb: #f5b914; --gelb-ink: #2a1e00; --blau: #6a97f2; --rot: #f0656a; --gruen: #43c482; --lila: #a888f2; --orange: #f08a45;
   --board: #05080b; --board-2: #121a21; --flap: #f5bf1a; --board-ink: #f4f1e6;
   --ok: #43c482; --ok-bg: #12301f; --bad: #f0656a; --bad-bg: #3a1618; --why-bg: #2c2410; --why-line: #8a6d1d;
-  --line-a11: #f5b914; --line-a12: #6a97f2; --line-a2: #43c482; --line-b1: #a888f2;
+  --line-a11: #f5b914; --line-a12: #6a97f2; --line-a21: #43c482; --line-a22: #3fc1d4; --line-b11: #a888f2; --line-b12: #f0656a;
   --sky1: #071526; --sky2: #1b3352; --sun: #f3efd9; --hill1: #1d3a3b; --hill2: #17302f; --hill3: #112424; --ground: #2a2620; --rail: #8996a3; --star: 1;
   --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 14px 32px -16px rgba(0, 0, 0, .8); color-scheme: dark; } }
 :root[data-theme="dark"] {
@@ -43,7 +43,7 @@
   --gelb: #f5b914; --gelb-ink: #2a1e00; --blau: #6a97f2; --rot: #f0656a; --gruen: #43c482; --lila: #a888f2; --orange: #f08a45;
   --board: #05080b; --board-2: #121a21; --flap: #f5bf1a; --board-ink: #f4f1e6;
   --ok: #43c482; --ok-bg: #12301f; --bad: #f0656a; --bad-bg: #3a1618; --why-bg: #2c2410; --why-line: #8a6d1d;
-  --line-a11: #f5b914; --line-a12: #6a97f2; --line-a2: #43c482; --line-b1: #a888f2;
+  --line-a11: #f5b914; --line-a12: #6a97f2; --line-a21: #43c482; --line-a22: #3fc1d4; --line-b11: #a888f2; --line-b12: #f0656a;
   --sky1: #071526; --sky2: #1b3352; --sun: #f3efd9; --hill1: #1d3a3b; --hill2: #17302f; --hill3: #112424; --ground: #2a2620; --rail: #8996a3; --star: 1;
   --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 14px 32px -16px rgba(0, 0, 0, .8); color-scheme: dark; }
 
@@ -126,7 +126,7 @@ h1, h2, h3 { text-wrap: balance; margin: 0; }
 .wheel { transform-box: fill-box; transform-origin: center; animation: spin .6s linear infinite reverse; } @keyframes spin { to { transform: rotate(360deg); } }
 
 .home-main { padding-block: 22px 40px; }
-.lvl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+.lvl { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 10px; margin-bottom: 18px; }
 .lvl-b { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; align-items: center; text-align: start; padding: 12px 16px; border-radius: var(--r); border: 2px solid var(--rule); background: var(--surface); transition: border-color .2s, box-shadow .2s; }
 .lvl-b[aria-pressed="true"] { border-color: var(--lc); box-shadow: 0 0 0 4px color-mix(in srgb, var(--lc) 22%, transparent); }
 .lvl-b .bd { grid-row: span 3; font-family: var(--f-display); font-weight: 800; font-size: 22px; padding: 4px 10px; border-radius: 10px; background: var(--lc); color: #fff; direction: ltr; }
@@ -708,6 +708,9 @@ details.more[open] summary::after { transform: rotate(180deg); }
 }
 @keyframes slideup { from { transform: translateY(60px); opacity: 0; } }
 .stage:focus { outline: none; }
+.others { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 14px; background: var(--surface-2); border-radius: 12px; padding: 8px 10px; }
+.stamps { grid-template-columns: repeat(10, 1fr); } .stamp { width: 28px; height: 28px; font-size: 14px; }
+@media (max-width: 700px) { .stamps { grid-template-columns: repeat(7, 1fr); } }
 
 @media (max-width: 600px) {
   .lena-hero { grid-template-columns: 76px minmax(0, 1fr); } .lena-av { width: 76px; }
@@ -755,7 +758,7 @@ details.more[open] summary::after { transform: rotate(180deg); }
   <div class="sec-h"><h1 class="h1s">📚 الدروس</h1><span>اختر المستوى ثم ادرس بالترتيب — درس كل يوم أو يومين.</span></div>
   <div class="lvl" id="lvl"></div>
   <div class="acad" id="acad"></div>
-  <div class="sec-h"><h2>خطة الدراسة: 12 أسبوعاً من A1 إلى B1</h2><span id="lvlInfo"></span></div>
+  <div class="sec-h"><h2 id="planTitle">خطة الدراسة من A1 إلى B1</h2><span id="lvlInfo"></span></div>
   <div class="lessons" id="lessons"></div>
 </div></div>
 
@@ -2734,14 +2737,654 @@ MORE.b1.push({ id: 'pruefung', no: 12, de: 'Formelle Briefe und B1-Prüfung', ar
     ['Ich ___ Ihnen dankbar, wenn Sie mich anrufen könnten.', 'wäre', ['bin', 'würde'], 'تعبير مهذّب: [[Ich wäre Ihnen dankbar, wenn …]].', 'سأكون ممتنّاً لو اتّصلتم بي.'],
     ['Im Anhang ___ Sie meinen Lebenslauf.', 'finden', ['findet', 'gefunden'], 'تعبير شائع: [[Im Anhang finden Sie …]] (الفعل في المكان الثاني).', 'تجدون في المرفق سيرتي الذاتية.']] });
 
-// Merge the A2 / B1 lessons into the shared tables used by every exercise.
-for (const [lv, list] of Object.entries(MORE)) {
-  const name = lv === 'a2' ? 'A2' : 'B1';
-  DATA[lv] = { name, ar: `المستوى ${name}`, color: `var(--line-${lv})`, topics: list.map((t) => {
-    t.w.forEach(([, de, , , exd, exa]) => { if (!EX[de]) EX[de] = [exd, exa]; });
-    GR[t.id] = t.gr; GQ[t.id] = t.gq;
-    return { id: t.id, no: t.no, de: t.de, ar: t.ar, icon: t.icon, tip: t.tip, words: t.w.map((x) => x.slice(0, 4).join('|')), sent: t.sent, dlg: t.dlg, special: t.special, conj: t.conj };
-  }) };
+// New lessons for A2.1
+MORE.a2.push({ id: 'verwandte', de: 'Familie und Verwandtschaft', ar: 'العائلة والأقارب', icon: '👪',
+  tip: 'أدوات الملكيّة تأخذ نهايات [[ein / eine]]: [[mein Bruder · meine Schwester · meinen Bruder]] (Akk) [[· meinem Bruder]] (Dat). ومع الأسماء: [[Saras Bruder]] = أخو سارة.',
+  w: [
+    ['👪', 'die Verwandtschaft', 'الأقارب', 'دي فِرڤانتشافت', 'Meine ganze Verwandtschaft lebt in Tunesien.', 'كل أقاربي يعيشون في تونس.'],
+    ['👴', 'der Großvater', 'الجدّ', 'دَر گروسفاتَر', 'Mein Großvater ist 85 Jahre alt.', 'جدّي عمره 85 سنة.'],
+    ['👵', 'die Großmutter', 'الجدّة', 'دي گروسموتَّر', 'Meine Großmutter kocht sehr gut.', 'جدّتي تطبخ جيداً جداً.'],
+    ['🧑', 'der Cousin', 'ابن العمّ / الخال', 'دَر كوزان', 'Mein Cousin studiert in Berlin.', 'ابن عمّي يدرس في برلين.'],
+    ['👧', 'die Cousine', 'ابنة العمّ / الخال', 'دي كوزينِه', 'Meine Cousine heiratet nächsten Monat.', 'ابنة خالتي تتزوّج الشهر القادم.'],
+    ['👦', 'der Neffe', 'ابن الأخ / الأخت', 'دَر نِفِّه', 'Mein Neffe ist fünf Jahre alt.', 'ابن أخي عمره خمس سنوات.'],
+    ['👧', 'die Nichte', 'ابنة الأخ / الأخت', 'دي نيشتِه', 'Ich kaufe meiner Nichte ein Geschenk.', 'أشتري هديّة لابنة أختي.'],
+    ['👶', 'das Enkelkind', 'الحفيد', 'داس إنكِلكينت', 'Meine Oma hat sieben Enkelkinder.', 'لجدّتي سبعة أحفاد.'],
+    ['🤝', 'der Schwager', 'الصهر (زوج الأخت)', 'دَر شڤاگَر', 'Mein Schwager hilft mir beim Umzug.', 'صهري يساعدني في الانتقال.'],
+    ['💍', 'verheiratet', 'متزوّج', 'فِرهايراتِت', 'Mein Bruder ist seit zwei Jahren verheiratet.', 'أخي متزوّج منذ سنتين.'],
+    ['💔', 'geschieden', 'مطلّق', 'گِشيدِن', 'Ihre Eltern sind geschieden.', 'والداها مطلّقان.'],
+    ['🧍', 'ledig', 'أعزب', 'ليديش', 'Ich bin noch ledig.', 'ما زلتُ أعزب.'],
+    ['🤰', 'schwanger', 'حامل', 'شڤانگَر', 'Meine Schwester ist schwanger.', 'أختي حامل.'],
+    ['🧬', 'ähnlich', 'يشبه', 'إينليش', 'Du siehst deinem Vater sehr ähnlich.', 'أنت تشبه أباك كثيراً.'],
+    ['🏠', 'zusammenleben', 'يعيشان معاً', 'تسوزامِّنليبِن', 'Drei Generationen leben bei uns zusammen.', 'ثلاثة أجيال يعيشون معاً عندنا.']],
+  sent: [['Das ist das Auto von meinem Onkel.', 'هذه سيارة عمّي.'], ['Ich rufe meine Eltern jeden Sonntag an.', 'أتّصل بوالديّ كل يوم أحد.'], ['Ich schenke meinem Neffen ein Fahrrad.', 'أهدي ابن أخي درّاجة.'],
+    ['Saras Bruder ist Arzt.', 'أخو سارة طبيب.'], ['Wir besuchen unsere Verwandten in Marokko.', 'نزور أقاربنا في المغرب.'], ['Seid ihr verheiratet? – Nein, wir sind noch ledig.', 'هل أنتما متزوّجان؟ – لا، ما زلنا عازبين.']],
+  dlg: [
+    ['Hast du Geschwister?', 'هل لديك إخوة؟', 'Ja, einen Bruder und zwei Schwestern.', 'نعم، أخ وأختان.', ['Ja, ein Bruder und zwei Schwestern habe.', 'Ja, ich habe einem Bruder.']],
+    ['Wem schenkst du das Buch?', 'لمن تهدي الكتاب؟', 'Meiner Cousine. Sie liest sehr gern.', 'لابنة عمّي. إنّها تحبّ القراءة كثيراً.', ['Meine Cousine. Sie liest sehr gern.', 'Mein Cousine. Sie liest gern.']],
+    ['Bist du verheiratet?', 'هل أنت متزوّج؟', 'Nein, ich bin ledig.', 'لا، أنا أعزب.', ['Nein, ich habe ledig.', 'Nein, ich bin verheiraten.']],
+    ['Wo wohnt deine Familie?', 'أين تسكن عائلتك؟', 'Meine Eltern wohnen in Tunis, mein Bruder in Hamburg.', 'والداي يسكنان في تونس، وأخي في هامبورغ.', ['Mein Eltern wohnen in Tunis.', 'Meine Eltern wohnt in Tunis.']]],
+  gr: { t: 'أدوات الملكيّة (Possessivartikel) في كل الحالات', p: [
+    'أدوات الملكيّة: [[mein]] (لي) · [[dein]] (لك) · [[sein]] (له) · [[ihr]] (لها) · [[unser]] (لنا) · [[euer]] (لكم) · [[ihr]] (لهم) · [[Ihr]] (لحضرتك).',
+    'تأخذ نفس نهايات [[ein / eine]]: [[mein Bruder · meine Schwester · mein Kind · meine Eltern]].',
+    'في Akkusativ يتغيّر المذكّر فقط: [[Ich besuche mein<b>en</b> Bruder.]]',
+    'في Dativ: [[mein<b>em</b> Bruder · mein<b>er</b> Schwester · mein<b>em</b> Kind · mein<b>en</b> Eltern]]: [[Ich helfe meiner Mutter.]]',
+    'الملكيّة مع الأسماء: [[Saras Bruder]] (بدون فاصلة علوية) أو [[der Bruder von Sara]]. ⚠️ [[euer]] + نهاية ← [[eure]]: [[eure Kinder]].'],
+    tab: [['', 'der', 'die', 'das', 'Plural'], ['Nominativ', 'mein Onkel', 'meine Tante', 'mein Kind', 'meine Eltern'], ['Akkusativ', 'meinen Onkel', 'meine Tante', 'mein Kind', 'meine Eltern'], ['Dativ', 'meinem Onkel', 'meiner Tante', 'meinem Kind', 'meinen Eltern']],
+    ex: [['Ich besuche meinen Großvater.', 'أزور جدّي.'], ['Er hilft seiner Schwester.', 'يساعد أخته.'], ['Unsere Kinder spielen draußen.', 'أطفالنا يلعبون في الخارج.'], ['Wie heißt eure Tochter?', 'ما اسم ابنتكم؟']] },
+  gq: [
+    ['Ich besuche ___ Onkel.', 'meinen', ['mein', 'meinem'], 'مذكّر في Akkusativ: [[meinen Onkel]].', 'أزور عمّي.'],
+    ['Ich helfe ___ Mutter.', 'meiner', ['meine', 'meinem'], '[[helfen]] + Dativ، مؤنّث ← [[meiner]].', 'أساعد أمّي.'],
+    ['Er schenkt ___ Sohn ein Fahrrad.', 'seinem', ['seinen', 'sein'], 'Dativ مذكّر (لمن؟) ← [[seinem Sohn]].', 'يهدي ابنه درّاجة.'],
+    ['Anna kommt mit ___ Schwester.', 'ihrer', ['seiner', 'ihre'], 'لها (Anna) ← [[ihr]]؛ [[mit]] + Dativ مؤنّث ← [[ihrer Schwester]].', 'آنا تأتي مع أختها.'],
+    ['Karim und ___ Bruder spielen Fußball.', 'sein', ['ihr', 'seinen'], 'له (Karim) ← [[sein]]؛ مذكّر Nominativ ← [[sein Bruder]].', 'كريم وأخوه يلعبان كرة القدم.'],
+    ['Wie heißen ___ Kinder? (ihr)', 'eure', ['euer', 'euren'], '[[euer]] + نهاية ← [[eure]] (تسقط e).', 'ما أسماء أطفالكم؟'],
+    ['Wir fahren mit ___ Eltern in den Urlaub.', 'unseren', ['unsere', 'unserem'], '[[mit]] + Dativ جمع ← [[unseren Eltern]].', 'نسافر مع والدينا في الإجازة.'],
+    ['___ Bruder ist Arzt. (Sara)', 'Saras', ["Sara's", 'Sara'], 'الملكيّة مع الاسم: [[Saras]] (بدون فاصلة علوية).', 'أخو سارة طبيب.'],
+    ['Ist das ___ Auto, Herr Weber?', 'Ihr', ['ihr', 'Ihre'], 'المهذّب [[Ihr]] بحرف كبير؛ [[das Auto]] ← [[Ihr Auto]].', 'هل هذه سيارتك يا سيد فيبر؟'],
+    ['Du siehst ___ Vater sehr ähnlich.', 'deinem', ['deinen', 'dein'], '[[ähnlich sehen]] + Dativ ← [[deinem Vater]].', 'أنت تشبه أباك كثيراً.']] });
+
+MORE.a2.push({ id: 'feiertage', de: 'Feste und Termine', ar: 'الأعياد والمواعيد', icon: '🎉',
+  tip: 'التاريخ: [[Heute ist der dritte Mai.]] · [[am dritten Mai]] (في). الأرقام الترتيبية: [[erste, zweite, dritte, siebte]] ثم [[‑te]] حتى 19، و[[‑ste]] من 20: [[zwanzigste]].',
+  w: [
+    ['🎄', 'Weihnachten', 'عيد الميلاد', 'ڤايناختِن', 'An Weihnachten sind die Geschäfte geschlossen.', 'في عيد الميلاد تكون المحلّات مغلقة.'],
+    ['🐣', 'Ostern', 'عيد الفصح', 'أوستَرن', 'Zu Ostern bemalen Kinder Eier.', 'في الفصح يلوّن الأطفال البيض.'],
+    ['🌙', 'das Zuckerfest', 'عيد الفطر', 'داس تسوكَرفِست', 'Am Zuckerfest besuchen wir die Familie.', 'في عيد الفطر نزور العائلة.'],
+    ['🐑', 'das Opferfest', 'عيد الأضحى', 'داس أوپفَرفِست', 'Das Opferfest feiern wir mit Freunden.', 'نحتفل بعيد الأضحى مع الأصدقاء.'],
+    ['🎆', 'Silvester', 'ليلة رأس السنة', 'زيلڤِستَر', 'An Silvester gibt es ein Feuerwerk.', 'في ليلة رأس السنة توجد ألعاب نارية.'],
+    ['🗓️', 'der Feiertag', 'يوم العطلة الرسمية', 'دَر فايَرتاك', 'Der 3. Oktober ist ein Feiertag.', 'الثالث من أكتوبر يوم عطلة رسمية.'],
+    ['📅', 'das Datum', 'التاريخ', 'داس داتوم', 'Welches Datum ist heute?', 'ما تاريخ اليوم؟'],
+    ['1️⃣', 'der erste', 'الأوّل', 'دَر إيرستِه', 'Heute ist der erste Mai.', 'اليوم الأوّل من مايو.'],
+    ['3️⃣', 'am dritten', 'في الثالث', 'آم دريتِن', 'Ich habe am dritten Juni Geburtstag.', 'عيد ميلادي في الثالث من يونيو.'],
+    ['👏', 'gratulieren', 'يهنّئ', 'گراتوليرِن', 'Ich gratuliere dir zum Geburtstag!', 'أهنّئك بعيد ميلادك!'],
+    ['🥳', 'Herzlichen Glückwunsch!', 'تهانينا الحارّة!', 'هِرتسليشِن گلُوكڤونش', 'Herzlichen Glückwunsch zur Hochzeit!', 'تهانينا الحارّة بالزواج!'],
+    ['🎁', 'schenken', 'يهدي', 'شِنكِن', 'Was schenkst du deiner Mutter?', 'ماذا تهدي أمّك؟'],
+    ['💌', 'die Einladung', 'الدعوة', 'دي آينلادونگ', 'Danke für die Einladung!', 'شكراً على الدعوة!'],
+    ['📆', 'vom … bis', 'من… إلى', 'فوم … بيس', 'Der Kurs geht vom 1. bis zum 30. Juni.', 'الدورة من 1 إلى 30 يونيو.'],
+    ['⏳', 'seit', 'منذ', 'زايت', 'Ich wohne seit drei Jahren hier.', 'أسكن هنا منذ ثلاث سنوات.']],
+  sent: [['Heute ist der vierte Juli.', 'اليوم الرابع من يوليو.'], ['Ich habe am zwölften März Geburtstag.', 'عيد ميلادي في الثاني عشر من مارس.'], ['Der Laden ist vom 24. Dezember bis zum 1. Januar geschlossen.', 'المحلّ مغلق من 24 ديسمبر إلى 1 يناير.'],
+    ['Im Sommer fahren wir nach Tunesien.', 'في الصيف نسافر إلى تونس.'], ['Herzlichen Glückwunsch zum Geburtstag!', 'عيد ميلاد سعيد!'], ['Vielen Dank für die Einladung, ich komme gern.', 'شكراً جزيلاً على الدعوة، سآتي بكل سرور.']],
+  dlg: [
+    ['Wann hast du Geburtstag?', 'متى عيد ميلادك؟', 'Am fünften Oktober.', 'في الخامس من أكتوبر.', ['Im fünften Oktober.', 'Am fünf Oktober.']],
+    ['Welches Datum ist heute?', 'ما تاريخ اليوم؟', 'Heute ist der zwanzigste April.', 'اليوم العشرون من أبريل.', ['Heute ist der zwanzig April.', 'Heute ist am zwanzigsten April.']],
+    ['Wie feiert ihr das Zuckerfest?', 'كيف تحتفلون بعيد الفطر؟', 'Wir besuchen die Familie und essen zusammen.', 'نزور العائلة ونأكل معاً.', ['Wir besuchen der Familie und essen zusammen.', 'Wir feiern im Zuckerfest gegessen.']],
+    ['Seit wann lernst du Deutsch?', 'منذ متى تتعلّم الألمانية؟', 'Seit einem Jahr.', 'منذ سنة.', ['Seit ein Jahr.', 'Vor einem Jahr seit.']]],
+  gr: { t: 'التاريخ والأرقام الترتيبية وحروف الجرّ الزمنية', p: [
+    'الأرقام الترتيبية: من 1 إلى 19 نضيف [[‑te]]: [[zweite, vierte, zehnte]] — ⚠️ [[erste, dritte, siebte, achte]]. ومن 20 نضيف [[‑ste]]: [[zwanzigste, einunddreißigste]].',
+    'السؤال: [[Welches Datum ist heute?]] — الجواب: [[Heute ist der <b>dritte</b> Mai.]] (‑e). وللموعد: [[am dritt<b>en</b> Mai]] (‑en). كتابةً: [[am 3. Mai]].',
+    '[[am]] + يوم أو تاريخ أو جزء من اليوم: [[am Montag, am 3. Mai, am Abend]] · [[im]] + شهر أو فصل: [[im Mai, im Sommer]] · [[um]] + ساعة: [[um 8 Uhr]].',
+    '[[vom … bis zum]] = من… إلى · [[seit]] = منذ (وما زال) · [[vor]] = قبل · [[in]] = بعد (في المستقبل): [[in einer Woche]].',
+    'بعد [[seit, vor, in]] (للزمن) يأتي Dativ: [[seit einem Monat · vor einer Woche · in zwei Tagen]].'],
+    tab: [['الرقم', 'der … (اليوم هو)', 'am … (في)'], ['1.', 'der erste', 'am ersten'], ['2.', 'der zweite', 'am zweiten'], ['3.', 'der dritte', 'am dritten'], ['7.', 'der siebte', 'am siebten'], ['20.', 'der zwanzigste', 'am zwanzigsten']],
+    ex: [['Am ersten Januar ist Neujahr.', 'في الأوّل من يناير رأس السنة.'], ['Ich wohne seit zwei Jahren in Köln.', 'أسكن في كولونيا منذ سنتين.'], ['Vor einer Woche war ich krank.', 'قبل أسبوع كنتُ مريضاً.'], ['In drei Tagen fliegen wir nach Hause.', 'بعد ثلاثة أيّام نسافر إلى الوطن.']] },
+  gq: [
+    ['Heute ist der ___ Mai.', 'dritte', ['dreite', 'dritten'], 'بعد [[der]]: [[der dritte]] (شاذّ: dritte).', 'اليوم الثالث من مايو.'],
+    ['Ich habe ___ zehnten Juni Geburtstag.', 'am', ['im', 'um'], 'مع التاريخ: [[am]].', 'عيد ميلادي في العاشر من يونيو.'],
+    ['Wir fahren ___ Sommer nach Spanien.', 'im', ['am', 'um'], 'مع الفصل: [[im Sommer]].', 'نسافر في الصيف إلى إسبانيا.'],
+    ['Der Kurs beginnt ___ neun Uhr.', 'um', ['am', 'im'], 'مع الساعة: [[um]].', 'تبدأ الدورة في التاسعة.'],
+    ['Ich wohne ___ drei Jahren in Berlin.', 'seit', ['vor', 'in'], 'منذ (وما زال) ← [[seit]].', 'أسكن في برلين منذ ثلاث سنوات.'],
+    ['___ einer Woche war ich beim Arzt.', 'Vor', ['Seit', 'In'], 'قبل (في الماضي) ← [[vor]].', 'قبل أسبوع كنتُ عند الطبيب.'],
+    ['Am ___ Januar ist Neujahr.', 'ersten', ['erste', 'einten'], 'بعد [[am]] النهاية [[‑en]]: [[am ersten]].', 'في الأوّل من يناير رأس السنة.'],
+    ['Der Laden ist ___ 1. bis zum 5. Mai geschlossen.', 'vom', ['von', 'am'], '[[vom … bis zum]] = من… إلى.', 'المحلّ مغلق من 1 إلى 5 مايو.'],
+    ['Herzlichen ___ zum Geburtstag!', 'Glückwunsch', ['Glück', 'Gratulation'], 'التعبير الثابت: [[Herzlichen Glückwunsch!]]', 'عيد ميلاد سعيد!'],
+    ['___ zwei Tagen fliege ich nach Tunis.', 'In', ['Vor', 'Seit'], 'بعد (في المستقبل) ← [[in]].', 'بعد يومين أسافر إلى تونس.']] });
+
+// New lessons for A2.2
+MORE.a2.push({ id: 'restaurant', de: 'Essen gehen', ar: 'في المطعم', icon: '🍽️',
+  tip: 'لا نكرّر الاسم: [[Ich brauche einen Löffel. – Hier ist einer.]] · [[Haben Sie Brötchen? – Ja, wir haben welche.]] · النفي: [[keiner / keine / keins]].',
+  w: [
+    ['📞', 'reservieren', 'يحجز', 'رِزِرڤيرِن', 'Ich möchte einen Tisch für vier Personen reservieren.', 'أريد أن أحجز طاولة لأربعة أشخاص.'],
+    ['🥗', 'die Vorspeise', 'المقبّلات', 'دي فورشپايزِه', 'Als Vorspeise nehme ich eine Suppe.', 'كمقبّلات آخذ حساءً.'],
+    ['🍖', 'das Hauptgericht', 'الطبق الرئيسي', 'داس هاوپتگِريشت', 'Was empfehlen Sie als Hauptgericht?', 'ماذا تنصح كطبق رئيسي؟'],
+    ['🍨', 'die Nachspeise', 'الحلوى (بعد الأكل)', 'دي ناخشپايزِه', 'Zur Nachspeise gibt es Eis.', 'للحلوى يوجد مثلّجات.'],
+    ['🌱', 'vegetarisch', 'نباتي', 'ڤِگِتاريش', 'Haben Sie auch vegetarische Gerichte?', 'هل عندكم أيضاً أطباق نباتية؟'],
+    ['🚫', 'das Schweinefleisch', 'لحم الخنزير', 'داس شڤاينِفلايش', 'Ich esse kein Schweinefleisch.', 'لا آكل لحم الخنزير.'],
+    ['🌶️', 'scharf', 'حارّ (بالبهارات)', 'شارف', 'Ist das Essen sehr scharf?', 'هل الطعام حارّ جداً؟'],
+    ['🧾', 'die Rechnung', 'الحساب', 'دي رِشنونگ', 'Die Rechnung, bitte!', 'الحساب من فضلك!'],
+    ['➗', 'getrennt', 'كلٌّ على حدة', 'گِترِنت', 'Zahlen Sie zusammen oder getrennt?', 'تدفعون معاً أم كلٌّ على حدة؟'],
+    ['💶', 'das Trinkgeld', 'البقشيش', 'داس ترينكگِلت', 'In Deutschland gibt man etwa zehn Prozent Trinkgeld.', 'في ألمانيا يعطي المرء حوالي عشرة بالمئة بقشيشاً.'],
+    ['👍', 'empfehlen', 'ينصح بـ', 'إمپفيلِن', 'Können Sie mir etwas empfehlen?', 'هل يمكنك أن تنصحني بشيء؟'],
+    ['🍽️', 'das Gericht', 'الطبق (الوجبة)', 'داس گِريشت', 'Das Gericht des Tages ist Fisch.', 'طبق اليوم سمك.'],
+    ['🥄', 'der Löffel', 'الملعقة', 'دَر لُوفِّل', 'Könnte ich noch einen Löffel haben?', 'هل يمكنني الحصول على ملعقة أخرى؟'],
+    ['1️⃣', 'einer / eine / eins', 'واحد (ضمير)', 'آينَر · آينِه · آينس', 'Ich brauche noch einen Löffel. – Hier ist einer.', 'أحتاج ملعقة أخرى. – ها هي واحدة.'],
+    ['➕', 'welche', 'بعضٌ (ضمير)', 'ڤِلشِه', 'Haben Sie noch Brötchen? – Ja, wir haben noch welche.', 'هل ما زال عندكم كعك؟ – نعم، ما زال عندنا.']],
+  sent: [['Ich möchte einen Tisch für heute Abend reservieren.', 'أريد أن أحجز طاولة لهذا المساء.'], ['Was können Sie uns empfehlen?', 'بماذا تنصحنا؟'], ['Ich nehme die Suppe als Vorspeise und dann den Fisch.', 'آخذ الحساء كمقبّلات ثم السمك.'],
+    ['Haben Sie Gerichte ohne Fleisch? – Ja, wir haben einige.', 'هل عندكم أطباق بدون لحم؟ – نعم، عندنا بعضها.'], ['Entschuldigung, mein Essen ist kalt.', 'عفواً، طعامي بارد.'], ['Wir möchten bitte getrennt zahlen.', 'نريد أن ندفع كلٌّ على حدة من فضلك.']],
+  dlg: [
+    ['Haben Sie reserviert?', 'هل حجزتم؟', 'Ja, auf den Namen Haddad, für zwei Personen.', 'نعم، باسم حدّاد، لشخصين.', ['Ja, ich habe für zwei Personen reserviert gehabt.', 'Ja, auf der Name Haddad.']],
+    ['Was darf ich Ihnen bringen?', 'ماذا أحضر لكم؟', 'Ich hätte gern das Hähnchen mit Reis.', 'أودّ الدجاج مع الأرز.', ['Ich hätte gern der Hähnchen mit Reis.', 'Ich habe gern das Hähnchen gebracht.']],
+    ['Brauchen Sie noch eine Gabel?', 'هل تحتاج شوكة أخرى؟', 'Nein danke, ich habe schon eine.', 'لا شكراً، عندي واحدة.', ['Nein danke, ich habe schon einer.', 'Nein danke, ich habe schon eins.']],
+    ['Zusammen oder getrennt?', 'معاً أم كلٌّ على حدة؟', 'Getrennt, bitte.', 'كلٌّ على حدة من فضلك.', ['Getrennen, bitte.', 'Ja, bitte.']]],
+  gr: { t: 'ضمائر النكرة (einer · eine · eins · welche · keiner)', p: [
+    'لكي لا نكرّر الاسم نستعمل ضميراً حسب جنسه: [[der Löffel → einer]] · [[die Gabel → eine]] · [[das Glas → eins]] · الجمع: [[welche]].',
+    'في Akkusativ يتغيّر المذكّر فقط: [[Ich brauche einen Löffel. – Ich habe <b>einen</b>.]]',
+    'النفي: [[keiner · keine · keins]] — وفي Akkusativ [[keinen]]: [[Haben Sie noch Brötchen? – Nein, leider keine mehr.]]',
+    'للشيء المعروف نستعمل [[der / die / das]] كضمير: [[Die Suppe ist gut. – Ja, <b>die</b> schmeckt super!]]',
+    '[[man]] = المرء (فاعل عامّ)، والفعل معه مثل er: [[In Deutschland gibt <b>man</b> Trinkgeld.]]'],
+    tab: [['', 'der (Löffel)', 'die (Gabel)', 'das (Glas)', 'Plural'], ['Nominativ', 'einer / keiner', 'eine / keine', 'eins / keins', 'welche / keine'], ['Akkusativ', 'einen / keinen', 'eine / keine', 'eins / keins', 'welche / keine']],
+    ex: [['Ein Glas Wasser, bitte. – Hier ist eins.', 'كأس ماء من فضلك. – ها هو.'], ['Haben Sie noch Tische frei? – Ja, wir haben noch welche.', 'هل عندكم طاولات فارغة؟ – نعم، ما زال عندنا.'], ['Ich habe keinen Hunger.', 'لستُ جائعاً.'], ['Hier isst man sehr gut.', 'هنا يأكل المرء جيداً جداً.']] },
+  gq: [
+    ['Ich brauche einen Löffel. – Hier ist ___.', 'einer', ['eine', 'eins'], '[[der Löffel]] مذكّر ← [[einer]].', 'أحتاج ملعقة. – ها هي واحدة.'],
+    ['Ich brauche eine Gabel. – Hier ist ___.', 'eine', ['einer', 'eins'], '[[die Gabel]] مؤنّث ← [[eine]].', 'أحتاج شوكة. – ها هي واحدة.'],
+    ['Ein Glas Wasser, bitte. – Hier ist ___.', 'eins', ['einer', 'eine'], '[[das Glas]] محايد ← [[eins]].', 'كأس ماء من فضلك. – ها هو.'],
+    ['Haben Sie noch Brötchen? – Ja, wir haben noch ___.', 'welche', ['eins', 'einen'], 'جمع ← [[welche]].', 'هل ما زال عندكم كعك؟ – نعم، ما زال عندنا.'],
+    ['Hast du einen Stift? – Nein, ich habe ___.', 'keinen', ['keiner', 'kein'], 'مذكّر في Akkusativ ← [[keinen]].', 'هل عندك قلم؟ – لا، ليس عندي.'],
+    ['In Deutschland gibt ___ Trinkgeld.', 'man', ['mann', 'Mann'], '[[man]] = المرء (بحرف صغير وبـ n واحدة).', 'في ألمانيا يعطي المرء بقشيشاً.'],
+    ['Ich möchte einen Tisch ___.', 'reservieren', ['reserviere', 'reserviert'], 'بعد [[möchte]] المصدر في الآخر.', 'أريد أن أحجز طاولة.'],
+    ['Was können Sie uns ___?', 'empfehlen', ['empfiehlt', 'empfohlen'], 'بعد [[können]] المصدر: [[empfehlen]].', 'بماذا تنصحنا؟'],
+    ['Wir zahlen bitte ___.', 'getrennt', ['trennen', 'Trennung'], '[[getrennt zahlen]] = يدفع كلٌّ وحده.', 'ندفع كلٌّ على حدة من فضلك.'],
+    ['Die Suppe ist lecker! – Ja, ___ schmeckt wirklich gut.', 'die', ['eine', 'welche'], 'الحساء نفسه (معروف) ← [[die]] كضمير.', 'الحساء لذيذ! – نعم، طعمه جيّد حقاً.']] });
+
+MORE.a2.push({ id: 'verkehr', de: 'Unterwegs in der Stadt', ar: 'التنقّل في المدينة', icon: '🚋',
+  tip: 'إلى أين؟ [[zu]] + شخص أو مكان: [[zum Arzt, zur Post]] · [[nach]] + مدينة أو بلد، و[[nach Hause]] · من أين؟ [[aus]] (من داخل) · [[von]] (من عند) · أين؟ [[bei]] (عند شخص) · [[zu Hause]].',
+  w: [
+    ['🚦', 'die Kreuzung', 'التقاطع', 'دي كرويتسونگ', 'Biegen Sie an der Kreuzung rechts ab.', 'انعطف يميناً عند التقاطع.'],
+    ['🌉', 'die Brücke', 'الجسر', 'دي برُوكِّه', 'Gehen Sie über die Brücke.', 'اعبر الجسر.'],
+    ['🌳', 'durch', 'عبر', 'دورش', 'Wir gehen durch den Park.', 'نمشي عبر الحديقة.'],
+    ['🛣️', 'entlang', 'على طول', 'إنتلانگ', 'Gehen Sie die Straße entlang.', 'امشِ على طول الشارع.'],
+    ['🔁', 'gegenüber', 'مقابل', 'گيگِنأوبَر', 'Die Apotheke ist gegenüber vom Bahnhof.', 'الصيدلية مقابل المحطّة.'],
+    ['🏃', 'zu', 'إلى (شخص / مكان)', 'تسو', 'Ich gehe zum Arzt.', 'أذهب إلى الطبيب.'],
+    ['🏠', 'bei', 'عند', 'باي', 'Ich bin heute bei meiner Freundin.', 'أنا اليوم عند صديقتي.'],
+    ['🚪', 'aus', 'من (داخل)', 'آوس', 'Er kommt gerade aus dem Haus.', 'يخرج الآن من البيت.'],
+    ['↩️', 'von', 'من (عند)', 'فون', 'Ich komme gerade vom Arzt.', 'أنا عائد الآن من عند الطبيب.'],
+    ['↪️', 'abbiegen', 'ينعطف', 'آببيگِن', 'Biegen Sie die zweite Straße links ab.', 'انعطف إلى الشارع الثاني يساراً.'],
+    ['🚇', 'die U-Bahn', 'قطار الأنفاق', 'دي أوبان', 'Ich fahre mit der U-Bahn zur Arbeit.', 'أذهب إلى العمل بقطار الأنفاق.'],
+    ['🚋', 'die Straßenbahn', 'الترام', 'دي شتراسِّنبان', 'Die Straßenbahn kommt alle zehn Minuten.', 'يأتي الترام كل عشر دقائق.'],
+    ['🎫', 'das Deutschlandticket', 'تذكرة ألمانيا (اشتراك شهري)', 'داس دويتشلانتتيكِت', 'Mit dem Deutschlandticket fahre ich überall Bus und Bahn.', 'بتذكرة ألمانيا أركب الحافلات والقطارات في كل مكان.'],
+    ['🚧', 'der Stau', 'الازدحام المروري', 'دَر شتاو', 'Wegen des Staus komme ich zu spät.', 'بسبب الازدحام سأتأخّر.'],
+    ['🅿️', 'der Parkplatz', 'موقف السيارات', 'دَر پاركپلاتس', 'Hier gibt es leider keinen Parkplatz.', 'للأسف لا يوجد موقف سيارات هنا.']],
+  sent: [['Gehen Sie geradeaus und dann über die Brücke.', 'امشِ إلى الأمام ثم اعبر الجسر.'], ['Die Post ist gegenüber vom Rathaus.', 'البريد مقابل البلدية.'], ['Ich fahre jetzt zur Arbeit und abends nach Hause.', 'أذهب الآن إلى العمل وفي المساء إلى البيت.'],
+    ['Ich komme gerade vom Zahnarzt.', 'أنا عائد الآن من عند طبيب الأسنان.'], ['Wir gehen durch den Park, das ist kürzer.', 'نمشي عبر الحديقة، هكذا أقصر.'], ['Am Wochenende bin ich bei meinen Eltern.', 'في نهاية الأسبوع أكون عند والديّ.']],
+  dlg: [
+    ['Wie komme ich zum Rathaus?', 'كيف أصل إلى البلدية؟', 'Gehen Sie die Straße entlang und dann an der Kreuzung links.', 'امشِ على طول الشارع ثم يساراً عند التقاطع.', ['Gehen Sie entlang der Straße an der Kreuzung links zu.', 'Gehen Sie die Straße entlang und dann in der Kreuzung links.']],
+    ['Woher kommst du gerade?', 'من أين أنت قادم الآن؟', 'Vom Supermarkt. Ich habe eingekauft.', 'من السوبرماركت. تسوّقت.', ['Aus dem Supermarkt bin.', 'Zum Supermarkt. Ich habe eingekauft.']],
+    ['Wo bist du heute Abend?', 'أين ستكون هذا المساء؟', 'Bei meiner Schwester.', 'عند أختي.', ['Zu meiner Schwester.', 'Bei meine Schwester.']],
+    ['Muss ich umsteigen?', 'هل يجب أن أغيّر؟', 'Ja, am Marktplatz in die Linie 5.', 'نعم، عند ساحة السوق إلى الخطّ 5.', ['Ja, am Marktplatz in der Linie 5 umsteigen.', 'Ja, ich muss umgestiegen.']]],
+  gr: { t: 'حروف الجرّ للمكان والاتّجاه', p: [
+    '<b>إلى أين؟</b> [[zu]] + شخص أو مكان: [[zum Arzt · zur Post · zu meiner Oma]] · [[nach]] + مدينة أو بلد بدون أداة، و[[nach Hause]] · [[in]] + Akkusativ للأماكن المغلقة: [[ins Kino]].',
+    '<b>من أين؟</b> [[aus]] = من داخل مكان أو بلد: [[aus dem Haus · aus Tunesien]] · [[von]] = من عند شخص أو مكان: [[vom Arzt · von der Arbeit]].',
+    '<b>أين؟</b> [[bei]] + شخص أو شركة: [[bei meiner Freundin · bei Siemens]] · [[zu Hause]] = في البيت.',
+    '[[aus, bei, mit, nach, seit, von, zu]] دائماً مع <b>Dativ</b>: [[zum = zu dem · zur = zu der · vom = von dem · beim = bei dem]].',
+    'مع Akkusativ: [[durch]] (عبر) · [[um … herum]] (حول) · [[entlang]] (على طول، بعد الاسم): [[die Straße entlang]] · و[[gegenüber]] + Dativ: [[gegenüber vom Bahnhof]].'],
+    tab: [['', 'إلى أين؟', 'أين؟', 'من أين؟'], ['شخص', 'zum Arzt', 'beim Arzt', 'vom Arzt'], ['مكان', 'in die Schule', 'in der Schule', 'aus der Schule'], ['مدينة / بلد', 'nach Berlin', 'in Berlin', 'aus Berlin'], ['البيت', 'nach Hause', 'zu Hause', 'von zu Hause']],
+    ex: [['Ich gehe zum Bäcker.', 'أذهب إلى الخبّاز.'], ['Ich bin beim Bäcker.', 'أنا عند الخبّاز.'], ['Ich komme vom Bäcker.', 'أنا عائد من عند الخبّاز.'], ['Wir fahren durch die Stadt.', 'نمرّ بالسيارة عبر المدينة.']] },
+  gq: [
+    ['Ich gehe heute ___ Arzt.', 'zum', ['beim', 'nach'], 'إلى شخص ← [[zu + dem = zum]].', 'أذهب اليوم إلى الطبيب.'],
+    ['Ich bin gerade ___ Arzt.', 'beim', ['zum', 'vom'], 'أين؟ عند شخص ← [[bei + dem = beim]].', 'أنا الآن عند الطبيب.'],
+    ['Ich komme gerade ___ Arzt.', 'vom', ['zum', 'aus'], 'من عند شخص ← [[von + dem = vom]].', 'أنا عائد الآن من عند الطبيب.'],
+    ['Nach der Arbeit fahre ich ___ Hause.', 'nach', ['zu', 'zum'], 'إلى البيت ← [[nach Hause]].', 'بعد العمل أذهب إلى البيت.'],
+    ['Am Abend bin ich ___ Hause.', 'zu', ['nach', 'bei'], 'في البيت ← [[zu Hause]].', 'في المساء أكون في البيت.'],
+    ['Wir gehen ___ den Park.', 'durch', ['über', 'entlang'], 'عبر الحديقة ← [[durch]] + Akkusativ.', 'نمشي عبر الحديقة.'],
+    ['Gehen Sie die Straße ___.', 'entlang', ['durch', 'gegenüber'], 'على طول ← [[… entlang]] (بعد الاسم).', 'امشِ على طول الشارع.'],
+    ['Die Apotheke ist ___ vom Bahnhof.', 'gegenüber', ['entlang', 'durch'], 'مقابل ← [[gegenüber von]].', 'الصيدلية مقابل المحطّة.'],
+    ['Er kommt ___ Syrien.', 'aus', ['von', 'nach'], 'البلد الأصلي ← [[aus]].', 'هو من سوريا.'],
+    ['Ich gehe ___ Post.', 'zur', ['zum', 'nach'], '[[die Post]] مؤنّث ← [[zu + der = zur]].', 'أذهب إلى البريد.']] });
+
+// New lessons for B1.1
+MORE.b1.push({ id: 'kultur', de: 'Kultur und Freizeit', ar: 'الثقافة ووقت الفراغ', icon: '🎭',
+  tip: 'Partizip I = المصدر + [[d]]: [[lachen → lachend]] (يحدث الآن) · Partizip II = تمّ: [[das gekochte Ei]]. قبل الاسم يأخذان نهايات الصفة: [[die lachenden Kinder]].',
+  w: [
+    ['🎭', 'das Theater', 'المسرح', 'داس تِئاتَر', 'Wir gehen am Samstag ins Theater.', 'نذهب يوم السبت إلى المسرح.'],
+    ['🎻', 'das Konzert', 'الحفلة الموسيقية', 'داس كونتسِرت', 'Das Konzert war ausverkauft.', 'نفدت تذاكر الحفلة.'],
+    ['🖼️', 'das Museum', 'المتحف', 'داس موزيئوم', 'Das Museum ist montags geschlossen.', 'المتحف مغلق أيّام الإثنين.'],
+    ['🎟️', 'ausverkauft', 'نفدت تذاكره', 'آوسفِركاوفت', 'Leider sind alle Karten ausverkauft.', 'للأسف نفدت كل التذاكر.'],
+    ['📖', 'der Roman', 'الرواية', 'دَر رومان', 'Ich lese gerade einen spannenden Roman.', 'أقرأ الآن رواية مشوّقة.'],
+    ['😮', 'spannend', 'مشوّق', 'شپانِّنت', 'Der Film war sehr spannend.', 'كان الفيلم مشوّقاً جداً.'],
+    ['🎨', 'der Künstler', 'الفنّان', 'دَر كُونستلَر', 'Der Künstler kommt aus Syrien.', 'الفنّان من سوريا.'],
+    ['🏛️', 'die Kultur', 'الثقافة', 'دي كولتور', 'Ich interessiere mich für die deutsche Kultur.', 'أهتمّ بالثقافة الألمانية.'],
+    ['🎬', 'die Vorstellung', 'العرض', 'دي فورشتِلّونگ', 'Die Vorstellung beginnt um 20 Uhr.', 'يبدأ العرض في الساعة 20.'],
+    ['👏', 'der Beifall', 'التصفيق', 'دَر بايفال', 'Am Ende gab es viel Beifall.', 'في النهاية كان هناك تصفيق كثير.'],
+    ['🗺️', 'die Führung', 'الجولة المرشدة', 'دي فُورونگ', 'Um 15 Uhr gibt es eine Führung durch das Museum.', 'في الساعة 15 توجد جولة مرشدة في المتحف.'],
+    ['😂', 'lachend', 'ضاحك', 'لاخِنت', 'Die lachenden Kinder spielen im Park.', 'الأطفال الضاحكون يلعبون في الحديقة.'],
+    ['🥚', 'gekocht', 'مطبوخ / مسلوق', 'گِكوخت', 'Zum Frühstück esse ich ein gekochtes Ei.', 'في الفطور آكل بيضة مسلوقة.'],
+    ['🌍', 'bekannt', 'معروف', 'بِكانت', 'Das ist ein sehr bekannter Maler.', 'هذا رسّام معروف جداً.'],
+    ['🎤', 'die Stimmung', 'الأجواء', 'دي شتيمّونگ', 'Die Stimmung beim Konzert war toll.', 'كانت الأجواء في الحفلة رائعة.']],
+  sent: [['Gestern haben wir ein spannendes Theaterstück gesehen.', 'أمس شاهدنا مسرحية مشوّقة.'], ['Die Karten für das Konzert sind leider ausverkauft.', 'للأسف نفدت تذاكر الحفلة.'], ['Die lachenden Zuschauer haben laut geklatscht.', 'صفّق المشاهدون الضاحكون بصوت عالٍ.'],
+    ['Ich esse zum Frühstück gern ein gekochtes Ei.', 'أحبّ أن آكل بيضة مسلوقة في الفطور.'], ['Das Museum bietet kostenlose Führungen an.', 'يقدّم المتحف جولات مرشدة مجانية.'], ['Der bekannte Künstler stellt seine Bilder in Köln aus.', 'الفنّان المعروف يعرض لوحاته في كولونيا.']],
+  dlg: [
+    ['Wie war das Konzert?', 'كيف كانت الحفلة؟', 'Super! Die Stimmung war unglaublich.', 'رائعة! الأجواء كانت لا تُصدَّق.', ['Super! Die Stimmung waren unglaublich.', 'Super! Das Konzert ist gewesen super.']],
+    ['Hast du noch Karten für heute Abend?', 'هل ما زالت عندك تذاكر لهذا المساء؟', 'Nein, die Vorstellung ist leider ausverkauft.', 'لا، للأسف نفدت تذاكر العرض.', ['Nein, die Vorstellung ist leider ausverkaufen.', 'Nein, ich bin ausverkauft.']],
+    ['Was liest du gerade?', 'ماذا تقرأ الآن؟', 'Einen spannenden Roman über eine Familie in Berlin.', 'رواية مشوّقة عن عائلة في برلين.', ['Einen spannend Roman über eine Familie.', 'Ein spannenden Roman über eine Familie.']],
+    ['Gibt es im Museum eine Führung?', 'هل توجد جولة مرشدة في المتحف؟', 'Ja, jeden Sonntag um 15 Uhr.', 'نعم، كل يوم أحد في الساعة 15.', ['Ja, jeden Sonntag in 15 Uhr.', 'Ja, die Führung ist am 15 Uhr.']]],
+  gr: { t: 'الأفعال كصفات (Partizip I و Partizip II)', p: [
+    '<b>Partizip I</b> = المصدر + [[‑d]]: [[lachen → lachend · schlafen → schlafend]] — حدث <b>يجري الآن</b> (اسم الفاعل): [[das schlafende Baby]] = الطفل النائم.',
+    '<b>Partizip II</b> = اسم المفعول (كما في Perfekt): [[kochen → gekocht · reparieren → repariert]] — شيء <b>تمّ</b>: [[das reparierte Auto]] = السيارة المصلَّحة.',
+    'قبل الاسم يأخذان نهايات الصفة العادية: [[die lachend<b>en</b> Kinder · ein gekocht<b>es</b> Ei · mit dem repariert<b>en</b> Auto]].',
+    'صفات كثيرة أصلها Partizip: [[spannend · bekannt · geöffnet · geschlossen · verheiratet]].',
+    'بعد [[sein]] بدون نهاية: [[Das Museum ist geschlossen.]] · [[Der Film ist spannend.]]'],
+    tab: [['المصدر', 'Partizip I (يحدث)', 'Partizip II (تمّ)'], ['kochen', 'das kochende Wasser', 'das gekochte Ei'], ['schließen', 'die schließende Tür', 'die geschlossene Tür'], ['reparieren', '—', 'das reparierte Auto'], ['lachen', 'die lachenden Kinder', '—']],
+    ex: [['Das schlafende Baby ist sehr süß.', 'الطفل النائم لطيف جداً.'], ['Die geöffneten Fenster lassen frische Luft herein.', 'النوافذ المفتوحة تُدخل هواءً نقيّاً.'], ['Wir haben einen spannenden Film gesehen.', 'شاهدنا فيلماً مشوّقاً.'], ['Das gestohlene Fahrrad wurde gefunden.', 'وُجدت الدرّاجة المسروقة.']] },
+  gq: [
+    ['Die ___ Kinder spielen im Garten.', 'lachenden', ['lachende', 'gelachten'], 'Partizip I قبل الاسم في الجمع بعد [[die]]: [[‑en]].', 'الأطفال الضاحكون يلعبون في الحديقة.'],
+    ['Ich esse ein ___ Ei.', 'gekochtes', ['kochendes', 'gekochte'], 'شيء تمّ (طُبخ) ← Partizip II؛ محايد بعد [[ein]]: [[‑es]].', 'آكل بيضة مسلوقة.'],
+    ['Vorsicht, das ___ Wasser ist sehr heiß!', 'kochende', ['gekochte', 'kochend'], 'يحدث الآن (يغلي) ← Partizip I؛ بعد [[das]]: [[‑e]].', 'احذر، الماء المغلي ساخن جداً!'],
+    ['Das Museum ist heute ___.', 'geschlossen', ['geschlossenes', 'schließend'], 'بعد [[sein]] بدون نهاية: [[geschlossen]].', 'المتحف مغلق اليوم.'],
+    ['Das war ein sehr ___ Film.', 'spannender', ['spannend', 'gespannter'], 'مذكّر بعد [[ein]] (Nominativ): [[spannender]].', 'كان فيلماً مشوّقاً جداً.'],
+    ['Wir fahren mit dem ___ Auto in den Urlaub.', 'reparierten', ['reparierte', 'reparierend'], 'Partizip II في Dativ بعد [[dem]]: [[‑en]].', 'نسافر في الإجازة بالسيارة المصلَّحة.'],
+    ['Leider sind alle Karten ___.', 'ausverkauft', ['ausverkaufen', 'ausverkaufte'], 'بعد [[sein]]: [[ausverkauft]] بدون نهاية.', 'للأسف نفدت كل التذاكر.'],
+    ['Das ___ Baby wacht gleich auf.', 'schlafende', ['geschlafene', 'schlafen'], 'يحدث الآن (ينام) ← [[schlafend]]؛ بعد [[das]]: [[‑e]].', 'الطفل النائم سيستيقظ حالاً.'],
+    ['Er ist ein sehr ___ Künstler.', 'bekannter', ['bekannte', 'bekannt'], 'مذكّر بعد [[ein]]: [[bekannter]].', 'هو فنّان معروف جداً.'],
+    ['Die Vorstellung ___ um 20 Uhr.', 'beginnt', ['beginnend', 'begonnen'], 'هنا فعل عاديّ وليس صفة: [[die Vorstellung beginnt]].', 'يبدأ العرض في الساعة 20.']] });
+
+MORE.b1.push({ id: 'geld', de: 'Geld und Bank', ar: 'المال والبنك', icon: '🏦',
+  tip: 'بعض الأسماء المذكّرة تأخذ [[‑(e)n]] في كل الحالات ما عدا Nominativ (n-Deklination): [[der Kunde → den Kunden · dem Kunden]] · [[der Student → den Studenten]] · [[der Herr → den Herrn]].',
+  w: [
+    ['🏦', 'das Konto', 'الحساب البنكي', 'داس كونتو', 'Ich möchte ein Konto eröffnen.', 'أريد أن أفتح حساباً.'],
+    ['🆕', 'eröffnen', 'يفتح (حساباً)', 'إرأُفنِن', 'Wir haben ein neues Konto eröffnet.', 'فتحنا حساباً جديداً.'],
+    ['💸', 'überweisen', 'يحوّل (مالاً)', 'أوبَرڤايزِن', 'Ich überweise die Miete jeden Monat.', 'أحوّل الإيجار كل شهر.'],
+    ['🔁', 'der Dauerauftrag', 'أمر الدفع الدائم', 'دَر داوَرآوفتراك', 'Für die Miete habe ich einen Dauerauftrag.', 'للإيجار عندي أمر دفع دائم.'],
+    ['💳', 'die Bankkarte', 'البطاقة البنكية', 'دي بانككارتِه', 'Ich habe meine Bankkarte verloren.', 'أضعتُ بطاقتي البنكية.'],
+    ['🏧', 'der Geldautomat', 'الصرّاف الآلي', 'دَر گِلتآوتومات', 'Gibt es hier einen Geldautomaten?', 'هل يوجد صرّاف آلي هنا؟'],
+    ['🔢', 'die PIN', 'الرقم السرّي', 'دي پين', 'Geben Sie bitte Ihre PIN ein.', 'أدخل رقمك السرّي من فضلك.'],
+    ['💶', 'abheben', 'يسحب (مالاً)', 'آبهيبِن', 'Ich muss noch Geld abheben.', 'ما زال عليّ أن أسحب مالاً.'],
+    ['📉', 'der Kredit', 'القرض', 'دَر كريديت', 'Für das Auto brauche ich einen Kredit.', 'أحتاج قرضاً للسيارة.'],
+    ['🐷', 'das Sparkonto', 'حساب التوفير', 'داس شپاركونتو', 'Ich lege jeden Monat Geld aufs Sparkonto.', 'أضع كل شهر مالاً في حساب التوفير.'],
+    ['👤', 'der Kunde', 'الزبون', 'دَر كوندِه', 'Der Kunde wartet am Schalter.', 'الزبون ينتظر عند الشبّاك.'],
+    ['🎓', 'der Student', 'الطالب الجامعي', 'دَر شتودِنت', 'Für Studenten ist das Konto kostenlos.', 'الحساب مجاني للطلاب.'],
+    ['🎩', 'der Herr', 'السيّد', 'دَر هِر', 'Ich habe mit dem Herrn am Schalter gesprochen.', 'تحدّثتُ مع السيّد عند الشبّاك.'],
+    ['👮', 'der Polizist', 'الشرطي', 'دَر پوليتسيست', 'Ich habe den Polizisten nach dem Weg gefragt.', 'سألتُ الشرطي عن الطريق.'],
+    ['💵', 'bar bezahlen', 'يدفع نقداً', 'بار بِتسالِن', 'In vielen Geschäften kann man bar bezahlen.', 'في محلّات كثيرة يمكن الدفع نقداً.']],
+  sent: [['Ich möchte ein Girokonto eröffnen.', 'أريد أن أفتح حساباً جارياً.'], ['Die Bank berät den Kunden kostenlos.', 'البنك يقدّم الاستشارة للزبون مجاناً.'], ['Ich habe dem Studenten meine Telefonnummer gegeben.', 'أعطيتُ الطالب رقم هاتفي.'],
+    ['Am Geldautomaten kann man rund um die Uhr Geld abheben.', 'من الصرّاف الآلي يمكن سحب المال على مدار الساعة.'], ['Die Miete überweise ich per Dauerauftrag.', 'أحوّل الإيجار بأمر دفع دائم.'], ['Haben Sie Herrn Becker schon angerufen?', 'هل اتّصلتَ بالسيد بيكر؟']],
+  dlg: [
+    ['Was kann ich für Sie tun?', 'كيف أساعدك؟', 'Ich möchte ein Konto eröffnen.', 'أريد أن أفتح حساباً.', ['Ich möchte ein Konto eröffnet.', 'Ich möchte eröffnen ein Konto.']],
+    ['Wen haben Sie nach dem Weg gefragt?', 'من سألتَ عن الطريق؟', 'Einen Polizisten an der Ecke.', 'شرطياً عند الزاوية.', ['Einen Polizist an der Ecke.', 'Ein Polizisten an der Ecke.']],
+    ['Ich habe meine Bankkarte verloren!', 'أضعتُ بطاقتي البنكية!', 'Sie sollten die Karte sofort sperren lassen.', 'ينبغي أن توقف البطاقة فوراً.', ['Sie sollten die Karte sofort sperren lassen haben.', 'Sie sollten sperren die Karte.']],
+    ['Wem gehört dieser Schlüssel?', 'لمن هذا المفتاح؟', 'Dem Kunden dort am Schalter.', 'للزبون هناك عند الشبّاك.', ['Dem Kunde dort am Schalter.', 'Der Kunden dort am Schalter.']]],
+  gr: { t: 'تصريف n (n-Deklination)', p: [
+    'مجموعة من الأسماء <b>المذكّرة</b> تأخذ [[‑n]] أو [[‑en]] في Akkusativ و Dativ و Genitiv (كل الحالات ما عدا Nominativ).',
+    'أغلب المذكّرات المنتهية بـ [[‑e]]: [[der Kunde, der Junge, der Kollege, der Neffe]] ← [[den Kunden · dem Kunden]].',
+    'المذكّرات المنتهية بـ [[‑ent, ‑ant, ‑ist]] (غالباً أشخاص): [[der Student, der Praktikant, der Polizist, der Tourist]] ← [[den Studenten · dem Polizisten]].',
+    'وأيضاً: [[der Mensch → den Menschen · der Nachbar → den Nachbarn · der Herr → den Herrn]].',
+    '⚠️ في الجمع: [[die Kunden · die Studenten · die Herren]]. وفي Genitiv: [[des Kunden · des Namens]].'],
+    tab: [['', 'Nominativ', 'Akkusativ', 'Dativ'], ['der Kunde', 'der Kunde', 'den Kunden', 'dem Kunden'], ['der Student', 'der Student', 'den Studenten', 'dem Studenten'], ['der Herr', 'der Herr', 'den Herrn', 'dem Herrn'], ['der Mensch', 'der Mensch', 'den Menschen', 'dem Menschen']],
+    ex: [['Ich kenne den Kollegen nicht.', 'لا أعرف الزميل.'], ['Der Bankberater hilft dem Kunden.', 'المستشار البنكي يساعد الزبون.'], ['Ich habe einen Studenten aus Ägypten kennengelernt.', 'تعرّفتُ على طالب من مصر.'], ['Sehr geehrter Herr Fischer, …', 'السيّد فيشر المحترم، …']] },
+  gq: [
+    ['Die Bank hilft dem ___.', 'Kunden', ['Kunde', 'Kundes'], 'n-Deklination في Dativ ← [[dem Kunden]].', 'البنك يساعد الزبون.'],
+    ['Ich habe einen ___ nach dem Weg gefragt.', 'Polizisten', ['Polizist', 'Polizistes'], '‑ist ← n-Deklination: [[einen Polizisten]].', 'سألتُ شرطياً عن الطريق.'],
+    ['Der ___ wartet am Schalter.', 'Kunde', ['Kunden', 'Kundes'], 'في Nominativ بدون ‑n: [[der Kunde]].', 'الزبون ينتظر عند الشبّاك.'],
+    ['Ich kenne den ___ aus Ägypten.', 'Studenten', ['Student', 'Studente'], 'Akkusativ ← [[den Studenten]].', 'أعرف الطالب المصري.'],
+    ['Haben Sie mit Herrn Becker gesprochen? – Ja, mit dem ___.', 'Herrn', ['Herr', 'Herren'], '[[der Herr]] في Dativ: [[dem Herrn]].', 'هل تحدّثتَ مع السيد بيكر؟ – نعم، معه.'],
+    ['Ich möchte Geld ___.', 'abheben', ['abhebe', 'abgehoben'], 'بعد [[möchte]] المصدر في الآخر.', 'أريد أن أسحب مالاً.'],
+    ['Ich ___ die Miete jeden Monat.', 'überweise', ['überweisen', 'überwiesen'], 'المضارع مع ich: [[überweise]] (فعل غير منفصل).', 'أحوّل الإيجار كل شهر.'],
+    ['Wir haben ein Konto ___.', 'eröffnet', ['eröffnen', 'geeröffnet'], 'اسم مفعول [[eröffnen]]: [[eröffnet]] (بدون ge‑).', 'فتحنا حساباً.'],
+    ['Das ist das Büro unseres ___.', 'Kollegen', ['Kollege', 'Kolleges'], 'Genitiv في n-Deklination: [[des Kollegen]].', 'هذا مكتب زميلنا.'],
+    ['Ich habe einen netten ___ kennengelernt.', 'Menschen', ['Mensch', 'Menschs'], '[[der Mensch]] ← [[einen Menschen]].', 'تعرّفتُ على إنسان لطيف.']] });
+
+// New lessons for B1.2
+MORE.b1.push({ id: 'konflikte', de: 'Konflikte lösen', ar: 'حلّ الخلافات', icon: '🤝',
+  tip: '[[lassen]] له معنيان: <b>يترك / يسمح</b> ([[Lass mich in Ruhe!]]) و<b>يجعل شخصاً آخر يفعل</b>: [[Ich lasse mein Auto reparieren.]] = أصلّح سيارتي عند الميكانيكي. والمصدر الثاني في الآخر.',
+  w: [
+    ['😤', 'der Konflikt', 'النزاع', 'دَر كونفليكت', 'Wir müssen den Konflikt friedlich lösen.', 'يجب أن نحلّ النزاع سلمياً.'],
+    ['🔊', 'der Lärm', 'الضجيج', 'دَر لِرم', 'Der Lärm von nebenan stört mich.', 'الضجيج من الجيران يزعجني.'],
+    ['😣', 'stören', 'يزعج', 'شتُورِن', 'Stört es Sie, wenn ich das Fenster öffne?', 'هل يزعجك أن أفتح النافذة؟'],
+    ['🙏', 'sich entschuldigen', 'يعتذر', 'زيش إنتشولديگِن', 'Er hat sich bei mir entschuldigt.', 'اعتذر لي.'],
+    ['🗣️', 'ansprechen', 'يطرح (موضوعاً)', 'آنشپرِشِن', 'Ich spreche das Problem direkt an.', 'أطرح المشكلة مباشرة.'],
+    ['🤝', 'sich einigen', 'يتّفق', 'زيش آينيگِن', 'Wir haben uns auf eine Lösung geeinigt.', 'اتّفقنا على حلّ.'],
+    ['🧘', 'Rücksicht nehmen', 'يراعي', 'رُوكزيشت نيمِن', 'Bitte nehmen Sie Rücksicht auf die Nachbarn.', 'من فضلك راعِ الجيران.'],
+    ['🤬', 'sich aufregen', 'ينفعل', 'زيش آوفريگِن', 'Reg dich nicht so auf!', 'لا تنفعل هكذا!'],
+    ['😌', 'sich beruhigen', 'يهدأ', 'زيش بِروئيگِن', 'Beruhige dich, wir finden eine Lösung.', 'اهدأ، سنجد حلّاً.'],
+    ['✂️', 'lassen', 'يترك / يجعل غيره يفعل', 'لاسِّن', 'Ich lasse mir die Haare schneiden.', 'أقصّ شعري عند الحلّاق.'],
+    ['🔧', 'reparieren lassen', 'يصلّح عند مختصّ', 'رِپاريرِن لاسِّن', 'Ich lasse mein Auto reparieren.', 'أصلّح سيارتي في الورشة.'],
+    ['🙅', 'Lass mich in Ruhe!', 'دعني وشأني!', 'لاس ميش إين روئِه', 'Lass mich bitte in Ruhe, ich bin müde.', 'دعني وشأني من فضلك، أنا متعب.'],
+    ['👉', 'der Vorwurf', 'اللوم', 'دَر فورڤورف', 'Mach mir bitte keine Vorwürfe!', 'لا تلُمني من فضلك!'],
+    ['🫤', 'das Missverständnis', 'سوء التفاهم', 'داس ميسفِرشتِنتنيس', 'Das war nur ein Missverständnis.', 'كان هذا مجرّد سوء تفاهم.'],
+    ['🔍', 'eigentlich', 'في الحقيقة', 'آيگِنتليش', 'Eigentlich hast du recht.', 'في الحقيقة أنت على حقّ.']],
+  sent: [['Ich lasse meine Wohnung renovieren.', 'أجعل أحداً يجدّد شقّتي.'], ['Lass uns das Problem in Ruhe besprechen.', 'دعنا نناقش المشكلة بهدوء.'], ['Entschuldigung, das war ein Missverständnis.', 'عذراً، كان ذلك سوء تفاهم.'],
+    ['Könnten Sie bitte abends etwas leiser sein?', 'هل يمكنكم أن تكونوا أهدأ قليلاً في المساء؟'], ['Wir haben uns auf einen Kompromiss geeinigt.', 'اتّفقنا على حلّ وسط.'], ['Der Chef lässt uns heute früher gehen.', 'المدير يسمح لنا بالذهاب أبكر اليوم.']],
+  dlg: [
+    ['Ihre Musik ist sehr laut. Es ist schon 23 Uhr.', 'موسيقاك عالية جداً. الساعة الآن 23.', 'Oh, das tut mir leid! Ich mache sie sofort leiser.', 'آه، أنا آسف! سأخفض الصوت فوراً.', ['Oh, das tut mich leid!', 'Ich mache sie sofort leise gemacht.']],
+    ['Wo hast du deine Haare schneiden lassen?', 'أين قصصتَ شعرك؟', 'Beim Friseur an der Ecke.', 'عند الحلّاق في الزاوية.', ['Ich habe meine Haare schneiden gelassen.', 'Beim Friseur ich lasse.']],
+    ['Warum bist du so wütend?', 'لماذا أنت غاضب هكذا؟', 'Weil mein Kollege mir immer die Schuld gibt.', 'لأنّ زميلي يلومني دائماً.', ['Weil mein Kollege gibt mir immer die Schuld.', 'Deshalb mein Kollege mir die Schuld gibt.']],
+    ['Wie können wir das Problem lösen?', 'كيف يمكننا حلّ المشكلة؟', 'Lass uns zusammen einen Kompromiss finden.', 'دعنا نجد حلّاً وسطاً معاً.', ['Lass uns zusammen einen Kompromiss zu finden.', 'Lassen uns finden einen Kompromiss.']]],
+  gr: { t: 'الفعل lassen', p: [
+    '[[lassen]] = <b>يترك / يسمح</b>: [[Lass mich in Ruhe!]] · [[Meine Eltern lassen mich nicht allein reisen.]] (لا يسمحان لي)',
+    '[[lassen]] + مصدر = <b>يجعل شخصاً آخر يفعل الشيء</b>: [[Ich lasse mein Auto reparieren.]] (الميكانيكي يصلّحه، لا أنا).',
+    'المصدر الثاني يذهب إلى <b>الآخر</b>: [[Ich lasse mir morgen die Haare schneiden.]] — وفي Perfekt مصدران في الآخر: [[Ich habe mein Auto reparieren <b>lassen</b>.]] (وليس gelassen)',
+    'الاقتراح: [[Lass uns …!]] = دعنا…: [[Lass uns gehen!]] · [[Lasst uns …!]] (لمجموعة).',
+    'التصريف: [[ich lasse · du lässt · er lässt · wir lassen · ihr lasst · sie lassen]] (a → ä مع du و er).'],
+    tab: [['', 'lassen', 'مثال'], ['ich', 'lasse', 'Ich lasse das Auto waschen.'], ['du', 'lässt', 'Lässt du dir helfen?'], ['er / sie / es', 'lässt', 'Sie lässt die Kinder spielen.'], ['wir', 'lassen', 'Wir lassen die Wohnung streichen.'], ['ihr', 'lasst', 'Lasst mich schlafen!'], ['sie / Sie', 'lassen', 'Lassen Sie mich bitte durch.']],
+    ex: [['Ich lasse meinen Pass verlängern.', 'أجدّد جواز سفري عند الجهة المختصّة.'], ['Lass das Licht bitte an!', 'اترك الضوء مُضاءً من فضلك!'], ['Wir haben die Küche renovieren lassen.', 'جعلنا أحداً يجدّد المطبخ.'], ['Lass uns morgen darüber sprechen.', 'دعنا نتحدّث عن ذلك غداً.']] },
+  gq: [
+    ['Ich ___ mein Auto reparieren.', 'lasse', ['lässt', 'lassen'], 'مع ich: [[lasse]]، والمصدر الثاني في الآخر.', 'أصلّح سيارتي عند الميكانيكي.'],
+    ['Er ___ sich die Haare schneiden.', 'lässt', ['lasst', 'lasse'], 'مع er: a → ä ← [[lässt]].', 'يقصّ شعره عند الحلّاق.'],
+    ['___ mich bitte in Ruhe!', 'Lass', ['Lässt', 'Lassen'], 'أمر مع du: [[Lass!]]', 'دعني وشأني من فضلك!'],
+    ['___ uns zusammen eine Lösung finden!', 'Lass', ['Lässt', 'Lassen'], 'اقتراح: [[Lass uns …!]]', 'دعنا نجد حلّاً معاً!'],
+    ['Ich habe die Wohnung renovieren ___.', 'lassen', ['gelassen', 'lasse'], 'في Perfekt مع مصدر آخر: [[renovieren lassen]] (وليس gelassen).', 'جعلتُ أحداً يجدّد الشقّة.'],
+    ['Meine Eltern ___ mich nicht allein reisen.', 'lassen', ['lässt', 'lasst'], 'مع الجمع: [[lassen]] = يسمحان.', 'والداي لا يسمحان لي بالسفر وحدي.'],
+    ['Ich lasse mir morgen die Haare ___.', 'schneiden', ['geschnitten', 'schneide'], 'المصدر الثاني في الآخر: [[schneiden]].', 'غداً سأقصّ شعري عند الحلّاق.'],
+    ['Er hat sich bei mir ___.', 'entschuldigt', ['entschuldigen', 'geentschuldigt'], 'اسم مفعول [[entschuldigen]]: [[entschuldigt]] (بدون ge‑).', 'اعتذر لي.'],
+    ['Reg dich nicht so ___!', 'auf', ['an', 'ab'], '[[sich aufregen]] منفصل: [[Reg dich nicht auf!]]', 'لا تنفعل هكذا!'],
+    ['Wir haben uns ___ einen Kompromiss geeinigt.', 'auf', ['über', 'für'], '[[sich einigen auf]] + Akkusativ.', 'اتّفقنا على حلّ وسط.']] });
+
+MORE.b1.push({ id: 'politik', de: 'Politik und Gesellschaft', ar: 'السياسة والمجتمع', icon: '🏛️',
+  tip: 'في الأخبار نقرأ الكلام المنقول بـ Konjunktiv I: [[Er sagt, er sei krank.]] = يقول إنّه مريض. يكفي أن <b>تفهمه</b>؛ وفي الكلام نقول: [[Er sagt, dass er krank ist.]]',
+  w: [
+    ['🗳️', 'die Wahl', 'الانتخابات', 'دي ڤال', 'Die nächste Wahl ist im Herbst.', 'الانتخابات القادمة في الخريف.'],
+    ['🏛️', 'der Bundestag', 'البرلمان الاتّحادي', 'دَر بوندِستاك', 'Der Bundestag ist in Berlin.', 'البرلمان الاتّحادي في برلين.'],
+    ['🗽', 'die Demokratie', 'الديمقراطية', 'دي ديموكراتي', 'Deutschland ist eine Demokratie.', 'ألمانيا دولة ديمقراطية.'],
+    ['📜', 'das Grundgesetz', 'الدستور الألماني', 'داس گرونتگِزِتس', 'Das Grundgesetz schützt die Würde des Menschen.', 'الدستور يحمي كرامة الإنسان.'],
+    ['🧑‍💼', 'der Bundeskanzler', 'المستشار الاتّحادي', 'دَر بوندِسكانتسلَر', 'Der Bundeskanzler wird vom Bundestag gewählt.', 'ينتخب البرلمانُ المستشارَ الاتّحادي.'],
+    ['🗺️', 'das Bundesland', 'الولاية', 'داس بوندِسلانت', 'Deutschland hat 16 Bundesländer.', 'لألمانيا 16 ولاية.'],
+    ['⚖️', 'das Recht', 'الحقّ', 'داس رِشت', 'Jeder hat das Recht auf eine eigene Meinung.', 'لكل شخص الحقّ في رأيه الخاصّ.'],
+    ['📋', 'die Pflicht', 'الواجب', 'دي پفليشت', 'In Deutschland gibt es eine Schulpflicht.', 'في ألمانيا التعليم إلزامي.'],
+    ['🕊️', 'die Freiheit', 'الحرّية', 'دي فرايهايت', 'Die Meinungsfreiheit ist ein Grundrecht.', 'حرّية الرأي حقّ أساسي.'],
+    ['🟰', 'die Gleichberechtigung', 'المساواة في الحقوق', 'دي گلايشبِرِشتيگونگ', 'Die Gleichberechtigung von Mann und Frau steht im Grundgesetz.', 'المساواة بين الرجل والمرأة مكتوبة في الدستور.'],
+    ['✅', 'wählen', 'ينتخب / يختار', 'ڤيلِن', 'Ab 18 Jahren darf man den Bundestag wählen.', 'من سنّ 18 يحقّ للمرء انتخاب البرلمان.'],
+    ['🎗️', 'die Partei', 'الحزب', 'دي پارتاي', 'Welche Partei hat die Wahl gewonnen?', 'أيّ حزب فاز في الانتخابات؟'],
+    ['🗣️', 'behaupten', 'يزعم', 'بِهاوپتِن', 'Er behauptet, er sei unschuldig.', 'يزعم أنّه بريء.'],
+    ['📰', 'sei', 'يكون (في الكلام المنقول)', 'زاي', 'Die Ministerin sagt, die Lage sei stabil.', 'تقول الوزيرة إنّ الوضع مستقرّ.'],
+    ['👥', 'die Gesellschaft', 'المجتمع', 'دي گِزِلشافت', 'Deutschland ist eine vielfältige Gesellschaft.', 'ألمانيا مجتمع متنوّع.']],
+  sent: [['Die Ministerin sagt, die Lage sei stabil.', 'تقول الوزيرة إنّ الوضع مستقرّ.'], ['Ab 18 Jahren darf man in Deutschland wählen.', 'من سنّ 18 يحقّ للمرء أن ينتخب في ألمانيا.'], ['Deutschland besteht aus 16 Bundesländern.', 'تتكوّن ألمانيا من 16 ولاية.'],
+    ['Im Grundgesetz steht: Die Würde des Menschen ist unantastbar.', 'في الدستور: كرامة الإنسان لا تُمسّ.'], ['Er behauptet, er habe keine Zeit gehabt.', 'يزعم أنّه لم يكن لديه وقت.'], ['Männer und Frauen haben die gleichen Rechte.', 'للرجال والنساء الحقوق نفسها.']],
+  dlg: [
+    ['Wie viele Bundesländer hat Deutschland?', 'كم ولاية في ألمانيا؟', 'Deutschland hat 16 Bundesländer.', 'لألمانيا 16 ولاية.', ['Deutschland hat 16 Bundesland.', 'Deutschland ist 16 Bundesländer.']],
+    ['Was hat der Sprecher gesagt?', 'ماذا قال المتحدّث؟', 'Er hat gesagt, dass der Zug später kommt.', 'قال إنّ القطار سيأتي متأخّراً.', ['Er hat gesagt, dass der Zug kommt später.', 'Er hat gesagt, der Zug später kommen.']],
+    ['Ab wann darf man in Deutschland wählen?', 'من أيّ سنّ يحقّ الانتخاب في ألمانيا؟', 'Bei der Bundestagswahl ab 18 Jahren.', 'في انتخابات البرلمان الاتّحادي من سنّ 18.', ['Bei der Bundestagswahl mit 18 Jahre.', 'Ab 18 Jahren man darf wählen.']],
+    ['Was bedeutet Gleichberechtigung?', 'ماذا تعني المساواة في الحقوق؟', 'Dass Männer und Frauen die gleichen Rechte haben.', 'أنّ للرجال والنساء الحقوق نفسها.', ['Dass Männer und Frauen haben die gleichen Rechte.', 'Männer und Frauen gleich Rechte.']]],
+  gr: { t: 'الكلام المنقول (indirekte Rede) و Konjunktiv I', p: [
+    'في الكلام اليومي ننقل كلام شخص بـ [[dass]] + الفعل في الآخر: [[Er sagt: „Ich bin krank.“]] ← [[Er sagt, dass er krank ist.]]',
+    'في الأخبار والصحف نجد <b>Konjunktiv I</b>: [[Er sagt, er <b>sei</b> krank.]] — يكفي في B1 أن تفهمه عند القراءة والاستماع.',
+    'أهمّ الأشكال: [[sein → er sei · haben → er habe · werden → er werde · können → er könne · müssen → er müsse]]. وأغلب الأفعال مع er: الجذر + [[‑e]]: [[er komme · er gehe]].',
+    'للماضي: [[sei / habe]] + اسم المفعول: [[Er sagt, er <b>habe</b> nichts <b>gewusst</b>.]] = يقول إنّه لم يكن يعرف شيئاً.',
+    'السؤال المنقول كما في الأسئلة غير المباشرة: [[Sie fragt, ob ich Zeit habe.]] · [[Er fragt, wann der Bus kommt.]]'],
+    tab: [['الكلام المباشر', 'في الكلام اليومي', 'في الأخبار (Konjunktiv I)'], ['„Ich bin müde.“', 'Er sagt, dass er müde ist.', 'Er sagt, er sei müde.'], ['„Ich habe Zeit.“', 'Sie sagt, dass sie Zeit hat.', 'Sie sagt, sie habe Zeit.'], ['„Ich komme morgen.“', 'Er sagt, dass er morgen kommt.', 'Er sagt, er komme morgen.']],
+    ex: [['Die Polizei sagt, der Unfall sei um acht Uhr passiert.', 'تقول الشرطة إنّ الحادث وقع في الثامنة.'], ['Der Minister erklärt, er habe davon nichts gewusst.', 'يوضّح الوزير أنّه لم يكن يعرف شيئاً عن ذلك.'], ['Sie hat gesagt, dass sie später kommt.', 'قالت إنّها ستأتي لاحقاً.'], ['Er fragt, ob wir mitkommen.', 'يسأل هل سنأتي معهم.']] },
+  gq: [
+    ['Er sagt, dass er krank ___.', 'ist', ['sei ist', 'sein'], 'في الكلام اليومي: [[dass]] + الفعل في الآخر: [[dass er krank ist]].', 'يقول إنّه مريض.'],
+    ['In der Zeitung steht, der Minister ___ krank.', 'sei', ['seien', 'sein'], 'في الأخبار: Konjunktiv I من [[sein]] ← [[er sei]].', 'في الجريدة أنّ الوزير مريض.'],
+    ['Sie sagt, sie ___ keine Zeit.', 'habe', ['haben', 'habt'], 'Konjunktiv I من [[haben]] مع sie (مفردة) ← [[habe]].', 'تقول إنّه ليس لديها وقت.'],
+    ['Er behauptet, er ___ nichts gewusst.', 'habe', ['sei', 'werde'], 'ماضٍ في Konjunktiv I: [[habe … gewusst]].', 'يزعم أنّه لم يكن يعرف شيئاً.'],
+    ['Sie fragt, ___ ich morgen Zeit habe.', 'ob', ['dass', 'wenn'], 'سؤال نعم/لا منقول ← [[ob]].', 'تسأل هل عندي وقت غداً.'],
+    ['Deutschland hat 16 ___.', 'Bundesländer', ['Bundesland', 'Bundesländern'], 'الجمع: [[die Bundesländer]].', 'لألمانيا 16 ولاية.'],
+    ['Ab 18 Jahren darf man ___.', 'wählen', ['gewählt', 'wählt'], 'بعد [[darf]] المصدر في الآخر.', 'من سنّ 18 يحقّ للمرء أن ينتخب.'],
+    ['Die Polizei sagt, der Unfall ___ um acht Uhr passiert.', 'sei', ['habe', 'werde'], '[[passieren]] يأخذ sein ← في Konjunktiv I: [[sei … passiert]].', 'تقول الشرطة إنّ الحادث وقع في الثامنة.'],
+    ['Er hat gesagt, dass der Zug später ___.', 'kommt', ['kommen', 'kam später'], 'بعد [[dass]] الفعل في الآخر: [[später kommt]].', 'قال إنّ القطار سيأتي متأخّراً.'],
+    ['Der Bundestag ___ den Bundeskanzler.', 'wählt', ['wählen', 'gewählt'], 'المضارع مع المفرد: [[wählt]].', 'البرلمان ينتخب المستشار.']] });
+
+// City missions, day 3 (A2). `at` = building of an existing place; new buildings have their own `type`.
+CITY.push(
+  { id: 'wohnung2', at: 'wohnung', ic: '🔊', de: 'Ärger im Haus', ar: 'الجار والضجيج', lv: 'A2.1', topics: ['einrichten', 'alltag'],
+    npc: { name: 'Herr Wolf', role: 'Nachbar · الجار', g: 'm', look: { style: 'bald', hair: '#d6d2cc', shirt: '#5a6772', glasses: 1, beard: '#d6d2cc', skin: '#f3cfb3' } },
+    mission: 'جارك Herr Wolf استلم طرداً لك، لكنّه يشتكي أيضاً من الضجيج أمس. اشكره، واعتذر بأدب، وحافظ على علاقة جيّدة مع الجار.',
+    tip: 'إذا لم تكن في البيت، يترك ساعي البريد الطرد غالباً عند الجيران، وتجد ورقة في صندوق بريدك. ومن 22:00 إلى 6:00 وطوال يوم الأحد وقت الهدوء: لا موسيقى عالية ولا أعمال صاخبة.',
+    vocab: [['das Paket', 'الطرد'], ['abgeben', 'يسلّم / يترك'], ['annehmen', 'يستلم'], ['laut', 'عالٍ (صوت)'], ['die Nachtruhe', 'الهدوء الليلي'], ['die Hausordnung', 'نظام العمارة'], ['Das tut mir leid.', 'أنا آسف.']],
+    steps: [
+      { n: ['Guten Abend! Entschuldigung, dass ich störe. Der Postbote hat ein Paket für Sie bei mir abgegeben.', 'مساء الخير! عذراً على الإزعاج. ساعي البريد ترك عندي طرداً لك.'], o: [
+        ['Oh, vielen Dank, dass Sie es angenommen haben!', 'آه، شكراً جزيلاً لأنّك استلمته!', 1, 'بعد [[dass]] الفعل المصرَّف في الآخر: [[dass Sie es angenommen haben]].'],
+        ['Oh, vielen Dank, dass Sie haben es angenommen!', '—', 0, 'بعد [[dass]] الفعل المصرَّف في الآخر: [[… angenommen haben]].'],
+        ['Das Paket ist nicht für mich gewesen.', 'لم يكن الطرد لي.', 0, 'غير منطقي: اسمك مكتوب على الطرد.']] },
+      { n: ['Gern geschehen. Darf ich Sie noch etwas fragen?', 'العفو. هل يمكنني أن أسألك شيئاً آخر؟'], o: [
+        ['Ja, natürlich. Worum geht es?', 'نعم، طبعاً. ما الموضوع؟', 1, '[[Worum geht es?]] = ما الموضوع؟ — تعبير مفيد جداً.'],
+        ['Ja, natürlich. Worüber geht es?', '—', 0, 'التعبير الثابت: [[Worum geht es?]] (من [[es geht um]]).'],
+        ['Nein, ich habe keine Frage.', 'لا، ليس عندي سؤال.', 0, 'هو يريد أن يسألك، وليس العكس!']] },
+      { n: ['Gestern Abend war es bei Ihnen sehr laut, bis Mitternacht. Ich konnte nicht schlafen.', 'مساء أمس كان الضجيج عالياً عندك حتى منتصف الليل. لم أستطع النوم.'], o: [
+        ['Das tut mir sehr leid! Wir hatten Besuch. Es kommt nicht wieder vor.', 'أنا آسف جداً! كان عندنا ضيوف. لن يتكرّر ذلك.', 1, 'اعتذار + سبب + وعد: أفضل طريقة لحلّ المشكلة مع الجار.'],
+        ['Das tut mich sehr leid!', '—', 0, '[[leidtun]] + Dativ: [[Das tut mir leid]] (وليس mich).'],
+        ['Das ist nicht mein Problem.', 'هذه ليست مشكلتي.', 0, 'ردّ غير مهذّب، والهدوء بعد 22:00 مهمّ جداً في ألمانيا.']] },
+      { n: ['Wissen Sie, ab 22 Uhr ist bei uns im Haus Nachtruhe. Das steht in der Hausordnung.', 'تعرف، ابتداءً من الساعة 22 يكون في عمارتنا وقت الهدوء الليلي. هذا مكتوب في نظام العمارة.'], hear: 1, q: 'متى يبدأ وقت الهدوء الليلي في العمارة؟', o: [
+        ['من الساعة 22', '', 1, 'ab 22 Uhr = ابتداءً من الساعة 22 · die Nachtruhe = الهدوء الليلي.'],
+        ['حتى الساعة 22', '', 0, 'ab = ابتداءً من · bis = حتى.'],
+        ['من منتصف الليل', '', 0, 'قال ab 22 Uhr = ابتداءً من العاشرة مساءً.']] },
+      { n: ['Gut, dann ist ja alles klar. Wie lange wohnen Sie schon hier?', 'جيّد، إذن كل شيء واضح. منذ متى تسكن هنا؟'], o: [
+        ['Seit drei Monaten. Und Sie?', 'منذ ثلاثة أشهر. وأنت؟', 1, '[[seit]] + Dativ: [[seit drei Monaten]].'],
+        ['Vor drei Monaten. Und Sie?', 'قبل ثلاثة أشهر. وأنت؟', 0, '[[vor]] = قبل؛ والسؤال [[Wie lange?]] جوابه بـ [[seit]].'],
+        ['Seit drei Monate.', '—', 0, 'بعد [[seit]] Dativ جمع ← [[Monaten]].']] },
+      { n: ['Ich wohne hier schon seit dreißig Jahren. Wenn Sie Hilfe brauchen, klingeln Sie einfach!', 'أسكن هنا منذ ثلاثين سنة. إذا احتجت مساعدة، اضغط الجرس فقط!'], o: [
+        ['Das ist sehr nett von Ihnen. Danke!', 'هذا لطف كبير منك. شكراً!', 1, '[[Das ist nett von Ihnen]] = هذا لطف منك.'],
+        ['Das ist sehr nett für Sie.', '—', 0, 'التعبير الثابت: [[nett von Ihnen]] (وليس für).'],
+        ['Ich klingle nie.', 'لا أضغط الجرس أبداً.', 0, 'غير مهذّب!']] },
+      { n: ['Schönen Abend noch und gute Nacht!', 'أمسية سعيدة وتصبح على خير!'], end: 1 }] },
+
+  { id: 'bank', ic: '🏦', de: 'Stadtbank', ar: 'البنك', type: 'bank', lv: 'A2.2', topics: ['geld'],
+    npc: { name: 'Frau Richter', role: 'Bankberaterin · مستشارة البنك', g: 'f', look: { style: 'long', hair: '#3b2a1e', shirt: '#2459c4', skin: '#f1c7a1' } },
+    mission: 'افتح حساباً جارياً في البنك: قدّم الأوراق، واسأل عن التكاليف، وافهم متى تصل البطاقة.',
+    tip: 'لتفتح حساباً تحتاج عادةً إلى جواز السفر أو بطاقة الهوية وشهادة السكن (die Meldebescheinigung). كثير من البنوك تقدّم حساباً مجانياً للطلاب والمتدرّبين. ولا تعطِ رقمك السرّي (PIN) لأحد أبداً.',
+    vocab: [['das Girokonto', 'الحساب الجاري'], ['eröffnen', 'يفتح (حساباً)'], ['der Ausweis', 'الهوية'], ['die Bankkarte', 'البطاقة البنكية'], ['die PIN', 'الرقم السرّي'], ['kostenlos', 'مجاني'], ['per Post', 'بالبريد']],
+    steps: [
+      { n: ['Guten Tag, willkommen bei der Stadtbank. Wie kann ich Ihnen helfen?', 'نهارك سعيد، أهلاً بك في بنك المدينة. كيف أساعدك؟'], o: [
+        ['Guten Tag. Ich möchte ein Girokonto eröffnen.', 'نهارك سعيد. أريد أن أفتح حساباً جارياً.', 1, '[[das Girokonto]] = الحساب الجاري · [[eröffnen]] = يفتح (حساباً).'],
+        ['Guten Tag. Ich möchte ein Konto eröffnet.', '—', 0, 'بعد [[möchte]] المصدر في الآخر: [[eröffnen]].'],
+        ['Guten Tag. Ich bin ein Konto.', '«أنا حساب»', 0, '«أنا حساب»! قل: [[Ich möchte ein Konto eröffnen.]]']] },
+      { n: ['Sehr gern. Haben Sie Ihren Ausweis und Ihre Meldebescheinigung dabei?', 'بكل سرور. هل معك هويّتك وشهادة السكن؟'], o: [
+        ['Ja, hier sind beide Dokumente.', 'نعم، هذه هي الوثيقتان.', 1, '[[beide]] = كلاهما، والجمع ← [[sind]].'],
+        ['Ja, hier ist beide Dokumente.', '—', 0, 'الجمع ([[Dokumente]]) ← [[sind]].'],
+        ['Nein, ich habe kein Ausweis.', '—', 0, '[[der Ausweis]] مذكّر ← [[keinen Ausweis]]. ودونه لا يمكن فتح حساب.']] },
+      { n: ['Möchten Sie auch eine Bankkarte für das Konto?', 'هل تريد أيضاً بطاقة بنكية للحساب؟'], o: [
+        ['Ja, gern. Kostet die Karte etwas?', 'نعم، بكل سرور. هل للبطاقة تكلفة؟', 1, 'سؤال مهمّ دائماً: [[Kostet das etwas?]]'],
+        ['Ja, gern. Kostet die Karte was etwas?', '—', 0, 'كلمة زائدة: [[Kostet die Karte etwas?]]'],
+        ['Ja, ich möchte Karte.', '—', 0, 'تنقص الأداة: [[eine Karte]].']] },
+      { n: ['Das Konto kostet vier Euro neunzig im Monat. Für Studenten und Azubis ist es kostenlos.', 'الحساب يكلّف 4,90 يورو شهرياً. وهو مجاني للطلاب والمتدرّبين.'], hear: 1, q: 'كم يكلّف الحساب شهرياً؟', o: [
+        ['4,90 € (ومجاني للطلاب والمتدرّبين)', '', 1, 'vier Euro neunzig = 4,90 € · kostenlos = مجاني · Azubis = المتدرّبون مهنياً.'],
+        ['14,90 €', '', 0, 'vierzehn = 14؛ قالت vier = 4.'],
+        ['مجاني للجميع', '', 0, 'مجاني فقط للطلاب والمتدرّبين.']] },
+      { n: ['Bitte wählen Sie jetzt eine PIN mit vier Ziffern und unterschreiben Sie hier.', 'اختر الآن رقماً سرّياً من أربعة أرقام، ووقّع هنا من فضلك.'], o: [
+        ['Gut. Wann bekomme ich die Karte?', 'حسناً. متى أحصل على البطاقة؟', 1, '[[bekommen]] = يحصل على.'],
+        ['Gut. Wann werde ich die Karte?', '—', 0, '[[werden]] = يصبح! الصحيح: [[bekommen]].'],
+        ['Gut. Ich sage Ihnen meine PIN: 1234.', 'حسناً. أقول لكِ رقمي السرّي: 1234.', 0, '⚠️ لا تقل رقمك السرّي لأحد — ولا حتى لموظّف البنك!']] },
+      { n: ['Die Karte kommt in etwa einer Woche per Post. Die PIN kommt in einem separaten Brief.', 'تصل البطاقة بعد حوالي أسبوع بالبريد. والرقم السرّي يصل في رسالة منفصلة.'], hear: 1, q: 'كيف تصل البطاقة والرقم السرّي؟', o: [
+        ['بالبريد، في رسالتين منفصلتين، بعد حوالي أسبوع', '', 1, 'per Post = بالبريد · separat = منفصل · in etwa einer Woche = بعد حوالي أسبوع.'],
+        ['آخذهما الآن من الشبّاك', '', 0, 'قالت per Post = بالبريد.'],
+        ['بالبريد الإلكتروني اليوم', '', 0, 'Post = البريد العادي، وبعد حوالي أسبوع.']] },
+      { n: ['Herzlich willkommen bei uns! Auf Wiedersehen.', 'أهلاً بك زبوناً عندنا! إلى اللقاء.'], end: 1 }] },
+
+  { id: 'bahnhof2', at: 'bahnhof', ic: '⏰', de: 'Verspätung', ar: 'القطار متأخّر', lv: 'A2.2', topics: ['verkehr'],
+    npc: { name: 'Herr Krause', role: 'Servicemitarbeiter · موظّف الخدمة', g: 'm', look: { style: 'short', hair: '#5a3a22', shirt: '#cf343a', cap: '#cf343a', skin: '#f1c7a1', beard: '#5a3a22' } },
+    mission: 'قطارك متأخّر وسيفوتك القطار الموصل. افهم الإعلان، واشرح المشكلة لموظّف المحطّة، وافهم الحلّ، واسأل عن التعويض.',
+    tip: 'إذا تأخّر القطار كثيراً فلك حقّ في تعويض: من 60 دقيقة تأخير تسترجع جزءاً من سعر التذكرة. وإذا فاتك القطار الموصل بسبب التأخير، تبقى تذكرتك عادةً صالحة للقطار التالي.',
+    vocab: [['die Verspätung', 'التأخير'], ['der Anschluss', 'القطار الموصل'], ['verpassen', 'يفوّت'], ['weiterfahren', 'يواصل السفر'], ['gültig', 'صالح'], ['die Entschädigung', 'التعويض'], ['ausfallen', 'يُلغى']],
+    steps: [
+      { n: ['Achtung an Gleis 5: Der Zug nach Hamburg hat heute etwa 40 Minuten Verspätung.', 'انتباه على الرصيف 5: القطار إلى هامبورغ متأخّر اليوم حوالي 40 دقيقة.'], hear: 1, q: 'ماذا قالوا في الإعلان؟', o: [
+        ['القطار إلى هامبورغ متأخّر حوالي 40 دقيقة', '', 1, 'die Verspätung = التأخير · etwa = حوالي.'],
+        ['القطار إلى هامبورغ أُلغي', '', 0, 'الإلغاء = fällt aus. قالوا: Verspätung = تأخير.'],
+        ['القطار يغادر من الرصيف 4', '', 0, 'قالوا Gleis 5 = الرصيف 5.']] },
+      { n: ['Guten Tag, kann ich Ihnen helfen? Sie sehen besorgt aus.', 'نهارك سعيد، هل أستطيع مساعدتك؟ تبدو قلقاً.'], o: [
+        ['Ja, wegen der Verspätung verpasse ich meinen Anschluss in Hamburg.', 'نعم، بسبب التأخير سيفوتني القطار الموصل في هامبورغ.', 1, '[[wegen der Verspätung]] (Genitiv) · [[der Anschluss]] = القطار الموصل.'],
+        ['Ja, wegen die Verspätung ich verpasse.', '—', 0, '[[wegen]] + Genitiv: [[wegen der Verspätung]]، وبعدها الفعل مباشرة.'],
+        ['Ja, ich bin besorgt aus.', '—', 0, 'لا معنى لها. اشرح المشكلة: القطار الموصل.']] },
+      { n: ['Wohin müssen Sie denn weiterfahren?', 'إلى أين يجب أن تواصل السفر؟'], o: [
+        ['Nach Kiel. Mein Anschluss fährt um 15:10 Uhr.', 'إلى كيل. قطاري الموصل يغادر في 15:10.', 1, 'مع المدن: [[nach]] · والفعل في المكان الثاني.'],
+        ['Zu Kiel. Mein Anschluss fährt um 15:10 Uhr.', '—', 0, 'مع المدن نستعمل [[nach]].'],
+        ['Nach Kiel. Mein Anschluss um 15:10 Uhr fährt.', '—', 0, 'الفعل في المكان الثاني: [[Mein Anschluss fährt um …]].']] },
+      { n: ['Kein Problem. Sie können einfach den nächsten Zug nehmen. Der fährt um 16:10 Uhr, und Ihre Fahrkarte bleibt gültig.', 'لا مشكلة. يمكنك ببساطة أن تأخذ القطار التالي. يغادر في 16:10، وتبقى تذكرتك صالحة.'], hear: 1, q: 'ماذا يمكنك أن تفعل؟', o: [
+        ['آخذ القطار التالي في 16:10 بنفس التذكرة', '', 1, 'gültig = صالحة · den nächsten Zug nehmen = آخذ القطار التالي.'],
+        ['يجب أن أشتري تذكرة جديدة', '', 0, 'قال: Ihre Fahrkarte bleibt gültig = تذكرتك تبقى صالحة.'],
+        ['أنتظر حتى الغد', '', 0, 'القطار التالي اليوم في 16:10.']] },
+      { n: ['Möchten Sie auch eine Entschädigung beantragen? Ab einer Stunde Verspätung bekommen Sie Geld zurück.', 'هل تريد أيضاً أن تطلب تعويضاً؟ من ساعة تأخير تسترجع جزءاً من المال.'], o: [
+        ['Ja, gern. Wo kann ich das Formular bekommen?', 'نعم، بكل سرور. أين أحصل على الاستمارة؟', 1, 'بعد [[kann]] المصدر في الآخر: [[bekommen]].'],
+        ['Ja, gern. Wo kann ich das Formular bekomme?', '—', 0, 'بعد [[kann]] المصدر: [[bekommen]].'],
+        ['Nein, ich möchte keine Geld.', '—', 0, '[[das Geld]] محايد ← [[kein Geld]]. وهذا حقّك!']] },
+      { n: ['Das Formular finden Sie online oder im Reisezentrum.', 'تجد الاستمارة عبر الإنترنت أو في مركز السفر.'], o: [
+        ['Vielen Dank für Ihre Hilfe!', 'شكراً جزيلاً على مساعدتك!', 1, '[[für]] + Akkusativ: [[für Ihre Hilfe]].'],
+        ['Vielen Dank für Ihrer Hilfe!', '—', 0, '[[für]] + Akkusativ ← [[Ihre Hilfe]].'],
+        ['Gute Fahrt auch!', 'رحلة سعيدة أيضاً!', 0, 'أنت المسافر، وليس هو. قل: Vielen Dank!']] },
+      { n: ['Gern geschehen. Gute Reise!', 'العفو. رحلة سعيدة!'], end: 1 }] },
+
+  { id: 'restaurant', ic: '🍽️', de: 'Restaurant Lindenhof', ar: 'المطعم', type: 'restaurant', lv: 'A2.2', topics: ['restaurant'],
+    npc: { name: 'Lisa', role: 'Kellnerin · النادلة', g: 'f', look: { style: 'bun', hair: '#c8893b', shirt: '#13202b', skin: '#f6d2b4' } },
+    mission: 'عشاء في مطعم: قدّم حجزك، واطلب المشروب والطعام، واشتكِ بأدب من الحساء البارد، ثم ادفع وأعطِ بقشيشاً.',
+    tip: 'في المطعم الألماني يأتي النادل إلى طاولتك، وتدفع على الطاولة. الماء عادةً ليس مجانياً: يمكنك أن تسأل عن «Leitungswasser» (ماء الصنبور). البقشيش 5–10%.',
+    vocab: [['reservieren', 'يحجز'], ['auf den Namen', 'باسم'], ['ohne Kohlensäure', 'بدون غاز'], ['die Vorspeise', 'المقبّلات'], ['das Hauptgericht', 'الطبق الرئيسي'], ['Ist alles in Ordnung?', 'هل كل شيء على ما يرام؟'], ['aufs Haus', 'على حساب المطعم'], ['getrennt', 'كلٌّ على حدة']],
+    steps: [
+      { n: ['Guten Abend! Haben Sie reserviert?', 'مساء الخير! هل حجزتم؟'], o: [
+        ['Ja, auf den Namen {name}, für zwei Personen.', 'نعم، باسم {name}، لشخصين.', 1, '[[auf den Namen …]] = باسم…'],
+        ['Ja, ich habe reserviert gemacht.', '—', 0, 'فعلان! [[Ich habe reserviert.]]'],
+        ['Ja, mit dem Namen für zwei.', '—', 0, 'التعبير الثابت: [[auf den Namen …]].']] },
+      { n: ['Ihr Tisch ist am Fenster. Möchten Sie schon etwas trinken?', 'طاولتكم عند النافذة. هل تريدون أن تشربوا شيئاً؟'], o: [
+        ['Ja, zwei Gläser Wasser ohne Kohlensäure, bitte.', 'نعم، كأسا ماء بدون غاز من فضلك.', 1, '[[ohne Kohlensäure]] = بدون غاز · [[zwei Gläser]] جمع [[das Glas]].'],
+        ['Ja, zwei Glas Wassers, bitte.', '—', 0, 'الصحيح: [[zwei Gläser Wasser]].'],
+        ['Ja, ich trinke schon.', 'نعم، أشرب الآن.', 0, 'لم تطلب شيئاً!']] },
+      { n: ['Haben Sie schon gewählt?', 'هل اخترتم؟'], o: [
+        ['Ja, ich nehme die Gemüsesuppe und dann das Hähnchen mit Reis.', 'نعم، آخذ حساء الخضار ثم الدجاج مع الأرز.', 1, '[[Ich nehme …]] للطلب. [[die Suppe]] ← die · [[das Hähnchen]] ← das.'],
+        ['Ja, ich nehme der Gemüsesuppe.', '—', 0, 'Akkusativ مؤنّث ← [[die Gemüsesuppe]].'],
+        ['Ja, ich habe gewählt die Suppe.', '—', 0, 'اسم المفعول في الآخر. والأبسط: [[Ich nehme die Suppe.]]']] },
+      { n: ['Ist alles in Ordnung bei Ihnen?', 'هل كل شيء على ما يرام؟'], o: [
+        ['Leider nicht ganz. Die Suppe ist kalt. Könnten Sie sie bitte warm machen?', 'ليس تماماً للأسف. الحساء بارد. هل يمكنكِ تسخينه من فضلك؟', 1, 'الشكوى بأدب: [[Leider …]] + طلب مهذّب [[Könnten Sie …?]]'],
+        ['Die Suppe ist kalt. Das ist schlecht!', 'الحساء بارد. هذا سيّئ!', 0, 'صحيح لكنّه غير مهذّب. أضِف طلباً مهذّباً: [[Könnten Sie …?]]'],
+        ['Leider nicht ganz. Die Suppe ist kälter.', '—', 0, '[[kälter]] = أبرد (مقارنة). الصحيح: [[kalt]].']] },
+      { n: ['Oh, das tut mir leid! Ich bringe Ihnen sofort eine neue. Der Nachtisch geht dafür aufs Haus.', 'آه، أنا آسفة! سأحضر لك حساءً جديداً فوراً. والحلوى على حساب المطعم.'], hear: 1, q: 'ماذا قالت النادلة؟', o: [
+        ['ستحضر حساءً جديداً، والحلوى مجاناً', '', 1, 'eine neue = (حساء) جديد · aufs Haus = على حساب المطعم (مجاناً).'],
+        ['الحساء سيُضاف إلى الحساب', '', 0, 'aufs Haus = مجاناً، وليس على حسابك.'],
+        ['يجب أن تنتظر ساعة', '', 0, 'قالت sofort = فوراً.']] },
+      { n: ['Zusammen oder getrennt?', 'معاً أم كلٌّ على حدة؟'], o: [
+        ['Getrennt, bitte. Ich zahle mit Karte.', 'كلٌّ على حدة من فضلك. أدفع بالبطاقة.', 1, '[[getrennt]] = كلٌّ على حدة.'],
+        ['Getrennen, bitte.', '—', 0, 'الصحيح: [[getrennt]].'],
+        ['Zusammen und getrennt, bitte.', '—', 0, 'تناقض: اختر واحداً.']] },
+      { n: ['Das macht für Sie achtzehn Euro sechzig.', 'حسابك ثمانية عشر يورو وستّون سنتاً.'], o: [
+        ['Zwanzig Euro, stimmt so.', 'عشرون يورو، احتفظي بالباقي.', 1, '18,60 € ← تعطي 20 € وتقول «stimmt so»: بقشيش حوالي 7%.'],
+        ['Achtzig Euro, stimmt so.', 'ثمانون يورو، احتفظي بالباقي.', 0, 'achtzig = 80! الحساب achtzehn Euro sechzig = 18,60 €.'],
+        ['Zehn Euro, stimmt so.', 'عشرة يورو، احتفظي بالباقي.', 0, '10 € أقلّ من الحساب.']] },
+      { n: ['Vielen Dank und einen schönen Abend!', 'شكراً جزيلاً وأمسية سعيدة!'], end: 1 }] });
+
+// City missions, day 4 (B1)
+CITY.push(
+  { id: 'arzt2', at: 'arzt', ic: '👨‍⚕️', de: 'Beim Hausarzt', ar: 'عند طبيب العائلة', lv: 'B1.2', topics: ['gesundheit'],
+    npc: { name: 'Doktor Hoffmann', role: 'Hausarzt · طبيب العائلة', g: 'm', look: { style: 'short', hair: '#8a8580', shirt: '#2459c4', coat: 1, glasses: 1, skin: '#f3cfb3' } },
+    mission: 'تكلّم مع الطبيب: اشرح ألمك ومنذ متى، وافهم التحويل إلى الطبيب المختصّ، واطلب شهادة مرضية لعملك.',
+    tip: 'في ألمانيا تذهب أوّلاً إلى طبيب العائلة (der Hausarzt)، وهو يعطيك تحويلاً (die Überweisung) إلى الطبيب المختصّ. الشهادة المرضية تُرسل اليوم إلكترونياً إلى صندوق التأمين، لكن يجب أن تُخبر صاحب العمل بنفسك في أوّل يوم مرض.',
+    vocab: [['die Rückenschmerzen', 'آلام الظهر'], ['die Überweisung', 'التحويل'], ['der Orthopäde', 'طبيب العظام'], ['krankschreiben', 'يعطي إجازة مرضية'], ['die Krankmeldung', 'الشهادة المرضية'], ['heben', 'يرفع'], ['Gute Besserung!', 'شفاك الله!']],
+    steps: [
+      { n: ['Guten Tag, nehmen Sie bitte Platz. Was führt Sie zu mir?', 'نهارك سعيد، تفضّل بالجلوس. ما الذي جاء بك؟'], o: [
+        ['Seit einer Woche habe ich starke Rückenschmerzen.', 'منذ أسبوع عندي آلام شديدة في الظهر.', 1, '[[seit]] + Dativ: [[seit einer Woche]] · [[Rückenschmerzen]] = آلام الظهر.'],
+        ['Seit eine Woche habe ich Rücken weh.', '—', 0, '[[seit]] + Dativ ← [[einer Woche]]. وقل: [[Rückenschmerzen]] أو [[Mir tut der Rücken weh.]]'],
+        ['Ich bin seit einer Woche Rückenschmerzen.', '—', 0, 'مع الألم نستعمل [[haben]].']] },
+      { n: ['Wann haben die Schmerzen angefangen? Ist etwas passiert?', 'متى بدأت الآلام؟ هل حدث شيء؟'], o: [
+        ['Ja, nachdem ich schwere Kisten getragen hatte, hat es angefangen.', 'نعم، بدأ ذلك بعد أن حملتُ صناديق ثقيلة.', 1, 'بعد [[nachdem]]: Plusquamperfekt والفعل في الآخر: [[getragen hatte]].'],
+        ['Ja, nachdem ich habe schwere Kisten getragen.', '—', 0, 'بعد [[nachdem]] الفعل في الآخر و Plusquamperfekt: [[… getragen hatte]].'],
+        ['Ja, ich habe getragen schwere Kisten.', '—', 0, 'اسم المفعول في الآخر: [[Ich habe schwere Kisten getragen.]]']] },
+      { n: ['Ich schreibe Ihnen eine Überweisung zum Orthopäden. Machen Sie dort bitte so schnell wie möglich einen Termin.', 'سأكتب لك تحويلاً إلى طبيب العظام. احجز هناك موعداً في أسرع وقت ممكن.'], hear: 1, q: 'ماذا سيفعل الطبيب؟', o: [
+        ['يعطيك تحويلاً إلى طبيب العظام', '', 1, 'die Überweisung = التحويل · der Orthopäde = طبيب العظام.'],
+        ['يعطيك دواءً قوياً', '', 0, 'لم يذكر دواءً. قال: Überweisung = تحويل.'],
+        ['يرسلك إلى المستشفى الآن', '', 0, 'قال: احجز موعداً عند طبيب العظام في أقرب وقت.']] },
+      { n: ['Können Sie im Moment arbeiten?', 'هل تستطيع أن تعمل في هذه الفترة؟'], o: [
+        ['Leider nicht. Könnten Sie mir bitte eine Krankmeldung ausstellen?', 'للأسف لا. هل يمكنك أن تكتب لي شهادة مرضية من فضلك؟', 1, 'طلب مهذّب: [[Könnten Sie mir … ausstellen?]] — [[die Krankmeldung]] = الشهادة المرضية.'],
+        ['Leider nicht. Können Sie mir eine Krankmeldung ausgestellt?', '—', 0, 'بعد [[können]] المصدر في الآخر: [[ausstellen]].'],
+        ['Leider nicht, deshalb ich brauche eine Krankmeldung.', '—', 0, 'بعد [[deshalb]] الفعل مباشرة: [[deshalb brauche ich …]].']] },
+      { n: ['Ich schreibe Sie bis Freitag krank. Die Krankmeldung wird elektronisch an Ihre Krankenkasse geschickt.', 'سأعطيك إجازة مرضية حتى الجمعة. تُرسل الشهادة إلكترونياً إلى صندوق تأمينك.'], hear: 1, q: 'حتى متى إجازتك المرضية؟', o: [
+        ['حتى يوم الجمعة', '', 1, 'bis Freitag = حتى الجمعة · تُرسل الشهادة إلكترونياً إلى صندوق التأمين.'],
+        ['حتى يوم الإثنين', '', 0, 'قال bis Freitag = حتى الجمعة.'],
+        ['أسبوعين', '', 0, 'قال bis Freitag = حتى الجمعة.']] },
+      { n: ['Achten Sie bitte darauf, dass Sie nichts Schweres heben. Haben Sie noch Fragen?', 'انتبه من فضلك ألّا ترفع شيئاً ثقيلاً. هل لديك أسئلة؟'], o: [
+        ['Ja, darf ich trotzdem Sport machen?', 'نعم، هل يُسمح لي مع ذلك بممارسة الرياضة؟', 1, '[[trotzdem]] = مع ذلك · [[Darf ich …?]] = هل يُسمح لي…؟'],
+        ['Ja, darf ich trotzdem Sport zu machen?', '—', 0, 'بعد [[darf]] لا نستعمل zu.'],
+        ['Ja, worauf soll ich darauf achten?', '—', 0, 'تكرار: [[Worauf soll ich achten?]] فقط.']] },
+      { n: ['Leichte Bewegung ist gut, aber kein schwerer Sport. Gute Besserung!', 'الحركة الخفيفة جيّدة، لكن بدون رياضة ثقيلة. شفاك الله!'], end: 1 }] },
+
+  { id: 'firma', ic: '💼', de: 'Firma Nordlicht', ar: 'الشركة', type: 'office', lv: 'B1.1', topics: ['bewerbung', 'arbeit'],
+    npc: { name: 'Frau Dr. Braun', role: 'Personalchefin · مديرة الموارد البشرية', g: 'f', look: { style: 'bun', hair: '#2a1712', shirt: '#4a5563', glasses: 1, skin: '#f1c7a1' } },
+    mission: 'مقابلة عمل حقيقية: قدّم نفسك، واشرح لماذا تريد هذه الوظيفة، وتحدّث عن نقاط قوّتك وضعفك، واطرح سؤالاً ذكياً.',
+    tip: 'كن في الموعد (أو قبله بعشر دقائق)، وصافح وانظر في العينين. حضّر أسئلة عن العمل والفريق. ويمكنك بعد المقابلة أن ترسل بريد شكر قصيراً.',
+    vocab: [['das Vorstellungsgespräch', 'مقابلة العمل'], ['die Berufserfahrung', 'الخبرة المهنية'], ['die Stärke', 'نقطة القوّة'], ['die Schwäche', 'نقطة الضعف'], ['die Probezeit', 'فترة التجربة'], ['brutto', 'إجمالي (قبل الضرائب)'], ['die Weiterbildung', 'التكوين المستمرّ'], ['sich melden', 'يتواصل / يردّ']],
+    steps: [
+      { n: ['Guten Tag, schön, dass Sie da sind. Bitte erzählen Sie etwas über sich.', 'نهارك سعيد، جميل أنّك هنا. حدّثنا عن نفسك من فضلك.'], o: [
+        ['Gern. Ich heiße {name}, ich habe eine Ausbildung in der Elektrotechnik gemacht und fünf Jahre Berufserfahrung.', 'بكل سرور. اسمي {name}، قمتُ بتكوين مهني في الكهرباء ولديّ خمس سنوات خبرة.', 1, 'تقديم قصير وواضح: الاسم + التكوين + الخبرة.'],
+        ['Gern. Ich heiße {name} und ich habe gelernt Elektrotechnik gemacht.', '—', 0, 'ترتيب خاطئ وفعل زائد. اسم المفعول في الآخر.'],
+        ['Ich bin 1,80 Meter groß.', 'طولي 1,80 متر.', 0, 'ليس مهمّاً في المقابلة! تحدّث عن التكوين والخبرة.']] },
+      { n: ['Warum möchten Sie bei uns arbeiten?', 'لماذا تريد أن تعمل عندنا؟'], o: [
+        ['Weil Ihre Firma einen sehr guten Ruf hat und ich mich weiterentwickeln möchte.', 'لأنّ لشركتكم سمعة جيّدة جداً وأريد أن أطوّر نفسي.', 1, 'بعد [[weil]] الفعل في الآخر: [[… weiterentwickeln möchte]].'],
+        ['Weil Ihre Firma hat einen guten Ruf.', '—', 0, 'بعد [[weil]] الفعل في الآخر: [[weil Ihre Firma einen guten Ruf hat]].'],
+        ['Weil ich Geld brauche, sonst nichts.', 'لأنّي أحتاج المال، لا شيء آخر.', 0, 'صادق لكنّه سيّئ في المقابلة. تحدّث عن الشركة وعن تطوّرك.']] },
+      { n: ['Was sind Ihre Stärken und Schwächen?', 'ما نقاط قوّتك وضعفك؟'], o: [
+        ['Ich bin zuverlässig und teamfähig. Manchmal bin ich zu ungeduldig, aber ich arbeite daran.', 'أنا يُعتمد عليّ وأحبّ العمل في فريق. أحياناً أكون قليل الصبر، لكنّي أعمل على ذلك.', 1, 'اذكر نقطة ضعف صغيرة وكيف تعمل عليها: [[ich arbeite daran]].'],
+        ['Ich habe keine Schwächen.', 'ليست لديّ نقاط ضعف.', 0, 'لا أحد بلا عيوب — هذا الجواب يبدو متكبّراً.'],
+        ['Ich bin zuverlässig, aber manchmal ich bin ungeduldig.', '—', 0, 'بعد [[manchmal]] (المكان 1) الفعل مباشرة: [[manchmal bin ich …]].']] },
+      { n: ['Die Stelle ist in Vollzeit, mit sechs Monaten Probezeit. Das Gehalt liegt bei 3200 Euro brutto.', 'الوظيفة بدوام كامل مع ستّة أشهر فترة تجربة. الراتب حوالي 3200 يورو إجمالي.'], hear: 1, q: 'ما مدّة فترة التجربة؟', o: [
+        ['ستّة أشهر', '', 1, 'sechs Monate Probezeit = ستّة أشهر فترة تجربة · brutto = إجمالي قبل الضرائب.'],
+        ['ثلاثة أشهر', '', 0, 'قالت sechs = ستّة.'],
+        ['سنة كاملة', '', 0, 'قالت sechs Monaten = ستّة أشهر.']] },
+      { n: ['Haben Sie noch Fragen an uns?', 'هل لديك أسئلة لنا؟'], o: [
+        ['Ja, gibt es bei Ihnen Möglichkeiten zur Weiterbildung?', 'نعم، هل توجد عندكم إمكانيات للتكوين المستمرّ؟', 1, 'سؤال ممتاز يُظهر الاهتمام: [[Möglichkeiten zur Weiterbildung]].'],
+        ['Nein. Wann bekomme ich das Geld?', 'لا. متى أحصل على المال؟', 0, 'غير مناسب كأوّل سؤال. اسأل عن العمل والتطوّر.'],
+        ['Ja, gibt es Möglichkeiten zu Weiterbildung zu?', '—', 0, 'كلمة زائدة: [[zur Weiterbildung]] (zu + der).']] },
+      { n: ['Ja, wir bieten regelmäßig Kurse an. Wann könnten Sie anfangen?', 'نعم، نقدّم دورات بانتظام. متى يمكنك أن تبدأ؟'], o: [
+        ['Ich könnte am Ersten des nächsten Monats anfangen.', 'يمكنني أن أبدأ في أوّل الشهر القادم.', 1, '[[am Ersten des nächsten Monats]] (Genitiv) · المصدر في الآخر.'],
+        ['Ich könnte am Ersten nächsten Monat angefangen.', '—', 0, 'بعد [[könnte]] المصدر في الآخر: [[anfangen]].'],
+        ['Ich anfangen kann sofort.', '—', 0, 'الفعل المصرَّف في المكان الثاني: [[Ich kann sofort anfangen.]]']] },
+      { n: ['Vielen Dank für das Gespräch. Wir melden uns bis Ende der Woche bei Ihnen.', 'شكراً جزيلاً على المقابلة. سنتواصل معك قبل نهاية الأسبوع.'], end: 1 }] },
+
+  { id: 'besichtigung', ic: '🔑', de: 'Wohnung zu vermieten', ar: 'معاينة شقّة', type: 'apartment', lv: 'B1.2', topics: ['mieten'],
+    npc: { name: 'Herr Krüger', role: 'Vermieter · المؤجّر', g: 'm', look: { style: 'short', hair: '#c9b38a', shirt: '#1b8a4e', skin: '#f6d2b4', beard: '#c9b38a' } },
+    mission: 'معاينة شقّة للإيجار: اسأل عن المساحة والتكاليف، واحسب الإيجار الشامل، وأجب عن أسئلة المؤجّر.',
+    tip: 'عند البحث عن شقّة تحتاج غالباً إلى: شهادة الملاءة المالية (Schufa-Auskunft)، وآخر ثلاثة كشوف رواتب، ونسخة من الهوية. والتأمين (Kaution) لا يتجاوز قانونياً ثلاثة إيجارات صافية. اقرأ العقد جيداً قبل التوقيع.',
+    vocab: [['die Besichtigung', 'المعاينة'], ['der Quadratmeter', 'المتر المربّع'], ['die Kaltmiete', 'الإيجار الصافي'], ['die Nebenkosten', 'التكاليف الإضافية'], ['die Kaution', 'التأمين'], ['das Haustier', 'الحيوان الأليف'], ['die Gehaltsabrechnung', 'كشف الراتب']],
+    steps: [
+      { n: ['Guten Tag! Sie kommen wegen der Wohnung? Kommen Sie herein.', 'نهارك سعيد! أنت هنا من أجل الشقّة؟ تفضّل بالدخول.'], o: [
+        ['Guten Tag, ja genau. Vielen Dank für den Termin.', 'نهارك سعيد، نعم بالضبط. شكراً جزيلاً على الموعد.', 1, 'بداية مهذّبة: [[Vielen Dank für den Termin.]]'],
+        ['Guten Tag, ja genau wegen die Wohnung.', '—', 0, '[[wegen]] + Genitiv: [[wegen der Wohnung]].'],
+        ['Ja. Ist die Wohnung billig?', 'نعم. هل الشقّة رخيصة؟', 0, 'سؤال مباشر جداً كبداية. ابدأ بالشكر.']] },
+      { n: ['Die Wohnung hat drei Zimmer, Küche, Bad und einen Balkon. Sie ist fünfundsiebzig Quadratmeter groß.', 'للشقّة ثلاث غرف ومطبخ وحمّام وشرفة. مساحتها 75 متراً مربّعاً.'], hear: 1, q: 'ما مساحة الشقّة؟', o: [
+        ['75 متراً مربّعاً', '', 1, 'fünfundsiebzig = 75 · der Quadratmeter (m²) = المتر المربّع.'],
+        ['57 متراً مربّعاً', '', 0, 'fünfundsiebzig = 75 (الآحاد أوّلاً: 5 + 70).'],
+        ['3 أمتار مربّعة', '', 0, '3 هو عدد الغرف (drei Zimmer).']] },
+      { n: ['Haben Sie Fragen?', 'هل لديك أسئلة؟'], o: [
+        ['Ja, wie hoch sind die Nebenkosten?', 'نعم، كم التكاليف الإضافية؟', 1, '[[Wie hoch sind …?]] للسؤال عن مبلغ · [[die Nebenkosten]] جمع ← [[sind]].'],
+        ['Ja, wie hoch ist die Nebenkosten?', '—', 0, '[[die Nebenkosten]] جمع ← [[sind]].'],
+        ['Ja, wie viel Uhr sind die Nebenkosten?', '—', 0, '[[Wie viel Uhr]] = كم الساعة!']] },
+      { n: ['Die Kaltmiete beträgt 750 Euro, dazu kommen 200 Euro Nebenkosten. Die Kaution sind drei Kaltmieten.', 'الإيجار الصافي 750 يورو، وتُضاف 200 يورو تكاليف إضافية. والتأمين ثلاثة إيجارات صافية.'], hear: 1, q: 'كم الإيجار الشامل (Warmmiete)؟', o: [
+        ['950 €', '', 1, 'Warmmiete = Kaltmiete 750 + Nebenkosten 200 = 950 €.'],
+        ['750 €', '', 0, '750 € هو الإيجار الصافي فقط (Kaltmiete).'],
+        ['2250 €', '', 0, '2250 € (3 × 750) هو التأمين (Kaution).']] },
+      { n: ['Haben Sie Haustiere? Oder rauchen Sie?', 'هل لديك حيوانات أليفة؟ أو هل تدخّن؟'], o: [
+        ['Nein, ich habe weder Haustiere, noch rauche ich.', 'لا، ليست لديّ حيوانات أليفة ولا أدخّن.', 1, '[[weder … noch]] = لا… ولا…'],
+        ['Nein, ich habe weder Haustiere oder rauche ich.', '—', 0, 'الزوج: [[weder … noch]] (وليس oder).'],
+        ['Nein, ich habe keine Haustiere nicht.', '—', 0, 'نفي مزدوج: [[keine Haustiere]] تكفي.']] },
+      { n: ['Gut. Wenn Sie Interesse haben, brauche ich eine Schufa-Auskunft und Ihre letzten drei Gehaltsabrechnungen.', 'جيّد. إذا كنت مهتمّاً أحتاج شهادة الملاءة المالية وآخر ثلاثة كشوف رواتب.'], o: [
+        ['Kein Problem, die Unterlagen schicke ich Ihnen morgen per E-Mail.', 'لا مشكلة، سأرسل لك الأوراق غداً بالبريد الإلكتروني.', 1, 'المفعول في البداية للتأكيد، والفعل ثانياً: [[die Unterlagen schicke ich …]].'],
+        ['Kein Problem, die Unterlagen ich schicke Ihnen morgen.', '—', 0, 'الفعل في المكان الثاني: [[die Unterlagen schicke ich …]].'],
+        ['Was ist das? Das brauche ich nicht.', 'ما هذا؟ لا أحتاج هذا.', 0, 'هذه الأوراق مطلوبة دائماً تقريباً عند الاستئجار.']] },
+      { n: ['Prima! Dann warte ich auf Ihre Unterlagen. Auf Wiedersehen!', 'ممتاز! إذن أنتظر أوراقك. إلى اللقاء!'], end: 1 }] },
+
+  { id: 'amt2', at: 'amt', ic: '🪪', de: 'Ausländerbehörde', ar: 'تجديد الإقامة', lv: 'B1.2', topics: ['pruefung', 'infos'],
+    npc: { name: 'Frau Schulz', role: 'Ausländerbehörde · دائرة الأجانب', g: 'f', look: { style: 'short', hair: '#a8452f', shirt: '#4a5563', glasses: 1, skin: '#f3cfb3' } },
+    mission: 'في دائرة الأجانب: اطلب تجديد تصريح الإقامة، وافهم الأوراق المطلوبة والرسوم، واسأل كم يستغرق الأمر.',
+    tip: 'قدّم طلب تجديد الإقامة قبل انتهائها بوقت كافٍ (6 إلى 8 أسابيع). إذا قدّمت الطلب في الوقت، تحصل على «Fiktionsbescheinigung» تسمح لك بالبقاء والعمل حتى تصدر البطاقة الجديدة. واحتفظ بنسخ من كل أوراقك.',
+    vocab: [['die Aufenthaltserlaubnis', 'تصريح الإقامة'], ['ablaufen', 'تنتهي صلاحيته'], ['verlängern', 'يجدّد / يمدّد'], ['das Anliegen', 'الطلب / الموضوع'], ['biometrisch', 'بيومتري'], ['nachreichen', 'يقدّم لاحقاً'], ['die Fiktionsbescheinigung', 'شهادة الإقامة المؤقّتة']],
+    steps: [
+      { n: ['Guten Tag. Was ist Ihr Anliegen?', 'نهارك سعيد. ما طلبك؟'], o: [
+        ['Guten Tag. Meine Aufenthaltserlaubnis läuft bald ab, und ich möchte sie verlängern.', 'نهارك سعيد. تصريح إقامتي سينتهي قريباً، وأريد أن أجدّده.', 1, '[[ablaufen]] = تنتهي صلاحيته · [[verlängern]] = يجدّد.'],
+        ['Guten Tag. Meine Aufenthaltserlaubnis läuft bald ab, und ich möchte sie verlängert.', '—', 0, 'بعد [[möchte]] المصدر في الآخر: [[verlängern]].'],
+        ['Guten Tag. Mein Anliegen ist Ausländerbehörde.', '—', 0, 'لا معنى لها. اشرح طلبك: [[Ich möchte … verlängern.]]']] },
+      { n: ['Wann läuft Ihr Aufenthaltstitel genau ab?', 'متى تنتهي إقامتك بالضبط؟'], o: [
+        ['Am fünfzehnten des nächsten Monats.', 'في الخامس عشر من الشهر القادم.', 1, 'التاريخ: [[am fünfzehnten]] + Genitiv [[des nächsten Monats]].'],
+        ['Im fünfzehnten nächsten Monat.', '—', 0, 'مع التاريخ نستعمل [[am]]، و[[des nächsten Monats]].'],
+        ['Seit dem fünfzehnten.', 'منذ الخامس عشر.', 0, '[[seit]] = منذ — لكنّها لم تنتهِ بعد!']] },
+      { n: ['Für die Verlängerung brauchen wir Ihren Pass, ein biometrisches Foto, Ihren Arbeitsvertrag und die letzten drei Gehaltsabrechnungen.', 'للتجديد نحتاج جواز سفرك، وصورة بيومترية، وعقد عملك، وآخر ثلاثة كشوف رواتب.'], hear: 1, q: 'ماذا تحتاج للتجديد؟', o: [
+        ['الجواز، صورة بيومترية، عقد العمل، وآخر 3 كشوف رواتب', '', 1, 'biometrisch = بيومتري · der Arbeitsvertrag = عقد العمل · die Gehaltsabrechnung = كشف الراتب.'],
+        ['الجواز فقط', '', 0, 'ذكرت أربعة أشياء: Pass, Foto, Arbeitsvertrag, Gehaltsabrechnungen.'],
+        ['شهادة الميلاد وشهادة B1', '', 0, 'لم تذكر شهادة الميلاد ولا B1 هنا.']] },
+      { n: ['Haben Sie alle Unterlagen dabei?', 'هل معك كل الأوراق؟'], o: [
+        ['Fast alle. Das Foto habe ich leider vergessen. Könnte ich es nachreichen?', 'تقريباً كلّها. للأسف نسيتُ الصورة. هل يمكنني أن أقدّمها لاحقاً؟', 1, '[[nachreichen]] = يقدّم لاحقاً · طلب مهذّب: [[Könnte ich …?]]'],
+        ['Fast alle. Das Foto ich habe leider vergessen.', '—', 0, 'الفعل في المكان الثاني: [[Das Foto habe ich … vergessen.]]'],
+        ['Fast alle, außer das Foto vergessen.', '—', 0, 'جملة ناقصة. قل: [[Das Foto habe ich vergessen.]]']] },
+      { n: ['Ja, das können Sie innerhalb von zwei Wochen per Post schicken. Die Gebühr beträgt dreiundneunzig Euro.', 'نعم، يمكنك إرسالها بالبريد خلال أسبوعين. الرسوم 93 يورو.'], hear: 1, q: 'كم الرسوم؟', o: [
+        ['93 €', '', 1, 'dreiundneunzig = 93 · innerhalb von zwei Wochen = خلال أسبوعين.'],
+        ['39 €', '', 0, 'dreiundneunzig = 93 (الآحاد أوّلاً: 3 + 90).'],
+        ['930 €', '', 0, 'قالت dreiundneunzig = 93.']] },
+      { n: ['Bis Ihre neue Karte fertig ist, bekommen Sie eine Fiktionsbescheinigung. Damit dürfen Sie weiter arbeiten.', 'حتى تجهز بطاقتك الجديدة تحصل على شهادة إقامة مؤقّتة. بها يُسمح لك بمواصلة العمل.'], o: [
+        ['Gut zu wissen. Wie lange dauert es ungefähr, bis die Karte fertig ist?', 'من الجيّد معرفة ذلك. كم يستغرق تقريباً حتى تجهز البطاقة؟', 1, 'بعد [[bis]] الفعل في الآخر: [[bis die Karte fertig ist]].'],
+        ['Gut zu wissen. Wie lange dauert es, bis die Karte ist fertig?', '—', 0, 'بعد [[bis]] الفعل في الآخر: [[… fertig ist]].'],
+        ['Ich verstehe nicht, ich gehe nach Hause.', 'لا أفهم، سأذهب إلى البيت.', 0, 'إذا لم تفهم قل: [[Könnten Sie das bitte erklären?]]']] },
+      { n: ['Ungefähr vier bis sechs Wochen. Wir schicken Ihnen einen Brief. Auf Wiedersehen!', 'حوالي أربعة إلى ستّة أسابيع. سنرسل لك رسالة. إلى اللقاء!'], end: 1 }] });
+
+// Merge the A2 / B1 lessons into the shared tables used by every exercise,
+// split into the four course levels A2.1 · A2.2 · B1.1 · B1.2 (8 lessons each).
+const SPLIT = {
+  a21: ['kindheit', 'verwandte', 'gruende', 'einrichten', 'alltag', 'aussehen', 'feiertage', 'reise'],
+  a22: ['wuensche', 'restaurant', 'interessen', 'infos', 'verkehr', 'arbeit', 'technik', 'reklamation'],
+  b11: ['beziehungen', 'umwelt', 'kultur', 'traeume', 'lebenslauf', 'geld', 'bewerbung', 'meinung'],
+  b12: ['mieten', 'bildung', 'zukunft', 'gesundheit', 'konflikte', 'nachrichten', 'politik', 'pruefung'],
+};
+const LEVEL_OF = {};
+{
+  const byId = Object.fromEntries([...MORE.a2, ...MORE.b1].map((t) => [t.id, t]));
+  const NAMES = { a21: 'A2.1', a22: 'A2.2', b11: 'B1.1', b12: 'B1.2' };
+  for (const [lv, ids] of Object.entries(SPLIT)) {
+    DATA[lv] = { name: NAMES[lv], ar: `المستوى ${NAMES[lv]}`, color: `var(--line-${lv})`, topics: ids.map((id, k) => {
+      const t = byId[id]; LEVEL_OF[id] = lv;
+      t.w.forEach(([, de, , , exd, exa]) => { if (!EX[de]) EX[de] = [exd, exa]; });
+      GR[t.id] = t.gr; GQ[t.id] = t.gq;
+      return { id: t.id, no: k + 1, de: t.de, ar: t.ar, icon: t.icon, tip: t.tip, words: t.w.map((x) => x.slice(0, 4).join('|')), sent: t.sent, dlg: t.dlg, special: t.special, conj: t.conj };
+    }) };
+  }
 }
 
 </script>
@@ -2769,6 +3412,10 @@ for (const [lv, list] of Object.entries(MORE)) {
       const cur = JSON.parse(localStorage.getItem(KEY) || 'null');
       Object.assign(S, cur || (old ? { xp: old.xp || 0, prog: old.prog || {}, sound: old.sound !== false, voice: old.voice !== false, level: old.level || 'a11' } : {}));
       S.read = S.read || {}; S.notes = S.notes || {}; S.city = S.city || {};
+      // A2 / B1 were split into A2.1 · A2.2 · B1.1 · B1.2: move saved progress to the new level keys
+      const mig = (o) => { for (const k of Object.keys(o || {})) { const m = k.match(/^(a2|b1):([^:]+)(.*)$/); if (m && LEVEL_OF[m[2]]) { o[`${LEVEL_OF[m[2]]}:${m[2]}${m[3]}`] = o[k]; delete o[k]; } } };
+      mig(S.prog); mig(S.read);
+      if (S.level === 'a2') S.level = 'a21'; if (S.level === 'b1') S.level = 'b11';
     } catch (e) { /* storage blocked */ }
   };
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* storage blocked */ } };
@@ -3033,9 +3680,10 @@ for (const [lv, list] of Object.entries(MORE)) {
   const dots = (w) => `<span class="dots" title="مستوى الحفظ">${[1, 2, 3, 4, 5].map((k) => `<i class="${boxOf(w) >= k ? 'on' : ''}"></i>`).join('')}</span>`;
 
   // ---------- home ----------
-  const LEVELS = ['a11', 'a12', 'a2', 'b1'];
-  const LEVEL_AR = { a11: 'المستوى الأوّل: البداية', a12: 'المستوى الثاني: نحو امتحان A1', a2: 'A2: الحياة اليومية بثقة', b1: 'B1: الاستقلالية — العمل والإقامة والتجنيس' };
-  const WEEK0 = { a11: 0, a12: 3, a2: 6, b1: 9 };
+  const LEVELS = ['a11', 'a12', 'a21', 'a22', 'b11', 'b12'];
+  const LEVEL_AR = { a11: 'A1.1: البداية', a12: 'A1.2: نحو امتحان A1', a21: 'A2.1: الماضي والجمل الفرعية', a22: 'A2.2: الحياة اليومية بثقة — نحو امتحان A2', b11: 'B1.1: العمل والعلاقات', b12: 'B1.2: الاستقلالية — نحو امتحان B1 والتجنيس' };
+  const WEEK0 = {}; LEVELS.reduce((w, lv) => { WEEK0[lv] = w; return w + Math.ceil(DATA[lv].T.length / 4); }, 0);
+  const WEEKS = (lv) => Math.ceil(DATA[lv].T.length / 4);
   const totalLessons = () => LEVELS.reduce((a, lv) => a + DATA[lv].T.length, 0);
   function updateTop() {
     $('#xp').textContent = S.xp.toLocaleString('de-DE'); $('#streakTop').textContent = streakView();
@@ -3049,7 +3697,7 @@ for (const [lv, list] of Object.entries(MORE)) {
         <b>${nu.all ? '🎉 أكملت المستوى! أعد الاختبار الشامل' : `▶ تابع: ${m.ar}`}</b><span>اضغط هنا وتابع من حيث توقّفت — كل شيء بالترتيب</span></button>
       <div class="tiles">
         <button class="tile2 hot" data-nav="city"><span class="ic em">🏙️</span><b>المدينة الألمانية</b><span>عِش يوماً في ألمانيا: السوبرماركت، المخبز، الطبيب، البلدية…</span><small>${cityDone()} / ${CITY.length} مهامّ</small></button>
-        <button class="tile2" data-nav="lessons"><span class="ic em">📚</span><b>كل الدروس</b><span>${totalLessons()} درساً من A1 إلى B1 · 12 أسبوعاً</span><small>المستوى ${L.name}</small></button>
+        <button class="tile2" data-nav="lessons"><span class="ic em">📚</span><b>كل الدروس</b><span>${totalLessons()} درساً في 6 مستويات: من A1.1 إلى B1.2</span><small>المستوى ${L.name}</small></button>
         <button class="tile2" data-act="review" ${due ? '' : 'disabled'}><span class="ic em">🔁</span><b>المراجعة</b><span>${due ? 'كلمات حان وقت مراجعتها اليوم' : 'لا شيء للمراجعة الآن 👍'}</span><small>${due} كلمة</small></button>
         <button class="tile2" data-act="laute"><span class="ic em">🗣️</span><b>دليل النطق</b><span>الأصوات الصعبة على العرب، مع الميكروفون</span><small>${LAUTE.length} صوتاً</small></button>
       </div>
@@ -3064,7 +3712,8 @@ for (const [lv, list] of Object.entries(MORE)) {
         <b>${LEVEL_AR[lv]}</b><span class="sub">${L.T.length} دروس · أكملت ${done} · ${learnedCount(L.mix.W)} / ${L.mix.W.length} كلمة محفوظة</span>
         <span class="lbar"><i style="width:${(done / L.T.length) * 100}%"></i></span></button>`;
     }).join('');
-    const L = DATA[S.level]; const w0 = WEEK0[S.level]; $('#lvlInfo').textContent = `المستوى ${L.name} = الأسابيع ${w0 + 1} – ${w0 + 3} · درس كل يوم أو يومين (≈ 20 دقيقة)`;
+    const L = DATA[S.level]; const w0 = WEEK0[S.level]; $('#lvlInfo').textContent = `المستوى ${L.name} = الأسابيع ${w0 + 1} – ${w0 + WEEKS(S.level)} · درس كل يوم أو يومين (≈ 20 دقيقة)`;
+    const tot = LEVELS.reduce((a, lv) => a + WEEKS(lv), 0); $('#planTitle').textContent = `خطة الدراسة: ${tot} أسبوعاً من A1 إلى B1`;
   }
   function lessonStatus(t) { const p = pathFor(t); const d = p.filter((s) => stepDone(t, s.k)).length; return { d, n: p.length, st: d === 0 ? 'new' : d === p.length ? 'done' : 'go' }; }
   function renderLessons() {
@@ -4358,12 +5007,20 @@ for (const [lv, list] of Object.entries(MORE)) {
   const STORY = [
     ['wohnung', 1, '08:00', 'صباح الخير! تعرّف على جارتك'], ['baeckerei', 1, '08:30', 'اشترِ خبز الفطور'], ['schule', 1, '09:00', 'أوّل يوم في مدرسة اللغة'], ['supermarkt', 1, '13:00', 'تسوّق للبيت'], ['cafe', 1, '16:00', 'استراحة في المقهى'],
     ['strasse', 2, '08:30', 'اسأل عن الطريق إلى البريد'], ['post', 2, '09:00', 'أرسل طرداً لعائلتك'], ['arzt', 2, '09:30', 'موعد عند الطبيب'], ['apotheke', 2, '11:00', 'اشترِ دواءً للسعال'], ['amt', 2, '12:00', 'سجّل عنوانك الجديد'], ['kleidung', 2, '15:00', 'اشترِ كنزة جديدة'], ['bahnhof', 2, '17:00', 'احجز رحلة إلى برلين'],
+    ['wohnung2', 3, '08:00', 'الجار يشتكي من الضجيج'], ['bank', 3, '10:00', 'افتح حساباً في البنك'], ['bahnhof2', 3, '14:00', 'القطار متأخّر!'], ['restaurant', 3, '19:30', 'عشاء في المطعم'],
+    ['arzt2', 4, '08:30', 'عند طبيب العائلة'], ['firma', 4, '10:30', 'مقابلة العمل'], ['besichtigung', 4, '14:00', 'معاينة شقّة للإيجار'], ['amt2', 4, '16:00', 'تجديد الإقامة'],
   ];
+  const DAYS = [['☀️ اليوم الأوّل في ألمانيا', 'A1.1'], ['🌤️ اليوم الثاني', 'A1.2'], ['🌆 اليوم الثالث', 'A2'], ['🌃 اليوم الرابع', 'B1']];
   // the city mission that closes each lesson
-  const TOPIC_PLACE = { hallo: 'wohnung', verben: 'schule', laender: 'post', essen: 'supermarkt', freizeit: 'cafe', koerper: 'arzt', stadt: 'strasse', kleidung: 'kleidung', bahnhof: 'bahnhof', amt: 'amt' };
+  const TOPIC_PLACE = { hallo: 'wohnung', verben: 'schule', laender: 'post', essen: 'supermarkt', freizeit: 'cafe', koerper: 'arzt', stadt: 'strasse', kleidung: 'kleidung', bahnhof: 'bahnhof', amt: 'amt',
+    einrichten: 'wohnung2', restaurant: 'restaurant', verkehr: 'bahnhof2', geld: 'bank', gesundheit: 'arzt2', bewerbung: 'firma', mieten: 'besichtigung', pruefung: 'amt2' };
   const storyOf = (id) => STORY.find((s) => s[0] === id);
   const placeOf = (id) => CITY.find((c) => c.id === id);
   const nextPlace = () => (STORY.find((s) => !cityStars(s[0])) || [null])[0];
+  // several missions can happen in the same building (`at`)
+  const bldOf = (id) => { const m = placeOf(id); return (m && m.at) || id; };
+  const missionsAt = (bid) => STORY.map((s) => s[0]).filter((id) => bldOf(id) === bid);
+  const pickMission = (bid) => { const ms = missionsAt(bid); return ms.find((id) => !cityStars(id)) || ms[0] || bid; };
 
   // ---------- city page ----------
   function renderCity() {
@@ -4376,10 +5033,11 @@ for (const [lv, list] of Object.entries(MORE)) {
     const day = (d) => STORY.filter((s) => s[1] === d).map((s) => card(s, STORY.indexOf(s))).join('');
     const nxS = nx && storyOf(nx); const nxP = nx && placeOf(nx);
     $('#places').innerHTML = `${nx ? `<button class="next-m" data-place="${nx}"><small>▶ مهمّتك التالية · اليوم ${nxS[1]} · الساعة ${nxS[2]}</small><b>${nxP.ic} ${esc(nxS[3])}</b><span>${esc(nxP.ar)} — ${esc(nxP.npc.name)} ينتظرك</span></button>` : '<div class="next-m all"><b>🎉 أكملت كل المهامّ!</b><span>أنت جاهز للحياة في ألمانيا 🇩🇪 — أعد أيّ مهمّة لتحصل على 3 نجوم.</span></div>'}
-      <div class="day-h">☀️ اليوم الأوّل في ألمانيا <small>A1.1</small></div>${day(1)}<div class="day-h">🌤️ اليوم الثاني <small>A1.2</small></div>${day(2)}`;
+      ${DAYS.map(([t, lv], k) => `<div class="day-h">${t} <small>${lv}</small></div>${day(k + 1)}`).join('')}`;
     if (C3) { refreshLabels(); setBeacon(nx); }
   }
-  function goPlace(id) {
+  function goPlace(id, auto) {
+    if (auto) id = pickMission(id);
     if (!CITY.some((c) => c.id === id)) return;
     if (S.view !== 'city') show('city');
     const host = $('#city3d'); const r = host.getBoundingClientRect();
@@ -4393,11 +5051,12 @@ for (const [lv, list] of Object.entries(MORE)) {
   // ---------- 3D city ----------
   const THREE_URL = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
   const RD = [-36, -12, 12, 36]; const BCX = [-24, 0, 24];
-  const LOTS = { schule: [0, 0, 'n'], post: [0, 0, 's'], amt: [1, 0, 'n'], cafe: [1, 0, 's'], arzt: [2, 0, 'n'], apotheke: [2, 0, 's'], baeckerei: [0, 1, 'n'], kleidung: [0, 1, 's'], supermarkt: [2, 1, 'n'], wohnung: [0, 2, 'n'] };
-  const FILLER = [[2, 1, 's'], [0, 2, 's'], [1, 2, 'n'], [1, 2, 's'], [2, 2, 'n'], [2, 2, 's']];
+  const LOTS = { schule: [0, 0, 'n'], post: [0, 0, 's'], amt: [1, 0, 'n'], cafe: [1, 0, 's'], arzt: [2, 0, 'n'], apotheke: [2, 0, 's'], baeckerei: [0, 1, 'n'], kleidung: [0, 1, 's'], supermarkt: [2, 1, 'n'], wohnung: [0, 2, 'n'],
+    restaurant: [2, 1, 's'], besichtigung: [0, 2, 's'], bank: [1, 2, 'n'], firma: [2, 2, 'n'] };
+  const FILLER = [[1, 2, 's'], [2, 2, 's']];
   const lotPos = ([bx, bz, h]) => ({ x: BCX[bx], z: BCX[bz] + (h === 'n' ? -4.5 : 4.5), rot: h === 'n' ? Math.PI : 0 });
-  const placePos = (id) => (id === 'bahnhof' ? { x: 0, z: -51, rot: 0 } : id === 'strasse' ? { x: 6, z: 7.4, rot: 0 } : lotPos(LOTS[id]));
-  const doorOf = (id) => { if (id === 'bahnhof') return { x: 0, z: -36 }; if (id === 'strasse') return { x: 6, z: 12 }; const [bx, bz, h] = LOTS[id]; return { x: BCX[bx], z: BCX[bz] + (h === 'n' ? -12 : 12) }; };
+  const placePos = (id) => { id = bldOf(id); return id === 'bahnhof' ? { x: 0, z: -51, rot: 0 } : id === 'strasse' ? { x: 6, z: 7.4, rot: 0 } : lotPos(LOTS[id]); };
+  const doorOf = (id) => { id = bldOf(id); if (id === 'bahnhof') return { x: 0, z: -36 }; if (id === 'strasse') return { x: 6, z: 12 }; const [bx, bz, h] = LOTS[id]; return { x: BCX[bx], z: BCX[bz] + (h === 'n' ? -12 : 12) }; };
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   let C3 = null; let threeP = null; let cityP = null;
   function loadThree() {
@@ -4429,13 +5088,20 @@ for (const [lv, list] of Object.entries(MORE)) {
     if (C3.talkId) { if (r.width > 760) C3.camera.setViewOffset(r.width, r.height, -Math.min(460, r.width * 0.5) / 2, 0, r.width, r.height); else C3.camera.setViewOffset(r.width, r.height, 0, (r.height * 0.6) / 2, r.width, r.height); } else C3.camera.clearViewOffset();
     C3.camera.updateProjectionMatrix();
   }
-  function refreshLabels() { const nx = nextPlace(); C3.labels.forEach((L) => { if (L.id) { L.el.classList.toggle('done', cityStars(L.id) > 0); L.el.classList.toggle('nx', L.id === nx); } }); }
+  function refreshLabels() {
+    const nx = nextPlace();
+    C3.labels.forEach((L) => {
+      if (!L.id) return; const ms = missionsAt(L.id); const open = ms.filter((m) => !cityStars(m));
+      L.el.classList.toggle('done', !open.length); L.el.classList.toggle('nx', !!nx && bldOf(nx) === L.id);
+      const no = $('.no', L.el); if (no) no.textContent = open.length ? STORY.findIndex((s) => s[0] === open[0]) + 1 : '';
+    });
+  }
   function setBeacon(id) {
     if (!C3 || !C3.beacon) return; const b = C3.beacon; b.g.visible = !!id; b.ring.visible = !!id; if (!id) return;
-    const pp = placePos(id); const d = doorOf(id); b.base = (C3.heights[id] || 8) + 5.5; b.g.position.set(pp.x, b.base, pp.z); b.ring.position.set(d.x, 0.08, d.z);
+    const pp = placePos(id); const d = doorOf(id); b.base = (C3.heights[bldOf(id)] || 8) + 5.5; b.g.position.set(pp.x, b.base, pp.z); b.ring.position.set(d.x, 0.08, d.z);
   }
   function enterTalk(id) {
-    if (!C3 || !C3.npcs[id]) return;
+    id = bldOf(id); if (!C3 || !C3.npcs[id]) return;
     C3.talkId = id; C3.host.classList.add('immersive'); ov.classList.add('side'); resizeCity();
     const T = C3.T; const n = C3.npcs[id]; const v = new T.Vector3(); n.getWorldPosition(v); const pp = C3.player.g.position; const rot = placePos(id).rot;
     n.rotation.y = Math.atan2(pp.x - v.x, pp.z - v.z) - rot; C3.player.g.rotation.y = Math.atan2(v.x - pp.x, v.z - pp.z);
@@ -4467,8 +5133,8 @@ for (const [lv, list] of Object.entries(MORE)) {
     const P = CITY.find((c) => c.id === id); $('#cityStatus').innerHTML = `🚶 في الطريق إلى ${P.ic} ${esc(P.ar)}… <small>(اضغط مرة أخرى للوصول فوراً)</small>`; $('#cityStatus').hidden = false;
   }
   function arrive(id) {
-    const p = C3.player; const v = new C3.T.Vector3(); C3.npcs[id].getWorldPosition(v); p.g.rotation.y = Math.atan2(v.x - p.g.position.x, v.z - p.g.position.z);
-    C3.camT.x = p.g.position.x; C3.camT.z = p.g.position.z; C3.camT.r = 26; $('#cityStatus').hidden = true; C3.wave = { id, t: 1.2 };
+    const p = C3.player; const v = new C3.T.Vector3(); C3.npcs[bldOf(id)].getWorldPosition(v); p.g.rotation.y = Math.atan2(v.x - p.g.position.x, v.z - p.g.position.z);
+    C3.camT.x = p.g.position.x; C3.camT.z = p.g.position.z; C3.camT.r = 26; $('#cityStatus').hidden = true; C3.wave = { id: bldOf(id), t: 1.2 };
     setTimeout(() => { if (S.view === 'city' && ov.hidden) openPlace(id); }, reduced() ? 0 : 850);
   }
   function buildCity() {
@@ -4597,18 +5263,31 @@ for (const [lv, list] of Object.entries(MORE)) {
         case 'station': { const W = 28; const H = 8; const D = 10; g.add(bldg(W, H, D, '#b5523b', { rows: 1, cols: 7, arch: true, door: false })); put(roof(W, D, 3, '#4a5563'), 0, H, 0);
           box(4.4, 15, 4.4, '#a8472f', 0, 0, D / 2 - 1.2, g); put(pyramid(3.4, 4.5, '#4a5563'), 0, 17.25, D / 2 - 1.2); put(clockMesh(1.4), 0, 13, D / 2 + 1.03);
           box(11, 0.3, 3, '#3a4650', 0, 4.2, D / 2 + 1.5, g); signAt('Hauptbahnhof', '#13202b', '#ffffff', 7, 5, D / 2 + 3.02); h = H + 12; fz = D / 2 + 1; break; }
+        case 'bank': { const W = 12; const H = 8; const D = 6; g.add(bldg(W, H, D, '#e8e4da', { rows: 2, cols: 4, arch: true, door: false })); box(W + 0.6, 0.5, D + 0.6, '#c9c4b8', 0, H, 0, g);
+          for (const x of [-3.6, -1.2, 1.2, 3.6]) cyl(0.3, 0.34, 5.2, '#f4f1e6', x, 0, D / 2 + 0.75, g, 12);
+          box(9.2, 0.5, 1.7, '#d9d4c8', 0, 5.2, D / 2 + 0.75, g); box(1.8, 2.8, 0.1, '#6b4226', 0, 0, D / 2 + 0.05, g);
+          signAt('Stadtbank', '#13202b', '#f0ab00', 4.4, 6.25, D / 2 + 1.25); h = H + 1; fz = D / 2 + 0.7; break; }
+        case 'restaurant': { const W = 10; const H = 6; const D = 7; g.add(bldg(W, H, D, '#e9d2b4', { rows: 2, cols: 3, shop: true, timber: true })); put(roof(W, D, 3, '#7a4a32'), 0, H, 0);
+          awning(g, W - 1.4, 2.65, D / 2, '#1b8a4e', '#f4f1e6'); signAt('Restaurant Lindenhof', '#13202b', '#ffd25a', 5.2, 3.35, D / 2);
+          for (const x of [-3, 3]) { cyl(0.06, 0.06, 0.95, '#4a5563', x, 0, D / 2 + 2.4, g, 6); cyl(0.6, 0.6, 0.07, '#f4f1e6', x, 0.95, D / 2 + 2.4, g, 14); }
+          h = H + 3; fz = D / 2; break; }
+        case 'office': { const W = 10; const H = 15; const D = 8; g.add(bldg(W, H, D, '#9fb6c8', { rows: 5, cols: 4 })); box(W + 0.3, 0.6, D + 0.3, '#4a5563', 0, H, 0, g);
+          signAt('Nordlicht GmbH', '#13202b', '#ffffff', 5.4, H + 1.3, D / 2 - 0.3); h = H + 2.4; fz = D / 2; break; }
+        case 'apartment': { const W = 12; const H = 10; const D = 8; g.add(bldg(W, H, D, '#e6c9a8', { rows: 3, cols: 4 })); put(roof(W, D, 4, '#8d3b2a'), 0, H, 0);
+          for (const y of [3.35, 6.7]) for (const x of [-4.5, -1.5, 1.5, 4.5]) { box(2.2, 0.2, 1, '#f4f1e6', x, y, D / 2 + 0.5, g); box(2.2, 0.7, 0.08, '#4a5563', x, y + 0.2, D / 2 + 1, g); }
+          signAt('Zu vermieten', '#cf343a', '#ffffff', 3.4, 5.6, D / 2 + 1.08, -4.5); h = H + 4; fz = D / 2; break; }
         default: break;
       }
       return { g, h, fz };
     };
     const labelsEl = $('#cityLabels'); labelsEl.innerHTML = '';
-    for (const P of CITY) {
+    for (const P of CITY.filter((c) => !c.at)) {
       const pos = placePos(P.id); const { g, h, fz } = placeMesh(P);
       const L = P.npc.look; const npc = person3D(L.coat ? '#f4f6f8' : (L.shirt || '#2459c4'), '#34495e', L.skin || '#f1c7a1', L.style === 'hijab' ? (L.scarf || '#2459c4') : (L.hair || '#3b2a1e'));
       npc.position.set(P.type === 'busstop' ? -1 : -2.6, 0, fz + (P.type === 'busstop' ? 0.6 : 0.8)); g.add(npc); C3.npcs[P.id] = npc; C3.heights[P.id] = h;
       g.position.set(pos.x, 0.18, pos.z); g.rotation.y = pos.rot; scene.add(g);
       g.traverse((o) => { o.userData.place = P.id; }); C3.pick.push(g);
-      const el = document.createElement('button'); el.className = 'ptag'; el.dataset.place = P.id; el.innerHTML = `<span class="no">${STORY.findIndex((s) => s[0] === P.id) + 1}</span><span class="em">${P.ic}</span><span class="de">${esc(P.de)}</span><i>✓</i>`; labelsEl.appendChild(el);
+      const el = document.createElement('button'); el.className = 'ptag'; el.dataset.place = P.id; el.dataset.auto = '1'; el.innerHTML = `<span class="no">${STORY.findIndex((s) => s[0] === P.id) + 1}</span><span class="em">${P.ic}</span><span class="de">${esc(P.de)}</span><i>✓</i>`; labelsEl.appendChild(el);
       C3.labels.push({ id: P.id, el, pos: new T.Vector3(pos.x, h + 2, pos.z) });
     }
     // filler houses (deterministic)
@@ -4667,7 +5346,7 @@ for (const [lv, list] of Object.entries(MORE)) {
     cv.addEventListener('pointerup', (e) => {
       ptrs.delete(e.pointerId); if (ptrs.size) return;
       if (!ov.hidden) { down = null; return; }
-      if (down && Math.hypot(e.clientX - down.x, e.clientY - down.y) < 7) { const r = cv.getBoundingClientRect(); v2.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1); ray.setFromCamera(v2, camera); const hit = ray.intersectObjects(C3.pick, true)[0]; if (hit && hit.object.userData.place) goPlace(hit.object.userData.place); }
+      if (down && Math.hypot(e.clientX - down.x, e.clientY - down.y) < 7) { const r = cv.getBoundingClientRect(); v2.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1); ray.setFromCamera(v2, camera); const hit = ray.intersectObjects(C3.pick, true)[0]; if (hit && hit.object.userData.place) goPlace(hit.object.userData.place, true); }
       down = null;
     });
     cv.addEventListener('pointercancel', (e) => { ptrs.delete(e.pointerId); down = null; });
@@ -4735,15 +5414,17 @@ for (const [lv, list] of Object.entries(MORE)) {
     if (G) closeGame();
     const s = storyOf(id); const nm = (S.name || '').trim() || 'Sam Haddad';
     openShell('city', { id: `city-${id}`, ar: P.ar, de: P.de, session: true, W: [] }, `${P.ic} ${P.ar}`, `${P.de} · ${P.npc.name}`);
-    if (S.view === 'city' && C3 && C3.npcs[id]) enterTalk(id);
+    if (S.view === 'city' && C3 && C3.npcs[bldOf(id)]) enterTalk(id);
     const phr = P.steps.filter((x) => x.o && !x.hear).map((x) => x.o.find((o) => o[2])).slice(0, 5);
     stage.innerHTML = `<div class="pl-intro"><div class="un-l">${personSVG(P.npc.look)}<div class="bubble"><span class="de">${esc(P.npc.name)}</span><small>${esc(P.npc.role)}${s ? ` · اليوم ${s[1]} · الساعة ${s[2]}` : ''}</small></div></div>
-      <div class="mission"><b>🎯 مهمّتك</b><p>${autoDe(P.mission)}</p></div>
+      <div class="mission"><b>🎯 مهمّتك <small class="chip-s">${P.lv}</small></b><p>${autoDe(P.mission)}</p></div>
+      ${(() => { const others = missionsAt(bldOf(id)).filter((m) => m !== id); return others.length ? `<div class="others"><b>🔁 مهمّات أخرى في هذا المكان:</b> ${others.map((m) => { const q = placeOf(m); return `<button class="say" data-other="${m}">${q.ic} ${esc(storyOf(m)[3])} <small>${q.lv}</small>${cityStars(m) ? ' ✓' : ''}</button>`; }).join('')}</div>` : ''; })()}
       <div class="phr"><b>🗣️ الخطوة 1: استمع إلى هذه الجمل وكرّرها — ستحتاجها الآن</b>${phr.map(([d, a]) => { const de = d.replace(/\{name\}/g, nm); return `<div>${sayBtn(de)}<span class="de">${esc(de)}</span><small>${esc(a.replace(/\{name\}/g, nm))}</small></div>`; }).join('')}
         <button class="say" data-speakphr="1">▶ استمع إلى الكل</button></div>
       <details class="more"><summary>💡 الحياة في ألمانيا + كلمات مفيدة</summary><div class="more-in"><div class="why" style="margin-bottom:10px">${autoDe(P.tip)}</div><div class="vocab">${P.vocab.map(([d, a]) => `<button class="vchip" data-say="${esc(d)}"><span class="de">${esc(d)}</span><small>${esc(a)}</small></button>`).join('')}</div></div></details>
       <div class="notice">💬 الخطوة 2: ${esc(P.npc.name)} سيكلّمك بالألمانية. اختر الردّ المناسب${srOK() ? ' أو قله بصوتك 🎤' : ''}. لا تقلق: الترجمة ظاهرة، وزرّ «💡 ساعدني» يحذف جواباً خاطئاً.</div>
       <div style="text-align:center;margin-top:6px"><button class="btn big gelb" id="goBtn">ابدأ الحديث ▶</button></div></div>`;
+    $$('[data-other]', stage).forEach((b) => { b.onclick = (e) => { e.stopPropagation(); openPlace(b.dataset.other); }; });
     const pb = $('[data-speakphr]', stage); if (pb) pb.onclick = (e) => { e.stopPropagation(); speakList(phr.map(([d]) => d.replace(/\{name\}/g, nm))); };
     G.onKey = (e) => { if (e.key === 'Enter') $('#goBtn').click(); };
     $('#goBtn').onclick = () => { $('#hud').hidden = false; runPlace(P); };
@@ -4796,7 +5477,7 @@ for (const [lv, list] of Object.entries(MORE)) {
         if (first) { const good = st.o.find((o) => o[2]); G.missed.push(st.hear ? `${autoDe(st.q)} ← ${esc(good[0])}` : `<span class="de">${esc(fill(good[0]))}</span> = ${esc(fill(good[1]))}`); }
         miss(); btn.disabled = true; btn.classList.add('bad');
         $('#fbSlot').innerHTML = `<div class="fb bad"><div class="fb-top"><span class="t">❌ ${st.hear ? 'ليس هذا — استمع مرة أخرى 🔊 (أو ببطء 🐢)' : 'هذا الردّ غير مناسب — حاول مرة أخرى'}</span></div><div class="why"><b class="t">👩‍🏫 لماذا؟</b><div>${autoDe(why)}</div></div></div>`;
-        if (!st.hear) { const wb = WIEBITTE[rnd(WIEBITTE.length)]; G.timers.push(setTimeout(() => { if (!G) return; add(`${av()}<span class="bub"><span class="de">${esc(wb[0])}</span><small class="trx">${esc(wb[1])}</small></span>`); speak(wb[0], false, vo); }, 450)); } else speak(fill(st.n[0]), true, vo);
+        if (!st.hear) { const wb = WIEBITTE[rnd(WIEBITTE.length)]; G.timers.push(setTimeout(() => { if (!G || over) return; add(`${av()}<span class="bub"><span class="de">${esc(wb[0])}</span><small class="trx">${esc(wb[1])}</small></span>`); speak(wb[0], false, vo); }, 450)); } else speak(fill(st.n[0]), true, vo);
       };
       $$('.reply', act).forEach((b) => { b.onclick = () => choose(+b.dataset.k); });
       $('#hintBtn').onclick = () => {
@@ -4892,7 +5573,7 @@ for (const [lv, list] of Object.entries(MORE)) {
         if (a === 'readdone') { const t = topicObj(); S.read[readKey(t)] = true; addXP(5); save(); renderLesson(); updateTop(); toast('✅ أحسنت! تابع الخطوات بالترتيب'); window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' }); return; }
         if (['express', 'review', 'mistakes'].includes(a)) { startSession(a === 'mistakes' ? 'fehler' : a); return; }
       }
-      const pl = e.target.closest('[data-place]'); if (pl && ov.hidden) { goPlace(pl.dataset.place); return; }
+      const pl = e.target.closest('[data-place]'); if (pl && ov.hidden) { goPlace(pl.dataset.place, !!pl.dataset.auto); return; }
       const sa = e.target.closest('[data-speakall]'); if (sa) { const row = $('.cta-row[data-all]'); if (row) speakList(JSON.parse(row.dataset.all)); return; }
       const lb = e.target.closest('[data-level]');
       if (lb && lb.classList.contains('lvl-b')) { S.topicBy[S.level] = S.topic; S.level = lb.dataset.level; S.topic = S.topicBy[S.level] || DATA[S.level].T[0].id; document.documentElement.style.setProperty('--line', `var(--line-${S.level})`); save(); refreshView(); return; }

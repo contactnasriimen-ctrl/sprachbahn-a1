@@ -781,6 +781,15 @@ details.more[open] summary::after { transform: rotate(180deg); }
   .pref .seg { width: 100%; } .pref .seg button { flex: 1; }
   .lvl-b { flex-basis: 74px; } .lvl-b .bd { font-size: 18px; padding: 2px 8px; }
 }
+/* lesson file (PDF) */
+a.btn { text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.pdfc { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px 14px; align-items: center; margin-top: 12px; padding: 14px 16px; border-radius: 18px; border: 1.5px dashed var(--rule); background: var(--surface); text-align: start; width: 100%; }
+.pdfc.ready { border: 2px solid var(--gelb); background: color-mix(in srgb, var(--gelb) 10%, var(--surface)); box-shadow: 0 0 0 4px color-mix(in srgb, var(--gelb) 18%, transparent); }
+.pdfc .ic { font-size: 34px; } .pdfc .tx { display: grid; gap: 2px; } .pdfc b { font-size: 16px; } .pdfc small { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.pdfc .bt { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.uw .pdfc { max-width: 580px; }
+.r-btns a.btn { justify-content: center; }
+@media (max-width: 600px) { .pdfc { grid-template-columns: auto minmax(0, 1fr); } .pdfc .bt { grid-column: 1 / -1; justify-content: stretch; } .pdfc .bt .btn { flex: 1; justify-content: center; } }
 
 @media (max-width: 600px) {
   .lena-hero { grid-template-columns: 76px minmax(0, 1fr); } .lena-av { width: 76px; }
@@ -4425,6 +4434,11 @@ Object.assign(GQ, {
     return `<button class="xc ${g.rec ? 'rec' : ''}" data-game="${k}"><span class="ic em">${g.ic}</span><b>${g.ar}</b><span class="r">${starsHTML(s)}<span class="go">${s ? '↻ أعد' : 'ابدأ'}</span></span>
       <span class="d">${g.d} <span class="de">${g.de}</span></span><span class="tags"><span class="chip-s">🎯 ${g.skill}</span><span class="chip-s">${g.n}</span><span class="chip-s">≈ ${g.min} د</span></span></button>`;
   }
+  // ---------- lesson file (PDF): detailed summary · exercise series · answer key ----------
+  const pdfFile = (t, lv = S.level) => (t.id === 'mix' ? `${lv}-review.pdf` : `${lv}-${String(t.no).padStart(2, '0')}-${t.id}.pdf`);
+  const pdfName = (t, lv = S.level) => `Sprachbahn-${DATA[lv].name}-${t.id === 'mix' ? 'Wiederholung' : `Lektion-${String(t.no).padStart(2, '0')}`}-${t.de.replace(/[^A-Za-zÄÖÜäöüß0-9]+/g, '-').replace(/^-|-$/g, '')}.pdf`;
+  const pdfLinks = (t, lv) => `<a class="btn gelb" href="pdf/${pdfFile(t, lv)}" download="${esc(pdfName(t, lv))}"><span class="em">⬇️</span> حمّل PDF</a><a class="btn ghost" href="pdf/${pdfFile(t, lv)}" target="_blank" rel="noopener"><span class="em">👁️</span> افتحه</a>`;
+  const pdfCard = (t, done) => `<div class="pdfc ${done ? 'ready' : ''}"><span class="ic em">📄</span><div class="tx"><b>${done ? '🎉 أكملت الدرس! ملفّ الدرس جاهز' : 'ملفّ الدرس PDF'}</b><small>${t.id === 'mix' ? 'كل كلمات وقواعد المستوى' : 'ملخّص مفصّل: الكلمات، القاعدة، الجمل، النطق'} · سلسلة تمارين تحلّها بالقلم · التصحيح مع الشرح. اطبعه أو احفظه في هاتفك.</small></div><div class="bt">${pdfLinks(t)}</div></div>`;
   const moreOpen = {};
   function renderLesson() {
     const t = topicObj(); const L = DATA[S.level]; const p = pathFor(t); const nIdx = p.findIndex((s) => !stepDone(t, s.k));
@@ -4438,6 +4452,7 @@ Object.assign(GQ, {
         return `<button class="srow ${done ? 'done' : ''} ${k === nIdx ? 'next' : ''}" data-step="${s.k}"><span class="n">${done ? '✓' : k + 1}</span><span class="ic em">${m.ic}</span>
           <span class="tx"><b>${m.ar}</b><small>${m.d}</small></span><span class="r">${k === nIdx ? '<span class="go">ابدأ ▶</span>' : done ? (st ? starsHTML(st) : '<span class="okk">تمّ ✓</span>') : '<span class="later">بعدها</span>'}</span></button>`;
       }).join('')}</div>
+      ${pdfCard(t, nDone === p.length)}
       ${pl.length ? `<div class="cityl"><b>🏙️ طبّق هذا الدرس في الحياة الحقيقية:</b>${pl.map((c) => `<button class="say" data-place="${c.id}">${c.ic} ${esc(c.ar)}</button>`).join('')}</div>` : ''}
       <details class="more" data-more="sum" ${moreOpen.sum ? 'open' : ''}><summary>📖 ملخّص الدرس: الكلمات، القاعدة، الجمل</summary><div class="more-in">${lernenBody(t)}</div></details>
       ${extra.length ? `<details class="more" data-more="ex" ${moreOpen.ex ? 'open' : ''}><summary>🎮 تمارين وألعاب إضافية (${extra.length})</summary><div class="more-in"><div class="xcs">${extra.map((k) => xcHTML(t, k)).join('')}</div></div></details>` : ''}
@@ -5256,16 +5271,19 @@ Object.assign(GQ, {
     addXP(G.score); updateTop(); if (toastLater) { toast(toastLater); toastLater = null; }
     const meta = GM[G.key] || SESS[G.key] || (G.key === 'lesen' ? UNT : { ar: '', de: '' });
     const certBtn = G.t.id === 'mix' && G.key === 'test' && certInfo(S.level).ok ? '<button class="btn gelb" id="certBtn">🎓 شهادتك جاهزة!</button>' : '';
+    const lessonDone = !G.t.session && pathFor(G.t).every((s) => stepDone(G.t, s.k));
+    const pdfBtn = !G.t.session && (lessonDone || G.key === 'test') ? `<a class="btn gelb" href="pdf/${pdfFile(G.t)}" download="${esc(pdfName(G.t))}"><span class="em">📄</span> ملفّ الدرس PDF: ملخّص + تمارين + تصحيح</a>` : '';
     let nextBtn = '';
     if (!G.t.session) { const p = pathFor(G.t); const nx = p.find((s) => !stepDone(G.t, s.k)); if (nx && nx.k !== G.key) nextBtn = `<button class="btn gelb" id="nextStepBtn" data-k="${nx.k}">▶ الخطوة التالية: ${nx.ar}</button>`; }
     stage.innerHTML = `<div class="result"><div class="r-ticket"><div class="r-top">${esc(meta.ar)}<small>${esc(G.t.ar)} · <span class="de">${esc(G.t.de)}</span></small></div>
       <div class="r-stars">${[0, 1, 2].map((s) => (s < stars ? '<span>★</span>' : '<span><i>★</i></span>')).join('')}</div>
-      ${note ? `<div class="r-note">العلامة ${note[0]} · <span class="de">${note[1]}</span> · ${note[2]}</div>` : ''}
+      ${note ? `<div class="r-note">العلامة ${note[1]} · <span class="de">${note[2]}</span> · ${note[3]}</div>` : ''}
       <div class="r-grid"><div><b>${G.key === 'memory' ? '6/6' : `${G.correct}/${G.total}`}</b><small>${extra.label || 'إجابة صحيحة'}</small></div><div><b>+${G.score}</b><small>XP</small></div><div><b>${G.best}</b><small>أطول سلسلة صحيحة</small></div></div></div>
       <div class="r-msg">${MSG.find((m) => stars >= m[0])[1]}</div>
       ${rec ? '<div class="notice" style="display:inline-block">🏅 رقم قياسي جديد!</div>' : ''}
       ${G.missed.length ? `<ul class="review"><b>📌 راجع هذه الكلمات (ستعود إليك في المراجعة الذكية):</b>${G.missed.slice(0, 8).map((m) => `<li>${m}</li>`).join('')}</ul>` : ''}
-      <div class="r-btns">${certBtn}${nextBtn}<button class="btn" id="againBtn">↻ أعد التمرين</button>${G.missed.length ? '<button class="btn ghost" id="mistBtn">❌ تدرّب على أخطائي</button>' : ''}<button class="btn ghost" id="backBtn">رجوع إلى الدرس</button></div></div>`;
+      ${lessonDone ? '<div class="notice" style="display:inline-block">🎉 أكملت كل خطوات الدرس! حمّل ملفّ الدرس وحلّ التمارين بالقلم.</div>' : ''}
+      <div class="r-btns">${certBtn}${pdfBtn}${nextBtn}<button class="btn" id="againBtn">↻ أعد التمرين</button>${G.missed.length ? '<button class="btn ghost" id="mistBtn">❌ تدرّب على أخطائي</button>' : ''}<button class="btn ghost" id="backBtn">رجوع إلى الدرس</button></div></div>`;
     const key = G.key;
     $('#againBtn').onclick = () => { closeGame(); if (SESS[key]) startSession(key); else openGame(key); };
     const mb = $('#mistBtn'); if (mb) mb.onclick = () => { closeGame(); startSession('fehler'); };
@@ -5874,7 +5892,8 @@ Object.assign(GQ, {
         c.innerHTML = `<div class="uw"><span class="em" style="font-size:60px">🎉</span><b style="font-size:22px">أحسنت! أنهيت الحصة</b>
           <span>${words.length ? `تعرّفت اليوم على ${words.length} كلمات` : 'تعلّمت الأرقام'}${GR[t.id] ? ' وقاعدة جديدة' : ''}. ${G.total ? `أجبت على ${G.correct} من ${G.total} أسئلة بشكل صحيح.` : ''}</span>
           ${words.length ? `<div class="goals" style="justify-content:center">${words.map((w) => `<span class="de">${deHTML(w)}</span>`).join('')}</div>` : ''}
-          <div class="tip">👩‍🏫 نصيحة لينا: كرّر الكلمات بصوت عالٍ مرّتين اليوم، ثم تمرّن بالبطاقات. غداً تعود إليك في «المراجعة الذكية» حتى لا تنساها.</div></div>`;
+          <div class="tip">👩‍🏫 نصيحة لينا: كرّر الكلمات بصوت عالٍ مرّتين اليوم، ثم تمرّن بالبطاقات. غداً تعود إليك في «المراجعة الذكية» حتى لا تنساها.</div>
+          <div class="pdfc"><span class="ic em">📄</span><div class="tx"><b>ملفّ الدرس PDF</b><small>الملخّص المفصّل + سلسلة تمارين + التصحيح</small></div><div class="bt">${pdfLinks(t)}</div></div></div>`;
       }
       G.onKey = (e) => {
         if (qKey) { qKey(e); return; }

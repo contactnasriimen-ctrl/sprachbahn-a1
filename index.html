@@ -4437,7 +4437,10 @@ Object.assign(GQ, {
   // ---------- lesson file (PDF): detailed summary · exercise series · answer key ----------
   const pdfFile = (t, lv = S.level) => (t.id === 'mix' ? `${lv}-review.pdf` : `${lv}-${String(t.no).padStart(2, '0')}-${t.id}.pdf`);
   const pdfName = (t, lv = S.level) => `Sprachbahn-${DATA[lv].name}-${t.id === 'mix' ? 'Wiederholung' : `Lektion-${String(t.no).padStart(2, '0')}`}-${t.de.replace(/[^A-Za-zÄÖÜäöüß0-9]+/g, '-').replace(/^-|-$/g, '')}.pdf`;
-  const pdfLinks = (t, lv) => `<a class="btn gelb" href="pdf/${pdfFile(t, lv)}" download="${esc(pdfName(t, lv))}"><span class="em">⬇️</span> حمّل PDF</a><a class="btn ghost" href="pdf/${pdfFile(t, lv)}" target="_blank" rel="noopener"><span class="em">👁️</span> افتحه</a>`;
+  const PDF_LOCAL = /github\.io$|^$|localhost/.test(location.hostname) || location.protocol === 'file:';
+  const pdfHref = (t, lv) => `${PDF_LOCAL ? '' : SITE_URL}pdf/${pdfFile(t, lv)}`;
+  const pdfDl = (t, lv) => (PDF_LOCAL ? `download="${esc(pdfName(t, lv))}"` : 'target="_blank" rel="noopener"');
+  const pdfLinks = (t, lv) => `<a class="btn gelb" href="${pdfHref(t, lv)}" ${pdfDl(t, lv)}><span class="em">⬇️</span> حمّل PDF</a><a class="btn ghost" href="${pdfHref(t, lv)}" target="_blank" rel="noopener"><span class="em">👁️</span> افتحه</a>`;
   const pdfCard = (t, done) => `<div class="pdfc ${done ? 'ready' : ''}"><span class="ic em">📄</span><div class="tx"><b>${done ? '🎉 أكملت الدرس! ملفّ الدرس جاهز' : 'ملفّ الدرس PDF'}</b><small>${t.id === 'mix' ? 'كل كلمات وقواعد المستوى' : 'ملخّص مفصّل: الكلمات، القاعدة، الجمل، النطق'} · سلسلة تمارين تحلّها بالقلم · التصحيح مع الشرح. اطبعه أو احفظه في هاتفك.</small></div><div class="bt">${pdfLinks(t)}</div></div>`;
   const moreOpen = {};
   function renderLesson() {
@@ -5272,7 +5275,7 @@ Object.assign(GQ, {
     const meta = GM[G.key] || SESS[G.key] || (G.key === 'lesen' ? UNT : { ar: '', de: '' });
     const certBtn = G.t.id === 'mix' && G.key === 'test' && certInfo(S.level).ok ? '<button class="btn gelb" id="certBtn">🎓 شهادتك جاهزة!</button>' : '';
     const lessonDone = !G.t.session && pathFor(G.t).every((s) => stepDone(G.t, s.k));
-    const pdfBtn = !G.t.session && (lessonDone || G.key === 'test') ? `<a class="btn gelb" href="pdf/${pdfFile(G.t)}" download="${esc(pdfName(G.t))}"><span class="em">📄</span> ملفّ الدرس PDF: ملخّص + تمارين + تصحيح</a>` : '';
+    const pdfBtn = !G.t.session && (lessonDone || G.key === 'test') ? `<a class="btn gelb" href="${pdfHref(G.t)}" ${pdfDl(G.t)}><span class="em">📄</span> ملفّ الدرس PDF: ملخّص + تمارين + تصحيح</a>` : '';
     let nextBtn = '';
     if (!G.t.session) { const p = pathFor(G.t); const nx = p.find((s) => !stepDone(G.t, s.k)); if (nx && nx.k !== G.key) nextBtn = `<button class="btn gelb" id="nextStepBtn" data-k="${nx.k}">▶ الخطوة التالية: ${nx.ar}</button>`; }
     stage.innerHTML = `<div class="result"><div class="r-ticket"><div class="r-top">${esc(meta.ar)}<small>${esc(G.t.ar)} · <span class="de">${esc(G.t.de)}</span></small></div>
